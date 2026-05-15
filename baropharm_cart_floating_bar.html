@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BaroPharm — 장바구니 플로팅 바 시안</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --p:#4E84FF;--pl:#EBF1FF;--pm:#C5D8FF;--pd:#2B5FD9;
+  --t1:#111827;--t2:#4B5563;--t3:#9CA3AF;
+  --bd:#E5E7EB;--bg:#F3F4F6;--sf:#fff;
+  --red:#EF4444;--rl:#FEF2F2;
+  --grn:#10B981;--gl:#ECFDF5;
+  --amb:#F59E0B;
+  --r:8px;--rlg:12px;
+}
+body{
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:14px;color:var(--t1);
+  background:var(--bg);
+  min-height:100vh;
+  padding:40px 24px;
+}
+h1{
+  font-size:22px;font-weight:700;color:var(--t1);
+  letter-spacing:-.5px;margin-bottom:6px;
+}
+.subtitle{font-size:14px;color:var(--t2);margin-bottom:40px;}
+
+.section{margin-bottom:36px;}
+.section-lbl{
+  font-size:11px;font-weight:700;color:var(--t3);
+  letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.section-lbl::after{
+  content:'';flex:1;height:1px;background:var(--bd);
+}
+
+/* BAR 공통 */
+.bar{
+  border-radius:var(--rlg);
+  border:1px solid var(--bd);
+  background:var(--sf);
+  overflow:hidden;
+  max-width:860px;
+  box-shadow:0 4px 20px rgba(78,132,255,.1);
+  transition:box-shadow .2s;
+}
+.bar:hover{box-shadow:0 8px 32px rgba(78,132,255,.18);}
+
+/* ── A: 현재 ── */
+.bar-a{display:flex;align-items:center;padding:14px 20px;gap:14px;}
+.cnt{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--p);color:#fff;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.a-mid{flex:1;}
+.a-t{font-size:15px;font-weight:700;color:var(--t1);}
+.a-s{font-size:12px;color:var(--red);font-weight:600;margin-top:2px;}
+.a-amt{font-size:22px;font-weight:800;color:var(--pd);letter-spacing:-.5px;}
+.a-hint{font-size:11px;color:var(--p);font-weight:600;margin-top:2px;}
+.btn-main{
+  background:var(--p);color:#fff;border:none;
+  border-radius:var(--r);padding:11px 22px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  font-family:inherit;flex-shrink:0;
+  transition:background .15s;
+}
+.btn-main:hover{background:var(--pd);}
+
+/* ── B: 마감시간 + 미달금액 ── */
+.bar-b{display:flex;flex-direction:column;}
+.b-top{display:flex;align-items:center;padding:14px 20px;gap:14px;border-bottom:1px solid var(--bd);}
+.b-mid{flex:1;}
+.b-t{font-size:15px;font-weight:700;color:var(--t1);}
+.b-s{font-size:12px;color:var(--t2);margin-top:2px;}
+.b-amt{font-size:22px;font-weight:800;color:var(--pd);letter-spacing:-.5px;flex-shrink:0;}
+.b-bottom{
+  display:flex;align-items:center;padding:9px 20px;
+  gap:0;background:var(--bg);flex-wrap:wrap;
+}
+.b-info{display:flex;align-items:center;gap:6px;padding:4px 18px 4px 0;}
+.b-info:not(:last-child){
+  border-right:1px solid var(--bd);margin-right:18px;
+}
+.b-icon{font-size:15px;color:var(--t3);}
+.b-lbl{font-size:11px;color:var(--t3);font-weight:500;}
+.b-val{font-size:12px;font-weight:700;}
+.b-val.warn{color:var(--red);}
+.b-val.ok{color:var(--grn);}
+.b-val.blue{color:var(--p);}
+
+/* ── C: 진행률 바 + 포인트 ── */
+.bar-c{display:flex;flex-direction:column;}
+.c-top{display:flex;align-items:center;padding:14px 20px;gap:14px;}
+.c-info{flex:1;}
+.c-t{font-size:15px;font-weight:700;color:var(--t1);}
+.c-point{
+  font-size:11px;color:#534AB7;font-weight:600;
+  margin-top:3px;display:flex;align-items:center;gap:5px;
+}
+.c-star{font-size:13px;}
+.c-amt{font-size:22px;font-weight:800;color:var(--pd);letter-spacing:-.5px;flex-shrink:0;}
+.c-bars{padding:6px 20px 12px;display:flex;flex-direction:column;gap:6px;}
+.c-row{display:flex;align-items:center;gap:10px;}
+.c-row-lbl{font-size:11px;color:var(--t2);font-weight:500;min-width:72px;flex-shrink:0;}
+.c-track{flex:1;height:5px;background:var(--bd);border-radius:3px;overflow:hidden;}
+.c-fill{height:100%;border-radius:3px;transition:width .4s ease;}
+.c-fill.ok{background:var(--grn);}
+.c-fill.warn{background:var(--amb);}
+.c-row-val{font-size:11px;font-weight:700;min-width:90px;text-align:right;flex-shrink:0;}
+.c-row-val.ok{color:var(--grn);}
+.c-row-val.warn{color:var(--amb);}
+
+/* ── D: 긴급 배너 + 칩 요약 ── */
+.bar-d{display:flex;flex-direction:column;}
+.d-urgent{
+  background:var(--rl);
+  border-bottom:1px solid #FECACA;
+  padding:8px 20px;
+  display:flex;align-items:center;gap:10px;
+}
+.d-urgent-ic{font-size:16px;color:var(--red);}
+.d-urgent-txt{font-size:12px;font-weight:700;color:#B91C1C;flex:1;}
+.d-timer{
+  font-size:14px;font-weight:800;color:var(--red);
+  font-variant-numeric:tabular-nums;letter-spacing:.5px;
+}
+.d-main{display:flex;align-items:center;padding:13px 20px;gap:14px;}
+.d-mid{flex:1;}
+.d-t{font-size:15px;font-weight:700;color:var(--t1);}
+.d-chips{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
+.chip{
+  font-size:10px;padding:3px 9px;border-radius:5px;font-weight:700;
+}
+.chip.red{background:var(--rl);color:#B91C1C;}
+.chip.grn{background:var(--gl);color:#166534;}
+.chip.blue{background:var(--pl);color:var(--pd);}
+.chip.purple{background:#EEEDFE;color:#3C3489;}
+.d-amt{font-size:22px;font-weight:800;color:var(--pd);letter-spacing:-.5px;flex-shrink:0;}
+
+/* 비교 노트 */
+.notes{
+  max-width:860px;margin-top:16px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.note{
+  background:var(--sf);border:1px solid var(--bd);
+  border-radius:var(--r);padding:12px 14px;
+}
+.note-label{font-size:11px;font-weight:700;color:var(--t3);margin-bottom:5px;}
+.note-txt{font-size:12px;color:var(--t2);line-height:1.6;}
+</style>
+</head>
+<body>
+
+<h1>BaroPharm · 장바구니 플로팅 바 시안</h1>
+<p class="subtitle">4가지 정보 구성 비교 — Pretendard · #4E84FF</p>
+
+<!-- A -->
+<div class="section">
+  <div class="section-lbl">현재 (기준)</div>
+  <div class="bar">
+    <div class="bar-a">
+      <div class="cnt">6</div>
+      <div class="a-mid">
+        <div class="a-t">장바구니 · 3개 도매</div>
+        <div class="a-s">최소주문 미달 2곳</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="a-amt">194,090원</div>
+        <div class="a-hint">전체보기 →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B -->
+<div class="section">
+  <div class="section-lbl">안 B — 마감시간 + 미달 금액 명시</div>
+  <div class="bar">
+    <div class="bar-b">
+      <div class="b-top">
+        <div class="cnt">6</div>
+        <div class="b-mid">
+          <div class="b-t">장바구니 · 3개 도매</div>
+          <div class="b-s">6개 품목 담김</div>
+        </div>
+        <div class="b-amt">194,090원</div>
+        <button class="btn-main" style="margin-left:14px;">전체보기</button>
+      </div>
+      <div class="b-bottom">
+        <div class="b-info">
+          <span class="b-icon">⏰</span>
+          <span class="b-lbl">최빠른 마감</span>
+          <span class="b-val warn">익일 13:30</span>
+        </div>
+        <div class="b-info">
+          <span class="b-icon">⚠️</span>
+          <span class="b-lbl">미달 도매</span>
+          <span class="b-val warn">2곳 · 총 22,910원 부족</span>
+        </div>
+        <div class="b-info">
+          <span class="b-icon">✅</span>
+          <span class="b-lbl">주문 가능</span>
+          <span class="b-val ok">1곳 · 96,440원</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- C -->
+<div class="section">
+  <div class="section-lbl">안 C — 도매별 최소주문 진행률 + 포인트 적립</div>
+  <div class="bar">
+    <div class="bar-c">
+      <div class="c-top">
+        <div class="cnt">6</div>
+        <div class="c-info">
+          <div class="c-t">장바구니 · 3개 도매</div>
+          <div class="c-point">
+            <span class="c-star">★</span>
+            최대 17,240P 적립 예정 · 안심반품 1,250원
+          </div>
+        </div>
+        <div class="c-amt">194,090원</div>
+        <button class="btn-main" style="margin-left:14px;">전체보기</button>
+      </div>
+      <div class="c-bars">
+        <div class="c-row">
+          <span class="c-row-lbl">인천약품</span>
+          <div class="c-track"><div class="c-fill ok" style="width:100%;"></div></div>
+          <span class="c-row-val ok">충족 · 96,440원</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-lbl">케이에스팜</span>
+          <div class="c-track"><div class="c-fill warn" style="width:90%;"></div></div>
+          <span class="c-row-val warn">10,060원 부족</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-lbl">태응약품</span>
+          <div class="c-track"><div class="c-fill warn" style="width:84%;"></div></div>
+          <span class="c-row-val warn">12,850원 부족</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D -->
+<div class="section">
+  <div class="section-lbl">안 D — 마감 긴급 배너 + 칩 요약</div>
+  <div class="bar">
+    <div class="bar-d">
+      <div class="d-urgent">
+        <span class="d-urgent-ic">🔔</span>
+        <span class="d-urgent-txt">가장 빠른 마감 — 익일 13:30까지 주문 완료 필요</span>
+        <span class="d-timer" id="timer">13:24:08</span>
+      </div>
+      <div class="d-main">
+        <div class="cnt">6</div>
+        <div class="d-mid">
+          <div class="d-t">장바구니 · 3개 도매</div>
+          <div class="d-chips">
+            <span class="chip grn">충족 1곳</span>
+            <span class="chip red">미달 2곳 · 22,910원 부족</span>
+            <span class="chip blue">오늘 배송 가능 1곳</span>
+            <span class="chip purple">포인트 17,240P 예정</span>
+          </div>
+        </div>
+        <div class="d-amt">194,090원</div>
+        <button class="btn-main" style="margin-left:14px;">전체보기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 비교 노트 -->
+<div class="notes">
+  <div class="note">
+    <div class="note-label">현재</div>
+    <div class="note-txt">기본 정보만. 담긴 수, 도매 수, 금액. 미달 여부만 알 수 있음.</div>
+  </div>
+  <div class="note">
+    <div class="note-label">안 B · 추천</div>
+    <div class="note-txt">마감시간·미달금액·주문가능 현황을 한눈에. 정보 명확, 행동 유발.</div>
+  </div>
+  <div class="note">
+    <div class="note-label">안 C · 추천</div>
+    <div class="note-txt">도매별 달성률 바로 "얼마 더 담으면 되는지" 직관적. 포인트로 구매 동기 강화.</div>
+  </div>
+  <div class="note">
+    <div class="note-label">안 D</div>
+    <div class="note-txt">긴급 배너 + 실시간 카운트다운. 행동 유발력 최강이지만 피로감 주의.</div>
+  </div>
+</div>
+
+<script>
+let secs = 47048;
+function tick(){
+  secs = Math.max(0, secs - 1);
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = secs % 60;
+  const el = document.getElementById('timer');
+  if(el) el.textContent =
+    String(h).padStart(2,'0') + ':' +
+    String(m).padStart(2,'0') + ':' +
+    String(s).padStart(2,'0');
+}
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
