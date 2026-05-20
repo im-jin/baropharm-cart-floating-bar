@@ -23,11 +23,19 @@
 
     <div class="topnav-right">
       <!-- ─ NEW: 언어 스위처 ─ -->
-      <button class="lang-switcher" id="langSwitcher" aria-haspopup="listbox" aria-expanded="false">
-        <span class="lang-globe" aria-hidden="true">🌐</span>
-        <span class="lang-current" data-lang-label>EN</span>
-        <span class="lang-caret" aria-hidden="true">▾</span>
-      </button>
+      <div class="lang-wrap">
+        <button class="lang-switcher" id="langSwitcher" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-current" data-lang-label>EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="ko">한국어</li>
+          <li role="option" data-lang="en">English</li>
+          <li role="option" data-lang="zh">中文</li>
+          <li role="option" data-lang="ja">日本語</li>
+        </ul>
+      </div>
 
       <button class="iconbtn" aria-label="Share">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
@@ -41,19 +49,15 @@
         </svg>
       </button>
     </div>
-
-    <ul class="lang-menu" id="langMenu" role="listbox" hidden>
-      <li role="option" data-lang="ko">한국어</li>
-      <li role="option" data-lang="en">English</li>
-      <li role="option" data-lang="zh">中文</li>
-      <li role="option" data-lang="ja">日本語</li>
-    </ul>
   </header>
 
   <main class="page">
 
-    <!-- ──────── HERO + THUMB STRIP ──────── -->
-    <section class="hero">
+    <!-- ──────── TOP SECTION (responsive: 모바일 = column, 데스크탑 = 2-col grid) ──────── -->
+    <div class="top-section">
+
+    <!-- ──────── HERO + THUMB STRIP (LEFT on desktop) ──────── -->
+    <section class="hero top-visual">
       <div class="hero-media">
         <img class="hero-img" data-product="hero" alt="" />
       </div>
@@ -61,6 +65,9 @@
         <!-- thumbs injected -->
       </div>
     </section>
+
+    <!-- ──────── INFO BLOCK (RIGHT on desktop) ──────── -->
+    <div class="top-info">
 
     <!-- ──────── BRAND + 이름 + 가격 ──────── -->
     <section class="meta">
@@ -151,6 +158,9 @@
         <div class="benefit-label" data-i18n="benefits.sensitive"></div>
       </div>
     </section>
+
+    </div><!-- /.top-info -->
+    </div><!-- /.top-section -->
 
     <!-- ──────── 탭 (원본: 상세/리뷰/추천 — 약국찾기 제거) ──────── -->
     <nav class="tabs" role="tablist">

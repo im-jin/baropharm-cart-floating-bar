@@ -28,10 +28,13 @@ button { font: inherit; cursor: pointer; background: none; border: 0; padding: 0
 ul, ol, li { list-style: none; padding: 0; margin: 0; }
 a { color: inherit; }
 
-/* mobile bound */
+/* mobile-first bound (모바일/태블릿 portrait) */
 .page, .topnav, .sticky-cta {
   max-width: 480px; margin-left: auto; margin-right: auto;
 }
+
+/* lang switcher 메뉴 위치 anchor */
+.lang-wrap { position: relative; display: inline-flex; }
 
 /* ─────────── TOP NAV ─────────── */
 .topnav {
@@ -65,7 +68,7 @@ a { color: inherit; }
 .lang-caret { font-size: 9px; opacity: .6; }
 
 .lang-menu {
-  position: absolute; top: 48px; right: 16px;
+  position: absolute; top: 38px; right: 0;
   background: var(--color-bg-base-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -682,8 +685,70 @@ a { color: inherit; }
   z-index: 40;
 }
 
-/* ─────────── DESKTOP BOUND ─────────── */
-@media (min-width: 481px) {
+/* ─────────── TABLET (481~904px) — 살짝 넓은 단일 컬럼 ─────────── */
+@media (min-width: 481px) and (max-width: 904px) {
   body { background: var(--color-bg-base-white); }
+  .page, .topnav, .sticky-cta { max-width: 640px; }
   .page, .topnav { box-shadow: 0 0 0 1px var(--color-border-secondary); }
+}
+
+/* ─────────── DESKTOP (>=905px) — 2-col 레이아웃 ─────────── */
+@media (min-width: 905px) {
+  body { background: var(--color-bg-base-white); padding-bottom: 0; }
+
+  .page, .topnav {
+    max-width: 1200px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* TOP SECTION: 이미지 LEFT + 정보 RIGHT */
+  .top-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+    padding-top: 32px;
+  }
+
+  .top-visual { position: sticky; top: 80px; }
+  .hero-media {
+    border-radius: var(--radius-lg);
+    max-width: 560px;
+  }
+  .thumb-strip { padding: 12px 0; }
+
+  /* INFO column — 좌측 padding 제거 (그리드 갭으로 처리) */
+  .top-info > section { margin-left: 0; margin-right: 0; }
+  .meta { padding: 0 0 20px; }
+  .pick-summary, .pharmacist-video { margin: 0 0 24px; }
+  .benefits { padding: 0 0 24px; }
+
+  .product-name { font: var(--font-h1-b); }
+
+  /* TABS / CONTENT BELOW — 풀폭, top: nav 아래 위치 (52px) */
+  .tabs { top: 52px; }
+  .review-controls { top: 100px; }
+
+  /* AP CARD / footer — 페이지 폭에 맞춤 */
+  .ap-card { margin: 32px 0; }
+
+  /* STICKY CTA — 데스크탑에서는 인라인 카드 형태로 (탭 위 가치카드 옆 등) */
+  .sticky-cta {
+    position: static;
+    max-width: 1200px;
+    padding: 16px 24px 32px;
+    border-top: 0;
+    background: transparent;
+    justify-content: center;
+  }
+  .sticky-cta .btn-half { max-width: 240px; }
+
+  /* PAGE wrapper sleeve */
+  .page { box-shadow: none; }
+}
+
+/* ─────────── XL (>=1280px) — 컨텐츠 max width 유지 ─────────── */
+@media (min-width: 1280px) {
+  .page, .topnav { max-width: 1280px; }
 }
