@@ -1,0 +1,6 @@
+.DS_Store
+**/.DS_Store
+
+# Raw / source media files (too large for GitHub, keep web-compressed versions only)
+Aroundpharm/products/**/images/Thome_*.mp4
+Aroundpharm/products/**/_raw/

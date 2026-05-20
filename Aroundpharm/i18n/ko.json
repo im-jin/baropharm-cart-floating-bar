@@ -1,0 +1,105 @@
+{
+  "ui": {
+    "pharmacist_pick": "약사픽",
+    "see_all_reviews": "전체보기",
+    "how_to_use": "사용법",
+    "related_empty": "추천 제품 준비 중입니다.",
+    "get_app": "어라운드팜 앱 다운로드",
+    "cta_save": "담기",
+    "cta_shop": "바로구매"
+  },
+  "tabs": {
+    "detail": "상세",
+    "review": "리뷰",
+    "related": "추천"
+  },
+  "pick": {
+    "efficacy": "효능",
+    "absorption": "흡수력",
+    "scent": "향",
+    "value": "가성비"
+  },
+  "benefits": {
+    "hydration": "수분",
+    "anti_aging": "주름개선",
+    "sensitive": "민감 피부"
+  },
+  "howto": {
+    "step1": "토너 후 2~3방울",
+    "step2": "얼굴 전체 펴 바르기",
+    "step3": "아침/저녁 사용"
+  },
+  "ap": {
+    "title": "마음에 드셨나요?",
+    "body": "어라운드팜에서 한국 약국 K-뷰티/건강 제품을 전 세계 어디서나 받아보실 수 있습니다."
+  },
+  "footer": {
+    "staff_hint": "구매를 원하시면 이 화면을 약사에게 보여주세요."
+  },
+  "alerts": {
+    "saved": "내 리스트에 담았습니다.",
+    "shop": "어라운드팜 쇼핑몰로 이동합니다."
+  },
+  "urls": {
+    "app_store": "https://aroundpharm.com",
+    "shop": "https://aroundpharm.com"
+  },
+  "video": {
+    "badge": "약사픽",
+    "title": "약사가 직접 추천한 영상",
+    "caption": "K-약국 약사가 직접 사용해본 후기. 외국인 관광객이 가장 많이 찾는 세럼입니다."
+  },
+  "review": {
+    "expand": "펼쳐보기",
+    "collapse": "접기",
+    "total_reviews": "리뷰",
+    "count_unit": "건",
+    "photo_only": "포토리뷰만 보기",
+    "no_reviews": "표시할 리뷰가 없습니다.",
+    "likes": "도움돼요",
+    "sort": {
+      "latest": "최신순",
+      "popular": "추천순",
+      "rating_high": "별점높은순",
+      "rating_low": "별점낮은순"
+    },
+    "filters": {
+      "skin_type": "피부타입",
+      "age_group": "연령대",
+      "concerns": "피부고민",
+      "region": "지역"
+    },
+    "skin_type": {
+      "combination": "복합성",
+      "dry": "건성",
+      "very_dry": "초건성",
+      "oily": "지성",
+      "very_oily": "초지성"
+    },
+    "age_group": {
+      "teens": "10대",
+      "twenties": "20대",
+      "thirties": "30대",
+      "forties_plus": "40대 이상"
+    },
+    "concerns": {
+      "elasticity": "탄력/영양",
+      "dryness": "건조/각질",
+      "texture": "결",
+      "sensitivity": "민감/자극",
+      "sebum": "유분/피지",
+      "brightening": "톤업/브라이트닝",
+      "pores": "모공/잡티",
+      "acne": "트러블",
+      "other": "기타"
+    },
+    "region": {
+      "seoul": "서울",
+      "gyeonggi": "경기",
+      "busan": "부산",
+      "incheon": "인천",
+      "daegu": "대구",
+      "other": "기타"
+    }
+  }
+}

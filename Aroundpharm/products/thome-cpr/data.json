@@ -1,0 +1,174 @@
+{
+  "id": "thome-cpr",
+  "brand": "THOME",
+  "name": {
+    "ko": "CPR 트리플시너지 링클케어 세럼",
+    "en": "CPR Triple-Synergy Wrinkle Care Serum",
+    "zh": "CPR 三重协同抗皱护理精华",
+    "ja": "CPR トリプルシナジー リンクルケア セラム"
+  },
+  "tagline": {
+    "ko": "콜라겐 1% · 펩타이드 1% · 레티놀 0.1% · 30ml",
+    "en": "Collagen 1% · Peptides 1% · Retinol 0.1% · 30ml",
+    "zh": "胶原蛋白 1% · 多肽 1% · 视黄醇 0.1% · 30ml",
+    "ja": "コラーゲン 1% · ペプチド 1% · レチノール 0.1% · 30ml"
+  },
+  "price_krw": 36000,
+  "price_original_krw": 40000,
+  "discount_pct": 10,
+  "pharmacist_pick": true,
+  "rating": 4.96,
+  "review_count": 107,
+  "hero_image": "images/hero.png",
+  "thumbnails": [
+    "images/hero.png",
+    "images/ko/full.png",
+    "images/en/full.png",
+    "images/zh/full.png"
+  ],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"],
+    "en": ["images/en/full.png"],
+    "zh": ["images/zh/full.png"],
+    "ja": ["images/ja/full.png"]
+  },
+  "rating_breakdown": {
+    "5": 92,
+    "4": 6,
+    "3": 1,
+    "2": 1,
+    "1": 0
+  },
+  "review_stats": {
+    "skin_type": {
+      "combination": 58,
+      "dry": 28,
+      "very_dry": 12,
+      "oily": 8,
+      "very_oily": 0
+    },
+    "age_group": {
+      "teens": 0,
+      "twenties": 9,
+      "thirties": 58,
+      "forties_plus": 33
+    },
+    "concerns": {
+      "elasticity": 77,
+      "dryness": 46,
+      "texture": 33,
+      "sensitivity": 28,
+      "sebum": 21,
+      "brightening": 18,
+      "pores": 14,
+      "acne": 9,
+      "other": 3
+    },
+    "region": {
+      "seoul": 41,
+      "gyeonggi": 23,
+      "busan": 9,
+      "incheon": 7,
+      "daegu": 5,
+      "other": 15
+    }
+  },
+  "reviews": [
+    {
+      "user": "박**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["elasticity", "dryness"],
+      "rating": 5,
+      "date": "2025-04-15",
+      "likes": 24,
+      "photo": "images/reviews/r-1.jpg",
+      "text": {
+        "ko": "발림성이 너무 부드럽고 다음날 아침 피부 결이 정돈된 느낌. 재구매 의사 100%.",
+        "en": "Glides on so smoothly — woke up with visibly smoother skin texture. Will absolutely repurchase.",
+        "zh": "涂抹非常顺滑,第二天早晨肌肤纹理变得平整。一定会回购。",
+        "ja": "伸びがとても良く、翌朝の肌のキメが整っている感じ。リピート確定です。"
+      }
+    },
+    {
+      "user": "김**",
+      "age_group": "forties_plus",
+      "skin_type": "dry",
+      "concerns": ["elasticity", "texture"],
+      "rating": 5,
+      "date": "2025-04-09",
+      "likes": 18,
+      "photo": "images/reviews/r-2.jpg",
+      "text": {
+        "ko": "40대 건성인데 끈적임 없이 흡수가 빠르고 다음 단계 화장품도 잘 먹어요.",
+        "en": "Dry 40s skin here — absorbs quickly without any tackiness, and the rest of my routine layers beautifully on top.",
+        "zh": "40 多岁干性肌肤,吸收快不黏腻,后续护肤品也容易上妆。",
+        "ja": "40代の乾燥肌ですが、ベタつかずスッと浸透して、次のスキンケアもよく馴染みます。"
+      }
+    },
+    {
+      "user": "이**",
+      "age_group": "thirties",
+      "skin_type": "very_dry",
+      "concerns": ["dryness", "sensitivity"],
+      "rating": 5,
+      "date": "2025-04-03",
+      "likes": 15,
+      "photo": null,
+      "text": {
+        "ko": "민감한 편인데 자극 전혀 없었어요. 향도 거의 안 나서 좋아요.",
+        "en": "I have sensitive skin and felt zero irritation. Almost scent-free which I love.",
+        "zh": "我属于敏感肌,完全无刺激,几乎无香味,很满意。",
+        "ja": "敏感肌ですが刺激は全くなく、ほぼ無香料で気に入っています。"
+      }
+    },
+    {
+      "user": "최**",
+      "age_group": "twenties",
+      "skin_type": "oily",
+      "concerns": ["pores", "sebum"],
+      "rating": 4,
+      "date": "2025-03-28",
+      "likes": 9,
+      "photo": "images/reviews/r-3.jpg",
+      "text": {
+        "ko": "기름진 편인데도 무겁지 않고, 모공 주변이 정돈되는 느낌이 좋아요.",
+        "en": "My skin runs oily but this didn't feel heavy — pores around my nose look more refined.",
+        "zh": "我是油性肌肤,使用后不油腻,毛孔周围看起来更紧致。",
+        "ja": "脂性肌でも重くなく、毛穴まわりが整う感じが良いです。"
+      }
+    },
+    {
+      "user": "정**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["elasticity", "brightening"],
+      "rating": 5,
+      "date": "2025-03-22",
+      "likes": 31,
+      "photo": "images/reviews/r-4.jpg",
+      "text": {
+        "ko": "꾸준히 2병째인데 확실히 탄력이 달라요. 약사님 추천이 진짜였네요.",
+        "en": "On my second bottle and the firmness change is real. The pharmacist's rec was spot on.",
+        "zh": "已经第二瓶,弹性确实有改善。药师的推荐没错。",
+        "ja": "2本目ですが、ハリの変化を実感しています。薬剤師さんのおすすめは本物でした。"
+      }
+    },
+    {
+      "user": "한**",
+      "age_group": "forties_plus",
+      "skin_type": "dry",
+      "concerns": ["elasticity"],
+      "rating": 5,
+      "date": "2025-03-15",
+      "likes": 12,
+      "photo": "images/reviews/r-5.jpg",
+      "text": {
+        "ko": "PDRN 들어가서 그런지 자극은 없으면서 효과는 확실해요.",
+        "en": "Maybe because of the PDRN — no irritation, real visible results.",
+        "zh": "可能因为含 PDRN,无刺激但效果明显。",
+        "ja": "PDRN 配合のおかげか、刺激はなく確かな効果を感じます。"
+      }
+    }
+  ]
+}

@@ -132,3 +132,24 @@ Figma fileKey: `8JV1QkzSuEpZEMtLiLQYYv`
 | 🟢 낮음 | `8921:2664`의 raw hex값을 정식 토큰으로 재바인딩 | 디자이너 |
 | 🟢 낮음 | Kakao/Naver/Dark 컬러의 정식 토큰화 여부 결정 (별도 social 그룹으로 추가 검토) | PM/디자이너 |
 | 🟢 낮음 | `8657:11479` 노드 분석 (다음 세션에서) | — |
+
+---
+
+## 6. 누락 토큰 — Dark Overlay (2026-05-20 발견)
+
+`Aroundpharm/styles.css`에서 비디오 컨트롤 버튼 배경에 어두운 반투명 오버레이가 필요했으나 tokens.css에 정의된 dark overlay 토큰이 없어 raw `rgba(0,0,0,0.6)` / `rgba(0,0,0,0.8)`을 임시로 사용.
+
+### 현재 토큰 상태
+- `--color-bg-overlay-light-10` (rgba 255,255,255,0.1) ✅
+- `--color-bg-overlay-light-50` (rgba 255,255,255,0.5) ✅
+- dark overlay ❌ (누락)
+
+### 권장 추가 토큰 (Figma 확인 필요)
+| 토큰명(제안) | 값(제안) | 용도 |
+|---|---|---|
+| `--color-bg-overlay-dark-40` | `rgba(0,0,0,0.4)` | 미디어 위 텍스트 캡션 배경 |
+| `--color-bg-overlay-dark-60` | `rgba(0,0,0,0.6)` | 비디오/이미지 위 컨트롤 버튼 배경 |
+| `--color-bg-overlay-dark-80` | `rgba(0,0,0,0.8)` | 위 hover/active 상태 |
+
+### 영향 파일
+- `Aroundpharm/styles.css` line 291, 295 (`.pharmacist-video-mute`)

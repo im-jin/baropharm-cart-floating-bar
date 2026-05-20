@@ -1,0 +1,105 @@
+{
+  "ui": {
+    "pharmacist_pick": "Pharmacist's Pick",
+    "see_all_reviews": "See all",
+    "how_to_use": "How to use",
+    "related_empty": "Related products coming soon.",
+    "get_app": "Get the Aroundpharm app",
+    "cta_save": "Save",
+    "cta_shop": "Shop on Aroundpharm"
+  },
+  "tabs": {
+    "detail": "Detail",
+    "review": "Reviews",
+    "related": "Related"
+  },
+  "pick": {
+    "efficacy": "Efficacy",
+    "absorption": "Absorption",
+    "scent": "Scent",
+    "value": "Value"
+  },
+  "benefits": {
+    "hydration": "Hydration",
+    "anti_aging": "Anti-aging",
+    "sensitive": "Sensitive-safe"
+  },
+  "howto": {
+    "step1": "Apply 2–3 drops after toner",
+    "step2": "Smooth over entire face",
+    "step3": "Use morning & night"
+  },
+  "ap": {
+    "title": "Love this product?",
+    "body": "Aroundpharm ships authentic K-pharmacy products worldwide — re-order the same items after you go home."
+  },
+  "footer": {
+    "staff_hint": "To buy now, show this screen to the pharmacy staff."
+  },
+  "alerts": {
+    "saved": "Saved to your Aroundpharm list.",
+    "shop": "Opening Aroundpharm shop…"
+  },
+  "urls": {
+    "app_store": "https://aroundpharm.com",
+    "shop": "https://aroundpharm.com"
+  },
+  "video": {
+    "badge": "Pharmacist's Pick",
+    "title": "Pharmacist's own recommendation",
+    "caption": "A real Korean pharmacist's first-hand review — one of the most-asked serums by visiting tourists."
+  },
+  "review": {
+    "expand": "Show all",
+    "collapse": "Show less",
+    "total_reviews": "Reviews",
+    "count_unit": "",
+    "photo_only": "Photo reviews only",
+    "no_reviews": "No reviews to show.",
+    "likes": "Helpful",
+    "sort": {
+      "latest": "Latest",
+      "popular": "Most helpful",
+      "rating_high": "Highest rating",
+      "rating_low": "Lowest rating"
+    },
+    "filters": {
+      "skin_type": "Skin type",
+      "age_group": "Age",
+      "concerns": "Skin concerns",
+      "region": "Region"
+    },
+    "skin_type": {
+      "combination": "Combination",
+      "dry": "Dry",
+      "very_dry": "Very dry",
+      "oily": "Oily",
+      "very_oily": "Very oily"
+    },
+    "age_group": {
+      "teens": "Teens",
+      "twenties": "20s",
+      "thirties": "30s",
+      "forties_plus": "40+"
+    },
+    "concerns": {
+      "elasticity": "Elasticity",
+      "dryness": "Dryness",
+      "texture": "Texture",
+      "sensitivity": "Sensitivity",
+      "sebum": "Sebum",
+      "brightening": "Brightening",
+      "pores": "Pores",
+      "acne": "Acne",
+      "other": "Other"
+    },
+    "region": {
+      "seoul": "Seoul",
+      "gyeonggi": "Gyeonggi",
+      "busan": "Busan",
+      "incheon": "Incheon",
+      "daegu": "Daegu",
+      "other": "Other"
+    }
+  }
+}

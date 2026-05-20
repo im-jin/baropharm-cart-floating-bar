@@ -1,0 +1,689 @@
+/* ─────────────────────────────────────────────────────────────
+   Aroundpharm — QR pharmacy-shelf landing
+   원본 어라운드팜 상세 구조 + 신규 컴포넌트 (디자인 시스템 적용)
+   토큰 단일 소스: ../tokens.css
+   ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+html {
+  font-family: var(--font-family-default);
+  color: var(--color-text);
+  background: var(--color-bg-base-white);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg-base-white);
+  padding-bottom: 96px;
+}
+body[data-loading="true"] .page { opacity: 0; }
+.page { opacity: 1; transition: opacity .25s ease; }
+
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; background: none; border: 0; padding: 0; color: inherit; }
+ul, ol, li { list-style: none; padding: 0; margin: 0; }
+a { color: inherit; }
+
+/* mobile bound */
+.page, .topnav, .sticky-cta {
+  max-width: 480px; margin-left: auto; margin-right: auto;
+}
+
+/* ─────────── TOP NAV ─────────── */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px; padding: 0 12px;
+  background: var(--color-bg-base-white);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.topnav-right { display: flex; align-items: center; gap: 4px; }
+.iconbtn {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  color: var(--color-text);
+  border-radius: var(--radius-pill);
+}
+.iconbtn:hover { background: var(--color-grey-2); }
+
+/* 언어 스위처 (NEW) */
+.lang-switcher {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 32px; padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-base-white);
+  font: var(--font-b4);
+  color: var(--color-text);
+}
+.lang-switcher:hover { border-color: var(--color-brand-aroundpharm); }
+.lang-globe { font-size: 13px; line-height: 1; }
+.lang-caret { font-size: 9px; opacity: .6; }
+
+.lang-menu {
+  position: absolute; top: 48px; right: 16px;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-on-gray-200);
+  min-width: 140px; z-index: 60;
+  padding: 4px;
+}
+.lang-menu li {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  cursor: pointer;
+}
+.lang-menu li:hover { background: var(--color-brand-aroundpharm-bg); }
+.lang-menu li[aria-selected="true"] {
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 600;
+}
+
+/* ─────────── HERO ─────────── */
+.hero { padding: 0; }
+.hero-media {
+  width: 100%; aspect-ratio: 1 / 1;
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+}
+.hero-img { width: 100%; height: 100%; object-fit: cover; }
+
+.thumb-strip {
+  display: flex; gap: 8px; padding: 12px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.thumb-strip::-webkit-scrollbar { display: none; }
+.thumb-strip .thumb {
+  flex: 0 0 64px;
+  width: 64px; height: 64px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+  border: 1px solid var(--color-border-secondary);
+}
+.thumb-strip .thumb[data-active="true"] {
+  border-color: var(--color-brand-aroundpharm);
+  border-width: 2px;
+}
+.thumb-strip .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ─────────── META BLOCK ─────────── */
+.meta { padding: 8px 20px 20px; }
+.brand-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.brand-chip {
+  display: inline-flex; align-items: center; height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm-bg);
+  color: var(--color-brand-aroundpharm-text);
+  font: var(--font-b5);
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+/* NEW: Pharmacist's Pick 배지 */
+.badge-pick {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 24px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-card-soft);
+  color: var(--color-text);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.badge-pick svg { color: var(--color-warning, #faad14); }
+
+.product-name {
+  margin: 0 0 6px;
+  font: var(--font-h2-b);
+  letter-spacing: -.3px;
+  color: var(--color-text);
+}
+.product-tagline {
+  margin: 0 0 14px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+
+.price-block {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap;
+}
+.price-discount {
+  font: var(--font-h3-b);
+  color: var(--color-error, #f5222d);
+}
+.price-current {
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.price-original {
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+/* ─────────── 약사픽 요약 카드 ─────────── */
+.pick-summary {
+  margin: 0 16px 24px;
+  padding: 16px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base-white);
+}
+.pick-summary-title {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 12px;
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-brand-aroundpharm-text);
+}
+.pick-summary-title svg { color: var(--color-warning, #faad14); }
+.pick-summary-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.pick-stars {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.pick-stars .star {
+  font-size: 18px;
+  color: var(--color-warning, #faad14);
+}
+.pick-score {
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.pick-link {
+  font: var(--font-b4);
+  color: var(--color-brand-aroundpharm-text);
+}
+.pick-bars { display: grid; gap: 8px; }
+.pick-bars li {
+  display: grid;
+  grid-template-columns: 64px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+}
+.bar-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.bar {
+  height: 6px;
+  background: var(--color-grey-3);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.bar i {
+  display: block; height: 100%;
+  width: var(--p, 0%);
+  background: var(--color-brand-aroundpharm);
+  border-radius: var(--radius-pill);
+}
+.bar-val {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+}
+
+/* ─────────── PHARMACIST TIKTOK VIDEO (NEW · DS) ─────────── */
+.pharmacist-video {
+  margin: 0 16px 24px;
+  padding: 20px 16px 16px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg,
+              var(--color-brand-aroundpharm-bg) 0%,
+              var(--color-bg-base-white) 100%);
+  border: 1px solid var(--color-brand-aroundpharm-border);
+  text-align: center;
+}
+.pharmacist-video-head { margin-bottom: 14px; }
+.pharmacist-video-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.pharmacist-video-badge svg { color: var(--color-text-light); }
+.pharmacist-video-title {
+  margin: 8px 0 0;
+  font: var(--font-h3-b);
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.pharmacist-video-frame {
+  position: relative;
+  margin: 0 auto;
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-text);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.pharmacist-video-el {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pharmacist-video-mute {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-light);
+  backdrop-filter: blur(4px);
+}
+.pharmacist-video-mute:hover { background: rgba(0, 0, 0, 0.8); }
+.pharmacist-video-caption {
+  margin: 12px 8px 0;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ─────────── 3-ICON QUICK BENEFITS (NEW · DS) ─────────── */
+.benefits {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 16px 24px;
+}
+.benefit {
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px 8px;
+  text-align: center;
+}
+.benefit-icon { font-size: 24px; margin-bottom: 6px; line-height: 1; }
+.benefit-label { font: var(--font-b5); color: var(--color-text-secondary); }
+
+/* ─────────── TABS ─────────── */
+.tabs {
+  display: flex;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  position: sticky; top: 52px; z-index: 30;
+  background: var(--color-bg-base-white);
+}
+.tab {
+  flex: 1;
+  height: 48px;
+  font: var(--font-h5);
+  color: var(--color-text-secondary);
+  position: relative;
+}
+.tab.is-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+.tab.is-active::after {
+  content: '';
+  position: absolute; left: 12px; right: 12px; bottom: 0;
+  height: 2px;
+  background: var(--color-text);
+}
+
+.tab-panel { display: none; }
+.tab-panel.is-active { display: block; }
+
+/* ─────────── DETAIL MODULES ─────────── */
+.detail-modules {
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+}
+.detail-modules img {
+  width: 100%; height: auto; display: block;
+}
+.detail-modules-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 240px; padding: 40px 24px; text-align: center;
+  background: var(--color-bg-card-soft); color: var(--color-text-tertiary);
+  font: var(--font-b3);
+}
+
+/* ─────────── HOW TO USE (NEW · DS) ─────────── */
+.howto { padding: 32px 20px; background: var(--color-bg-base-white); border-top: 1px solid var(--color-border-secondary); }
+.section-title {
+  margin: 0 0 16px;
+  font: var(--font-h3-b);
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.howto-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.howto-step {
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 20px 8px; text-align: center; position: relative;
+}
+.howto-num {
+  position: absolute; top: 8px; left: 8px;
+  width: 20px; height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+  display: grid; place-items: center;
+}
+.howto-icon { font-size: 28px; margin-bottom: 8px; line-height: 1; }
+.howto-label { font: var(--font-b4); color: var(--color-text); }
+
+/* ─────────── REVIEW PANEL — 종합 별점 ─────────── */
+.review-summary {
+  padding: 24px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.review-score-num {
+  font: var(--font-display-5);
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.review-score-stars {
+  color: var(--color-warning, #faad14);
+  font-size: 18px;
+  letter-spacing: 4px;
+  margin-bottom: 4px;
+}
+.review-score-count {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+}
+.review-score-count > * { margin-right: 2px; }
+
+/* ─────────── REVIEW STATS (피부타입/연령대/고민/지역) ─────────── */
+.review-stats {
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.stat-group { }
+.stat-group-title {
+  font: var(--font-h5);
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.stat-bars { display: grid; gap: 8px; }
+.stat-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+}
+.stat-row .stat-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.stat-row .bar {
+  height: 6px;
+  background: var(--color-grey-3);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.stat-row .bar i {
+  display: block; height: 100%;
+  width: var(--p, 0%);
+  background: var(--color-brand-aroundpharm);
+  border-radius: var(--radius-pill);
+}
+.stat-row .stat-val {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+}
+.stat-row[data-leader="true"] .bar i { background: var(--color-brand-aroundpharm-active); }
+.stat-row[data-leader="true"] .stat-val { color: var(--color-brand-aroundpharm-text); }
+.stat-row[data-collapsed="true"] { display: none; }
+.stat-group.is-expanded .stat-row[data-collapsed="true"] { display: grid; }
+
+.stat-expand {
+  margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  padding: 4px 0;
+}
+.stat-expand:hover { color: var(--color-brand-aroundpharm-text); }
+.stat-expand svg { transition: transform .2s ease; }
+.stat-group.is-expanded .stat-expand svg { transform: rotate(180deg); }
+
+/* ─────────── SORT + PHOTO TOGGLE ─────────── */
+.review-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+  padding: 16px 20px 8px;
+  position: sticky; top: 100px; z-index: 20;
+  background: var(--color-bg-base-white);
+}
+.sort-tabs {
+  display: flex; gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex: 1;
+}
+.sort-tabs::-webkit-scrollbar { display: none; }
+.sort-tab {
+  flex: 0 0 auto;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  padding: 4px 0;
+  white-space: nowrap;
+}
+.sort-tab.is-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+.sort-tab:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 1px; height: 10px;
+  background: var(--color-border);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.photo-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.photo-toggle input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: pointer;
+}
+.photo-toggle input[type="checkbox"]:checked {
+  background: var(--color-brand-aroundpharm);
+  border-color: var(--color-brand-aroundpharm);
+}
+.photo-toggle input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 0px;
+  width: 4px; height: 9px;
+  border: solid var(--color-text-light);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ─────────── REVIEW LIST + CARDS ─────────── */
+.review-list {
+  display: grid;
+  gap: 0;
+}
+.review-card {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.review-card[data-hidden="true"] { display: none; }
+.review-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.review-user {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.review-user-name {
+  font: var(--font-b4);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.review-meta-chip {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  background: var(--color-grey-2);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+}
+.review-rating-stars {
+  color: var(--color-warning, #faad14);
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.review-concerns {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.review-concern-tag {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  background: var(--color-brand-aroundpharm-bg);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+}
+.review-text {
+  font: var(--font-b3);
+  color: var(--color-text);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.review-photo {
+  width: 120px; height: 120px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.review-photo img { width: 100%; height: 100%; object-fit: cover; }
+.review-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+}
+.review-likes {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+.empty-state {
+  padding: 80px 20px;
+  text-align: center;
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+}
+
+/* ─────────── AP VALUE CARD (NEW · DS) ─────────── */
+.ap-card {
+  margin: 24px 16px;
+  padding: 28px 20px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg,
+              var(--color-brand-aroundpharm-bg),
+              var(--color-bg-card-soft));
+  text-align: center;
+}
+.ap-card-icon { font-size: 32px; margin-bottom: 12px; line-height: 1; }
+.ap-card-title {
+  margin: 0 0 8px;
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.ap-card-body {
+  margin: 0 0 20px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+
+/* ─────────── BUTTONS ─────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px;
+  height: 48px; padding: 0 20px;
+  border-radius: var(--radius-md);
+  font: var(--font-h4-b);
+  border: 1px solid transparent;
+  transition: transform .1s ease, background .15s ease, border-color .15s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary {
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+}
+.btn-primary:hover { background: var(--color-brand-aroundpharm-hover); }
+.btn-ghost {
+  background: var(--color-bg-base-white);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover { border-color: var(--color-brand-aroundpharm); }
+.btn-block { width: 100%; }
+.btn-half { flex: 1; }
+
+/* ─────────── FOOTER ─────────── */
+.page-footer { padding: 24px 20px 32px; text-align: center; }
+.footer-row a {
+  font: var(--font-b3);
+  color: var(--color-brand-aroundpharm-text);
+  text-decoration: none;
+}
+.footer-note {
+  margin: 16px 0 0;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}
+
+/* ─────────── STICKY DUAL CTA ─────────── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 8px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-bg-base-white);
+  border-top: 1px solid var(--color-border-secondary);
+  z-index: 40;
+}
+
+/* ─────────── DESKTOP BOUND ─────────── */
+@media (min-width: 481px) {
+  body { background: var(--color-bg-base-white); }
+  .page, .topnav { box-shadow: 0 0 0 1px var(--color-border-secondary); }
+}

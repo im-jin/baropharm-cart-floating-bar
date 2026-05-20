@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="THOME CPR hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE5EC"/>
+      <stop offset="1" stop-color="#FFC2D1"/>
+    </linearGradient>
+    <linearGradient id="bottle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF5C8A"/>
+      <stop offset="1" stop-color="#B83B5E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <ellipse cx="300" cy="540" rx="160" ry="20" fill="#000" opacity="0.08"/>
+  <rect x="240" y="160" width="120" height="320" rx="20" fill="url(#bottle)"/>
+  <rect x="260" y="120" width="80" height="48" rx="6" fill="#3a1a2a"/>
+  <text x="300" y="320" text-anchor="middle" font-family="Pretendard, sans-serif" font-weight="800" font-size="28" fill="#fff" letter-spacing="2">CPR</text>
+  <text x="300" y="350" text-anchor="middle" font-family="Pretendard, sans-serif" font-weight="500" font-size="12" fill="#fff" opacity="0.9">Triple-Synergy</text>
+  <text x="300" y="368" text-anchor="middle" font-family="Pretendard, sans-serif" font-weight="500" font-size="12" fill="#fff" opacity="0.9">Wrinkle Care Serum</text>
+  <text x="500" y="570" text-anchor="end" font-family="Pretendard, sans-serif" font-weight="700" font-size="14" fill="#7d3553" opacity="0.6">THOME</text>
+</svg>

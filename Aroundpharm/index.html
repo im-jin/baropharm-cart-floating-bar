@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#09b9ba" />
+  <title>Aroundpharm — K-Pharmacy</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-loading="true">
+
+  <!-- ──────── TOP NAV (원본 + 언어 스위처 추가) ──────── -->
+  <header class="topnav">
+    <button class="iconbtn" aria-label="Back">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <div class="topnav-right">
+      <!-- ─ NEW: 언어 스위처 ─ -->
+      <button class="lang-switcher" id="langSwitcher" aria-haspopup="listbox" aria-expanded="false">
+        <span class="lang-globe" aria-hidden="true">🌐</span>
+        <span class="lang-current" data-lang-label>EN</span>
+        <span class="lang-caret" aria-hidden="true">▾</span>
+      </button>
+
+      <button class="iconbtn" aria-label="Share">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/>
+          <path d="M8 11l8-4M8 13l8 4"/>
+        </svg>
+      </button>
+      <button class="iconbtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+      <li role="option" data-lang="ko">한국어</li>
+      <li role="option" data-lang="en">English</li>
+      <li role="option" data-lang="zh">中文</li>
+      <li role="option" data-lang="ja">日本語</li>
+    </ul>
+  </header>
+
+  <main class="page">
+
+    <!-- ──────── HERO + THUMB STRIP ──────── -->
+    <section class="hero">
+      <div class="hero-media">
+        <img class="hero-img" data-product="hero" alt="" />
+      </div>
+      <div class="thumb-strip" id="thumbStrip">
+        <!-- thumbs injected -->
+      </div>
+    </section>
+
+    <!-- ──────── BRAND + 이름 + 가격 ──────── -->
+    <section class="meta">
+      <div class="brand-row">
+        <span class="brand-chip" data-product="brand"></span>
+        <!-- ─ NEW: Pharmacist's Pick 배지 (DS 적용) ─ -->
+        <span class="badge-pick">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
+            <path d="M8 1.5l1.9 3.85 4.25.62-3.07 3 .72 4.23L8 11.2 4.2 13.2l.72-4.23-3.07-3 4.25-.62L8 1.5z"/>
+          </svg>
+          <span data-i18n="ui.pharmacist_pick"></span>
+        </span>
+      </div>
+
+      <h1 class="product-name" data-product="name"></h1>
+      <p class="product-tagline" data-product="tagline"></p>
+
+      <div class="price-block">
+        <span class="price-discount" data-product="discount"></span>
+        <span class="price-current" data-product="price"></span>
+        <span class="price-original" data-product="price_original"></span>
+      </div>
+    </section>
+
+    <!-- ──────── 약사픽 요약 카드 (원본) ──────── -->
+    <section class="pick-summary">
+      <div class="pick-summary-title">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+          <path d="M8 1.5l1.9 3.85 4.25.62-3.07 3 .72 4.23L8 11.2 4.2 13.2l.72-4.23-3.07-3 4.25-.62L8 1.5z"/>
+        </svg>
+        <span data-i18n="ui.pharmacist_pick"></span>
+      </div>
+      <div class="pick-summary-head">
+        <div class="pick-stars">
+          <span class="star">★</span>
+          <span class="pick-score" data-product="rating"></span>
+        </div>
+        <button class="pick-link" data-i18n="ui.see_all_reviews"></button>
+      </div>
+      <ul class="pick-bars">
+        <li><span class="bar-label" data-i18n="pick.efficacy"></span><span class="bar"><i style="--p:92%"></i></span><span class="bar-val">92%</span></li>
+        <li><span class="bar-label" data-i18n="pick.absorption"></span><span class="bar"><i style="--p:88%"></i></span><span class="bar-val">88%</span></li>
+        <li><span class="bar-label" data-i18n="pick.scent"></span><span class="bar"><i style="--p:80%"></i></span><span class="bar-val">80%</span></li>
+        <li><span class="bar-label" data-i18n="pick.value"></span><span class="bar"><i style="--p:85%"></i></span><span class="bar-val">85%</span></li>
+      </ul>
+    </section>
+
+    <!-- ──────── NEW: 약사 TikTok 영상 (DS 적용) ──────── -->
+    <section class="pharmacist-video">
+      <div class="pharmacist-video-head">
+        <span class="pharmacist-video-badge">
+          <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" aria-hidden="true">
+            <path d="M8 1.5l1.9 3.85 4.25.62-3.07 3 .72 4.23L8 11.2 4.2 13.2l.72-4.23-3.07-3 4.25-.62L8 1.5z"/>
+          </svg>
+          <span data-i18n="video.badge"></span>
+        </span>
+        <h2 class="pharmacist-video-title" data-i18n="video.title"></h2>
+      </div>
+      <div class="pharmacist-video-frame">
+        <video
+          class="pharmacist-video-el"
+          autoplay muted loop playsinline preload="metadata"
+          poster=""
+          aria-label="Pharmacist TikTok video">
+          <source src="products/thome-cpr/images/pharmacist-tiktok-web.m4v" type="video/mp4" />
+        </video>
+        <button class="pharmacist-video-mute" id="videoMute" aria-label="Toggle mute">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-state="muted">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/>
+          </svg>
+        </button>
+      </div>
+      <p class="pharmacist-video-caption" data-i18n="video.caption"></p>
+    </section>
+
+    <!-- ──────── NEW: 3-ICON QUICK BENEFITS (DS 적용) ──────── -->
+    <section class="benefits">
+      <div class="benefit">
+        <div class="benefit-icon" aria-hidden="true">💧</div>
+        <div class="benefit-label" data-i18n="benefits.hydration"></div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon" aria-hidden="true">✨</div>
+        <div class="benefit-label" data-i18n="benefits.anti_aging"></div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon" aria-hidden="true">🛡️</div>
+        <div class="benefit-label" data-i18n="benefits.sensitive"></div>
+      </div>
+    </section>
+
+    <!-- ──────── 탭 (원본: 상세/리뷰/추천 — 약국찾기 제거) ──────── -->
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" role="tab" data-tab="detail" data-i18n="tabs.detail"></button>
+      <button class="tab" role="tab" data-tab="review" data-i18n="tabs.review"></button>
+      <button class="tab" role="tab" data-tab="related" data-i18n="tabs.related"></button>
+    </nav>
+
+    <!-- ──────── 탭 콘텐츠 ──────── -->
+    <section class="tab-panel is-active" role="tabpanel" data-panel="detail">
+      <div class="detail-modules" id="detailModules">
+        <!-- 언어별 이미지 -->
+      </div>
+
+      <!-- ─ NEW: How-to 픽토그램 (DS 적용) ─ -->
+      <div class="howto">
+        <h2 class="section-title" data-i18n="ui.how_to_use"></h2>
+        <ol class="howto-steps">
+          <li class="howto-step">
+            <div class="howto-num">1</div>
+            <div class="howto-icon" aria-hidden="true">🧴</div>
+            <div class="howto-label" data-i18n="howto.step1"></div>
+          </li>
+          <li class="howto-step">
+            <div class="howto-num">2</div>
+            <div class="howto-icon" aria-hidden="true">💆</div>
+            <div class="howto-label" data-i18n="howto.step2"></div>
+          </li>
+          <li class="howto-step">
+            <div class="howto-num">3</div>
+            <div class="howto-icon" aria-hidden="true">🌙</div>
+            <div class="howto-label" data-i18n="howto.step3"></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="tab-panel" role="tabpanel" data-panel="review" hidden>
+      <!-- 종합 별점 -->
+      <div class="review-summary">
+        <div class="review-score-num" data-product="rating"></div>
+        <div class="review-score-stars" aria-hidden="true">★★★★★</div>
+        <div class="review-score-count">
+          <span data-i18n="review.total_reviews"></span>
+          <span data-product="review_count_raw"></span>
+          <span data-i18n="review.count_unit"></span>
+        </div>
+      </div>
+
+      <!-- 4 카테고리 통계 (피부타입 / 연령대 / 피부고민 / 지역) -->
+      <div class="review-stats" id="reviewStats">
+        <!-- injected -->
+      </div>
+
+      <!-- 정렬 + 포토리뷰 토글 -->
+      <div class="review-controls">
+        <div class="sort-tabs" id="sortTabs" role="tablist">
+          <button class="sort-tab is-active" data-sort="latest" data-i18n="review.sort.latest"></button>
+          <button class="sort-tab" data-sort="popular" data-i18n="review.sort.popular"></button>
+          <button class="sort-tab" data-sort="rating_high" data-i18n="review.sort.rating_high"></button>
+          <button class="sort-tab" data-sort="rating_low" data-i18n="review.sort.rating_low"></button>
+        </div>
+        <label class="photo-toggle">
+          <input type="checkbox" id="photoOnly" />
+          <span data-i18n="review.photo_only"></span>
+        </label>
+      </div>
+
+      <!-- 리뷰 카드 리스트 -->
+      <ul class="review-list" id="reviewList">
+        <!-- injected -->
+      </ul>
+    </section>
+
+    <section class="tab-panel" role="tabpanel" data-panel="related" hidden>
+      <p class="empty-state" data-i18n="ui.related_empty"></p>
+    </section>
+
+    <!-- ──────── NEW: Aroundpharm 가치 카드 (DS 적용) ──────── -->
+    <section class="ap-card">
+      <div class="ap-card-icon" aria-hidden="true">🌍</div>
+      <h2 class="ap-card-title" data-i18n="ap.title"></h2>
+      <p class="ap-card-body" data-i18n="ap.body"></p>
+      <button class="btn btn-ghost btn-block" data-action="getApp" data-i18n="ui.get_app"></button>
+    </section>
+
+    <footer class="page-footer">
+      <div class="footer-row">
+        <a href="https://aroundpharm.com" target="_blank" rel="noopener">aroundpharm.com</a>
+      </div>
+      <p class="footer-note" data-i18n="footer.staff_hint"></p>
+    </footer>
+
+  </main>
+
+  <!-- ──────── STICKY 듀얼 CTA (원본 장바구니/바로구매 슬롯, 외국인 컨텍스트로 라벨 재정의) ──────── -->
+  <div class="sticky-cta">
+    <button class="btn btn-ghost btn-half" data-action="save">
+      <span aria-hidden="true">♡</span>
+      <span data-i18n="ui.cta_save"></span>
+    </button>
+    <button class="btn btn-primary btn-half" data-action="shop">
+      <span data-i18n="ui.cta_shop"></span>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

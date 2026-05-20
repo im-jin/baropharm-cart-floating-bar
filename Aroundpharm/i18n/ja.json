@@ -1,0 +1,105 @@
+{
+  "ui": {
+    "pharmacist_pick": "薬剤師セレクト",
+    "see_all_reviews": "すべて見る",
+    "how_to_use": "使い方",
+    "related_empty": "おすすめ商品は準備中です。",
+    "get_app": "Aroundpharm アプリをダウンロード",
+    "cta_save": "保存",
+    "cta_shop": "Aroundpharm で購入"
+  },
+  "tabs": {
+    "detail": "詳細",
+    "review": "レビュー",
+    "related": "おすすめ"
+  },
+  "pick": {
+    "efficacy": "効果",
+    "absorption": "浸透",
+    "scent": "香り",
+    "value": "コスパ"
+  },
+  "benefits": {
+    "hydration": "保湿",
+    "anti_aging": "エイジングケア",
+    "sensitive": "敏感肌対応"
+  },
+  "howto": {
+    "step1": "化粧水のあとに 2〜3 滴",
+    "step2": "顔全体になじませる",
+    "step3": "朝晩ご使用ください"
+  },
+  "ap": {
+    "title": "気に入りましたか?",
+    "body": "Aroundpharm は正規の韓国薬局コスメ・ヘルス商品を世界中へ配送します。帰国後も同じ商品をお届けします。"
+  },
+  "footer": {
+    "staff_hint": "ご購入の際は、この画面を薬剤師にお見せください。"
+  },
+  "alerts": {
+    "saved": "Aroundpharm のリストに保存しました。",
+    "shop": "Aroundpharm ショップを開きます…"
+  },
+  "urls": {
+    "app_store": "https://aroundpharm.com",
+    "shop": "https://aroundpharm.com"
+  },
+  "video": {
+    "badge": "薬剤師セレクト",
+    "title": "薬剤師が自ら推薦",
+    "caption": "韓国の薬剤師が実際に使用したリアルレビュー。訪韓観光客に最も人気のセラムのひとつです。"
+  },
+  "review": {
+    "expand": "もっと見る",
+    "collapse": "閉じる",
+    "total_reviews": "レビュー",
+    "count_unit": "件",
+    "photo_only": "写真レビューのみ",
+    "no_reviews": "表示するレビューがありません。",
+    "likes": "参考になった",
+    "sort": {
+      "latest": "新着順",
+      "popular": "おすすめ順",
+      "rating_high": "評価が高い順",
+      "rating_low": "評価が低い順"
+    },
+    "filters": {
+      "skin_type": "肌タイプ",
+      "age_group": "年代",
+      "concerns": "肌悩み",
+      "region": "地域"
+    },
+    "skin_type": {
+      "combination": "混合肌",
+      "dry": "乾燥肌",
+      "very_dry": "極乾燥肌",
+      "oily": "脂性肌",
+      "very_oily": "極脂性肌"
+    },
+    "age_group": {
+      "teens": "10代",
+      "twenties": "20代",
+      "thirties": "30代",
+      "forties_plus": "40代以上"
+    },
+    "concerns": {
+      "elasticity": "ハリ/栄養",
+      "dryness": "乾燥/角質",
+      "texture": "キメ",
+      "sensitivity": "敏感/刺激",
+      "sebum": "皮脂",
+      "brightening": "明るさ",
+      "pores": "毛穴",
+      "acne": "ニキビ",
+      "other": "その他"
+    },
+    "region": {
+      "seoul": "ソウル",
+      "gyeonggi": "京畿",
+      "busan": "釜山",
+      "incheon": "仁川",
+      "daegu": "大邱",
+      "other": "その他"
+    }
+  }
+}

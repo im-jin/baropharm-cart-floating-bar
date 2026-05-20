@@ -1,0 +1,105 @@
+{
+  "ui": {
+    "pharmacist_pick": "药师推荐",
+    "see_all_reviews": "全部查看",
+    "how_to_use": "使用方法",
+    "related_empty": "推荐商品准备中。",
+    "get_app": "下载 Aroundpharm App",
+    "cta_save": "收藏",
+    "cta_shop": "前往 Aroundpharm 购买"
+  },
+  "tabs": {
+    "detail": "详情",
+    "review": "评价",
+    "related": "推荐"
+  },
+  "pick": {
+    "efficacy": "功效",
+    "absorption": "吸收",
+    "scent": "香气",
+    "value": "性价比"
+  },
+  "benefits": {
+    "hydration": "保湿",
+    "anti_aging": "抗皱",
+    "sensitive": "敏感肌"
+  },
+  "howto": {
+    "step1": "爽肤水后取 2–3 滴",
+    "step2": "均匀涂抹全脸",
+    "step3": "早晚使用"
+  },
+  "ap": {
+    "title": "喜欢这款产品吗?",
+    "body": "Aroundpharm 将正品韩国药妆/健康产品配送至全球。回国后可继续购买同款。"
+  },
+  "footer": {
+    "staff_hint": "如需购买,请将此画面出示给药师。"
+  },
+  "alerts": {
+    "saved": "已加入 Aroundpharm 收藏。",
+    "shop": "前往 Aroundpharm 商城…"
+  },
+  "urls": {
+    "app_store": "https://aroundpharm.com",
+    "shop": "https://aroundpharm.com"
+  },
+  "video": {
+    "badge": "药师推荐",
+    "title": "药师亲自推荐",
+    "caption": "韩国药师亲自试用的真实反馈,这是访韩游客询问最多的精华之一。"
+  },
+  "review": {
+    "expand": "展开",
+    "collapse": "收起",
+    "total_reviews": "评价",
+    "count_unit": "条",
+    "photo_only": "仅看图片评价",
+    "no_reviews": "暂无评价。",
+    "likes": "有帮助",
+    "sort": {
+      "latest": "最新",
+      "popular": "最有帮助",
+      "rating_high": "评分高",
+      "rating_low": "评分低"
+    },
+    "filters": {
+      "skin_type": "肤质",
+      "age_group": "年龄段",
+      "concerns": "肌肤问题",
+      "region": "地区"
+    },
+    "skin_type": {
+      "combination": "混合性",
+      "dry": "干性",
+      "very_dry": "极干性",
+      "oily": "油性",
+      "very_oily": "极油性"
+    },
+    "age_group": {
+      "teens": "10 多岁",
+      "twenties": "20 多岁",
+      "thirties": "30 多岁",
+      "forties_plus": "40 岁以上"
+    },
+    "concerns": {
+      "elasticity": "弹性/营养",
+      "dryness": "干燥/角质",
+      "texture": "肌理",
+      "sensitivity": "敏感/刺激",
+      "sebum": "油脂",
+      "brightening": "提亮",
+      "pores": "毛孔",
+      "acne": "痘痘",
+      "other": "其他"
+    },
+    "region": {
+      "seoul": "首尔",
+      "gyeonggi": "京畿",
+      "busan": "釜山",
+      "incheon": "仁川",
+      "daegu": "大邱",
+      "other": "其他"
+    }
+  }
+}
