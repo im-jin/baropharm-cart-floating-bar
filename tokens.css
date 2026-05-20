@@ -1,0 +1,505 @@
+/**
+ * Design Tokens
+ * Source: Figma "Design System" library (fileKey: 8JV1QkzSuEpZEMtLiLQYYv)
+ * Extracted via Figma MCP — values match Figma Variables 1:1
+ *
+ * Structure:
+ *   1. Primitive colors (Ant Design 12-color ramps × 10 steps + grey)
+ *   2. Semantic colors  (text / background / border / fill / state)
+ *   3. Brand colors     (Baropharm default + 5 sub-brands)
+ *   4. Service colors
+ *   5. Membership colors
+ *   6. Partner colors   (Korean names slugged to English)
+ *   7. Typography       (Web variant + iOS variant)
+ *
+ * Naming:
+ *   --color-{hue}-{step}             primitive
+ *   --color-{group}-{role}           semantic
+ *   --color-brand-{name}-{slot}      brand
+ *   --font-{group}-{name}            typography
+ */
+
+:root {
+  /* ===========================================================
+   * 1. PRIMITIVE — COLOR RAMPS
+   * =========================================================== */
+
+  /* --- Grey --- */
+  --color-grey-1: #fafafa;
+  --color-grey-2: #f5f5f5;
+  --color-grey-3: #ebebeb;
+  --color-grey-4: #dbdbdb;
+  --color-grey-5: #c7c7c7;
+  --color-grey-6: #adadad;
+  --color-grey-7: #8d8d8f;
+  --color-grey-8: #69696b;
+  --color-grey-9: #424242;
+  --color-grey-10: #141414;
+
+  /* --- Blue (Baropharm brand hue) --- */
+  --color-blue-1: #f5f9ff;
+  --color-blue-2: #e8f2ff;
+  --color-blue-3: #c9dfff;
+  --color-blue-4: #a1c3ff;
+  --color-blue-5: #78a5ff;
+  --color-blue-6: #4e84ff;
+  --color-blue-7: #2660ff;
+  --color-blue-8: #1643d9;
+  --color-blue-9: #0024b2;
+  --color-blue-10: #00178c;
+
+  /* --- Cyan (Aroundpharm brand hue) --- */
+  --color-cyan-1: #e6fffb;
+  --color-cyan-2: #b5f5ec;
+  --color-cyan-3: #87e8de;
+  --color-cyan-4: #5cdbd3;
+  --color-cyan-5: #36cfc9;
+  --color-cyan-6: #13c2c2;
+  --color-cyan-7: #08979c;
+  --color-cyan-8: #006d75;
+  --color-cyan-9: #00474f;
+  --color-cyan-10: #002329;
+
+  /* --- Purple (BRPinsight brand hue) --- */
+  --color-purple-1: #f9f0ff;
+  --color-purple-2: #efdbff;
+  --color-purple-3: #d3adf7;
+  --color-purple-4: #b37feb;
+  --color-purple-5: #9254de;
+  --color-purple-6: #722ed1;
+  --color-purple-7: #531dab;
+  --color-purple-8: #391085;
+  --color-purple-9: #22075e;
+  --color-purple-10: #120338;
+
+  /* --- Geekblue (PharmAll brand hue) --- */
+  --color-geekblue-1: #f0f5ff;
+  --color-geekblue-2: #d6e4ff;
+  --color-geekblue-3: #adc6ff;
+  --color-geekblue-4: #85a5ff;
+  --color-geekblue-5: #597ef7;
+  --color-geekblue-6: #2f54eb;
+  --color-geekblue-7: #1d39c4;
+  --color-geekblue-8: #10239e;
+  --color-geekblue-9: #061178;
+  --color-geekblue-10: #030852;
+
+  /* --- Green (Success hue) --- */
+  --color-green-1: #f0fde2;
+  --color-green-2: #d9f7be;
+  --color-green-3: #b7eb8f;
+  --color-green-4: #95de64;
+  --color-green-5: #73d13d;
+  --color-green-6: #52c41a;
+  --color-green-7: #389e0d;
+  --color-green-8: #237804;
+  --color-green-9: #135200;
+  --color-green-10: #092b00;
+
+  /* --- Gold (Warning hue) --- */
+  --color-gold-1: #fffbe6;
+  --color-gold-2: #fff1b8;
+  --color-gold-3: #ffe58f;
+  --color-gold-4: #ffd666;
+  --color-gold-5: #ffc53d;
+  --color-gold-6: #faad14;
+  --color-gold-7: #d48806;
+  --color-gold-8: #ad6800;
+  --color-gold-9: #874d00;
+  --color-gold-10: #613400;
+
+  /* --- Red (Error hue) --- */
+  --color-red-1: #fff1f0;
+  --color-red-2: #ffccc7;
+  --color-red-3: #ffa39e;
+  --color-red-4: #ff7875;
+  --color-red-5: #ff4d4f;
+  --color-red-6: #f5222d;
+  --color-red-7: #cf1322;
+  --color-red-8: #a8071a;
+  --color-red-9: #820014;
+  --color-red-10: #5c0011;
+
+  /* --- Magenta --- */
+  --color-magenta-1: #fff0f6;
+  --color-magenta-2: #ffd6e7;
+  --color-magenta-3: #ffadd2;
+  --color-magenta-4: #ff85c0;
+  --color-magenta-5: #f759ab;
+  --color-magenta-6: #eb2f96;
+  --color-magenta-7: #c41d7f;
+  --color-magenta-8: #9e1068;
+  --color-magenta-9: #780650;
+  --color-magenta-10: #520339;
+
+  /* --- Orange --- */
+  --color-orange-1: #fff7e6;
+  --color-orange-2: #ffe7ba;
+  --color-orange-3: #ffd591;
+  --color-orange-4: #ffc069;
+  --color-orange-5: #ffa940;
+  --color-orange-6: #fa8c16;
+  --color-orange-7: #d46b08;
+  --color-orange-8: #ad4e00;
+  --color-orange-9: #873800;
+  --color-orange-10: #612500;
+
+  /* --- Volcano --- */
+  --color-volcano-1: #fff2e8;
+  --color-volcano-2: #ffd8bf;
+  --color-volcano-3: #ffbb96;
+  --color-volcano-4: #ff9c6e;
+  --color-volcano-5: #ff7a45;
+  --color-volcano-6: #fa541c;
+  --color-volcano-7: #d4380d;
+  --color-volcano-8: #ad2102;
+  --color-volcano-9: #871400;
+  --color-volcano-10: #610b00;
+
+  /* --- Yellow --- */
+  --color-yellow-1: #feffe6;
+  --color-yellow-2: #ffffb8;
+  --color-yellow-3: #fffb8f;
+  --color-yellow-4: #fff566;
+  --color-yellow-5: #ffec3d;
+  --color-yellow-6: #fadb14;
+  --color-yellow-7: #d4b106;
+  --color-yellow-8: #ad8b00;
+  --color-yellow-9: #876800;
+  --color-yellow-10: #614700;
+
+  /* --- Lime --- */
+  --color-lime-1: #fcffe6;
+  --color-lime-2: #f4ffb8;
+  --color-lime-3: #eaff8f;
+  --color-lime-4: #d3f261;
+  --color-lime-5: #bae637;
+  --color-lime-6: #a0d911;
+  --color-lime-7: #7cb305;
+  --color-lime-8: #5b8c00;
+  --color-lime-9: #3f6600;
+  --color-lime-10: #254000;
+
+
+  /* ===========================================================
+   * 2. SEMANTIC — TEXT
+   * =========================================================== */
+  --color-text-base:        #000000;
+  --color-text:             #1f1f1f;
+  --color-text-secondary:   #595959;
+  --color-text-tertiary:    #8c8c8c;
+  --color-text-quaternary:  #bfbfbf;
+  --color-text-light:       #ffffff;
+
+
+  /* ===========================================================
+   * 3. SEMANTIC — BACKGROUND
+   * =========================================================== */
+  --color-bg-base-white:          #ffffff;
+  --color-bg-base-black:          #000000;
+  --color-bg-layout:              #f4f6f8;
+  --color-bg-container:           var(--color-bg-base-white);
+  --color-bg-container-disabled:  var(--color-grey-2);
+  --color-bg-dark:                var(--color-grey-10);
+  /* Warm beige palette — used for boutique / editorial mood pages */
+  --color-bg-page:                #faf8f4;  /* warm off-white, body background */
+  --color-bg-card-soft:           #f1ece4;  /* slightly deeper beige, product cards */
+  --color-bg-notice:              #1f1d1a;  /* dark warm-black, top notice strip */
+  /* Overlays — semi-transparent fills over media */
+  --color-bg-overlay-light-10:    rgba(255, 255, 255, 0.1);  /* light chip on dark/brand bg */
+  --color-bg-overlay-light-50:    rgba(255, 255, 255, 0.5);  /* hero carousel dots inactive */
+
+
+  /* ===========================================================
+   * 4. SEMANTIC — BORDER
+   * =========================================================== */
+  --color-border:            var(--color-grey-4);
+  --color-border-dark:       var(--color-grey-7);
+  --color-border-secondary:  var(--color-grey-3);
+  --color-border-disabled:   var(--color-grey-3);
+
+
+  /* ===========================================================
+   * 5. SEMANTIC — FILL
+   * =========================================================== */
+  --color-fill:            var(--color-grey-3);
+  --color-fill-secondary:  var(--color-grey-2);
+  --color-fill-tertiary:   var(--color-grey-1);
+
+
+  /* ===========================================================
+   * 6. SEMANTIC — STATE
+   * =========================================================== */
+  --color-success:  var(--color-green-6);
+  --color-warning:  var(--color-gold-6);
+  --color-error:    var(--color-red-6);
+
+
+  /* ===========================================================
+   * 7. BRAND — PRIMARY (default = Baropharm / blue ramp)
+   * 10-slot scheme: bg, bg-hover, border, border-hover, default, hover, active, text-hover, text, text-active
+   * =========================================================== */
+  --color-primary-bg:            var(--color-blue-1);
+  --color-primary-bg-hover:      var(--color-blue-2);
+  --color-primary-border:        var(--color-blue-3);
+  --color-primary-border-hover:  var(--color-blue-4);
+  --color-primary-hover:         var(--color-blue-5);
+  --color-primary:               var(--color-blue-6);
+  --color-primary-active:        var(--color-blue-7);
+  --color-primary-text-hover:    var(--color-blue-8);
+  --color-primary-text:          var(--color-blue-9);
+  --color-primary-text-active:   var(--color-blue-10);
+
+
+  /* ===========================================================
+   * 8. BRAND — SUB-BRANDS
+   * =========================================================== */
+
+  /* --- Pillens (custom indigo) --- */
+  --color-brand-pillens-bg:            #eaebfd;
+  --color-brand-pillens-bg-hover:      #cbccf9;
+  --color-brand-pillens-border:        #a7abf4;
+  --color-brand-pillens-border-hover:  #8289f0;
+  --color-brand-pillens-hover:         #666dec;
+  --color-brand-pillens:               #4b4fe6;
+  --color-brand-pillens-active:        #4647da;
+  --color-brand-pillens-text-hover:    #3d3cce;
+  --color-brand-pillens-text:          #3530c2;
+  --color-brand-pillens-text-active:   #2615b0;
+
+  /* --- Aroundpharm (cyan ramp) --- */
+  --color-brand-aroundpharm-bg:            #e9fbf8;
+  --color-brand-aroundpharm-bg-hover:      var(--color-cyan-2);
+  --color-brand-aroundpharm-border:        var(--color-cyan-3);
+  --color-brand-aroundpharm-border-hover:  var(--color-cyan-4);
+  --color-brand-aroundpharm-hover:         var(--color-cyan-5);
+  --color-brand-aroundpharm:               #09b9ba;
+  --color-brand-aroundpharm-active:        var(--color-cyan-7);
+  --color-brand-aroundpharm-text-hover:    var(--color-cyan-8);
+  --color-brand-aroundpharm-text:          var(--color-cyan-9);
+  --color-brand-aroundpharm-text-active:   var(--color-cyan-10);
+
+  /* --- BRPinsight (purple ramp) --- */
+  --color-brand-brpinsight-bg:            var(--color-purple-1);
+  --color-brand-brpinsight-bg-hover:      var(--color-purple-2);
+  --color-brand-brpinsight-border:        var(--color-purple-3);
+  --color-brand-brpinsight-border-hover:  var(--color-purple-4);
+  --color-brand-brpinsight-hover:         var(--color-purple-5);
+  --color-brand-brpinsight:               var(--color-purple-6);
+  --color-brand-brpinsight-active:        var(--color-purple-7);
+  --color-brand-brpinsight-text-hover:    var(--color-purple-8);
+  --color-brand-brpinsight-text:          var(--color-purple-9);
+  --color-brand-brpinsight-text-active:   var(--color-purple-10);
+
+  /* --- Community (custom teal) --- */
+  --color-brand-community-bg:            #e7f8f8;
+  --color-brand-community-bg-hover:      #d5f6f5;
+  --color-brand-community-border:        #adebeb;
+  --color-brand-community-border-hover:  #88e3df;
+  --color-brand-community-hover:         #43d1cc;
+  --color-brand-community:               #27b4b0;
+  --color-brand-community-active:        #21a19c;
+  --color-brand-community-text-hover:    #1f9995;
+  --color-brand-community-text:          #19807d;
+  --color-brand-community-text-active:   #146664;
+
+  /* --- PharmAll (geekblue ramp) --- */
+  --color-brand-pharmall-bg:            var(--color-geekblue-1);
+  --color-brand-pharmall-bg-hover:      var(--color-geekblue-2);
+  --color-brand-pharmall-border:        var(--color-geekblue-3);
+  --color-brand-pharmall-border-hover:  var(--color-geekblue-4);
+  --color-brand-pharmall-hover:         var(--color-geekblue-5);
+  --color-brand-pharmall:               var(--color-geekblue-6);
+  --color-brand-pharmall-active:        var(--color-geekblue-7);
+  --color-brand-pharmall-text-hover:    var(--color-geekblue-8);
+  --color-brand-pharmall-text:          var(--color-geekblue-9);
+  --color-brand-pharmall-text-active:   var(--color-geekblue-10);
+
+  /* --- Baropharm (explicit alias of default Primary) --- */
+  --color-brand-baropharm-bg:            var(--color-primary-bg);
+  --color-brand-baropharm-bg-hover:      var(--color-primary-bg-hover);
+  --color-brand-baropharm-border:        var(--color-primary-border);
+  --color-brand-baropharm-border-hover:  var(--color-primary-border-hover);
+  --color-brand-baropharm-hover:         var(--color-primary-hover);
+  --color-brand-baropharm:               var(--color-primary);
+  --color-brand-baropharm-active:        var(--color-primary-active);
+  --color-brand-baropharm-text-hover:    var(--color-primary-text-hover);
+  --color-brand-baropharm-text:          var(--color-primary-text);
+  --color-brand-baropharm-text-active:   var(--color-primary-text-active);
+
+  /* --- Revion℞ (single muted-brown accent — not part of the 10-slot system) ---
+   * Source: REVION rx home (marquee campaign band).
+   * See issues.md for the discovery context.
+   */
+  --color-brand-revion-brown: #693c17;
+
+
+  /* ===========================================================
+   * 9. SERVICE
+   * =========================================================== */
+  --color-service-business:   #003cd5;
+  --color-service-community:  #2ac1bc;
+  --color-service-point:      #23c17d;
+
+
+  /* ===========================================================
+   * 10. MEMBERSHIP
+   * =========================================================== */
+  --color-membership-family:         #7a99ab;
+  --color-membership-family-bg:      #f4f7f8;
+  --color-membership-red:            #e43a3d;
+  --color-membership-red-bg:         #fdefef;
+  --color-membership-blue:           #007dcb;
+  --color-membership-blue-bg:        #ebf5fc;
+  --color-membership-green:          #25b01e;
+  --color-membership-green-bg:       #ecf9f2;
+  --color-membership-orange:         #fc7f00;
+  --color-membership-orange-bg:      #fff5eb;
+  --color-membership-purple:         #9e50b9;
+  --color-membership-purple-bg:      #f6f0fb;
+  --color-membership-black:          #31383f;
+  --color-membership-black-bg:       #f1f3f5;
+
+
+  /* ===========================================================
+   * 11. PARTNER — Korean partner names slugged to English
+   * Each line preserves the original Hangul label as a comment.
+   * =========================================================== */
+  --color-partner-ourpharm:         #43a536;  /* 아워팜 */
+  --color-partner-kenvue:           #00b197;  /* 켄뷰 */
+  --color-partner-kyungdong:        #49a993;  /* 경동제약 */
+  --color-partner-person:           #dd4349;  /* 퍼슨 */
+  --color-partner-handok:           #0079c2;  /* 한독 */
+  --color-partner-optus:            #36125c;  /* 옵투스 */
+  --color-partner-youngjin:         #f7941d;  /* 영진약품 */
+  --color-partner-cmg:              #38b781;  /* CMG제약 */
+  --color-partner-bukwang:          #7cbe28;  /* 부광약품 */
+  --color-partner-huons:            #185bae;  /* 휴온스 */
+  --color-partner-mothers:          #e5006e;  /* 마더스 */
+  --color-partner-kolon:            #e81c28;  /* 코오롱제약 */
+  --color-partner-pharmaresearch:   #3dae2b;  /* 파마리서치 */
+  --color-partner-daewon:           #e4032e;  /* 대원제약 */
+  --color-partner-sk-chemical:      #ea002c;  /* SK케미칼 */
+  --color-partner-iksu:             #e60012;  /* 익수제약 */
+  --color-partner-yuyu:             #004a97;  /* 유유제약 */
+  --color-partner-ildong-foodis:    #e60021;  /* 일동후디스 */
+  --color-partner-nutri:            #076d3a;  /* 뉴트리 */
+  --color-partner-hyundai:          #005b69;  /* 현대약품 */
+  --color-partner-alice-lab:        #004079;  /* 앨리스랩 */
+  --color-partner-hanpung:          #2e3092;  /* 한풍제약 */
+
+
+  /* ===========================================================
+   * 12. TYPOGRAPHY — FONT FAMILY
+   * =========================================================== */
+  --font-family-default: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+  /* Editorial sans for campaign / marquee use (REVION℞ home).
+   * The Inter web font must be loaded by the consuming page;
+   * the stack falls back to system sans if unavailable. */
+  --font-family-marquee: "Inter", "Plus Jakarta Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+
+
+  /* ===========================================================
+   * 13. TYPOGRAPHY — TEXT STYLES (Web variant)
+   * Shorthand: <weight> <size>/<line-height> <family>
+   * Use via `font: var(--font-h2);`
+   * =========================================================== */
+
+  /* --- Display --- */
+  --font-display-1: 700 56px/72px var(--font-family-default);
+  --font-display-2: 700 48px/64px var(--font-family-default);
+  --font-display-3: 700 40px/52px var(--font-family-default);
+  --font-display-4: 700 36px/48px var(--font-family-default);
+  --font-display-5: 700 32px/42px var(--font-family-default);
+  --font-display-6: 700 28px/38px var(--font-family-default);
+
+  /* --- Desktop (large headline used across web components) --- */
+  --font-desktop-h1: 600 38px/46px var(--font-family-default);
+
+  /* --- Headline --- */
+  --font-h1:    600 24px/32px var(--font-family-default);
+  --font-h1-b:  700 24px/32px var(--font-family-default);
+  --font-h2:    600 20px/28px var(--font-family-default);
+  --font-h2-b:  700 20px/28px var(--font-family-default);
+  --font-h3:    600 18px/26px var(--font-family-default);
+  --font-h3-b:  700 18px/26px var(--font-family-default);
+  --font-h4:    600 16px/24px var(--font-family-default);
+  --font-h4-b:  700 16px/24px var(--font-family-default);
+  --font-h5:    600 14px/20px var(--font-family-default);
+  --font-h6:    600 12px/16px var(--font-family-default);
+
+  /* --- B1 list-item title (SemiBold variant) --- */
+  --font-b1-title-large: 600 20px/24px var(--font-family-default);
+
+  /* --- Body --- */
+  --font-b1:  400 18px/26px var(--font-family-default);
+  --font-b2:  400 16px/24px var(--font-family-default);
+  --font-b3:  400 14px/20px var(--font-family-default);
+  --font-b4:  500 13px/18px var(--font-family-default);
+  --font-b5:  400 12px/16px var(--font-family-default);
+  --font-b6:  400 10px/14px var(--font-family-default);
+
+  /* --- Caption --- */
+  --font-caption: 500 11px/16px var(--font-family-default);
+
+
+  /* ===========================================================
+   * 14. TYPOGRAPHY — TEXT STYLES (iOS variant)
+   * iOS sizes are +1pt larger than the Web counterparts.
+   * =========================================================== */
+  --font-ios-h1:        600 24px/32px var(--font-family-default);
+  --font-ios-h2:        600 25px/31px var(--font-family-default);
+  --font-ios-h3:        600 21px/28px var(--font-family-default);
+  --font-ios-h4:        600 19px/26px var(--font-family-default);
+  --font-ios-h5:        600 17px/24px var(--font-family-default);
+  --font-ios-h6:        600 15px/20px var(--font-family-default);
+  --font-ios-h7:        600 13px/16px var(--font-family-default);
+  --font-ios-b1:        400 19px/26px var(--font-family-default);
+  --font-ios-b2:        400 17px/24px var(--font-family-default);
+  --font-ios-b3:        400 15px/20px var(--font-family-default);
+  --font-ios-b4:        400 13px/16px var(--font-family-default);
+  --font-ios-caption:   500 12px/14px var(--font-family-default);
+
+
+  /* ===========================================================
+   * 15. SPACE
+   * Component-level (XS/SM) discovered in usage,
+   * plus layout-level tokens added for the REVION rx home rebuild.
+   * =========================================================== */
+  --space-padding-xs:    8px;
+  --space-padding-sm:    12px;
+  --space-margin-xs:     8px;
+
+  /* Layout-level — section rhythm */
+  --space-section-y:     80px;   /* vertical padding per section */
+  --space-container-x:   24px;   /* outer container side padding */
+  --space-gap-md:        16px;   /* card/element gap, medium */
+  --space-gap-lg:        24px;   /* card/element gap, large */
+  --max-width-content:   1280px; /* max content width */
+  --max-width-showcase:  1600px; /* editorial/showcase max width (REVION℞ best-seller / instagram) */
+  --space-section-y-lg:  120px;  /* extra-roomy section rhythm for editorial blocks */
+
+
+  /* ===========================================================
+   * 16. BORDER RADIUS
+   * =========================================================== */
+  --radius-sm:   4px;
+  --radius-md:   12px;   /* product card / button group */
+  --radius-lg:   20px;   /* hero image / large media */
+  --radius-pill: 999px;  /* circular / pill shapes (dots, icons) */
+
+
+  /* ===========================================================
+   * 17. SHADOW
+   * Multi-layer drop shadows. Alpha values mirror Figma hex8 inputs.
+   * =========================================================== */
+  --shadow-secondary:
+    0 9px 28px 8px rgba(0, 0, 0, 0.05),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0   rgba(0, 0, 0, 0.08);
+  --shadow-switch-handle: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  --shadow-on-gray-200:   0 1px 4px 0 rgba(0, 0, 0, 0.06);
+  /* For text rendered over photographic images — gives legibility */
+  --shadow-text-overlay:  0 2px 8px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — VIVION rx</title>
+  <meta name="description" content="VIVION rx 전 제품 — 약국 단독 판매 회복 케어" />
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <div class="notice-strip" data-notice role="region" aria-label="공지">
+    <div class="container notice-strip__inner">
+      <span class="notice-strip__badge" aria-hidden="true">N</span>
+      <p class="notice-strip__text">지금 가입하고 첫구매 혜택 받아가세요!</p>
+      <button class="notice-strip__close" type="button" data-notice-close aria-label="공지 닫기">×</button>
+    </div>
+  </div>
+
+  <header class="site-header" data-section="1-header">
+    <div class="container site-header__inner">
+      <nav class="site-nav site-nav--primary" aria-label="주요 메뉴">
+        <ul class="site-nav__list">
+          <li><a href="./about.html" class="site-nav__link">ABOUT</a></li>
+          <li><a href="./shop.html" class="site-nav__link site-nav__link--active">SHOP</a></li>
+          <li><a href="./pharmacy.html" class="site-nav__link">PHARMACY</a></li>
+          <li><a href="./event.html" class="site-nav__link">EVENT</a></li>
+          <li><a href="./community.html" class="site-nav__link">COMMUNITY</a></li>
+        </ul>
+      </nav>
+      <a class="site-header__logo" href="./index.html" aria-label="VIVION rx 홈">
+        <span class="site-header__logo-text">VIVION℞</span>
+      </a>
+      <div class="site-header__util">
+        <a href="#login" class="site-header__util-link">LOGIN</a>
+        <a href="#join" class="site-header__util-link">JOIN</a>
+        <a href="#cart" class="site-header__util-cart" aria-label="장바구니">
+          <svg class="site-header__util-cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 7h12l-1.2 11.4a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L6 7Z" />
+            <path d="M9 7V5a3 3 0 1 1 6 0v2" />
+          </svg>
+          <span class="site-header__util-cart-count">Cart <em data-cart-count>0</em></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-hero__overline">SHOP</p>
+        <h1 class="page-hero__title">All Products</h1>
+        <p class="page-hero__desc">VIVION℞ 전 제품 — 약국 단독 판매</p>
+      </div>
+    </section>
+
+    <!-- Category filter -->
+    <nav class="shop-filter" aria-label="카테고리 필터">
+      <div class="container">
+        <ul class="shop-filter__list">
+          <li><a href="#all"   class="shop-filter__chip shop-filter__chip--active">ALL</a></li>
+          <li><a href="#new"   class="shop-filter__chip">NEW</a></li>
+          <li><a href="#best"  class="shop-filter__chip">BEST</a></li>
+          <li><a href="#cream" class="shop-filter__chip">Cream</a></li>
+          <li><a href="#mask"  class="shop-filter__chip">Mask</a></li>
+          <li><a href="#sun"   class="shop-filter__chip">Sun Care</a></li>
+          <li><a href="#set"   class="shop-filter__chip">Gift Set</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Full product grid -->
+    <section class="product-grid product-grid--best">
+      <ol class="product-grid__items">
+        <li class="product-card">
+          <a href="#rejuvenating-cream" class="product-card__link">
+            <div class="product-card__media"><img src="./images/product-cream.png" alt="Rejuvenating Cream" class="product-card__image" /></div>
+            <div class="product-card__body">
+              <span class="badge badge--best">BEST</span>
+              <h3 class="product-card__name">VIVION rx PDRN EGF Origin Rejuvenating Cream</h3>
+              <ul class="product-card__tags"><li>리쥬비네이팅</li><li>저자극</li><li>약국 단독 판매</li></ul>
+              <p class="product-card__price">
+                <span class="product-card__discount">20%</span>
+                <span class="product-card__original">38,000원</span>
+                <span class="product-card__sale">30,400원</span>
+              </p>
+            </div>
+          </a>
+        </li>
+        <li class="product-card">
+          <a href="#rejuvenating-mask" class="product-card__link">
+            <div class="product-card__media"><img src="./images/product-mask.png" alt="Rejuvenating Mask" class="product-card__image" /></div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">VIVION rx PDRN EGF Origin Rejuvenating Mask</h3>
+              <ul class="product-card__tags"><li>5겹 코튼 시트</li><li>PDRN 1,200ppm</li><li>약국 단독 판매</li></ul>
+              <p class="product-card__price">
+                <span class="product-card__discount">20%</span>
+                <span class="product-card__original">32,000원</span>
+                <span class="product-card__sale">25,600원</span>
+              </p>
+            </div>
+          </a>
+        </li>
+        <li class="product-card">
+          <a href="#rejuvenating-suncream" class="product-card__link">
+            <div class="product-card__media"><img src="./images/product-suncream.png" alt="Sun Cream" class="product-card__image" /></div>
+            <div class="product-card__body">
+              <span class="badge badge--new">NEW</span>
+              <h3 class="product-card__name">VIVION rx PDRN EGF Origin Sun Cream</h3>
+              <ul class="product-card__tags"><li>SPF50+ PA++++</li><li>데일리</li><li>약국 단독 판매</li></ul>
+              <p class="product-card__price">
+                <span class="product-card__discount">20%</span>
+                <span class="product-card__original">26,000원</span>
+                <span class="product-card__sale">20,800원</span>
+              </p>
+            </div>
+          </a>
+        </li>
+        <li class="product-card">
+          <a href="#signature-gift-set" class="product-card__link">
+            <div class="product-card__media"><img src="./images/product-giftset.png" alt="Signature Gift Set" class="product-card__image" /></div>
+            <div class="product-card__body">
+              <span class="badge badge--gift">GIFT</span>
+              <h3 class="product-card__name">VIVION rx Signature Gift Set</h3>
+              <ul class="product-card__tags"><li>3종 세트</li><li>쇼핑백 증정</li><li>약국 단독 판매</li><li>재구매</li></ul>
+              <p class="product-card__price">
+                <span class="product-card__discount">20%</span>
+                <span class="product-card__original">55,000원</span>
+                <span class="product-card__sale">44,000원</span>
+              </p>
+            </div>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__col"><h3 class="site-footer__heading">VIVION℞</h3><p class="site-footer__copy">약사가 만든 회복 케어</p></div>
+      <div class="site-footer__col"><h3 class="site-footer__heading">고객센터</h3><ul class="site-footer__list"><li>Tel. 000-0000-0000</li><li>운영시간 10:00–18:00</li><li>토·일·공휴일 휴무</li></ul></div>
+      <div class="site-footer__col"><h3 class="site-footer__heading">회사 정보</h3><ul class="site-footer__list"><li>상호: (주)바로팜</li><li>사업자등록번호: 000-00-00000</li><li>통신판매업: 제0000-서울-0000호</li><li>주소: 서울특별시</li></ul></div>
+      <div class="site-footer__col"><h3 class="site-footer__heading">FOLLOW</h3><ul class="site-footer__list site-footer__list--row"><li><a href="#">IG</a></li><li><a href="#">FB</a></li><li><a href="#">BLOG</a></li><li><a href="#">KAKAO</a></li><li><a href="#">YT</a></li></ul></div>
+    </div>
+    <div class="site-footer__legal"><small>© 2026 VIVION℞. All rights reserved.</small></div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>

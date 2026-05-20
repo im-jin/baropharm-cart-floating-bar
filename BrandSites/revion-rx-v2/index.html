@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REVION℞ · Pharmacy-prescribed Recovery</title>
+  <meta name="description" content="REVION℞ — naturally effective, rooted in science. 약사가 처방한 PDRN × EGF 회복 케어." />
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" />
+</head>
+<body data-page="home-v2">
+
+
+  <!-- ============================================================
+       Top Notice — scrolling marquee strip
+       ============================================================ -->
+  <div class="rev-notice" data-notice>
+    <div class="rev-notice__track" aria-hidden="true">
+      <span class="rev-notice__item">FREE SHIPPING ON ORDERS OVER 50,000원</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">BECOME A LOYALTY MEMBER · JOIN FOR FREE</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">신규 회원 적립금 5,000원</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">PHARMACY-PRESCRIBED RECOVERY · REVION℞</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">FREE SHIPPING ON ORDERS OVER 50,000원</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">BECOME A LOYALTY MEMBER · JOIN FOR FREE</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">신규 회원 적립금 5,000원</span>
+      <span class="rev-notice__sep">✦</span>
+      <span class="rev-notice__item">PHARMACY-PRESCRIBED RECOVERY · REVION℞</span>
+      <span class="rev-notice__sep">✦</span>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       Sticky Header — logo center, hamburger + nav left, icons right
+       ============================================================ -->
+  <header class="rev-header" data-header>
+    <div class="rev-header__inner">
+
+      <div class="rev-header__left">
+        <button class="rev-header__icon-btn" type="button" aria-label="메뉴 열기" data-menu-toggle>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+            <line x1="3" y1="7" x2="21" y2="7"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="17" x2="21" y2="17"/>
+          </svg>
+        </button>
+        <nav class="rev-header__nav" aria-label="주요 메뉴">
+          <a href="./about.html" class="rev-header__link">ABOUT</a>
+          <a href="./shop.html" class="rev-header__link">SHOP</a>
+          <a href="./pharmacy.html" class="rev-header__link">PHARMACY</a>
+          <a href="./event.html" class="rev-header__link">EVENT</a>
+          <a href="./community.html" class="rev-header__link">COMMUNITY</a>
+        </nav>
+      </div>
+
+      <a class="rev-header__logo" href="./index.html" aria-label="REVION℞ home">
+        <img src="./images/logo.svg" alt="REVION℞" class="rev-header__logo-img"/>
+      </a>
+
+      <div class="rev-header__right">
+        <button class="rev-header__icon-btn" type="button" aria-label="검색">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <a href="#account" class="rev-header__icon-btn" aria-label="내 계정">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="#wishlist" class="rev-header__icon-btn" aria-label="위시리스트">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </a>
+        <a href="#cart" class="rev-header__icon-btn rev-header__cart" aria-label="장바구니">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7h12l-1.2 11.4a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L6 7Z"/>
+            <path d="M9 7V5a3 3 0 1 1 6 0v2"/>
+          </svg>
+          <em class="rev-header__cart-count" data-cart-count>0</em>
+        </a>
+        <span class="rev-header__lang">KR / EN</span>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ============================================================
+         Hero — full-bleed image carousel (3 slides, auto-rotate)
+         ============================================================ -->
+    <section class="rev-hero" aria-label="브랜드 히어로">
+      <div class="rev-hero__track" data-carousel="hero">
+        <article class="rev-hero__slide">
+          <img src="./images/hero-1.png" alt="" class="rev-hero__image"/>
+          <div class="rev-hero__copy">
+            <p class="rev-hero__eyebrow">REVION℞ &nbsp;·&nbsp; ORIGIN RECOVERY</p>
+            <h1 class="rev-hero__title">Curated for Everyday Recovery<br/>PDRNx + EGF Signature Set</h1>
+            <p class="rev-hero__desc">Designed by pharmacists — PDRN 1,200ppm × EGF Cell Active for daily recovery.</p>
+            <a href="./product.html#rejuvenating-cream" class="rev-hero__cta">SHOP NOW &nbsp;→</a>
+          </div>
+        </article>
+        <article class="rev-hero__slide">
+          <img src="./images/hero-2.png" alt="" class="rev-hero__image"/>
+          <div class="rev-hero__copy">
+            <p class="rev-hero__eyebrow">SIGNATURE GIFT SET</p>
+            <h1 class="rev-hero__title">A Gift for<br/>Daily Recovery</h1>
+            <p class="rev-hero__desc">Cream · Mask · Sunscreen — the signature 3-piece gift set.</p>
+            <a href="./product.html#signature-gift-set" class="rev-hero__cta">SHOP NOW &nbsp;→</a>
+          </div>
+        </article>
+        <article class="rev-hero__slide">
+          <img src="./images/hero-3.png" alt="" class="rev-hero__image"/>
+          <div class="rev-hero__copy">
+            <p class="rev-hero__eyebrow">DAILY DEFENSE</p>
+            <h1 class="rev-hero__title">Light Protection,<br/>Everyday Care</h1>
+            <p class="rev-hero__desc">SPF50+ PA++++ — lightweight daily sun care that never feels heavy.</p>
+            <a href="./product.html#rejuvenating-suncream" class="rev-hero__cta">SHOP NOW &nbsp;→</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="rev-hero__dots" data-carousel-dots="hero" aria-hidden="true">
+        <button class="rev-hero__dot is-active" type="button" aria-label="1"></button>
+        <button class="rev-hero__dot" type="button" aria-label="2"></button>
+        <button class="rev-hero__dot" type="button" aria-label="3"></button>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         Enhance — 3-col full-bleed feature (0 gap, unified band)
+         ============================================================ -->
+    <section class="rev-features" aria-label="브랜드 약속">
+      <header class="rev-features__head">
+        <p class="rev-features__eyebrow">REVION℞ ORIGIN</p>
+        <h2 class="rev-features__title">enhance your <em>skin's barrier</em>.</h2>
+      </header>
+      <div class="rev-features__grid">
+        <a href="./about.html#pdrn" class="rev-feature">
+          <img class="rev-feature__image" src="./images/pillar-1.png" alt=""/>
+          <div class="rev-feature__overlay">
+            <p class="rev-feature__num">№ 01</p>
+            <h3 class="rev-feature__title-card">Skin <em>Barrier</em></h3>
+            <p class="rev-feature__desc">PDRN 1,200ppm으로 설계한 회복의 시작점</p>
+          </div>
+        </a>
+        <a href="./about.html#egf" class="rev-feature">
+          <img class="rev-feature__image" src="./images/pillar-2.png" alt=""/>
+          <div class="rev-feature__overlay">
+            <p class="rev-feature__num">№ 02</p>
+            <h3 class="rev-feature__title-card">EGF <em>Philosophy</em></h3>
+            <p class="rev-feature__desc">셀 액티브로 완성한 약사의 처방 철학</p>
+          </div>
+        </a>
+        <a href="./about.html#pharmacy" class="rev-feature">
+          <img class="rev-feature__image" src="./images/pillar-3.png" alt=""/>
+          <div class="rev-feature__overlay">
+            <p class="rev-feature__num">№ 03</p>
+            <h3 class="rev-feature__title-card">Pharmacy <em>Exclusive</em></h3>
+            <p class="rev-feature__desc">전국 약국 단독, 약사가 직접 추천하는 셀렉션</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         Shop by Keywords / Products — full-bleed flush grid
+         ============================================================ -->
+    <section class="rev-products" aria-labelledby="products-heading">
+      <div class="rev-products__bar">
+        <h2 class="rev-products__title" id="products-heading">Shop by Keywords</h2>
+        <ul class="rev-products__chips">
+          <li><a href="#" class="rev-chip is-active">#bestsellers</a></li>
+          <li><a href="#" class="rev-chip">#trending</a></li>
+          <li><a href="#" class="rev-chip">#daily</a></li>
+          <li><a href="#" class="rev-chip">#recovery</a></li>
+        </ul>
+      </div>
+
+      <ol class="rev-products__grid">
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Signature Gift Set</h3>
+            <p class="rev-product__sub">PDRN × EGF Triple Recovery</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">55,000</span>
+              <span class="rev-product__sale">44,000</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#signature-gift-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-1.png" alt="REVION rx Signature Gift Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-1.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Daily Care Set</h3>
+            <p class="rev-product__sub">PDRN × EGF Daily Recovery</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">45,000</span>
+              <span class="rev-product__sale">36,000</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#daily-care-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-2.png" alt="REVION rx Daily Care Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-2.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Night Care Set</h3>
+            <p class="rev-product__sub">Intensive Recovery Mask</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">42,000</span>
+              <span class="rev-product__sale">33,600</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#night-care-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-3.png" alt="REVION rx Night Care Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-3.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Sun Cream 3 Set</h3>
+            <p class="rev-product__sub">SPF50+ PA++++ Daily Defense</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">39,000</span>
+              <span class="rev-product__sale">31,200</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#sun-cream-3-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-4.png" alt="REVION rx Sun Cream 3 Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-4.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+      </ol>
+    </section>
+
+
+    <!-- ============================================================
+         Video band — left text / right video frame (contained)
+         ============================================================ -->
+    <section class="rev-video" aria-label="브랜드 영상">
+      <div class="rev-video__inner">
+        <div class="rev-video__copy">
+          <h2 class="rev-video__title">naturally <em>effective</em>,<br/>for every <em>mood</em> and <em>moment</em></h2>
+          <p class="rev-video__desc">약사가 직접 설계한 회복 솔루션 — PDRN과 EGF의 조합으로<br/>매일의 컨디션을 가장 정직한 방법으로 되돌려 드립니다.</p>
+          <a href="./shop.html" class="rev-video__cta">Shop Now</a>
+        </div>
+        <div class="rev-video__frame">
+          <video class="rev-video__player is-active" src="./images/video-1.mp4" autoplay muted loop playsinline preload="auto"></video>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- ============================================================
+         What's New — second products band (same Shop-by-Keywords style)
+         ============================================================ -->
+    <section class="rev-products" aria-labelledby="whatsnew-heading">
+      <div class="rev-products__bar">
+        <h2 class="rev-products__title" id="whatsnew-heading">What's New</h2>
+        <ul class="rev-products__chips">
+          <li><a href="#" class="rev-chip is-active">#new</a></li>
+          <li><a href="#" class="rev-chip">#routine</a></li>
+          <li><a href="#" class="rev-chip">#night</a></li>
+          <li><a href="#" class="rev-chip">#sun</a></li>
+        </ul>
+      </div>
+
+      <ol class="rev-products__grid">
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Sun Cream 3 Set</h3>
+            <p class="rev-product__sub">SPF50+ PA++++ Daily Defense</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">39,000</span>
+              <span class="rev-product__sale">31,200</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#sun-cream-3-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-4.png" alt="REVION rx Sun Cream 3 Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-4.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Night Care Set</h3>
+            <p class="rev-product__sub">Intensive Recovery Mask</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">42,000</span>
+              <span class="rev-product__sale">33,600</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#night-care-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-3.png" alt="REVION rx Night Care Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-3.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Signature Gift Set</h3>
+            <p class="rev-product__sub">PDRN × EGF Triple Recovery</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">55,000</span>
+              <span class="rev-product__sale">44,000</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#signature-gift-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-1.png" alt="REVION rx Signature Gift Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-1.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+        <li class="rev-product">
+          <div class="rev-product__top">
+            <h3 class="rev-product__name">REVION rx Daily Care Set</h3>
+            <p class="rev-product__sub">PDRN × EGF Daily Recovery</p>
+            <p class="rev-product__price">
+              <span class="rev-product__original">45,000</span>
+              <span class="rev-product__sale">36,000</span>
+            </p>
+            <p class="rev-product__reviews">★ &nbsp;Reviews &nbsp;<span>0</span></p>
+          </div>
+          <a href="./product.html#daily-care-set" class="rev-product__media">
+            <img class="rev-product__image rev-product__image--front" src="./images/prod-2.png" alt="REVION rx Daily Care Set"/>
+            <img class="rev-product__image rev-product__image--hover" src="./images/texture-2.png" alt="" aria-hidden="true"/>
+          </a>
+          <button class="rev-product__cta" type="button">Add to Cart</button>
+        </li>
+
+      </ol>
+    </section>
+
+
+    <!-- ============================================================
+         Reviews — photo + quote grid
+         (data sourced from aroundpharm.com/kr/product/44884)
+         ============================================================ -->
+    <section class="rev-reviews" aria-label="고객 리뷰">
+      <header class="rev-reviews__head">
+        <h2 class="rev-reviews__title">Reviews</h2>
+        <div class="rev-reviews__rule"></div>
+      </header>
+
+      <ol class="rev-reviews__grid">
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-1.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">약사 추천 자사몰 오픈</h4>
+            <p class="rev-review__quote">약국에서나 파는걸 자사몰에서 구매할 수 있어서 너무 좋아요!! 주름 관리해야해서 매일 저녁 꾸준 바르고 있어요!!</p>
+            <p class="rev-review__meta">윤** &nbsp;2026/01/15</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-2.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">자사몰 오픈 감사</h4>
+            <p class="rev-review__quote">약국에서 원래 사서 썼던 사람인데.. 자사몰이 열린줄도 모르고… 자사몰 오픈으로 좋은제품 너무 감사하고 좋아요!!</p>
+            <p class="rev-review__meta">서** &nbsp;2026/01/15</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-3.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">남자 복합성 추천</h4>
+            <p class="rev-review__quote">남자이고 피부는 복합성입니다. 발림감 가볍고 끈적임 없이 흡수 잘 됩니다. 피부결이 정돈돼 보이는 느낌은 있어요.</p>
+            <p class="rev-review__meta">박** &nbsp;2026/01/15</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-4.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">튜브형 제형 좋아요</h4>
+            <p class="rev-review__quote">튜브형 용기로 사용하기 너무 간편하고 제형이 쫀쫀하면서도 수분감 가득하고 크리미해서 발림성이 좋더라고요.</p>
+            <p class="rev-review__meta">이** &nbsp;2026/01/14</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-5.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">시술 후 홈케어</h4>
+            <p class="rev-review__quote">최근 피부과 시술을 자주해서 홈케어 전용으로 구입한 크림인데 EGF에 PDRN 성분까지 들어 있어 너무 좋아요.</p>
+            <p class="rev-review__meta">박** &nbsp;2026/01/14</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-6.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">시너지 효과</h4>
+            <p class="rev-review__quote">끈적임없이 발림성이 좋아요. 단일 제품보다 복합제형인 레비온이 효과가 다르네요. PDRN 하나만 쓰는 것보다 시너지 효과가 엄청나요!!</p>
+            <p class="rev-review__meta">한** &nbsp;2026/01/13</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-7.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">PDRN 제품 중 베스트</h4>
+            <p class="rev-review__quote">기존에 PDRN 성분 제품들을 몇 번 써봤지만 솔직히 눈에 띄는 효과를 잘 못 느꼈던 편인데, 피부 회복을 도와주는 크림 찾는 분들께 추천.</p>
+            <p class="rev-review__meta">김** &nbsp;2026/01/13</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-8.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">바르자마자 편안함</h4>
+            <p class="rev-review__quote">PDRN 성분 제품은 이전에도 써봤는데, 레비온 PDRN EGF 크림은 바르자마자 피부가 편안해지는 느낌이에요.</p>
+            <p class="rev-review__meta">전** &nbsp;2026/01/12</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-9.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">민감성 속건조</h4>
+            <p class="rev-review__quote">속건조가 심한 민감성 피부라 크림을 자주 바꾸는데, 최근 구매한 것 중엔 REVIONrx PDRN EGF 크림 쓰고 너무 좋아져서.</p>
+            <p class="rev-review__meta">나** &nbsp;2026/01/12</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-10.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">탄력 + 흡수</h4>
+            <p class="rev-review__quote">PDRN만 들어간 크림보다 PDRN + EGF 크림을 쓰니까 일단 흡수도 그렇고 피부가 좀 쫀쫀해지는 느낌이에요.</p>
+            <p class="rev-review__meta">유** &nbsp;2026/01/11</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-11.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">민감성도 안심</h4>
+            <p class="rev-review__quote">피부가 확실히 촉촉해지고 탄력이 생긴 느낌이에요. 민감성 피부인 저도 안심하고 사용할 수 있답니다.</p>
+            <p class="rev-review__meta">김** &nbsp;2026/01/10</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+        <li class="rev-review">
+          <div class="rev-review__media"><img src="./images/review-12.webp" alt=""/></div>
+          <div class="rev-review__body">
+            <div class="rev-review__stars">★★★★★</div>
+            <h4 class="rev-review__title">제모 후 재생</h4>
+            <p class="rev-review__quote">페이스 제모를 받고 났는데, 확실히 재생 효과가 있는 것 같아요. 두세번 발랐는데도 효과가 바로 나타나고.</p>
+            <p class="rev-review__meta">이** &nbsp;2026/01/10</p>
+          </div>
+          <a href="./product.html#rejuvenating-cream" class="rev-review__chip">
+            <img src="./images/prod-2.png" alt=""/>
+            <span>Rejuvenating Cream</span>
+          </a>
+        </li>
+
+      </ol>
+
+      <a href="./community.html" class="rev-reviews__viewall">View All</a>
+    </section>
+
+
+    <!-- ============================================================
+         Instagram feed
+         ============================================================ -->
+    <section class="rev-instagram" aria-label="공식 인스타그램">
+      <header class="rev-section-head">
+        <p class="rev-section-head__eyebrow">INSTAGRAM</p>
+        <h2 class="rev-section-head__title">@revion_rx</h2>
+      </header>
+      <ul class="rev-instagram__grid">
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-1.png" alt=""/></a></li>
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-2.png" alt=""/></a></li>
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-3.png" alt=""/></a></li>
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-4.png" alt=""/></a></li>
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-5.png" alt=""/></a></li>
+        <li><a href="#" class="rev-instagram__tile"><img src="./images/ig-6.png" alt=""/></a></li>
+      </ul>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="rev-footer">
+    <div class="rev-footer__inner">
+
+      <div class="rev-footer__top">
+        <div class="rev-footer__brand">
+          <img class="rev-footer__logo" src="./images/logo.svg" alt="REVION℞"/>
+          <p class="rev-footer__tag">Pharmacy-prescribed recovery.</p>
+        </div>
+        <div class="rev-footer__news">
+          <p class="rev-footer__heading">NEWSLETTER</p>
+          <form class="rev-footer__form" onsubmit="event.preventDefault();">
+            <input type="email" placeholder="your@email.com" class="rev-footer__input" aria-label="이메일"/>
+            <button type="submit" class="rev-footer__submit">SUBSCRIBE &nbsp;→</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="rev-footer__cols">
+        <div class="rev-footer__col">
+          <h4>고객센터</h4>
+          <p>Tel. 000-0000-0000</p>
+          <p>운영 10:00–18:00 (점심 12:30–13:30)</p>
+          <p>토·일·공휴일 휴무</p>
+        </div>
+        <div class="rev-footer__col">
+          <h4>회사 정보</h4>
+          <p>(주)바로팜</p>
+          <p>사업자등록번호 000-00-00000</p>
+          <p>통신판매업 제0000-서울-0000호</p>
+        </div>
+        <div class="rev-footer__col">
+          <h4>SHOP</h4>
+          <p><a href="./shop.html">ALL PRODUCTS</a></p>
+          <p><a href="./pharmacy.html">PHARMACY LOCATOR</a></p>
+          <p><a href="./event.html">EVENT</a></p>
+        </div>
+        <div class="rev-footer__col">
+          <h4>FOLLOW</h4>
+          <p>INSTAGRAM &nbsp; FACEBOOK</p>
+          <p>BLOG &nbsp; KAKAO &nbsp; YOUTUBE</p>
+        </div>
+      </div>
+
+      <div class="rev-footer__legal">© 2026 REVION℞. All rights reserved.</div>
+
+    </div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
