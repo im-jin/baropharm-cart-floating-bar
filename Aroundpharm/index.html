@@ -115,34 +115,6 @@
       </ul>
     </section>
 
-    <!-- ──────── NEW: 약사 TikTok 영상 (DS 적용) ──────── -->
-    <section class="pharmacist-video">
-      <div class="pharmacist-video-head">
-        <span class="pharmacist-video-badge">
-          <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" aria-hidden="true">
-            <path d="M8 1.5l1.9 3.85 4.25.62-3.07 3 .72 4.23L8 11.2 4.2 13.2l.72-4.23-3.07-3 4.25-.62L8 1.5z"/>
-          </svg>
-          <span data-i18n="video.badge"></span>
-        </span>
-        <h2 class="pharmacist-video-title" data-i18n="video.title"></h2>
-      </div>
-      <div class="pharmacist-video-frame">
-        <video
-          class="pharmacist-video-el"
-          autoplay muted loop playsinline preload="metadata"
-          poster=""
-          aria-label="Pharmacist TikTok video">
-          <source src="products/thome-cpr/images/pharmacist-tiktok-web.m4v" type="video/mp4" />
-        </video>
-        <button class="pharmacist-video-mute" id="videoMute" aria-label="Toggle mute">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-state="muted">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/>
-          </svg>
-        </button>
-      </div>
-      <p class="pharmacist-video-caption" data-i18n="video.caption"></p>
-    </section>
-
     <!-- ──────── NEW: 3-ICON QUICK BENEFITS (DS 적용) ──────── -->
     <section class="benefits">
       <div class="benefit">
@@ -222,6 +194,35 @@
 
     <!-- ──────── 탭 콘텐츠 ──────── -->
     <section class="tab-panel is-active" role="tabpanel" data-panel="detail">
+
+      <!-- ─ 약사 TikTok 영상 (상세 탭 최상단) ─ -->
+      <section class="pharmacist-video">
+        <div class="pharmacist-video-head">
+          <span class="pharmacist-video-badge">
+            <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" aria-hidden="true">
+              <path d="M8 1.5l1.9 3.85 4.25.62-3.07 3 .72 4.23L8 11.2 4.2 13.2l.72-4.23-3.07-3 4.25-.62L8 1.5z"/>
+            </svg>
+            <span data-i18n="video.badge"></span>
+          </span>
+          <h2 class="pharmacist-video-title" data-i18n="video.title"></h2>
+        </div>
+        <div class="pharmacist-video-frame">
+          <video
+            class="pharmacist-video-el"
+            autoplay muted loop playsinline preload="metadata"
+            poster=""
+            aria-label="Pharmacist TikTok video">
+            <source src="products/thome-cpr/images/pharmacist-tiktok-web.m4v" type="video/mp4" />
+          </video>
+          <button class="pharmacist-video-mute" id="videoMute" aria-label="Toggle mute">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-state="muted">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/>
+            </svg>
+          </button>
+        </div>
+        <p class="pharmacist-video-caption" data-i18n="video.caption"></p>
+      </section>
+
       <div class="detail-modules" id="detailModules">
         <!-- 언어별 이미지 -->
       </div>

@@ -244,7 +244,7 @@ a { color: inherit; }
 
 /* ─────────── PHARMACIST TIKTOK VIDEO (NEW · DS) ─────────── */
 .pharmacist-video {
-  margin: 0 16px 24px;
+  margin: 20px 16px 24px;
   padding: 20px 16px 16px;
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg,
