@@ -1,0 +1,35 @@
+{
+  "id": "dr-melaxin-serum",
+  "brand": "Dr.Melaxin",
+  "brand_id": "dr-melaxin",
+  "key_ingredients": ["REBORNIC 10,000ppm", "Bonding Complex", "Niacinamide"],
+  "name": {
+    "ko": "닥터멜락신 칼슘 본딩 세럼",
+    "en": "Dr.Melaxin Calcium Bonding Serum",
+    "ja": "ドクターメラクシン カルシウムボンディング セラム"
+  },
+  "tagline": {
+    "ko": "Rebornic 10,000ppm · 본딩 케어 · 50ml",
+    "en": "Rebornic 10,000ppm · Bonding care · 50ml",
+    "ja": "Rebornic 10,000ppm · ボンディングケア · 50ml"
+  },
+  "price_krw": 42000,
+  "price_original_krw": 48000,
+  "discount_pct": 12,
+  "pharmacist_pick": true,
+  "rating": 4.87,
+  "review_count": 96,
+  "hero_image": "images/hero.png",
+  "thumbnails": ["images/hero.png", "images/ko/full.png"],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"]
+  },
+  "related": ["dr-melaxin-cream", "dr-melaxin-eyecream"],
+  "review_stats": {
+    "skin_type": { "combination": 48, "dry": 30, "very_dry": 12, "oily": 10 },
+    "age_group": { "twenties": 18, "thirties": 50, "forties_plus": 32 },
+    "concerns": { "elasticity": 68, "dryness": 45, "texture": 38, "brightening": 22 },
+    "region": { "seoul": 40, "gyeonggi": 24, "busan": 10, "other": 26 }
+  },
+  "reviews": []
+}

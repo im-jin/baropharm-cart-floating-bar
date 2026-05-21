@@ -6,7 +6,11 @@
     "related_empty": "Related products coming soon.",
     "get_app": "Get the Aroundpharm app",
     "cta_save": "Save",
-    "cta_shop": "Shop on Aroundpharm"
+    "cta_shop": "Shop on Aroundpharm",
+    "cta_add_to_cart": "Add to cart",
+    "cta_save_for_home": "♡ Save for later — ship to your country",
+    "about_product": "About this product",
+    "real_results": "Real results"
   },
   "tabs": {
     "detail": "Detail",
@@ -56,10 +60,53 @@
     "total_label": "Total",
     "find_pharmacy": "Find a pharmacy that carries this"
   },
+  "related": {
+    "title": "Pairs well with"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "added": "Added to cart",
+    "added_n": "Added {n} to cart",
+    "remove": "Remove",
+    "stock_title": "Nearby pharmacies",
+    "stock_sub": "Based on your location",
+    "open_now": "Open",
+    "closes_at_19": "Closes at 19:00",
+    "stock_in": "In stock",
+    "stock_partial": "Partial stock",
+    "stock_out": "Out of stock",
+    "you_are_here": "You're here",
+    "show_to_pharmacist": "Show this cart to the pharmacist",
+    "show_modal_title": "Show this screen to the pharmacist",
+    "show_modal_items": "Order",
+    "show_modal_message": "I'd like these, please",
+    "show_modal_pharmacy_label": "Pickup pharmacy",
+    "pharmacies": [
+      { "name": "Smart Pharmacy", "address": "203 Baekjegobun-ro, Songpa-gu, Seoul (Munhwa Building)", "distance": "0m", "stock": "in", "is_current": true },
+      { "name": "Gangnam Joeun Pharmacy", "address": "6 Nambusunhwan-ro 361-gil, Gangnam-gu, Seoul", "distance": "520m", "stock": "partial" },
+      { "name": "Apgujeong Onnuri Pharmacy", "address": "258 Baekjegobun-ro, Songpa-gu, Seoul (Samjeonwon Bldg 10F)", "distance": "880m", "stock": "out" }
+    ]
+  },
+  "show_pharmacist": {
+    "cta_l1": "Show this to the pharmacist",
+    "cta_sub": "Want to buy it? Tap here and show the screen to the pharmacy staff.",
+    "qty": "Quantity",
+    "give_me": "I'd like this one, please",
+    "customer_lang_label": "Customer speaks"
+  },
   "video": {
     "badge": "Pharmacist's Pick",
     "title": "Pharmacist's own recommendation",
-    "caption": "A real Korean pharmacist's first-hand review — one of the most-asked serums by visiting tourists."
+    "caption": "A real Korean pharmacist's first-hand review — one of the most-asked serums by visiting tourists.",
+    "quote": "The wrinkle care serum I recommend the most to visiting tourists.",
+    "author_name": "Kim, Pharmacist",
+    "author_role": "K-Pharmacy, Seoul"
+  },
+  "trust": {
+    "k_pharmacy": "Korean Pharmacy Authentic",
+    "trending": "Tourist Favorite"
   },
   "review": {
     "expand": "Show all",

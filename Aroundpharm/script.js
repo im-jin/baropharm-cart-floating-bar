@@ -9,9 +9,20 @@
 const SUPPORTED_LANGS = ['ko', 'en', 'zh', 'ja'];
 const FALLBACK_LANG = 'en';
 const LANG_LABEL = { ko: '한국어', en: 'EN', zh: '中文', ja: '日本語' };
+const LANG_FLAG = { ko: '한국어 🇰🇷', en: 'English 🇺🇸', zh: '中文 🇨🇳', ja: '日本語 🇯🇵' };
+
+/* 환율 (한국 → 자국통화). 실시간 아닌 데모용 근사치. */
+const FX_RATES = {
+  en: { code: 'USD', symbol: '$', per_krw: 1 / 1380 },
+  zh: { code: 'CNY', symbol: '¥', per_krw: 1 / 190 },
+  ja: { code: 'JPY', symbol: '¥', per_krw: 1 / 9.2 },
+};
 
 const params = new URLSearchParams(location.search);
-const productSlug = params.get('p') || 'thome-cpr';
+const _defaultProduct = document.body.dataset.defaultProduct || 'thome-cpr';
+const productSlug = params.get('p') || _defaultProduct;
+const _baseRaw = document.body.dataset.base || '';
+const BASE = _baseRaw ? (_baseRaw.endsWith('/') ? _baseRaw : _baseRaw + '/') : '';
 
 let _state = { sort: 'latest', photoOnly: false, product: null, strings: null, lang: 'en' };
 
@@ -43,6 +54,25 @@ function bindProduct(product, lang) {
   const pick = (obj) => (obj && obj[lang]) || (obj && obj[FALLBACK_LANG]) || '';
   const fmtKrw = (n) => (n != null ? `₩${n.toLocaleString('en-US')}` : '');
 
+  /* 브랜드 컬러 적용 — body에 data-brand-id 셋팅 → CSS 변수가 받아 처리 */
+  if (product.brand_id) {
+    document.body.setAttribute('data-brand-id', product.brand_id);
+  } else {
+    document.body.removeAttribute('data-brand-id');
+  }
+
+  /* 핵심 성분 chips */
+  const mountIngredients = document.getElementById('keyIngredients');
+  if (mountIngredients) {
+    mountIngredients.innerHTML = '';
+    (product.key_ingredients || []).forEach(label => {
+      const chip = document.createElement('span');
+      chip.className = 'key-ingredient-chip';
+      chip.textContent = label;
+      mountIngredients.appendChild(chip);
+    });
+  }
+
   document.querySelectorAll('[data-product]').forEach(el => {
     const key = el.getAttribute('data-product');
     switch (key) {
@@ -53,6 +83,18 @@ function bindProduct(product, lang) {
         el.textContent = product.discount_pct ? `${product.discount_pct}%` : '';
         break;
       case 'price': el.textContent = fmtKrw(product.price_krw); break;
+      case 'price_fx': {
+        const fx = FX_RATES[lang];
+        if (fx && product.price_krw) {
+          const v = product.price_krw * fx.per_krw;
+          const rounded = v >= 100 ? Math.round(v) : Math.round(v * 10) / 10;
+          el.textContent = `≈ ${fx.symbol}${rounded.toLocaleString('en-US')}`;
+        } else {
+          el.textContent = '';
+        }
+        break;
+      }
+      case 'name_ko': el.textContent = (product.name && product.name.ko) || ''; break;
       case 'price_original':
         el.textContent = product.price_original_krw ? fmtKrw(product.price_original_krw) : '';
         break;
@@ -66,7 +108,7 @@ function bindProduct(product, lang) {
           ? product.review_count.toLocaleString('en-US') : '0';
         break;
       case 'hero':
-        if (product.hero_image) el.setAttribute('src', `products/${product.id}/${product.hero_image}`);
+        if (product.hero_image) el.setAttribute('src', `${BASE}products/${product.id}/${product.hero_image}`);
         el.setAttribute('alt', pick(product.name));
         break;
     }
@@ -81,7 +123,7 @@ function bindProduct(product, lang) {
       t.className = 'thumb';
       if (i === 0) t.setAttribute('data-active', 'true');
       const img = document.createElement('img');
-      img.src = `products/${product.id}/${src}`;
+      img.src = `${BASE}products/${product.id}/${src}`;
       img.loading = 'lazy';
       img.alt = '';
       t.appendChild(img);
@@ -89,24 +131,88 @@ function bindProduct(product, lang) {
         strip.querySelectorAll('.thumb').forEach(x => x.removeAttribute('data-active'));
         t.setAttribute('data-active', 'true');
         const hero = document.querySelector('.hero-img');
-        if (hero) hero.setAttribute('src', `products/${product.id}/${src}`);
+        if (hero) hero.setAttribute('src', `${BASE}products/${product.id}/${src}`);
       });
       strip.appendChild(t);
     });
   }
 
-  /* Detail modules (per-language images) */
+  /* Detail-top video (video_display='detail-top') — 상세 탭 최상단 인라인 카드 */
+  const detailVideoMount = document.getElementById('detailVideo');
+  if (detailVideoMount) {
+    detailVideoMount.innerHTML = '';
+    if (product.video_display === 'detail-top' && product.pharmacist_video) {
+      const v = document.createElement('video');
+      v.className = 'detail-video-el';
+      v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true; v.controls = true;
+      v.preload = 'metadata';
+      const src = document.createElement('source');
+      src.src = `${BASE}products/${product.id}/${product.pharmacist_video}`;
+      src.type = 'video/mp4';
+      v.appendChild(src);
+      detailVideoMount.appendChild(v);
+      detailVideoMount.hidden = false;
+    } else {
+      detailVideoMount.hidden = true;
+    }
+  }
+
+  /* v1 pharmacist-video section: hide entirely if no video */
+  document.querySelectorAll('.pharmacist-video').forEach(section => {
+    if (!product.pharmacist_video) {
+      section.style.display = 'none';
+    } else {
+      // update video source to use BASE + data path (in case it was hardcoded)
+      const sourceEl = section.querySelector('.pharmacist-video-el source');
+      if (sourceEl) {
+        sourceEl.src = `${BASE}products/${product.id}/${product.pharmacist_video}`;
+        const videoEl = section.querySelector('.pharmacist-video-el');
+        if (videoEl) videoEl.load();
+      }
+    }
+  });
+
+  /* Hero media (v2): video if pharmacist_video exists, else hero image fallback */
+  const heroMedia = document.getElementById('heroMedia');
+  if (heroMedia) {
+    // remove any existing media (video or img), keep overlays
+    heroMedia.querySelectorAll('.video-hero-el, .video-hero-fallback').forEach(n => n.remove());
+    if (product.pharmacist_video) {
+      const v = document.createElement('video');
+      v.className = 'video-hero-el';
+      v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'metadata';
+      v.setAttribute('aria-label', "Pharmacist's recommendation video");
+      const src = document.createElement('source');
+      src.src = `${BASE}products/${product.id}/${product.pharmacist_video}`;
+      src.type = 'video/mp4';
+      v.appendChild(src);
+      heroMedia.prepend(v);
+    } else {
+      const img = document.createElement('img');
+      img.className = 'video-hero-fallback';
+      img.src = `${BASE}products/${product.id}/${product.hero_image}`;
+      img.alt = pick(product.name);
+      heroMedia.prepend(img);
+      // hide mute button + author overlay if no video (irrelevant for static image)
+      const muteBtn = document.getElementById('videoMute');
+      if (muteBtn) muteBtn.style.display = 'none';
+      const author = heroMedia.querySelector('.video-hero-author');
+      if (author) author.style.display = 'none';
+    }
+  }
+
+  /* Detail modules (per-language images, fallback to ko if user lang missing) */
   const mountDetail = document.getElementById('detailModules');
   if (mountDetail) {
     mountDetail.innerHTML = '';
-    const mods = (product.detail_modules && product.detail_modules[lang]) || [];
+    const mods = (product.detail_modules && (product.detail_modules[lang] || product.detail_modules.ko)) || [];
     if (mods.length === 0) {
       mountDetail.innerHTML =
         '<div class="detail-modules-placeholder">No detail images uploaded for this language yet.</div>';
     } else {
       mods.forEach(src => {
         const img = document.createElement('img');
-        img.src = `products/${product.id}/${src}`;
+        img.src = `${BASE}products/${product.id}/${src}`;
         img.loading = 'lazy';
         img.alt = '';
         mountDetail.appendChild(img);
@@ -369,6 +475,514 @@ function setupPhotoToggle() {
   });
 }
 
+/* ─── LIVE widget (라이브쇼핑 스타일 떠있는 영상) + 풀스크린 모달 ─── */
+function setupLiveWidget(product) {
+  const widget = document.getElementById('liveWidget');
+  const widgetVideo = document.getElementById('liveWidgetVideo');
+  const expandBtn = document.getElementById('liveWidgetExpand');
+  const closeBtn = document.getElementById('liveWidgetClose');
+  const modal = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const modalCloseBtn = document.getElementById('videoModalClose');
+  if (!widget || !widgetVideo) return;
+
+  if (!product.pharmacist_video) {
+    widget.hidden = true;
+    return;
+  }
+
+  const videoSrc = `${BASE}products/${product.id}/${product.pharmacist_video}`;
+  widgetVideo.src = videoSrc;
+  if (modalVideo) modalVideo.src = videoSrc;
+  widget.hidden = false;
+
+  // Try autoplay (might be blocked on first paint; user gesture will recover)
+  widgetVideo.play().catch(() => {});
+
+  function openModal() {
+    if (!modal || !modalVideo) return;
+    modal.hidden = false;
+    // sync time so modal continues from where widget was
+    try { modalVideo.currentTime = widgetVideo.currentTime; } catch (_) {}
+    modalVideo.muted = false;
+    modalVideo.play().catch(() => {});
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modal || !modalVideo) return;
+    modal.hidden = true;
+    modalVideo.pause();
+    document.body.style.overflow = '';
+  }
+
+  expandBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    widget.hidden = true;
+    widgetVideo.pause();
+  });
+  modalCloseBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+}
+
+/* ─── Related products (함께 쓰면 좋은 제품) ─── */
+async function renderRelatedProducts(product, lang) {
+  const section = document.getElementById('relatedProducts');
+  const mount = document.getElementById('relatedScroll');
+  if (!section || !mount) return;
+  if (!product.related || product.related.length === 0) {
+    section.hidden = true;
+    return;
+  }
+
+  const fmtKrw = (n) => (n != null ? `₩${n.toLocaleString('en-US')}` : '');
+  const pick = (obj) => (obj && obj[lang]) || (obj && obj.ko) || (obj && obj.en) || '';
+
+  // load each related product's data.json in parallel
+  const results = await Promise.allSettled(
+    product.related.map(slug => loadJson(`${BASE}products/${slug}/data.json`))
+  );
+
+  const cards = [];
+  results.forEach((res) => {
+    if (res.status !== 'fulfilled') return;
+    const p = res.value;
+    const card = document.createElement('a');
+    card.className = 'related-card';
+    const u = new URL(location.href);
+    u.searchParams.set('p', p.id);
+    card.href = u.toString();
+
+    card.innerHTML = `
+      <div class="related-card-image">
+        <img src="${BASE}products/${p.id}/${p.hero_image}" loading="lazy" alt="" />
+      </div>
+      <div class="related-card-body">
+        <div class="related-card-brand">${p.brand || ''}</div>
+        <div class="related-card-name"></div>
+        <div class="related-card-price">
+          ${p.discount_pct ? `<span class="related-card-discount">${p.discount_pct}%</span>` : ''}
+          <span class="related-card-current">${fmtKrw(p.price_krw)}</span>
+          ${p.price_original_krw ? `<span class="related-card-original">${fmtKrw(p.price_original_krw)}</span>` : ''}
+        </div>
+      </div>
+    `;
+    card.querySelector('.related-card-name').textContent = pick(p.name);
+    cards.push(card);
+  });
+
+  if (cards.length === 0) {
+    section.hidden = true;
+    return;
+  }
+  mount.innerHTML = '';
+  cards.forEach(c => mount.appendChild(c));
+  section.hidden = false;
+}
+
+/* ─── Cart manager (localStorage) ─── */
+const CART_KEY = 'ap_cart_v2';
+
+function cartRead() {
+  try {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || { items: [] };
+  } catch (_) { return { items: [] }; }
+}
+function cartWrite(c) {
+  localStorage.setItem(CART_KEY, JSON.stringify(c));
+  cartUpdateBadge();
+}
+function cartAdd(slug) {
+  const c = cartRead();
+  const it = c.items.find(x => x.slug === slug);
+  if (it) it.qty += 1; else c.items.push({ slug, qty: 1 });
+  cartWrite(c);
+}
+function cartUpdateQty(slug, qty) {
+  const c = cartRead();
+  const it = c.items.find(x => x.slug === slug);
+  if (!it) return;
+  if (qty <= 0) c.items = c.items.filter(x => x.slug !== slug);
+  else it.qty = qty;
+  cartWrite(c);
+}
+function cartRemove(slug) {
+  const c = cartRead();
+  c.items = c.items.filter(x => x.slug !== slug);
+  cartWrite(c);
+}
+function cartTotalCount() {
+  return cartRead().items.reduce((s, x) => s + x.qty, 0);
+}
+function cartUpdateBadge() {
+  const badge = document.getElementById('cartBadge');
+  if (!badge) return;
+  const n = cartTotalCount();
+  badge.textContent = n;
+  badge.hidden = n === 0;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) { alert(msg); return; }
+  t.textContent = msg;
+  t.hidden = false;
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => { t.hidden = true; }, 1800);
+}
+
+/* ─── Cart modal render ─── */
+async function renderCartModal(strings, lang) {
+  const cart = cartRead();
+  const list = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  const total = document.getElementById('cartTotal');
+  const totalAmount = document.getElementById('cartTotalAmount');
+  const stock = document.getElementById('cartStock');
+  const foot = document.getElementById('cartFoot');
+  if (!list) return;
+
+  list.innerHTML = '';
+  const items = cart.items || [];
+
+  if (items.length === 0) {
+    empty.hidden = false;
+    total.hidden = true;
+    stock.hidden = true;
+    foot.hidden = true;
+    return;
+  }
+  empty.hidden = true;
+
+  // fetch product info for each item in parallel
+  const products = await Promise.all(items.map(async (it) => {
+    try {
+      const p = await loadJson(`${BASE}products/${it.slug}/data.json`);
+      return { ...it, product: p };
+    } catch (_) { return null; }
+  }));
+
+  const pick = (obj) => (obj && obj[lang]) || (obj && obj.ko) || (obj && obj.en) || '';
+  const fmtKrw = (n) => (n != null ? `₩${n.toLocaleString('en-US')}` : '');
+
+  let sum = 0;
+  products.forEach(entry => {
+    if (!entry || !entry.product) return;
+    const p = entry.product;
+    const line = p.price_krw * entry.qty;
+    sum += line;
+
+    const li = document.createElement('li');
+    li.className = 'cart-item';
+    li.innerHTML = `
+      <div class="cart-item-thumb">
+        <img src="${BASE}products/${p.id}/${p.hero_image}" loading="lazy" alt="" />
+      </div>
+      <div class="cart-item-meta">
+        <div class="cart-item-brand">${p.brand || ''}</div>
+        <div class="cart-item-name"></div>
+        <div class="cart-item-qty-row">
+          <div class="cart-qty-stepper">
+            <button data-qty-dec="${p.id}" aria-label="Decrease">−</button>
+            <span class="cart-qty-val">${entry.qty}</span>
+            <button data-qty-inc="${p.id}" aria-label="Increase">＋</button>
+          </div>
+          <button class="cart-item-remove" data-cart-remove="${p.id}">${strings.cart?.remove || '삭제'}</button>
+        </div>
+      </div>
+      <div class="cart-item-price">${fmtKrw(line)}</div>
+    `;
+    li.querySelector('.cart-item-name').textContent = pick(p.name);
+    list.appendChild(li);
+  });
+
+  totalAmount.textContent = fmtKrw(sum);
+  total.hidden = false;
+  stock.hidden = false;
+  foot.hidden = false;
+
+  /* 주변 약국 리스트 렌더 (i18n strings.cart.pharmacies) */
+  const stockList = document.getElementById('cartStockList');
+  if (stockList) {
+    stockList.innerHTML = '';
+    const pharmacies = (strings.cart && strings.cart.pharmacies) || [];
+    pharmacies.forEach(ph => {
+      const li = document.createElement('li');
+      li.className = 'cart-stock-item';
+
+      const stockKey = ph.stock === 'in' ? 'stock_in'
+                      : ph.stock === 'partial' ? 'stock_partial'
+                      : 'stock_out';
+      const stockText = (strings.cart && strings.cart[stockKey]) || '';
+      const stockClass = `cart-stock-status--${ph.stock}`;
+      const youHereText = (strings.cart && strings.cart.you_are_here) || '';
+
+      li.innerHTML = `
+        <span class="cart-stock-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="14" height="14">
+            <circle cx="8" cy="8" r="8" fill="#3B82F6"/>
+            <path d="M8 4v8M4 8h8" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+        <div class="cart-stock-info">
+          <div class="cart-stock-row1">
+            <span class="cart-stock-name"></span>
+            ${ph.is_current ? `<span class="cart-stock-here-badge"></span>` : ''}
+          </div>
+          <div class="cart-stock-row2">
+            <span class="cart-stock-status-open">${(strings.cart && strings.cart.open_now) || ''}</span>
+            <span class="cart-stock-sep">·</span>
+            <span>${(strings.cart && strings.cart.closes_at_19) || ''}</span>
+          </div>
+          <div class="cart-stock-row3">
+            <strong>${ph.distance || ''}</strong>
+            <span class="cart-stock-sep">·</span>
+            <span class="cart-stock-addr"></span>
+          </div>
+          <div class="cart-stock-row4">
+            <span class="cart-stock-status-badge ${stockClass}">${stockText}</span>
+          </div>
+        </div>
+      `;
+      li.querySelector('.cart-stock-name').textContent = ph.name || '';
+      li.querySelector('.cart-stock-addr').textContent = ph.address || '';
+      if (ph.is_current) {
+        li.querySelector('.cart-stock-here-badge').textContent = youHereText;
+      }
+      stockList.appendChild(li);
+    });
+  }
+
+  // wire qty/remove buttons
+  list.querySelectorAll('[data-qty-inc]').forEach(b => b.addEventListener('click', () => {
+    const slug = b.dataset.qtyInc;
+    const c = cartRead();
+    const it = c.items.find(x => x.slug === slug);
+    if (it) { it.qty += 1; cartWrite(c); renderCartModal(strings, lang); }
+  }));
+  list.querySelectorAll('[data-qty-dec]').forEach(b => b.addEventListener('click', () => {
+    const slug = b.dataset.qtyDec;
+    const c = cartRead();
+    const it = c.items.find(x => x.slug === slug);
+    if (it) {
+      it.qty -= 1;
+      if (it.qty <= 0) c.items = c.items.filter(x => x.slug !== slug);
+      cartWrite(c); renderCartModal(strings, lang);
+    }
+  }));
+  list.querySelectorAll('[data-cart-remove]').forEach(b => b.addEventListener('click', () => {
+    cartRemove(b.dataset.cartRemove);
+    renderCartModal(strings, lang);
+  }));
+}
+
+function setupCart(strings, lang) {
+  const cartBtn = document.getElementById('cartBtn');
+  const modal = document.getElementById('cartModal');
+  const backdrop = document.getElementById('cartModalBackdrop');
+  const closeBtn = document.getElementById('cartModalClose');
+
+  cartUpdateBadge();
+
+  // Sticky qty stepper
+  const stickyQtyVal = document.getElementById('stickyQtyVal');
+  let stickyQty = 1;
+  function updateStickyQty() {
+    if (stickyQtyVal) stickyQtyVal.textContent = stickyQty;
+    document.querySelectorAll('[data-sticky-qty="dec"]').forEach(b => b.disabled = stickyQty <= 1);
+  }
+  document.querySelectorAll('[data-sticky-qty]').forEach(b => {
+    b.addEventListener('click', () => {
+      if (b.dataset.stickyQty === 'inc') stickyQty++;
+      else if (b.dataset.stickyQty === 'dec' && stickyQty > 1) stickyQty--;
+      updateStickyQty();
+    });
+  });
+  updateStickyQty();
+
+  // 담기 (add to cart) — sticky qty 만큼
+  document.querySelectorAll('[data-action="addToCart"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const slug = _state.product?.id;
+      if (!slug) return;
+      const c = cartRead();
+      const it = c.items.find(x => x.slug === slug);
+      if (it) it.qty += stickyQty; else c.items.push({ slug, qty: stickyQty });
+      cartWrite(c);
+      const msg = (strings.cart?.added_n || '장바구니에 {n}개 담았어요').replace('{n}', stickyQty);
+      showToast(msg);
+      stickyQty = 1;
+      updateStickyQty();
+    });
+  });
+
+  // Cart icon → open modal
+  if (cartBtn) cartBtn.addEventListener('click', () => {
+    if (!modal) return;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    renderCartModal(strings, lang);
+  });
+
+  function close() {
+    if (modal) modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal && !modal.hidden) close();
+  });
+
+  // Cart → 약사에게 보여주기 멀티 모달
+  document.querySelectorAll('[data-action="showCartToPharmacist"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openShowCartModal();
+    });
+  });
+
+  // 약사 멀티 모달 닫기
+  const showCartModal = document.getElementById('showCartModal');
+  const showCartClose = document.getElementById('showCartModalClose');
+  showCartClose?.addEventListener('click', () => {
+    if (showCartModal) showCartModal.hidden = true;
+    document.body.style.overflow = '';
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && showCartModal && !showCartModal.hidden) {
+      showCartModal.hidden = true;
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+/* 약사 멀티 모달 열기 — 카트 내용 + 총액 + 약국 정보 */
+async function openShowCartModal() {
+  const modal = document.getElementById('showCartModal');
+  const list = document.getElementById('showCartItems');
+  const totalAmount = document.getElementById('showCartTotalAmount');
+  const pharmacyNameEl = document.getElementById('showCartPharmacyName');
+  if (!modal || !list) return;
+
+  // 현재 약국 (is_current = true) i18n 데이터로 표시
+  if (pharmacyNameEl && _state.strings?.cart?.pharmacies) {
+    const current = _state.strings.cart.pharmacies.find(p => p.is_current) || _state.strings.cart.pharmacies[0];
+    if (current) {
+      pharmacyNameEl.textContent = `${current.name} · ${current.distance || ''}`;
+    }
+  }
+
+  const cart = cartRead();
+  const items = cart.items || [];
+  if (items.length === 0) return;
+
+  const products = await Promise.all(items.map(async (it) => {
+    try {
+      const p = await loadJson(`${BASE}products/${it.slug}/data.json`);
+      return { ...it, product: p };
+    } catch (_) { return null; }
+  }));
+
+  const pickKo = (obj) => (obj && obj.ko) || (obj && obj.en) || '';
+  const fmtKrw = (n) => (n != null ? `₩${n.toLocaleString('en-US')}` : '');
+
+  let sum = 0;
+  list.innerHTML = '';
+  products.forEach(entry => {
+    if (!entry || !entry.product) return;
+    const p = entry.product;
+    const line = p.price_krw * entry.qty;
+    sum += line;
+    const li = document.createElement('li');
+    li.className = 'show-cart-item';
+    li.innerHTML = `
+      <div class="show-cart-item-thumb">
+        <img src="${BASE}products/${p.id}/${p.hero_image}" loading="lazy" alt="" />
+      </div>
+      <div>
+        <div class="show-cart-item-name"></div>
+        <div class="show-cart-item-price">${fmtKrw(p.price_krw)}</div>
+      </div>
+      <div class="show-cart-item-qty">×${entry.qty}</div>
+    `;
+    li.querySelector('.show-cart-item-name').textContent = pickKo(p.name);
+    list.appendChild(li);
+  });
+
+  totalAmount.textContent = fmtKrw(sum);
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+
+  // 햅틱 (있으면)
+  if (navigator.vibrate) navigator.vibrate(50);
+}
+
+/* ─── Show-to-pharmacist modal ─── */
+function setupPharmacistModal(product, lang) {
+  const modal = document.getElementById('pharmacistModal');
+  const closeBtn = document.getElementById('pharmacistModalClose');
+  const imgEl = document.getElementById('pharmacistModalImg');
+  const qtyVal = document.getElementById('pharmacistQtyVal');
+  const langFlag = document.getElementById('pharmacistLangFlag');
+  if (!modal) return;
+
+  if (imgEl && product.hero_image) {
+    imgEl.src = `${BASE}products/${product.id}/${product.hero_image}`;
+  }
+  if (langFlag) langFlag.textContent = LANG_FLAG[lang] || lang;
+
+  let q = 1;
+  function updateQty() {
+    if (qtyVal) qtyVal.textContent = q;
+  }
+  modal.querySelectorAll('[data-modal-qty]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.modalQty === 'inc') q++;
+      else if (btn.dataset.modalQty === 'dec' && q > 1) q--;
+      updateQty();
+    });
+  });
+
+  let wakeLock = null;
+  async function open() {
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    // haptic (best effort, mobile only)
+    if (navigator.vibrate) navigator.vibrate(50);
+    // wake lock — prevent screen dim while showing to pharmacist
+    if ('wakeLock' in navigator) {
+      try { wakeLock = await navigator.wakeLock.request('screen'); } catch (_) {}
+    }
+  }
+  function close() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (wakeLock) { try { wakeLock.release(); } catch (_) {} wakeLock = null; }
+  }
+
+  document.querySelectorAll('[data-action="showPharmacist"]').forEach(btn => {
+    btn.addEventListener('click', open);
+  });
+  closeBtn?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) close();
+  });
+}
+
+/* ─── Pharmacy map/list view toggle ─── */
+function setupPharmacyToggle() {
+  document.querySelectorAll('[data-toggle-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const next = btn.dataset.toggleView; // 'map' or 'list'
+      const tab = document.querySelector('.pharmacy-tab');
+      if (tab) tab.setAttribute('data-view', next);
+    });
+  });
+}
+
 /* ─── Tab switching ─── */
 function setupTabs() {
   const tabs = document.querySelectorAll('.tab');
@@ -448,8 +1062,8 @@ async function boot() {
 
   try {
     const [strings, product] = await Promise.all([
-      loadJson(`i18n/${lang}.json`),
-      loadJson(`products/${productSlug}/data.json`)
+      loadJson(`${BASE}i18n/${lang}.json`),
+      loadJson(`${BASE}products/${productSlug}/data.json`)
     ]);
 
     _state = { sort: 'latest', photoOnly: false, product, strings, lang };
@@ -463,7 +1077,12 @@ async function boot() {
     setupPhotoToggle();
     setupVideoMute();
     setupQuantity(product);
+    setupPharmacyToggle();
+    setupLiveWidget(product);
+    setupPharmacistModal(product, lang);
+    setupCart(strings, lang);
     setupActions(strings);
+    renderRelatedProducts(product, lang);
     setupLangSwitcher(lang, (next) => {
       localStorage.setItem('ap_lang', next);
       const u = new URL(location.href);

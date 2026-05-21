@@ -242,53 +242,84 @@ a { color: inherit; }
   text-align: right;
 }
 
-/* ─────────── PHARMACIST TIKTOK VIDEO (NEW · DS) ─────────── */
-.pharmacist-video {
-  margin: 20px 16px 24px;
-  padding: 20px 16px 16px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(180deg,
-              var(--color-brand-aroundpharm-bg) 0%,
-              var(--color-bg-base-white) 100%);
-  border: 1px solid var(--color-brand-aroundpharm-border);
-  text-align: center;
+/* ─────────── PHARMACIST 영상 섹션 (추천 제품 아래, 독립 섹션) ─────────── */
+.pharmacist-video-block {
+  padding: 28px 20px 24px;
+  background: var(--color-bg-base-white);
+  border-top: 8px solid var(--color-grey-2);
+  border-bottom: 8px solid var(--color-grey-2);
 }
-.pharmacist-video-head { margin-bottom: 14px; }
-.pharmacist-video-badge {
+.pharmacist-video-block .pharmacist-video {
+  margin: 0;
+}
+.pharmacist-video-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.pharmacist-video-eyebrow {
   display: inline-flex; align-items: center; gap: 4px;
   height: 22px; padding: 0 10px;
+  margin-bottom: 10px;
   border-radius: var(--radius-pill);
   background: var(--color-brand-aroundpharm);
   color: var(--color-text-light);
   font: var(--font-b5);
   font-weight: 700;
+  letter-spacing: .4px;
 }
-.pharmacist-video-badge svg { color: var(--color-text-light); }
-.pharmacist-video-title {
-  margin: 8px 0 0;
-  font: var(--font-h3-b);
+.pharmacist-video-eyebrow svg { color: var(--color-text-light); }
+.pharmacist-video-header .pharmacist-video-title {
+  display: block;
+  margin: 0 0 6px;
+  font: var(--font-h3);
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -.3px;
+}
+.pharmacist-video-header .pharmacist-video-desc {
+  display: block;
+  margin: 0;
+  font: var(--font-b4);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+/* 영상 없을 때 전체 블록 숨김 */
+.pharmacist-video-block:has(.pharmacist-video[style*="display: none"]),
+.pharmacist-video-block:has(.pharmacist-video[hidden]) { display: none; }
+.pharmacist-video {
+  margin: 16px 16px 0;
 }
 .pharmacist-video-frame {
   position: relative;
   margin: 0 auto;
-  max-width: 280px;
+  width: 100%;
+  max-width: 240px;
   aspect-ratio: 9 / 16;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-text);
-  box-shadow: var(--shadow-on-gray-200);
 }
 .pharmacist-video-el {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
+.pharmacist-video-tag {
+  position: absolute;
+  top: 10px; left: 10px;
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.pharmacist-video-tag svg { color: var(--color-text-light); }
 .pharmacist-video-mute {
   position: absolute;
-  bottom: 12px; right: 12px;
-  width: 36px; height: 36px;
+  bottom: 10px; right: 10px;
+  width: 32px; height: 32px;
   display: grid; place-items: center;
   border-radius: var(--radius-pill);
   background: rgba(0, 0, 0, 0.6);
@@ -298,6 +329,15 @@ a { color: inherit; }
 .pharmacist-video-mute:hover { background: rgba(0, 0, 0, 0.8); }
 .pharmacist-video-caption {
   margin: 12px 8px 0;
+  display: flex; flex-direction: column; gap: 2px;
+  text-align: center;
+}
+.pharmacist-video-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.pharmacist-video-desc {
   font: var(--font-b5);
   color: var(--color-text-secondary);
   line-height: 1.5;
@@ -318,6 +358,92 @@ a { color: inherit; }
 }
 .benefit-icon { font-size: 24px; margin-bottom: 6px; line-height: 1; }
 .benefit-label { font: var(--font-b5); color: var(--color-text-secondary); }
+
+/* ─────────── 함께 쓰면 좋은 제품 (라인업 캐러셀) ─────────── */
+.related-products {
+  padding: 24px 0 8px;
+  border-top: 8px solid var(--color-grey-2);
+}
+.related-products[hidden] { display: none; }
+.related-title {
+  margin: 0 16px 14px;
+  font: var(--font-h4-b);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.related-scroll {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.related-scroll::-webkit-scrollbar { display: none; }
+.related-card {
+  flex: 0 0 152px;
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  scroll-snap-align: start;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .12s ease, box-shadow .15s ease;
+}
+.related-card:hover {
+  box-shadow: var(--shadow-on-gray-200);
+  transform: translateY(-1px);
+}
+.related-card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+}
+.related-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.related-card-body { padding: 10px 12px 12px; }
+.related-card-brand {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.related-card-name {
+  font: var(--font-b4);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  letter-spacing: -.2px;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.related-card-price {
+  display: flex; align-items: baseline; gap: 6px;
+  flex-wrap: wrap;
+}
+.related-card-discount {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-error, #f5222d);
+}
+.related-card-current {
+  font: var(--font-b4);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.related-card-original {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
 
 /* ─────────── TABS ─────────── */
 .tabs {
@@ -775,6 +901,499 @@ a { color: inherit; }
   line-height: 1.5;
 }
 
+/* ─────────── CART BADGE (top nav cart icon) ─────────── */
+.iconbtn-cart { position: relative; }
+.cart-badge {
+  position: absolute;
+  top: 4px; right: 4px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-error, #f5222d);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.cart-badge[hidden] { display: none; }
+
+/* ─────────── 담기 sticky CTA (수량 stepper + 버튼) ─────────── */
+.sticky-cta--cart {
+  display: flex; align-items: center; gap: 10px;
+}
+.sticky-qty-stepper {
+  display: inline-flex; align-items: center;
+  height: 52px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-base-white);
+}
+.sticky-qty-btn {
+  width: 36px; height: 100%;
+  display: grid; place-items: center;
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.sticky-qty-btn:hover { background: var(--color-grey-2); }
+.sticky-qty-btn:disabled { color: var(--color-text-quaternary); cursor: not-allowed; }
+.sticky-qty-val {
+  min-width: 32px;
+  text-align: center;
+  font: var(--font-h4-b);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.btn-add-to-cart {
+  flex: 1;
+  height: 52px;
+  font: var(--font-h4-b);
+}
+
+/* ─────────── CART 모달 ─────────── */
+.cart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+}
+.cart-modal[hidden] { display: none; }
+.cart-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  animation: cart-fade .2s ease-out;
+}
+@keyframes cart-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.cart-modal-sheet {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  max-height: 88vh;
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  animation: cart-slide-up .25s cubic-bezier(.2, .9, .3, 1.05);
+}
+@keyframes cart-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@media (min-width: 905px) {
+  .cart-modal-sheet {
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    bottom: 24px; left: 24px; right: 24px;
+    max-height: 78vh;
+  }
+}
+
+.cart-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.cart-modal-title {
+  margin: 0;
+  font: var(--font-h3-b, 600 18px/26px var(--font-family-default));
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-modal-close {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-grey-2);
+  border: 0;
+  color: var(--color-text);
+}
+
+.cart-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 16px;
+}
+
+/* 빈 상태 */
+.cart-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+.cart-empty-icon { font-size: 40px; margin-bottom: 8px; }
+.cart-empty p { margin: 0; font: var(--font-b3); }
+
+/* 카트 아이템 */
+.cart-items {
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+.cart-items:empty { display: none; }
+.cart-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  align-items: start;
+}
+.cart-item-thumb {
+  width: 64px; height: 64px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-card-soft);
+}
+.cart-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-meta { min-width: 0; }
+.cart-item-brand {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.cart-item-name {
+  font: var(--font-b4);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cart-item-qty-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.cart-qty-stepper {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.cart-qty-stepper button {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.cart-qty-stepper button:hover { background: var(--color-grey-2); }
+.cart-qty-stepper .cart-qty-val {
+  min-width: 32px;
+  text-align: center;
+  font: var(--font-b4);
+  font-weight: 700;
+}
+.cart-item-remove {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+}
+.cart-item-remove:hover { color: var(--color-error, #f5222d); }
+.cart-item-price {
+  text-align: right;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 총액 */
+.cart-total {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--color-grey-2);
+  margin: 8px 16px 16px;
+  border-radius: var(--radius-md);
+  font: var(--font-h5);
+}
+.cart-total[hidden] { display: none; }
+.cart-total strong {
+  font: var(--font-h2-b);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 재고 정보 (Figma 8503:54541 스타일) */
+.cart-stock {
+  margin: 0 16px 16px;
+  padding: 0;
+  background: var(--color-bg-base-white);
+}
+.cart-stock[hidden] { display: none; }
+.cart-stock-head {
+  padding: 8px 4px 12px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 4px;
+}
+.cart-stock-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-sub {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+.cart-stock-list {
+  display: flex; flex-direction: column;
+  margin: 0; padding: 0; list-style: none;
+}
+.cart-stock-item {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.cart-stock-item:last-child { border-bottom: 0; }
+.cart-stock-icon {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  margin-top: 1px;
+}
+.cart-stock-info { min-width: 0; }
+.cart-stock-row1 {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 8px;
+}
+.cart-stock-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+/* "지금 있는 약국" 배지 */
+.cart-stock-here-badge {
+  display: inline-flex; align-items: center;
+  height: 18px; padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.cart-stock-here-badge:empty { display: none; }
+
+/* 재고 상태 배지 (재고있음/일부재고/재고없음) */
+.cart-stock-row4 {
+  margin-top: 8px;
+}
+.cart-stock-status-badge {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.cart-stock-status--in {
+  color: #1F7A1F;
+  background: rgba(56, 158, 13, 0.12);
+}
+.cart-stock-status--partial {
+  color: #B86E00;
+  background: rgba(212, 136, 6, 0.14);
+}
+.cart-stock-status--out {
+  color: #C81E1E;
+  background: rgba(245, 34, 45, 0.10);
+}
+.cart-stock-row2 {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  margin-bottom: 2px;
+  display: flex; align-items: center; gap: 5px;
+  flex-wrap: wrap;
+}
+.cart-stock-status-open {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-row3 {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  display: flex; align-items: center; gap: 5px;
+}
+.cart-stock-row3 strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-sep { color: var(--color-text-quaternary); }
+
+/* 카트 푸터 (약사 보여주기) */
+.cart-modal-foot {
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border-secondary);
+  background: var(--color-bg-base-white);
+}
+.cart-modal-foot[hidden] { display: none; }
+.btn-show-cart {
+  width: 100%;
+  height: 52px;
+  font: var(--font-h4-b);
+}
+
+/* ─────────── 약사 보여주기 멀티 아이템 모달 ─────────── */
+.show-cart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-bg-base-white);
+  overflow-y: auto;
+  animation: cart-fade .2s ease-out;
+}
+.show-cart-modal[hidden] { display: none; }
+.show-cart-modal-close {
+  position: fixed;
+  top: 16px; right: 16px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-grey-2);
+  color: var(--color-text);
+  border: 0;
+  z-index: 2;
+}
+.show-cart-modal-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 56px 20px 40px;
+}
+.show-cart-modal-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm-bg);
+  color: var(--color-brand-aroundpharm-text);
+  font: var(--font-b5);
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.show-cart-modal-title {
+  margin: 0 0 24px;
+  font: var(--font-h2-b);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+  line-height: 1.3;
+}
+.show-cart-items {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.show-cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 12px;
+  padding: 16px 0;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.show-cart-item:last-child { border-bottom: 0; }
+.show-cart-item-thumb {
+  width: 72px; height: 72px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-card-soft);
+}
+.show-cart-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.show-cart-item-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.show-cart-item-price {
+  font: var(--font-b4);
+  color: var(--color-text-secondary);
+}
+.show-cart-item-qty {
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.show-cart-total {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 28px;
+  font: var(--font-b3);
+}
+.show-cart-total > span:first-child { color: var(--color-text-secondary); }
+.show-cart-total strong {
+  font: var(--font-display-6, 700 28px/38px var(--font-family-default));
+  font-weight: 800;
+  color: var(--color-text);
+}
+.show-cart-message {
+  text-align: center;
+  margin: 0 auto 20px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-h2-b);
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+.show-cart-pharmacy {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-grey-2);
+  text-align: center;
+}
+.show-cart-pharmacy-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.show-cart-pharmacy-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 토스트 */
+.toast {
+  position: fixed;
+  bottom: 92px; left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-b4);
+  font-weight: 600;
+  z-index: 60;
+  animation: toast-pop .25s ease-out;
+}
+.toast[hidden] { display: none; }
+@keyframes toast-pop {
+  from { transform: translate(-50%, 12px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
 /* ─────────── STICKY DUAL CTA ─────────── */
 .sticky-cta {
   position: fixed; bottom: 0; left: 0; right: 0;
@@ -811,12 +1430,14 @@ a { color: inherit; }
     padding-top: 32px;
   }
 
-  .top-visual { position: sticky; top: 80px; }
+  .top-visual { }
   .hero-media {
     border-radius: var(--radius-lg);
     max-width: 560px;
   }
   .thumb-strip { padding: 12px 0; }
+  .pharmacist-video { margin: 24px 0 0; }
+  .pharmacist-video-frame { max-width: 320px; }
 
   /* INFO column — 좌측 padding 제거 (그리드 갭으로 처리) */
   .top-info > section { margin-left: 0; margin-right: 0; }

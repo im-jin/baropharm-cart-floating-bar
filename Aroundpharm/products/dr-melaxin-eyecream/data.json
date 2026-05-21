@@ -1,0 +1,35 @@
+{
+  "id": "dr-melaxin-eyecream",
+  "brand": "Dr.Melaxin",
+  "brand_id": "dr-melaxin",
+  "key_ingredients": ["REBORNIC 10,000ppm", "Retinal 0.05%", "Peptide"],
+  "name": {
+    "ko": "닥터멜락신 칼슘 본딩 아이크림",
+    "en": "Dr.Melaxin Calcium Bonding Eye Cream",
+    "ja": "ドクターメラクシン カルシウムボンディング アイクリーム"
+  },
+  "tagline": {
+    "ko": "Rebornic 10,000ppm · 눈가 집중 케어 · 30g",
+    "en": "Rebornic 10,000ppm · Eye contour care · 30g",
+    "ja": "Rebornic 10,000ppm · 目元集中ケア · 30g"
+  },
+  "price_krw": 38000,
+  "price_original_krw": 42000,
+  "discount_pct": 9,
+  "pharmacist_pick": true,
+  "rating": 4.83,
+  "review_count": 73,
+  "hero_image": "images/hero.png",
+  "thumbnails": ["images/hero.png", "images/ko/full.png"],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"]
+  },
+  "related": ["dr-melaxin-cream", "dr-melaxin-serum"],
+  "review_stats": {
+    "skin_type": { "combination": 45, "dry": 32, "very_dry": 16, "oily": 7 },
+    "age_group": { "twenties": 10, "thirties": 48, "forties_plus": 42 },
+    "concerns": { "elasticity": 75, "dryness": 50, "sensitivity": 30, "texture": 22 },
+    "region": { "seoul": 36, "gyeonggi": 24, "busan": 12, "other": 28 }
+  },
+  "reviews": []
+}

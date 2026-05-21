@@ -6,7 +6,11 @@
     "related_empty": "推荐商品准备中。",
     "get_app": "下载 Aroundpharm App",
     "cta_save": "收藏",
-    "cta_shop": "前往 Aroundpharm 购买"
+    "cta_shop": "前往 Aroundpharm 购买",
+    "cta_add_to_cart": "加入购物车",
+    "cta_save_for_home": "♡ 收藏 — 回国后配送",
+    "about_product": "关于本产品",
+    "real_results": "真实使用反馈"
   },
   "tabs": {
     "detail": "详情",
@@ -56,10 +60,53 @@
     "total_label": "合计",
     "find_pharmacy": "查找售卖此商品的药店"
   },
+  "related": {
+    "title": "搭配使用更佳"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车是空的",
+    "total": "合计",
+    "added": "已加入购物车",
+    "added_n": "已加入 {n} 件商品",
+    "remove": "删除",
+    "stock_title": "附近药店",
+    "stock_sub": "基于您的位置",
+    "open_now": "营业中",
+    "closes_at_19": "19:00 关门",
+    "stock_in": "有库存",
+    "stock_partial": "部分库存",
+    "stock_out": "无库存",
+    "you_are_here": "您当前位置",
+    "show_to_pharmacist": "将此购物车出示给药师",
+    "show_modal_title": "请将此画面出示给药师",
+    "show_modal_items": "订单",
+    "show_modal_message": "请给我这些商品",
+    "show_modal_pharmacy_label": "取货药店",
+    "pharmacies": [
+      { "name": "Smart 药店", "address": "首尔特别市松坡区百济古坟路 203 文化大厦", "distance": "0m", "stock": "in", "is_current": true },
+      { "name": "Gangnam Joeun 药店", "address": "首尔特别市江南区南部循环路 361 街 6", "distance": "520m", "stock": "partial" },
+      { "name": "Apgujeong Onnuri 药店", "address": "首尔特别市松坡区百济古坟路 258 三田源大厦 10 层", "distance": "880m", "stock": "out" }
+    ]
+  },
+  "show_pharmacist": {
+    "cta_l1": "出示给药师",
+    "cta_sub": "想购买?点击此按钮,将屏幕出示给药师即可。",
+    "qty": "数量",
+    "give_me": "请给我这款",
+    "customer_lang_label": "顾客使用语言"
+  },
   "video": {
     "badge": "药师推荐",
     "title": "药师亲自推荐",
-    "caption": "韩国药师亲自试用的真实反馈,这是访韩游客询问最多的精华之一。"
+    "caption": "韩国药师亲自试用的真实反馈,这是访韩游客询问最多的精华之一。",
+    "quote": "我最常推荐给访韩游客的抗皱精华就是这款。",
+    "author_name": "金药师",
+    "author_role": "K-Pharmacy, Seoul"
+  },
+  "trust": {
+    "k_pharmacy": "韩国药店正品",
+    "trending": "游客热销 No.1"
   },
   "review": {
     "expand": "展开",

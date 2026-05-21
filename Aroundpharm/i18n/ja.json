@@ -6,7 +6,11 @@
     "related_empty": "おすすめ商品は準備中です。",
     "get_app": "Aroundpharm アプリをダウンロード",
     "cta_save": "保存",
-    "cta_shop": "Aroundpharm で購入"
+    "cta_shop": "Aroundpharm で購入",
+    "cta_add_to_cart": "カートに追加",
+    "cta_save_for_home": "♡ 保存 — 帰国後にお届け",
+    "about_product": "この商品について",
+    "real_results": "実際の使用感"
   },
   "tabs": {
     "detail": "詳細",
@@ -56,10 +60,53 @@
     "total_label": "合計",
     "find_pharmacy": "取扱い薬局を探す"
   },
+  "related": {
+    "title": "一緒に使うと良い商品"
+  },
+  "cart": {
+    "title": "カート",
+    "empty": "カートは空です",
+    "total": "合計",
+    "added": "カートに追加しました",
+    "added_n": "カートに {n} 個追加しました",
+    "remove": "削除",
+    "stock_title": "近くの薬局",
+    "stock_sub": "現在地に基づく",
+    "open_now": "営業中",
+    "closes_at_19": "19:00に閉店",
+    "stock_in": "在庫あり",
+    "stock_partial": "一部在庫",
+    "stock_out": "在庫なし",
+    "you_are_here": "現在の薬局",
+    "show_to_pharmacist": "このカートを薬剤師に見せる",
+    "show_modal_title": "この画面を薬剤師にお見せください",
+    "show_modal_items": "注文内容",
+    "show_modal_message": "これらをお願いします",
+    "show_modal_pharmacy_label": "受取り薬局",
+    "pharmacies": [
+      { "name": "スマート薬局", "address": "ソウル特別市松坡区百済古墳路 203 文化ビル", "distance": "0m", "stock": "in", "is_current": true },
+      { "name": "カンナム・チョウン薬局", "address": "ソウル特別市江南区南部循環路 361 通り 6", "distance": "520m", "stock": "partial" },
+      { "name": "アックジョン・オンヌリ薬局", "address": "ソウル特別市松坡区百済古墳路 258 三田源ビル 10 階", "distance": "880m", "stock": "out" }
+    ]
+  },
+  "show_pharmacist": {
+    "cta_l1": "薬剤師に見せる",
+    "cta_sub": "ご購入の場合はボタンを押して、画面を薬剤師にお見せください。",
+    "qty": "数量",
+    "give_me": "これをお願いします",
+    "customer_lang_label": "お客様の言語"
+  },
   "video": {
     "badge": "薬剤師セレクト",
     "title": "薬剤師が自ら推薦",
-    "caption": "韓国の薬剤師が実際に使用したリアルレビュー。訪韓観光客に最も人気のセラムのひとつです。"
+    "caption": "韓国の薬剤師が実際に使用したリアルレビュー。訪韓観光客に最も人気のセラムのひとつです。",
+    "quote": "観光でいらっしゃる方に一番おすすめしているシワケアセラムです。",
+    "author_name": "キム薬剤師",
+    "author_role": "K-Pharmacy, Seoul"
+  },
+  "trust": {
+    "k_pharmacy": "韓国薬局正規品",
+    "trending": "観光客人気 No.1"
   },
   "review": {
     "expand": "もっと見る",

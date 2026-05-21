@@ -153,3 +153,49 @@ Figma fileKey: `8JV1QkzSuEpZEMtLiLQYYv`
 
 ### 영향 파일
 - `Aroundpharm/styles.css` line 291, 295 (`.pharmacist-video-mute`)
+
+---
+
+## 7. Figma plugin sandbox — 로컬 Pretendard 미인식 (2026-05-21)
+
+`use_figma` 플러그인 API (`figma.listAvailableFontsAsync()`)에서 로컬 설치된 Pretendard가 0개로 반환됨. 결과: 코드로 디자인 시스템 텍스트 스타일(H1/H2-B/B3 등 — 전부 Pretendard 기반) 자동 적용 불가.
+
+### 환경
+- macOS: Darwin 24.x (Sequoia)
+- Figma: 126.3.12 → 126.4.10 (재설치 후에도 동일)
+- Pretendard: v1.301 (2022) → v1.3.9 (2023) (둘 다 동일 결과)
+- 설치 위치: `~/Library/Fonts/` (user) → `/Library/Fonts/` (system) (둘 다 동일 결과)
+
+### macOS 측은 정상
+- `system_profiler SPFontsDataType` → Pretendard 9종 정상 등록 (Family/Style 영문 메타데이터)
+- Font Book → 정상 표시 + Valid
+- Figma UI 텍스트 패널 → Pretendard 표시 추정 (육안 미확인)
+
+### 시도한 해결 (모두 실패)
+| 시도 | 결과 |
+|---|---|
+| Figma 종료 후 `font_cache.json` 삭제 + 재시작 | 캐시에 Pretendard 0개 |
+| `~/Library/Caches/com.figma.agent` + `com.figma.Desktop` 삭제 | 효과 없음 |
+| `atsutil databases -removeUser` (macOS 14+ deprecated) | 의미 없음 |
+| `xattr -c` (com.apple.provenance 제거 시도) | macOS가 즉시 재적용 |
+| 폰트 v1.301 → v1.3.9 업데이트 | 효과 없음 |
+| 폰트 `~/Library/Fonts/` → `/Library/Fonts/` (root:admin) | 효과 없음 |
+| FigmaAgent (figma_agent) 수동 실행 | 효과 없음 |
+| Figma 완전 재설치 (126.3.12 → 126.4.10) | 효과 없음 |
+
+### 가설
+- Figma plugin sandbox는 cloud/Google Fonts 1700+개만 enumerate. 로컬 폰트는 enumeration에서 빠지는 빌드 특정 버그로 추정.
+- 단, 메인 Figma UI는 별도 메커니즘으로 Pretendard 인식.
+
+### 현재 우회책
+- `Aroundpharm/index.html` / 새 Figma 프레임 `8450:2` — **Inter 매뉴얼 스타일링**으로 진행
+  - Pretendard가 Inter 기반이라 시각적 차이 미미 (Korean glyph 제외)
+- Figma 프레임 텍스트 스타일은 **디자이너가 UI에서 수동 적용** 필요 (Shift+클릭 다중 선택 → 우측 패널 텍스트 스타일)
+
+### 권장 next step
+- Figma 다음 버전(126.5+) 출시 시 재테스트
+- 또는 Figma 사용자 포럼/Support 문의: "listAvailableFontsAsync returns 0 local fonts on macOS"
+- 또는 다른 Mac에서 동일 파일 열어서 재현되는지 확인 (환경 특정 vs 파일 특정 구분)
+
+### 작업 보존
+- Figma 프레임 `8450:2` ("Mobile — QR Landing (THOME)") — 디자인 시스템 컴포넌트/변수 바인딩은 모두 완료. 텍스트 스타일만 추후 수동 적용 대상.

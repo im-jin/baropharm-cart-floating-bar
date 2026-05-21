@@ -1,6 +1,9 @@
 {
   "id": "thome-cpr",
   "brand": "THOME",
+  "brand_id": "thome",
+  "video_display": "floating",
+  "key_ingredients": ["Collagen 1%", "Peptides 1%", "Retinal 0.1%"],
   "name": {
     "ko": "CPR 트리플시너지 링클케어 세럼",
     "en": "CPR Triple-Synergy Wrinkle Care Serum",
@@ -20,6 +23,7 @@
   "rating": 4.96,
   "review_count": 107,
   "hero_image": "images/hero.png",
+  "pharmacist_video": "images/pharmacist-tiktok-web.m4v",
   "thumbnails": [
     "images/hero.png",
     "images/ko/full.png",

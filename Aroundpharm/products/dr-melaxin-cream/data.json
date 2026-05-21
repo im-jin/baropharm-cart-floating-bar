@@ -1,0 +1,43 @@
+{
+  "id": "dr-melaxin-cream",
+  "brand": "Dr.Melaxin",
+  "brand_id": "dr-melaxin",
+  "key_ingredients": ["REBORNIC 10,000ppm", "Ceramide NP", "EGF"],
+  "name": {
+    "ko": "닥터멜락신 칼슘 본딩 페이셜 크림",
+    "en": "Dr.Melaxin Calcium Bonding Facial Cream",
+    "ja": "ドクターメラクシン カルシウムボンディング フェイシャルクリーム"
+  },
+  "tagline": {
+    "ko": "Rebornic 10,000ppm · Ceramide NP · EGF · 100g",
+    "en": "Rebornic 10,000ppm · Ceramide NP · EGF · 100g",
+    "ja": "Rebornic 10,000ppm · Ceramide NP · EGF · 100g"
+  },
+  "price_krw": 48000,
+  "price_original_krw": 55000,
+  "discount_pct": 13,
+  "pharmacist_pick": true,
+  "rating": 4.92,
+  "review_count": 184,
+  "hero_image": "images/hero.png",
+  "pharmacist_video": "images/pharmacist-tiktok-web.mp4",
+  "thumbnails": [
+    "images/hero.png",
+    "images/02.png",
+    "images/03.png",
+    "images/04.png"
+  ],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"],
+    "en": ["images/en/full.png"],
+    "ja": ["images/ja/full.png"]
+  },
+  "related": ["dr-melaxin-serum", "dr-melaxin-eyecream"],
+  "review_stats": {
+    "skin_type": { "combination": 42, "dry": 38, "very_dry": 14, "oily": 6 },
+    "age_group": { "twenties": 12, "thirties": 52, "forties_plus": 36 },
+    "concerns": { "elasticity": 71, "dryness": 58, "sensitivity": 32, "texture": 25, "brightening": 18 },
+    "region": { "seoul": 38, "gyeonggi": 22, "busan": 11, "other": 29 }
+  },
+  "reviews": []
+}

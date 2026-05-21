@@ -1,0 +1,37 @@
+{
+  "id": "no-video-sample",
+  "brand": "THOME",
+  "name": {
+    "ko": "(영상 없음 샘플) CPR Wrinkle Care Serum",
+    "en": "(No-video sample) CPR Wrinkle Care Serum",
+    "zh": "(无视频示例) CPR 抗皱护理精华",
+    "ja": "(動画なしサンプル) CPR Wrinkle Care Serum"
+  },
+  "tagline": {
+    "ko": "Collagen 1% · Peptides 1% · 30ml",
+    "en": "Collagen 1% · Peptides 1% · 30ml",
+    "zh": "胶原蛋白 1% · 多肽 1% · 30ml",
+    "ja": "コラーゲン 1% · ペプチド 1% · 30ml"
+  },
+  "price_krw": 28000,
+  "price_original_krw": 30000,
+  "discount_pct": 7,
+  "pharmacist_pick": true,
+  "rating": 4.72,
+  "review_count": 48,
+  "hero_image": "images/hero.png",
+  "thumbnails": ["images/hero.png"],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"],
+    "en": ["images/en/full.png"],
+    "zh": ["images/zh/full.png"],
+    "ja": ["images/ja/full.png"]
+  },
+  "review_stats": {
+    "skin_type": { "combination": 50, "dry": 30, "oily": 20 },
+    "age_group": { "twenties": 20, "thirties": 50, "forties_plus": 30 },
+    "concerns": { "elasticity": 70, "dryness": 40 },
+    "region": { "seoul": 50, "other": 50 }
+  },
+  "reviews": []
+}

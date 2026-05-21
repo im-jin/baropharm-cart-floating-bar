@@ -6,12 +6,17 @@
     "related_empty": "추천 제품 준비 중입니다.",
     "get_app": "어라운드팜 앱 다운로드",
     "cta_save": "담기",
-    "cta_shop": "바로구매"
+    "cta_shop": "바로구매",
+    "cta_add_to_cart": "장바구니에 담기",
+    "cta_save_for_home": "♡ 담아두고 귀국 후 받기",
+    "about_product": "이 제품에 대하여",
+    "real_results": "실 사용자 후기"
   },
   "tabs": {
-    "detail": "상세",
+    "detail": "제품상세",
     "review": "리뷰",
-    "related": "추천"
+    "related": "추천",
+    "find_pharmacy": "약국찾기"
   },
   "pick": {
     "efficacy": "효능",
@@ -59,7 +64,64 @@
   "video": {
     "badge": "약사픽",
     "title": "약사가 직접 추천한 영상",
-    "caption": "K-약국 약사가 직접 사용해본 후기. 외국인 관광객이 가장 많이 찾는 세럼입니다."
+    "caption": "K-약국 약사가 직접 사용해본 후기. 외국인 관광객이 가장 많이 찾는 세럼입니다.",
+    "quote": "외국 관광객 분들께 가장 많이 추천드리는 주름 케어 세럼이에요.",
+    "author_name": "김약사",
+    "author_role": "K-Pharmacy, Seoul"
+  },
+  "widget": {
+    "label_l1": "약사 영상",
+    "duration": "28초"
+  },
+  "related": {
+    "title": "함께 쓰면 좋은 제품"
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어있어요",
+    "total": "총 합계",
+    "added": "장바구니에 담았어요",
+    "added_n": "장바구니에 {n}개 담았어요",
+    "remove": "삭제",
+    "stock_title": "주변 약국",
+    "stock_sub": "현재 위치 기반",
+    "open_now": "영업 중",
+    "closes_at_19": "19:00에 영업 종료",
+    "stock_in": "재고 있음",
+    "stock_partial": "일부 재고",
+    "stock_out": "재고 없음",
+    "you_are_here": "지금 있는 약국",
+    "show_to_pharmacist": "이 장바구니를 약사에게 보여주기",
+    "show_modal_title": "약사에게 이 화면을 보여주세요",
+    "show_modal_items": "주문 내역",
+    "show_modal_message": "이 제품들 주세요",
+    "show_modal_pharmacy_label": "수령 약국",
+    "pharmacies": [
+      { "name": "스마트약국", "address": "서울특별시 송파구 백제고분로 203 문화빌딩", "distance": "0m", "stock": "in", "is_current": true },
+      { "name": "강남조은약국", "address": "서울특별시 강남구 남부순환로361길 6", "distance": "520m", "stock": "partial" },
+      { "name": "압구정온누리약국", "address": "서울특별시 송파구 백제고분로 258 삼전원빌딩 10층", "distance": "880m", "stock": "out" }
+    ]
+  },
+  "show_pharmacist": {
+    "cta_l1": "약사에게 보여주기",
+    "cta_sub": "구매하시려면 이 버튼을 눌러 약사에게 화면을 보여주세요",
+    "qty": "수량",
+    "give_me": "이 제품 주세요",
+    "customer_lang_label": "손님 언어"
+  },
+  "trust": {
+    "k_pharmacy": "한국 약국 정품",
+    "trending": "외국인 인기 No.1"
+  },
+  "pharmacy": {
+    "title": "근처 약국에서 찾아보세요",
+    "view_list": "목록보기",
+    "view_map": "지도보기",
+    "popular_nearby": "인기 약국 (근처)",
+    "in_stock": "재고 있음",
+    "low_stock": "재고 적음",
+    "open_24h": "24시간",
+    "disclaimer": "재고는 실시간이 아닐 수 있습니다. 방문 전 전화 확인 권장."
   },
   "review": {
     "expand": "펼쳐보기",
