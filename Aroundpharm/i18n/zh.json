@@ -44,6 +44,18 @@
     "app_store": "https://aroundpharm.com",
     "shop": "https://aroundpharm.com"
   },
+  "order": {
+    "delivery_method": "配送方式",
+    "delivery_method_value": "快递",
+    "delivery_fee": "运费",
+    "delivery_fee_value": "₩3,000 (满 ₩50,000 免运费)",
+    "delivery_fee_jeju": "济州岛加收 ₩3,000",
+    "delivery_fee_island": "其他岛屿地区加收 ₩5,000",
+    "qty_label": "数量",
+    "qty_unit": "件",
+    "total_label": "合计",
+    "find_pharmacy": "查找售卖此商品的药店"
+  },
   "video": {
     "badge": "药师推荐",
     "title": "药师亲自推荐",

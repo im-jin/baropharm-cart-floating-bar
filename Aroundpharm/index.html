@@ -159,6 +159,57 @@
       </div>
     </section>
 
+    <!-- ──────── PC 전용: 주문 블록 (배송정보 + 수량 + 듀얼 CTA + 약국찾기) ──────── -->
+    <section class="order-block" aria-label="Order">
+      <dl class="order-shipping">
+        <dt data-i18n="order.delivery_method"></dt>
+        <dd data-i18n="order.delivery_method_value"></dd>
+        <dt data-i18n="order.delivery_fee"></dt>
+        <dd>
+          <span class="ship-fee-main" data-i18n="order.delivery_fee_value"></span>
+          <span class="ship-fee-sub" data-i18n="order.delivery_fee_jeju"></span>
+          <span class="ship-fee-sub" data-i18n="order.delivery_fee_island"></span>
+        </dd>
+      </dl>
+
+      <div class="order-qty">
+        <div class="qty-stepper" role="group" aria-label="Quantity">
+          <button class="qty-btn" data-qty="dec" aria-label="Decrease">−</button>
+          <span class="qty-val" id="qtyVal">1</span>
+          <button class="qty-btn" data-qty="inc" aria-label="Increase">＋</button>
+        </div>
+        <span class="qty-line-price" id="qtyLinePrice"></span>
+      </div>
+
+      <div class="order-total">
+        <span class="order-total-label">
+          <span data-i18n="order.qty_label"></span>
+          <span id="totalQty">1</span>
+          <span data-i18n="order.qty_unit"></span>
+        </span>
+        <span class="order-total-val">
+          <span data-i18n="order.total_label"></span>
+          <span id="totalPrice"></span>
+        </span>
+      </div>
+
+      <div class="order-cta-row">
+        <button class="btn btn-ghost btn-half" data-action="save">
+          <span data-i18n="ui.cta_save"></span>
+        </button>
+        <button class="btn btn-primary btn-half" data-action="shop">
+          <span data-i18n="ui.cta_shop"></span>
+        </button>
+      </div>
+
+      <button class="btn btn-ghost btn-block btn-find-pharmacy" data-action="findPharmacy">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/>
+        </svg>
+        <span data-i18n="order.find_pharmacy"></span>
+      </button>
+    </section>
+
     </div><!-- /.top-info -->
     </div><!-- /.top-section -->
 

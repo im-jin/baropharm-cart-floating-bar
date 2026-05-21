@@ -44,6 +44,18 @@
     "app_store": "https://aroundpharm.com",
     "shop": "https://aroundpharm.com"
   },
+  "order": {
+    "delivery_method": "配送方法",
+    "delivery_method_value": "宅配",
+    "delivery_fee": "配送料",
+    "delivery_fee_value": "₩3,000 (₩50,000以上で無料)",
+    "delivery_fee_jeju": "済州島 +₩3,000",
+    "delivery_fee_island": "済州島以外の離島 +₩5,000",
+    "qty_label": "数量",
+    "qty_unit": "個",
+    "total_label": "合計",
+    "find_pharmacy": "取扱い薬局を探す"
+  },
   "video": {
     "badge": "薬剤師セレクト",
     "title": "薬剤師が自ら推薦",

@@ -44,6 +44,18 @@
     "app_store": "https://aroundpharm.com",
     "shop": "https://aroundpharm.com"
   },
+  "order": {
+    "delivery_method": "배송방법",
+    "delivery_method_value": "택배",
+    "delivery_fee": "배송비",
+    "delivery_fee_value": "3,000원 (50,000원 이상 무료)",
+    "delivery_fee_jeju": "제주 추가 3,000원",
+    "delivery_fee_island": "제주 외 도서지역 추가 5,000원",
+    "qty_label": "구매수량",
+    "qty_unit": "개",
+    "total_label": "총",
+    "find_pharmacy": "구매 가능한 약국 찾기"
+  },
   "video": {
     "badge": "약사픽",
     "title": "약사가 직접 추천한 영상",

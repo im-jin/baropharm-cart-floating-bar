@@ -636,6 +636,106 @@ a { color: inherit; }
   color: var(--color-text-secondary);
 }
 
+/* ─────────── ORDER BLOCK (PC 전용) ─────────── */
+.order-block {
+  display: none;
+  margin: 24px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-border-secondary);
+}
+
+.order-shipping {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px 16px;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.order-shipping dt {
+  margin: 0;
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+}
+.order-shipping dd {
+  margin: 0;
+  font: var(--font-b3);
+  color: var(--color-text);
+}
+.order-shipping dd > span { display: block; }
+.ship-fee-main { font-weight: 700; }
+.ship-fee-sub {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.order-qty {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px;
+  background: var(--color-grey-2);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+.qty-stepper {
+  display: inline-flex; align-items: center;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.qty-btn {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  font: var(--font-h4-b);
+  color: var(--color-text);
+  background: transparent;
+}
+.qty-btn:hover { background: var(--color-grey-2); }
+.qty-btn:disabled { color: var(--color-text-quaternary); cursor: not-allowed; }
+.qty-val {
+  min-width: 40px;
+  text-align: center;
+  font: var(--font-b3);
+  font-weight: 700;
+}
+.qty-line-price {
+  font: var(--font-h4-b);
+  color: var(--color-text);
+}
+
+.order-total {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.order-total-label {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+.order-total-label > span:nth-child(2) { font-weight: 700; color: var(--color-text); }
+.order-total-val {
+  font: var(--font-h2-b);
+  color: var(--color-text);
+}
+.order-total-val > span:first-child {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.order-cta-row {
+  display: flex; gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btn-find-pharmacy {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  gap: 8px;
+}
+.btn-find-pharmacy svg { color: var(--color-text); }
+
 /* ─────────── BUTTONS ─────────── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
@@ -733,16 +833,11 @@ a { color: inherit; }
   /* AP CARD / footer — 페이지 폭에 맞춤 */
   .ap-card { margin: 32px 0; }
 
-  /* STICKY CTA — 데스크탑에서는 인라인 카드 형태로 (탭 위 가치카드 옆 등) */
-  .sticky-cta {
-    position: static;
-    max-width: 1200px;
-    padding: 16px 24px 32px;
-    border-top: 0;
-    background: transparent;
-    justify-content: center;
-  }
-  .sticky-cta .btn-half { max-width: 240px; }
+  /* STICKY CTA — 데스크탑에서는 숨김 (우측 order-block에 듀얼 CTA가 있음) */
+  .sticky-cta { display: none; }
+
+  /* ORDER BLOCK — PC 전용 표시 */
+  .order-block { display: block; }
 
   /* PAGE wrapper sleeve */
   .page { box-shadow: none; }

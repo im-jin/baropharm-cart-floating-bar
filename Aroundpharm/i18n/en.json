@@ -44,6 +44,18 @@
     "app_store": "https://aroundpharm.com",
     "shop": "https://aroundpharm.com"
   },
+  "order": {
+    "delivery_method": "Delivery",
+    "delivery_method_value": "Parcel",
+    "delivery_fee": "Shipping",
+    "delivery_fee_value": "₩3,000 (free over ₩50,000)",
+    "delivery_fee_jeju": "+ ₩3,000 to Jeju",
+    "delivery_fee_island": "+ ₩5,000 to remote islands",
+    "qty_label": "Qty",
+    "qty_unit": "",
+    "total_label": "Total",
+    "find_pharmacy": "Find a pharmacy that carries this"
+  },
   "video": {
     "badge": "Pharmacist's Pick",
     "title": "Pharmacist's own recommendation",

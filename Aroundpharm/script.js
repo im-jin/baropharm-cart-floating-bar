@@ -198,6 +198,33 @@ function renderReviewStats(product, strings) {
   });
 }
 
+/* ─── Quantity stepper (PC order block) ─── */
+function setupQuantity(product) {
+  const decBtn = document.querySelector('[data-qty="dec"]');
+  const incBtn = document.querySelector('[data-qty="inc"]');
+  const qtyVal = document.getElementById('qtyVal');
+  const totalQty = document.getElementById('totalQty');
+  const linePrice = document.getElementById('qtyLinePrice');
+  const totalPrice = document.getElementById('totalPrice');
+  if (!decBtn || !incBtn || !qtyVal) return;
+
+  const unitPrice = product.price_krw || 0;
+  let q = 1;
+
+  const fmt = (n) => `₩${n.toLocaleString('en-US')}`;
+  const update = () => {
+    qtyVal.textContent = q;
+    if (totalQty) totalQty.textContent = q;
+    if (linePrice) linePrice.textContent = fmt(unitPrice * q);
+    if (totalPrice) totalPrice.textContent = fmt(unitPrice * q);
+    decBtn.disabled = q <= 1;
+  };
+
+  decBtn.addEventListener('click', () => { if (q > 1) { q--; update(); } });
+  incBtn.addEventListener('click', () => { q++; update(); });
+  update();
+}
+
 /* ─── Video mute toggle ─── */
 function setupVideoMute() {
   const btn = document.getElementById('videoMute');
@@ -407,6 +434,8 @@ function setupActions(strings) {
         window.location.href = strings.urls?.shop || 'https://aroundpharm.com';
       } else if (action === 'getApp') {
         window.location.href = strings.urls?.app_store || 'https://aroundpharm.com';
+      } else if (action === 'findPharmacy') {
+        alert(strings.alerts?.find_pharmacy || 'Opening pharmacy finder…');
       }
     });
   });
@@ -433,6 +462,7 @@ async function boot() {
     setupSortTabs();
     setupPhotoToggle();
     setupVideoMute();
+    setupQuantity(product);
     setupActions(strings);
     setupLangSwitcher(lang, (next) => {
       localStorage.setItem('ap_lang', next);
