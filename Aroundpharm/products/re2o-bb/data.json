@@ -1,0 +1,75 @@
+{
+  "id": "re2o-bb",
+  "brand": "Re2O",
+  "brand_id": "re2o",
+  "name": {
+    "ko": "엘라비에 리투오 이씨엠 스킨핏 비비",
+    "en": "Elravie Re2O ECM Skin-fit BB",
+    "zh": "Elravie Re2O ECM 贴肤 BB 霜",
+    "ja": "エルラヴィ Re2O ECM スキンフィット BB"
+  },
+  "tagline": {
+    "ko": "ECMiracle™ 함유 · 커버 + 스킨케어 비비 · 40ml · SPF35",
+    "en": "With ECMiracle™ · Cover + skincare BB · 40ml · SPF35",
+    "zh": "含 ECMiracle™ · 遮瑕 + 护肤 BB · 40ml · SPF35",
+    "ja": "ECMiracle™ 配合 · カバー + スキンケア BB · 40ml · SPF35"
+  },
+  "price_krw": 38000,
+  "price_original_krw": 42000,
+  "discount_pct": 9,
+  "pharmacist_pick": true,
+  "rating": 4.81,
+  "review_count": 64,
+  "hero_image": "images/hero.png",
+  "thumbnails": [
+    "images/hero.png",
+    "images/02.png",
+    "images/03.png",
+    "images/04.png"
+  ],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"]
+  },
+  "related": ["re2o-ampoule", "re2o-cream"],
+  "review_stats": {
+    "skin_type": { "combination": 50, "dry": 28, "oily": 16, "very_dry": 6 },
+    "age_group": { "twenties": 22, "thirties": 48, "forties_plus": 30 },
+    "concerns": { "texture": 44, "brightening": 38, "elasticity": 30, "sebum": 18 },
+    "region": { "seoul": 42, "gyeonggi": 24, "busan": 9, "other": 25 }
+  },
+  "reviews": [
+    {
+      "user": "구**", "age_group": "thirties", "skin_type": "combination",
+      "concerns": ["texture", "brightening"], "rating": 5, "date": "2025-05-13", "likes": 17,
+      "photo": "images/reviews/r-2.jpg",
+      "text": {
+        "ko": "커버되면서 피부케어까지 되는 비비. 답답하지 않고 자연스러워요.",
+        "en": "A BB that covers while caring for skin. Natural, never suffocating.",
+        "zh": "既能遮瑕又能护肤的 BB。不闷不堵,很自然。",
+        "ja": "カバーしながらスキンケアもできるBB。重くなく自然です。"
+      }
+    },
+    {
+      "user": "민**", "age_group": "twenties", "skin_type": "oily",
+      "concerns": ["sebum", "texture"], "rating": 4, "date": "2025-04-26", "likes": 11,
+      "photo": "images/reviews/r-3.jpg",
+      "text": {
+        "ko": "지성인데 오후까지 무너짐 적어요. 톤은 살짝 밝은 편.",
+        "en": "Oily skin — minimal breakdown through the afternoon. Shade runs slightly light.",
+        "zh": "油性肌肤,到下午也不易脱妆。色号偏白一点。",
+        "ja": "脂性肌ですが午後まで崩れにくいです。色味はやや明るめ。"
+      }
+    },
+    {
+      "user": "추**", "age_group": "forties_plus", "skin_type": "dry",
+      "concerns": ["elasticity", "brightening"], "rating": 5, "date": "2025-04-14", "likes": 9,
+      "photo": "images/reviews/r-4.jpg",
+      "text": {
+        "ko": "건성이라 비비 들뜨는 게 싫었는데 이건 밀착 좋아요. 앰플 쓰고 바르면 더 좋음.",
+        "en": "Dry skin — BBs usually flake on me, but this clings well. Even better over the ampoule.",
+        "zh": "干性肌肤,BB 常卡粉,但这款贴肤好。用安瓶后再涂更好。",
+        "ja": "乾燥肌でBBが浮くのが苦手でしたが、これは密着が良いです。アンプル後だとさらに良い。"
+      }
+    }
+  ]
+}

@@ -283,6 +283,55 @@ a { color: inherit; }
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
+
+/* ─── media 모드 헤더 (GIF 섹션 — SKIN ARCHITECTURE 스타일) ─── */
+.pharmacist-video-header--media {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.pharmacist-video-eyebrow--text {
+  display: block;
+  height: auto; padding: 0;
+  margin-bottom: 14px;
+  background: transparent;
+  color: var(--color-error, #f5707a);
+  font: var(--font-b4);
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+.pharmacist-video-header--media .pharmacist-video-title {
+  display: flex; flex-direction: column;
+  gap: 2px;
+  margin: 0 0 16px;
+}
+.pv-title-top {
+  font: var(--font-h2);
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.pv-title-main {
+  font: var(--font-h1-b);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -.5px;
+}
+.pharmacist-video-header--media .pharmacist-video-desc {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── GIF 모드 — 가로형 프레임 ─── */
+.pharmacist-video-block[data-media="gif"] .pharmacist-video-frame {
+  max-width: 100%;
+  aspect-ratio: auto;
+  border-radius: var(--radius-md);
+}
+.pharmacist-video-block[data-media="gif"] .pharmacist-video-el {
+  width: 100%; height: auto;
+  display: block;
+}
 /* 영상 없을 때 전체 블록 숨김 */
 .pharmacist-video-block:has(.pharmacist-video[style*="display: none"]),
 .pharmacist-video-block:has(.pharmacist-video[hidden]) { display: none; }

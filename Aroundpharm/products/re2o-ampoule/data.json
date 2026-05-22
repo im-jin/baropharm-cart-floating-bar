@@ -1,0 +1,109 @@
+{
+  "id": "re2o-ampoule",
+  "brand": "Re2O",
+  "brand_id": "re2o",
+  "name": {
+    "ko": "엘라비에 리투오 이씨엠 액티브 앰플",
+    "en": "Elravie Re2O ECM Active Ampoule",
+    "zh": "Elravie Re2O ECM 活性安瓶",
+    "ja": "エルラヴィ Re2O ECM アクティブアンプル"
+  },
+  "tagline": {
+    "ko": "ECMiracle™ 10,000ppm · 집중 부스팅 앰플 · 15ml",
+    "en": "ECMiracle™ 10,000ppm · Intensive boosting ampoule · 15ml",
+    "zh": "ECMiracle™ 10,000ppm · 集中提升安瓶 · 15ml",
+    "ja": "ECMiracle™ 10,000ppm · 集中ブースティングアンプル · 15ml"
+  },
+  "price_krw": 52000,
+  "price_original_krw": 60000,
+  "discount_pct": 13,
+  "pharmacist_pick": true,
+  "rating": 4.94,
+  "review_count": 152,
+  "hero_image": "images/hero.png",
+  "pharmacist_video": "images/ecm.gif",
+  "video_kind": "gif",
+  "media": {
+    "eyebrow": "SKIN ARCHITECTURE",
+    "title_top": {
+      "ko": "피부에 닿는 순간 시작되는",
+      "en": "Begins the moment it touches your skin",
+      "zh": "触肤瞬间即启动的",
+      "ja": "肌に触れた瞬間に始まる"
+    },
+    "title_main": {
+      "ko": "리커버리 코어케어",
+      "en": "Recovery Core Care",
+      "zh": "修护核心护理",
+      "ja": "リカバリー コアケア"
+    },
+    "body": {
+      "ko": "리투오 이씨엠 라인은 피부 표면의 일시적인 케어를 넘어, 피부 코어 에너지를 강화하는 데 집중합니다.\n\n매일의 스킨케어 루틴을 통해 속에서부터 차오르는 탄탄한 밀도 케어를 직접 경험해 보세요. 무너진 기초를 탄탄하게 케어해 피부 본연의 힘을 깨워줍니다.",
+      "en": "The Re2O ECM line goes beyond temporary surface care, focusing on strengthening the skin's core energy.\n\nThrough your daily skincare routine, experience firm density care that fills from within — reviving the skin's inherent strength by rebuilding a weakened foundation.",
+      "zh": "Re2O ECM 系列超越肌肤表层的临时护理,专注于强化肌肤核心能量。\n\n通过每日护肤routine,亲身体验由内而外充盈的紧致密度护理。重建受损根基,唤醒肌肤本来的力量。",
+      "ja": "Re2O ECM ラインは肌表面の一時的なケアを超え、肌のコアエネルギーを強化することに集中します。\n\n毎日のスキンケアルーティンを通じて、内側から満ちる引き締まった密度ケアをご体験ください。崩れた土台をしっかり整え、肌本来の力を呼び覚まします。"
+    }
+  },
+  "thumbnails": [
+    "images/hero.png",
+    "images/02.png",
+    "images/03.png",
+    "images/04.png"
+  ],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"]
+  },
+  "related": ["re2o-cream", "re2o-bb"],
+  "review_stats": {
+    "skin_type": { "combination": 46, "dry": 34, "very_dry": 12, "oily": 8 },
+    "age_group": { "twenties": 16, "thirties": 51, "forties_plus": 33 },
+    "concerns": { "elasticity": 74, "dryness": 49, "texture": 31, "sensitivity": 24, "brightening": 19 },
+    "region": { "seoul": 39, "gyeonggi": 23, "busan": 10, "other": 28 }
+  },
+  "reviews": [
+    {
+      "user": "권**", "age_group": "thirties", "skin_type": "combination",
+      "concerns": ["elasticity", "texture"], "rating": 5, "date": "2025-05-15", "likes": 29,
+      "photo": "images/reviews/r-1.jpg",
+      "text": {
+        "ko": "앰플 한 방울인데 다음날 피부 차오르는 느낌이 확실해요. ECM 기술 진짜인 듯.",
+        "en": "Just one drop and my skin feels plumped the next day. The ECM tech is real.",
+        "zh": "只用一滴,第二天肌肤饱满感明显。ECM 技术是真的。",
+        "ja": "アンプル一滴で翌日の肌のハリ感が明らか。ECM技術は本物のようです。"
+      }
+    },
+    {
+      "user": "배**", "age_group": "forties_plus", "skin_type": "dry",
+      "concerns": ["elasticity", "dryness"], "rating": 5, "date": "2025-05-06", "likes": 21,
+      "photo": "images/reviews/r-2.jpg",
+      "text": {
+        "ko": "40대 건성인데 흡수가 정말 빨라요. 끈적임 없이 속부터 채워지는 느낌.",
+        "en": "Dry 40s skin — absorbs incredibly fast. Fills from within with no stickiness.",
+        "zh": "40多岁干性肌肤,吸收非常快。不黏腻,由内而外填充。",
+        "ja": "40代の乾燥肌ですが浸透がとても早いです。ベタつかず内側から満たされる感じ。"
+      }
+    },
+    {
+      "user": "송**", "age_group": "thirties", "skin_type": "very_dry",
+      "concerns": ["dryness", "sensitivity"], "rating": 5, "date": "2025-04-28", "likes": 17,
+      "photo": "images/reviews/r-3.jpg",
+      "text": {
+        "ko": "민감성인데 자극 없이 순해요. 크림이랑 같이 쓰면 보습 더 오래가요.",
+        "en": "Sensitive skin — gentle with zero irritation. Lasts longer paired with the cream.",
+        "zh": "敏感肌,温和无刺激。和面霜一起用保湿更持久。",
+        "ja": "敏感肌ですが刺激なく優しいです。クリームと一緒に使うと保湿が長持ち。"
+      }
+    },
+    {
+      "user": "전**", "age_group": "twenties", "skin_type": "combination",
+      "concerns": ["texture", "brightening"], "rating": 4, "date": "2025-04-17", "likes": 10,
+      "photo": "images/reviews/r-4.jpg",
+      "text": {
+        "ko": "결 정돈 효과 좋아요. 용량이 작은 편이라 아껴 쓰게 되네요.",
+        "en": "Great at refining texture. Small size though, so I use it sparingly.",
+        "zh": "肌理改善效果好。容量偏小,所以省着用。",
+        "ja": "キメを整える効果が良いです。容量が小さめなので大切に使っています。"
+      }
+    }
+  ]
+}

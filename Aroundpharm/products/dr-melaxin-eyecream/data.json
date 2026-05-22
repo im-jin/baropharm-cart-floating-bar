@@ -31,5 +31,54 @@
     "concerns": { "elasticity": 75, "dryness": 50, "sensitivity": 30, "texture": 22 },
     "region": { "seoul": 36, "gyeonggi": 24, "busan": 12, "other": 28 }
   },
-  "reviews": []
+  "reviews": [
+    {
+      "user": "조**",
+      "age_group": "forties_plus",
+      "skin_type": "dry",
+      "concerns": ["elasticity", "dryness"],
+      "rating": 5,
+      "date": "2025-05-10",
+      "likes": 18,
+      "photo": "images/reviews/r-3.jpg",
+      "text": {
+        "ko": "눈가 잔주름에 꾸준히 발랐더니 확실히 매끈해졌어요.",
+        "en": "Applied consistently to fine lines around my eyes — visibly smoother now.",
+        "zh": "坚持涂抹眼周细纹后,明显变得平滑。",
+        "ja": "目元の小じわに塗り続けたら、確かになめらかになりました。"
+      }
+    },
+    {
+      "user": "신**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["elasticity"],
+      "rating": 5,
+      "date": "2025-04-25",
+      "likes": 12,
+      "photo": "images/reviews/r-5.jpg",
+      "text": {
+        "ko": "아이크림 끈적이는 거 싫어하는데 이건 산뜻하게 흡수돼요.",
+        "en": "I hate sticky eye creams — this one absorbs cleanly.",
+        "zh": "我不喜欢黏腻的眼霜,这款吸收清爽。",
+        "ja": "ベタつくアイクリームが苦手ですが、これはすっと浸透します。"
+      }
+    },
+    {
+      "user": "문**",
+      "age_group": "forties_plus",
+      "skin_type": "very_dry",
+      "concerns": ["dryness", "sensitivity"],
+      "rating": 4,
+      "date": "2025-04-12",
+      "likes": 8,
+      "photo": "images/reviews/r-6.jpg",
+      "text": {
+        "ko": "민감한 눈가에도 자극 없이 잘 맞아요. 양이 좀 적은 게 아쉬움.",
+        "en": "Gentle on my sensitive eye area, no irritation. Wish it were a bit larger.",
+        "zh": "敏感眼周也无刺激,很合适。容量稍小有点可惜。",
+        "ja": "敏感な目元にも刺激なく合います。量がやや少ないのが残念。"
+      }
+    }
+  ]
 }

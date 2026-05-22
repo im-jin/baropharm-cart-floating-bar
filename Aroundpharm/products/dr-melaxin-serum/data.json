@@ -31,5 +31,54 @@
     "concerns": { "elasticity": 68, "dryness": 45, "texture": 38, "brightening": 22 },
     "region": { "seoul": 40, "gyeonggi": 24, "busan": 10, "other": 26 }
   },
-  "reviews": []
+  "reviews": [
+    {
+      "user": "강**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["elasticity", "texture"],
+      "rating": 5,
+      "date": "2025-05-08",
+      "likes": 21,
+      "photo": "images/reviews/r-1.jpg",
+      "text": {
+        "ko": "텍스처가 산뜻한데 보습은 꽉 차요. 크림 전 단계로 딱.",
+        "en": "Light texture but deeply hydrating. Perfect step before the cream.",
+        "zh": "质地清爽但保湿充足,作为面霜前一步刚刚好。",
+        "ja": "テクスチャーは軽やかなのに保湿はしっかり。クリーム前の段階にぴったり。"
+      }
+    },
+    {
+      "user": "노**",
+      "age_group": "forties_plus",
+      "skin_type": "dry",
+      "concerns": ["elasticity"],
+      "rating": 5,
+      "date": "2025-04-29",
+      "likes": 16,
+      "photo": "images/reviews/r-2.jpg",
+      "text": {
+        "ko": "탄력 세럼 여러 개 써봤는데 이게 제일 순하면서 효과 좋아요.",
+        "en": "Tried many firming serums — this is the gentlest one that actually works.",
+        "zh": "用过多款弹性精华,这款最温和且有效。",
+        "ja": "ハリ系セラムをいくつも試しましたが、これが一番優しくて効果的。"
+      }
+    },
+    {
+      "user": "백**",
+      "age_group": "thirties",
+      "skin_type": "oily",
+      "concerns": ["texture", "sebum"],
+      "rating": 4,
+      "date": "2025-04-15",
+      "likes": 9,
+      "photo": "images/reviews/r-4.jpg",
+      "text": {
+        "ko": "지성인데 안 무겁고 좋아요. 모공 주변 결도 정돈되는 느낌.",
+        "en": "Oily skin, not heavy at all. Pores look more refined too.",
+        "zh": "油性肌肤,完全不厚重。毛孔周围也变得平整。",
+        "ja": "脂性肌ですが重くなく良いです。毛穴まわりのキメも整う感じ。"
+      }
+    }
+  ]
 }

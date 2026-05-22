@@ -157,20 +157,64 @@ function bindProduct(product, lang) {
     }
   }
 
-  /* v1 pharmacist-video section: hide entirely if no video */
-  document.querySelectorAll('.pharmacist-video').forEach(section => {
+  /* v1 미디어 섹션 (약사 영상 / GIF) — pharmacist_video 없으면 숨김 */
+  const pvBlock = document.querySelector('.pharmacist-video-block');
+  if (pvBlock) {
     if (!product.pharmacist_video) {
-      section.style.display = 'none';
+      pvBlock.style.display = 'none';
     } else {
-      // update video source to use BASE + data path (in case it was hardcoded)
-      const sourceEl = section.querySelector('.pharmacist-video-el source');
-      if (sourceEl) {
-        sourceEl.src = `${BASE}products/${product.id}/${product.pharmacist_video}`;
-        const videoEl = section.querySelector('.pharmacist-video-el');
-        if (videoEl) videoEl.load();
+      pvBlock.style.display = '';
+      const isGif = /\.gif$/i.test(product.pharmacist_video);
+      const mediaUrl = `${BASE}products/${product.id}/${product.pharmacist_video}`;
+      pvBlock.setAttribute('data-media', isGif ? 'gif' : 'video');
+
+      /* 미디어 엘리먼트 (GIF=img / 영상=video) */
+      const frame = pvBlock.querySelector('.pharmacist-video-frame');
+      if (frame) {
+        frame.innerHTML = '';
+        if (isGif) {
+          const img = document.createElement('img');
+          img.className = 'pharmacist-video-el';
+          img.src = mediaUrl;
+          img.alt = '';
+          img.loading = 'lazy';
+          frame.appendChild(img);
+        } else {
+          const v = document.createElement('video');
+          v.className = 'pharmacist-video-el';
+          v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
+          v.preload = 'metadata';
+          const src = document.createElement('source');
+          src.src = mediaUrl; src.type = 'video/mp4';
+          v.appendChild(src);
+          frame.appendChild(v);
+          const muteBtn = document.createElement('button');
+          muteBtn.className = 'pharmacist-video-mute';
+          muteBtn.id = 'videoMute';
+          muteBtn.setAttribute('aria-label', 'Toggle mute');
+          muteBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>';
+          frame.appendChild(muteBtn);
+        }
+      }
+
+      /* 헤더 — product.media 있으면 override, 없으면 i18n 기본값 유지 */
+      const header = pvBlock.querySelector('.pharmacist-video-header');
+      if (header && product.media) {
+        const m = product.media;
+        const mp = (o) => (o && (o[lang] || o.ko || o.en)) || '';
+        const esc = (s) => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+        header.classList.add('pharmacist-video-header--media');
+        header.innerHTML = `
+          <span class="pharmacist-video-eyebrow pharmacist-video-eyebrow--text">${esc(m.eyebrow || '')}</span>
+          <h2 class="pharmacist-video-title">
+            <span class="pv-title-top">${esc(mp(m.title_top))}</span>
+            <span class="pv-title-main">${esc(mp(m.title_main))}</span>
+          </h2>
+          <p class="pharmacist-video-desc">${esc(mp(m.body)).replace(/\n/g, '<br>')}</p>
+        `;
       }
     }
-  });
+  }
 
   /* Hero media (v2): video if pharmacist_video exists, else hero image fallback */
   const heroMedia = document.getElementById('heroMedia');

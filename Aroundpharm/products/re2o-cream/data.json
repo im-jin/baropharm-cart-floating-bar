@@ -1,0 +1,75 @@
+{
+  "id": "re2o-cream",
+  "brand": "Re2O",
+  "brand_id": "re2o",
+  "name": {
+    "ko": "엘라비에 리투오 이씨엠 부스터 크림",
+    "en": "Elravie Re2O ECM Booster Cream",
+    "zh": "Elravie Re2O ECM 提升面霜",
+    "ja": "エルラヴィ Re2O ECM ブースタークリーム"
+  },
+  "tagline": {
+    "ko": "ECMiracle™ 10,000ppm · 탄력 부스팅 크림 · 50ml",
+    "en": "ECMiracle™ 10,000ppm · Firming booster cream · 50ml",
+    "zh": "ECMiracle™ 10,000ppm · 弹力提升面霜 · 50ml",
+    "ja": "ECMiracle™ 10,000ppm · ハリブースタークリーム · 50ml"
+  },
+  "price_krw": 45000,
+  "price_original_krw": 50000,
+  "discount_pct": 10,
+  "pharmacist_pick": true,
+  "rating": 4.89,
+  "review_count": 88,
+  "hero_image": "images/hero.png",
+  "thumbnails": [
+    "images/hero.png",
+    "images/02.png",
+    "images/03.png",
+    "images/04.png"
+  ],
+  "detail_modules": {
+    "ko": ["images/ko/full.png"]
+  },
+  "related": ["re2o-ampoule", "re2o-bb"],
+  "review_stats": {
+    "skin_type": { "combination": 44, "dry": 36, "very_dry": 12, "oily": 8 },
+    "age_group": { "twenties": 14, "thirties": 50, "forties_plus": 36 },
+    "concerns": { "elasticity": 70, "dryness": 52, "texture": 28, "sensitivity": 22 },
+    "region": { "seoul": 40, "gyeonggi": 22, "busan": 11, "other": 27 }
+  },
+  "reviews": [
+    {
+      "user": "황**", "age_group": "thirties", "skin_type": "dry",
+      "concerns": ["elasticity", "dryness"], "rating": 5, "date": "2025-05-11", "likes": 20,
+      "photo": "images/reviews/r-5.jpg",
+      "text": {
+        "ko": "앰플 위에 크림으로 마무리하니 보습 장벽이 확실해요. 밤새 촉촉.",
+        "en": "Sealing with this cream over the ampoule gives a real moisture barrier. Dewy all night.",
+        "zh": "在安瓶上用面霜收尾,保湿屏障明显。整夜水润。",
+        "ja": "アンプルの上にクリームで仕上げると保湿バリアが確かです。一晩中しっとり。"
+      }
+    },
+    {
+      "user": "유**", "age_group": "forties_plus", "skin_type": "very_dry",
+      "concerns": ["dryness", "elasticity"], "rating": 5, "date": "2025-04-30", "likes": 14,
+      "photo": "images/reviews/r-6.jpg",
+      "text": {
+        "ko": "묵직하지 않은데 보습력 좋아요. 겨울 필수템 될 듯.",
+        "en": "Not heavy yet very hydrating. Will be a winter essential.",
+        "zh": "不厚重却很保湿。会成为冬季必备。",
+        "ja": "重くないのに保湿力が高いです。冬の必需品になりそう。"
+      }
+    },
+    {
+      "user": "남**", "age_group": "thirties", "skin_type": "combination",
+      "concerns": ["texture"], "rating": 4, "date": "2025-04-18", "likes": 8,
+      "photo": "images/reviews/r-1.jpg",
+      "text": {
+        "ko": "결 정돈 잘 되고 발림성 좋아요. 향이 거의 없는 게 장점.",
+        "en": "Refines texture well, spreads nicely. Almost scent-free, which I like.",
+        "zh": "肌理改善好,延展性佳。几乎无香味是优点。",
+        "ja": "キメが整い、伸びが良いです。ほぼ無香料なのが長所。"
+      }
+    }
+  ]
+}

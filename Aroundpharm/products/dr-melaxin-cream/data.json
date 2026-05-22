@@ -39,5 +39,102 @@
     "concerns": { "elasticity": 71, "dryness": 58, "sensitivity": 32, "texture": 25, "brightening": 18 },
     "region": { "seoul": 38, "gyeonggi": 22, "busan": 11, "other": 29 }
   },
-  "reviews": []
+  "reviews": [
+    {
+      "user": "윤**",
+      "age_group": "thirties",
+      "skin_type": "dry",
+      "concerns": ["elasticity", "dryness"],
+      "rating": 5,
+      "date": "2025-05-12",
+      "likes": 27,
+      "photo": "images/reviews/r-1.jpg",
+      "text": {
+        "ko": "칼슘 본딩이라 그런가 발랐을 때 피부에 딱 밀착되는 느낌. 다음날 아침 탄력이 확실히 달라요.",
+        "en": "The calcium bonding really clings to the skin — noticeably firmer by the next morning.",
+        "zh": "钙键配方涂上后紧贴肌肤,第二天早晨弹性明显不同。",
+        "ja": "カルシウムボンディングのおかげか肌に密着し、翌朝のハリが明らかに違います。"
+      }
+    },
+    {
+      "user": "서**",
+      "age_group": "forties_plus",
+      "skin_type": "very_dry",
+      "concerns": ["dryness", "sensitivity"],
+      "rating": 5,
+      "date": "2025-05-04",
+      "likes": 19,
+      "photo": "images/reviews/r-2.jpg",
+      "text": {
+        "ko": "초건성인데 이거 바르고 속당김이 없어졌어요. 자극도 전혀 없고 순해요.",
+        "en": "Very dry skin here — no more tightness after using this. Zero irritation, very gentle.",
+        "zh": "极干性肌肤,用了之后不再紧绷,完全无刺激,很温和。",
+        "ja": "極乾燥肌ですが、これを塗ってからつっぱりがなくなりました。刺激も全くなく優しいです。"
+      }
+    },
+    {
+      "user": "정**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["elasticity", "texture"],
+      "rating": 5,
+      "date": "2025-04-27",
+      "likes": 33,
+      "photo": "images/reviews/r-3.jpg",
+      "text": {
+        "ko": "세럼이랑 같이 쓰니까 시너지가 좋아요. 결 정돈되는 게 눈에 보임.",
+        "en": "Great synergy when used with the serum. You can actually see the texture refine.",
+        "zh": "和精华一起用效果更佳,肌理变得平整看得见。",
+        "ja": "セラムと一緒に使うと相乗効果があります。キメが整うのが目に見えてわかります。"
+      }
+    },
+    {
+      "user": "한**",
+      "age_group": "forties_plus",
+      "skin_type": "dry",
+      "concerns": ["elasticity"],
+      "rating": 4,
+      "date": "2025-04-19",
+      "likes": 11,
+      "photo": "images/reviews/r-4.jpg",
+      "text": {
+        "ko": "보습력 좋고 무겁지 않아요. 다만 향이 거의 없어서 호불호 갈릴 듯.",
+        "en": "Good hydration, not heavy. Almost scent-free though, so that's a preference thing.",
+        "zh": "保湿力好且不厚重。几乎无香味,可能因人而异。",
+        "ja": "保湿力が高く重くないです。ほぼ無香料なので好みは分かれそう。"
+      }
+    },
+    {
+      "user": "임**",
+      "age_group": "thirties",
+      "skin_type": "combination",
+      "concerns": ["dryness", "brightening"],
+      "rating": 5,
+      "date": "2025-04-10",
+      "likes": 22,
+      "photo": "images/reviews/r-5.jpg",
+      "text": {
+        "ko": "재구매 3번째예요. 약사님이 추천해주셔서 시작했는데 진짜 만족.",
+        "en": "Third repurchase. Started on a pharmacist's recommendation — genuinely satisfied.",
+        "zh": "已经第三次回购。药师推荐后开始用,真的很满意。",
+        "ja": "3回目のリピートです。薬剤師さんのおすすめで使い始めて本当に満足。"
+      }
+    },
+    {
+      "user": "오**",
+      "age_group": "twenties",
+      "skin_type": "dry",
+      "concerns": ["dryness"],
+      "rating": 5,
+      "date": "2025-04-02",
+      "likes": 14,
+      "photo": "images/reviews/r-6.jpg",
+      "text": {
+        "ko": "20대 건성인데 겨울에 진가 발휘. 흡수 빠르고 끈적임 없어요.",
+        "en": "Dry skin in my 20s — shines in winter. Absorbs fast, no stickiness.",
+        "zh": "20多岁干性肌肤,冬天效果尤其好。吸收快不黏腻。",
+        "ja": "20代の乾燥肌ですが、冬に本領発揮。浸透が早くベタつきません。"
+      }
+    }
+  ]
 }
