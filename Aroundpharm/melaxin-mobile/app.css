@@ -1,0 +1,1446 @@
+/* ─────────────────────────────────────────────────────────────
+   Aroundpharm — QR pharmacy-shelf landing
+   원본 어라운드팜 상세 구조 + 신규 컴포넌트 (디자인 시스템 적용)
+   토큰 단일 소스: ../tokens.css
+   ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+html {
+  font-family: var(--font-family-default);
+  color: var(--color-text);
+  background: var(--color-bg-base-white);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg-base-white);
+  padding-bottom: 96px;
+}
+body[data-loading="true"] .page { opacity: 0; }
+.page { opacity: 1; transition: opacity .25s ease; }
+
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; background: none; border: 0; padding: 0; color: inherit; }
+ul, ol, li { list-style: none; padding: 0; margin: 0; }
+a { color: inherit; }
+
+/* mobile-first bound (모바일/태블릿 portrait) */
+.page, .topnav, .sticky-cta {
+  max-width: 480px; margin-left: auto; margin-right: auto;
+}
+
+/* lang switcher 메뉴 위치 anchor */
+.lang-wrap { position: relative; display: inline-flex; }
+
+/* ─────────── TOP NAV ─────────── */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px; padding: 0 12px;
+  background: var(--color-bg-base-white);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.topnav-right { display: flex; align-items: center; gap: 4px; }
+.iconbtn {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  color: var(--color-text);
+  border-radius: var(--radius-pill);
+}
+.iconbtn:hover { background: var(--color-grey-2); }
+
+/* 언어 스위처 (NEW) */
+.lang-switcher {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 32px; padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-base-white);
+  font: var(--font-b4);
+  color: var(--color-text);
+}
+.lang-switcher:hover { border-color: var(--color-brand-aroundpharm); }
+.lang-globe { font-size: 13px; line-height: 1; }
+.lang-caret { font-size: 9px; opacity: .6; }
+
+.lang-menu {
+  position: absolute; top: 38px; right: 0;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-on-gray-200);
+  min-width: 140px; z-index: 60;
+  padding: 4px;
+}
+.lang-menu li {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  cursor: pointer;
+}
+.lang-menu li:hover { background: var(--color-brand-aroundpharm-bg); }
+.lang-menu li[aria-selected="true"] {
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 600;
+}
+
+/* ─────────── HERO ─────────── */
+.hero { padding: 0; }
+.hero-media {
+  width: 100%; aspect-ratio: 1 / 1;
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+}
+.hero-img { width: 100%; height: 100%; object-fit: cover; }
+
+.thumb-strip {
+  display: flex; gap: 8px; padding: 12px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.thumb-strip::-webkit-scrollbar { display: none; }
+.thumb-strip .thumb {
+  flex: 0 0 64px;
+  width: 64px; height: 64px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+  border: 1px solid var(--color-border-secondary);
+}
+.thumb-strip .thumb[data-active="true"] {
+  border-color: var(--color-brand-aroundpharm);
+  border-width: 2px;
+}
+.thumb-strip .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ─────────── META BLOCK ─────────── */
+.meta { padding: 8px 20px 20px; }
+.brand-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.brand-chip {
+  display: inline-flex; align-items: center; height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm-bg);
+  color: var(--color-brand-aroundpharm-text);
+  font: var(--font-b5);
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+/* NEW: Pharmacist's Pick 배지 */
+.badge-pick {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 24px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-card-soft);
+  color: var(--color-text);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.badge-pick svg { color: var(--color-warning, #faad14); }
+
+.product-name {
+  margin: 0 0 6px;
+  font: var(--font-h2-b);
+  letter-spacing: -.3px;
+  color: var(--color-text);
+}
+.product-tagline {
+  margin: 0 0 14px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+
+.price-block {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap;
+}
+.price-discount {
+  font: var(--font-h3-b);
+  color: var(--color-error, #f5222d);
+}
+.price-current {
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.price-original {
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+/* ─────────── 약사픽 요약 카드 ─────────── */
+.pick-summary {
+  margin: 0 16px 24px;
+  padding: 16px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base-white);
+}
+.pick-summary-title {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 12px;
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-brand-aroundpharm-text);
+}
+.pick-summary-title svg { color: var(--color-warning, #faad14); }
+.pick-summary-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.pick-stars {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.pick-stars .star {
+  font-size: 18px;
+  color: var(--color-warning, #faad14);
+}
+.pick-score {
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.pick-link {
+  font: var(--font-b4);
+  color: var(--color-brand-aroundpharm-text);
+}
+.pick-bars { display: grid; gap: 8px; }
+.pick-bars li {
+  display: grid;
+  grid-template-columns: 64px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+}
+.bar-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.bar {
+  height: 6px;
+  background: var(--color-grey-3);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.bar i {
+  display: block; height: 100%;
+  width: var(--p, 0%);
+  background: var(--color-brand-aroundpharm);
+  border-radius: var(--radius-pill);
+}
+.bar-val {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+}
+
+/* ─────────── PHARMACIST 영상 섹션 (추천 제품 아래, 독립 섹션) ─────────── */
+.pharmacist-video-block {
+  padding: 28px 20px 24px;
+  background: var(--color-bg-base-white);
+  border-top: 8px solid var(--color-grey-2);
+  border-bottom: 8px solid var(--color-grey-2);
+}
+.pharmacist-video-block .pharmacist-video {
+  margin: 0;
+}
+.pharmacist-video-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.pharmacist-video-eyebrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 10px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+.pharmacist-video-eyebrow svg { color: var(--color-text-light); }
+.pharmacist-video-header .pharmacist-video-title {
+  display: block;
+  margin: 0 0 6px;
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.pharmacist-video-header .pharmacist-video-desc {
+  display: block;
+  margin: 0;
+  font: var(--font-b4);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── media 모드 헤더 (GIF 섹션 — SKIN ARCHITECTURE 스타일) ─── */
+.pharmacist-video-header--media {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.pharmacist-video-eyebrow--text {
+  display: block;
+  height: auto; padding: 0;
+  margin-bottom: 14px;
+  background: transparent;
+  color: var(--color-error, #f5707a);
+  font: var(--font-b4);
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+.pharmacist-video-header--media .pharmacist-video-title {
+  display: flex; flex-direction: column;
+  gap: 2px;
+  margin: 0 0 16px;
+}
+.pv-title-top {
+  font: var(--font-h2);
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.pv-title-main {
+  font: var(--font-h1-b);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -.5px;
+}
+.pharmacist-video-header--media .pharmacist-video-desc {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── GIF 모드 — 가로형 프레임 ─── */
+.pharmacist-video-block[data-media="gif"] .pharmacist-video-frame {
+  max-width: 100%;
+  aspect-ratio: auto;
+  border-radius: var(--radius-md);
+}
+.pharmacist-video-block[data-media="gif"] .pharmacist-video-el {
+  width: 100%; height: auto;
+  display: block;
+}
+/* 영상 없을 때 전체 블록 숨김 */
+.pharmacist-video-block:has(.pharmacist-video[style*="display: none"]),
+.pharmacist-video-block:has(.pharmacist-video[hidden]) { display: none; }
+.pharmacist-video {
+  margin: 16px 16px 0;
+}
+.pharmacist-video-frame {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-text);
+}
+.pharmacist-video-el {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pharmacist-video-tag {
+  position: absolute;
+  top: 10px; left: 10px;
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.pharmacist-video-tag svg { color: var(--color-text-light); }
+.pharmacist-video-mute {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-light);
+  backdrop-filter: blur(4px);
+}
+.pharmacist-video-mute:hover { background: rgba(0, 0, 0, 0.8); }
+.pharmacist-video-caption {
+  margin: 12px 8px 0;
+  display: flex; flex-direction: column; gap: 2px;
+  text-align: center;
+}
+.pharmacist-video-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.pharmacist-video-desc {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ─────────── 3-ICON QUICK BENEFITS (NEW · DS) ─────────── */
+.benefits {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 16px 24px;
+}
+.benefit {
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px 8px;
+  text-align: center;
+}
+.benefit-icon { font-size: 24px; margin-bottom: 6px; line-height: 1; }
+.benefit-label { font: var(--font-b5); color: var(--color-text-secondary); }
+
+/* ─────────── 함께 쓰면 좋은 제품 (라인업 캐러셀) ─────────── */
+.related-products {
+  padding: 24px 0 8px;
+  border-top: 8px solid var(--color-grey-2);
+}
+.related-products[hidden] { display: none; }
+.related-title {
+  margin: 0 16px 14px;
+  font: var(--font-h4-b);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.related-scroll {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.related-scroll::-webkit-scrollbar { display: none; }
+.related-card {
+  flex: 0 0 152px;
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  scroll-snap-align: start;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .12s ease, box-shadow .15s ease;
+}
+.related-card:hover {
+  box-shadow: var(--shadow-on-gray-200);
+  transform: translateY(-1px);
+}
+.related-card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+}
+.related-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.related-card-body { padding: 10px 12px 12px; }
+.related-card-brand {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.related-card-name {
+  font: var(--font-b4);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  letter-spacing: -.2px;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.related-card-price {
+  display: flex; align-items: baseline; gap: 6px;
+  flex-wrap: wrap;
+}
+.related-card-discount {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-error, #f5222d);
+}
+.related-card-current {
+  font: var(--font-b4);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.related-card-original {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+/* ─────────── TABS ─────────── */
+.tabs {
+  display: flex;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  position: sticky; top: 52px; z-index: 30;
+  background: var(--color-bg-base-white);
+}
+.tab {
+  flex: 1;
+  height: 48px;
+  font: var(--font-h5);
+  color: var(--color-text-secondary);
+  position: relative;
+}
+.tab.is-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+.tab.is-active::after {
+  content: '';
+  position: absolute; left: 12px; right: 12px; bottom: 0;
+  height: 2px;
+  background: var(--color-text);
+}
+
+.tab-panel { display: none; }
+.tab-panel.is-active { display: block; }
+
+/* ─────────── DETAIL MODULES ─────────── */
+.detail-modules {
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+}
+.detail-modules img {
+  width: 100%; height: auto; display: block;
+}
+.detail-modules-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 240px; padding: 40px 24px; text-align: center;
+  background: var(--color-bg-card-soft); color: var(--color-text-tertiary);
+  font: var(--font-b3);
+}
+
+/* ─────────── HOW TO USE (NEW · DS) ─────────── */
+.howto { padding: 32px 20px; background: var(--color-bg-base-white); border-top: 1px solid var(--color-border-secondary); }
+.section-title {
+  margin: 0 0 16px;
+  font: var(--font-h3-b);
+  color: var(--color-text);
+  letter-spacing: -.3px;
+}
+.howto-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.howto-step {
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 20px 8px; text-align: center; position: relative;
+}
+.howto-num {
+  position: absolute; top: 8px; left: 8px;
+  width: 20px; height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-weight: 700;
+  display: grid; place-items: center;
+}
+.howto-icon { font-size: 28px; margin-bottom: 8px; line-height: 1; }
+.howto-label { font: var(--font-b4); color: var(--color-text); }
+
+/* ─────────── REVIEW PANEL — 종합 별점 ─────────── */
+.review-summary {
+  padding: 24px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.review-score-num {
+  font: var(--font-display-5);
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.review-score-stars {
+  color: var(--color-warning, #faad14);
+  font-size: 18px;
+  letter-spacing: 4px;
+  margin-bottom: 4px;
+}
+.review-score-count {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+}
+.review-score-count > * { margin-right: 2px; }
+
+/* ─────────── REVIEW STATS (피부타입/연령대/고민/지역) ─────────── */
+.review-stats {
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.stat-group { }
+.stat-group-title {
+  font: var(--font-h5);
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.stat-bars { display: grid; gap: 8px; }
+.stat-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+}
+.stat-row .stat-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.stat-row .bar {
+  height: 6px;
+  background: var(--color-grey-3);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.stat-row .bar i {
+  display: block; height: 100%;
+  width: var(--p, 0%);
+  background: var(--color-brand-aroundpharm);
+  border-radius: var(--radius-pill);
+}
+.stat-row .stat-val {
+  font: var(--font-b5);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+}
+.stat-row[data-leader="true"] .bar i { background: var(--color-brand-aroundpharm-active); }
+.stat-row[data-leader="true"] .stat-val { color: var(--color-brand-aroundpharm-text); }
+.stat-row[data-collapsed="true"] { display: none; }
+.stat-group.is-expanded .stat-row[data-collapsed="true"] { display: grid; }
+
+.stat-expand {
+  margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  padding: 4px 0;
+}
+.stat-expand:hover { color: var(--color-brand-aroundpharm-text); }
+.stat-expand svg { transition: transform .2s ease; }
+.stat-group.is-expanded .stat-expand svg { transform: rotate(180deg); }
+
+/* ─────────── SORT + PHOTO TOGGLE ─────────── */
+.review-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+  padding: 16px 20px 8px;
+  position: sticky; top: 100px; z-index: 20;
+  background: var(--color-bg-base-white);
+}
+.sort-tabs {
+  display: flex; gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex: 1;
+}
+.sort-tabs::-webkit-scrollbar { display: none; }
+.sort-tab {
+  flex: 0 0 auto;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  padding: 4px 0;
+  white-space: nowrap;
+}
+.sort-tab.is-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+.sort-tab:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 1px; height: 10px;
+  background: var(--color-border);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.photo-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.photo-toggle input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: pointer;
+}
+.photo-toggle input[type="checkbox"]:checked {
+  background: var(--color-brand-aroundpharm);
+  border-color: var(--color-brand-aroundpharm);
+}
+.photo-toggle input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 0px;
+  width: 4px; height: 9px;
+  border: solid var(--color-text-light);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ─────────── REVIEW LIST + CARDS ─────────── */
+.review-list {
+  display: grid;
+  gap: 0;
+}
+.review-card {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.review-card[data-hidden="true"] { display: none; }
+.review-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.review-user {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.review-user-name {
+  font: var(--font-b4);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.review-meta-chip {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  background: var(--color-grey-2);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+}
+.review-rating-stars {
+  color: var(--color-warning, #faad14);
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.review-concerns {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.review-concern-tag {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  background: var(--color-brand-aroundpharm-bg);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+}
+.review-text {
+  font: var(--font-b3);
+  color: var(--color-text);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.review-photo {
+  width: 120px; height: 120px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card-soft);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.review-photo img { width: 100%; height: 100%; object-fit: cover; }
+.review-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+}
+.review-likes {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+.empty-state {
+  padding: 80px 20px;
+  text-align: center;
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+}
+
+/* ─────────── AP VALUE CARD (NEW · DS) ─────────── */
+.ap-card {
+  margin: 24px 16px;
+  padding: 28px 20px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg,
+              var(--color-brand-aroundpharm-bg),
+              var(--color-bg-card-soft));
+  text-align: center;
+}
+.ap-card-icon { font-size: 32px; margin-bottom: 12px; line-height: 1; }
+.ap-card-title {
+  margin: 0 0 8px;
+  font: var(--font-h3-b);
+  color: var(--color-text);
+}
+.ap-card-body {
+  margin: 0 0 20px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+
+/* ─────────── ORDER BLOCK (PC 전용) ─────────── */
+.order-block {
+  display: none;
+  margin: 24px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-border-secondary);
+}
+
+.order-shipping {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px 16px;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.order-shipping dt {
+  margin: 0;
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+}
+.order-shipping dd {
+  margin: 0;
+  font: var(--font-b3);
+  color: var(--color-text);
+}
+.order-shipping dd > span { display: block; }
+.ship-fee-main { font-weight: 700; }
+.ship-fee-sub {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.order-qty {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px;
+  background: var(--color-grey-2);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+.qty-stepper {
+  display: inline-flex; align-items: center;
+  background: var(--color-bg-base-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.qty-btn {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  font: var(--font-h4-b);
+  color: var(--color-text);
+  background: transparent;
+}
+.qty-btn:hover { background: var(--color-grey-2); }
+.qty-btn:disabled { color: var(--color-text-quaternary); cursor: not-allowed; }
+.qty-val {
+  min-width: 40px;
+  text-align: center;
+  font: var(--font-b3);
+  font-weight: 700;
+}
+.qty-line-price {
+  font: var(--font-h4-b);
+  color: var(--color-text);
+}
+
+.order-total {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.order-total-label {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+.order-total-label > span:nth-child(2) { font-weight: 700; color: var(--color-text); }
+.order-total-val {
+  font: var(--font-h2-b);
+  color: var(--color-text);
+}
+.order-total-val > span:first-child {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.order-cta-row {
+  display: flex; gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btn-find-pharmacy {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  gap: 8px;
+}
+.btn-find-pharmacy svg { color: var(--color-text); }
+
+/* ─────────── BUTTONS ─────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px;
+  height: 48px; padding: 0 20px;
+  border-radius: var(--radius-md);
+  font: var(--font-h4-b);
+  border: 1px solid transparent;
+  transition: transform .1s ease, background .15s ease, border-color .15s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary {
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+}
+.btn-primary:hover { background: var(--color-brand-aroundpharm-hover); }
+.btn-ghost {
+  background: var(--color-bg-base-white);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover { border-color: var(--color-brand-aroundpharm); }
+.btn-block { width: 100%; }
+.btn-half { flex: 1; }
+
+/* ─────────── FOOTER ─────────── */
+.page-footer { padding: 24px 20px 32px; text-align: center; }
+.footer-row a {
+  font: var(--font-b3);
+  color: var(--color-brand-aroundpharm-text);
+  text-decoration: none;
+}
+.footer-note {
+  margin: 16px 0 0;
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}
+
+/* ─────────── CART BADGE (top nav cart icon) ─────────── */
+.iconbtn-cart { position: relative; }
+.cart-badge {
+  position: absolute;
+  top: 4px; right: 4px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-error, #f5222d);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.cart-badge[hidden] { display: none; }
+
+/* ─────────── 담기 sticky CTA (수량 stepper + 버튼) ─────────── */
+.sticky-cta--cart {
+  display: flex; align-items: center; gap: 10px;
+}
+.sticky-qty-stepper {
+  display: inline-flex; align-items: center;
+  height: 52px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-base-white);
+}
+.sticky-qty-btn {
+  width: 36px; height: 100%;
+  display: grid; place-items: center;
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.sticky-qty-btn:hover { background: var(--color-grey-2); }
+.sticky-qty-btn:disabled { color: var(--color-text-quaternary); cursor: not-allowed; }
+.sticky-qty-val {
+  min-width: 32px;
+  text-align: center;
+  font: var(--font-h4-b);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.btn-add-to-cart {
+  flex: 1;
+  height: 52px;
+  font: var(--font-h4-b);
+}
+
+/* ─────────── CART 모달 ─────────── */
+.cart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+}
+.cart-modal[hidden] { display: none; }
+.cart-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  animation: cart-fade .2s ease-out;
+}
+@keyframes cart-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.cart-modal-sheet {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  max-height: 88vh;
+  display: flex; flex-direction: column;
+  background: var(--color-bg-base-white);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  animation: cart-slide-up .25s cubic-bezier(.2, .9, .3, 1.05);
+}
+@keyframes cart-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.cart-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.cart-modal-title {
+  margin: 0;
+  font: var(--font-h3-b, 600 18px/26px var(--font-family-default));
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-modal-close {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-grey-2);
+  border: 0;
+  color: var(--color-text);
+}
+
+.cart-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 16px;
+}
+
+/* 빈 상태 */
+.cart-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+.cart-empty-icon { font-size: 40px; margin-bottom: 8px; }
+.cart-empty p { margin: 0; font: var(--font-b3); }
+
+/* 카트 아이템 */
+.cart-items {
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+.cart-items:empty { display: none; }
+.cart-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  align-items: start;
+}
+.cart-item-thumb {
+  width: 64px; height: 64px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-card-soft);
+}
+.cart-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-meta { min-width: 0; }
+.cart-item-brand {
+  font: var(--font-b5);
+  color: var(--color-brand-aroundpharm-text);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.cart-item-name {
+  font: var(--font-b4);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cart-item-qty-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.cart-qty-stepper {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.cart-qty-stepper button {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.cart-qty-stepper button:hover { background: var(--color-grey-2); }
+.cart-qty-stepper .cart-qty-val {
+  min-width: 32px;
+  text-align: center;
+  font: var(--font-b4);
+  font-weight: 700;
+}
+.cart-item-remove {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+}
+.cart-item-remove:hover { color: var(--color-error, #f5222d); }
+.cart-item-price {
+  text-align: right;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 총액 */
+.cart-total {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--color-grey-2);
+  margin: 8px 16px 16px;
+  border-radius: var(--radius-md);
+  font: var(--font-h5);
+}
+.cart-total[hidden] { display: none; }
+.cart-total strong {
+  font: var(--font-h2-b);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 재고 정보 (Figma 8503:54541 스타일) */
+.cart-stock {
+  margin: 0 16px 16px;
+  padding: 0;
+  background: var(--color-bg-base-white);
+}
+.cart-stock[hidden] { display: none; }
+.cart-stock-head {
+  padding: 8px 4px 12px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 4px;
+}
+.cart-stock-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-sub {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+.cart-stock-list {
+  display: flex; flex-direction: column;
+  margin: 0; padding: 0; list-style: none;
+}
+.cart-stock-item {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.cart-stock-item:last-child { border-bottom: 0; }
+.cart-stock-icon {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  margin-top: 1px;
+}
+.cart-stock-info { min-width: 0; }
+.cart-stock-row1 {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 8px;
+}
+.cart-stock-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+/* "지금 있는 약국" 배지 */
+.cart-stock-here-badge {
+  display: inline-flex; align-items: center;
+  height: 18px; padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm);
+  color: var(--color-text-light);
+  font: var(--font-b5);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.cart-stock-here-badge:empty { display: none; }
+
+/* 재고 상태 배지 (재고있음/일부재고/재고없음) */
+.cart-stock-row4 {
+  margin-top: 8px;
+}
+.cart-stock-status-badge {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font: var(--font-b5);
+  font-weight: 700;
+}
+.cart-stock-status--in {
+  color: #1F7A1F;
+  background: rgba(56, 158, 13, 0.12);
+}
+.cart-stock-status--partial {
+  color: #B86E00;
+  background: rgba(212, 136, 6, 0.14);
+}
+.cart-stock-status--out {
+  color: #C81E1E;
+  background: rgba(245, 34, 45, 0.10);
+}
+.cart-stock-row2 {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  margin-bottom: 2px;
+  display: flex; align-items: center; gap: 5px;
+  flex-wrap: wrap;
+}
+.cart-stock-status-open {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-row3 {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  display: flex; align-items: center; gap: 5px;
+}
+.cart-stock-row3 strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.cart-stock-sep { color: var(--color-text-quaternary); }
+
+/* 카트 푸터 (약사 보여주기) */
+.cart-modal-foot {
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border-secondary);
+  background: var(--color-bg-base-white);
+}
+.cart-modal-foot[hidden] { display: none; }
+.btn-show-cart {
+  width: 100%;
+  height: 52px;
+  font: var(--font-h4-b);
+}
+
+/* ─────────── 약사 보여주기 멀티 아이템 모달 ─────────── */
+.show-cart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-bg-base-white);
+  overflow-y: auto;
+  animation: cart-fade .2s ease-out;
+}
+.show-cart-modal[hidden] { display: none; }
+.show-cart-modal-close {
+  position: fixed;
+  top: 16px; right: 16px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-grey-2);
+  color: var(--color-text);
+  border: 0;
+  z-index: 2;
+}
+.show-cart-modal-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 56px 20px 40px;
+}
+.show-cart-modal-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-aroundpharm-bg);
+  color: var(--color-brand-aroundpharm-text);
+  font: var(--font-b5);
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.show-cart-modal-title {
+  margin: 0 0 24px;
+  font: var(--font-h2-b);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -.3px;
+  line-height: 1.3;
+}
+.show-cart-items {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.show-cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 12px;
+  padding: 16px 0;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.show-cart-item:last-child { border-bottom: 0; }
+.show-cart-item-thumb {
+  width: 72px; height: 72px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-card-soft);
+}
+.show-cart-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.show-cart-item-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.show-cart-item-price {
+  font: var(--font-b4);
+  color: var(--color-text-secondary);
+}
+.show-cart-item-qty {
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.show-cart-total {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 28px;
+  font: var(--font-b3);
+}
+.show-cart-total > span:first-child { color: var(--color-text-secondary); }
+.show-cart-total strong {
+  font: var(--font-display-6, 700 28px/38px var(--font-family-default));
+  font-weight: 800;
+  color: var(--color-text);
+}
+.show-cart-message {
+  text-align: center;
+  margin: 0 auto 20px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-h2-b);
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+.show-cart-pharmacy {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-grey-2);
+  text-align: center;
+}
+.show-cart-pharmacy-label {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.show-cart-pharmacy-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 토스트 */
+.toast {
+  position: fixed;
+  bottom: 92px; left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-b4);
+  font-weight: 600;
+  z-index: 60;
+  animation: toast-pop .25s ease-out;
+}
+.toast[hidden] { display: none; }
+@keyframes toast-pop {
+  from { transform: translate(-50%, 12px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* ─────────── STICKY DUAL CTA ─────────── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 8px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-bg-base-white);
+  border-top: 1px solid var(--color-border-secondary);
+  z-index: 40;
+}
+
