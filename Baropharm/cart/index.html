@@ -1002,13 +1002,15 @@
     activateCart();
   });
 
-  // 2단 수량 입력 시 토스트 + 공급사 안내 갱신
+  // 2단 수량 입력 — 포커스 시 공급사 안내 카드 하이라이트, 입력 변경 시 토스트
   document.querySelectorAll('.d2-rows .d2-qty').forEach(input => {
-    input.addEventListener('change', () => {
+    input.addEventListener('focus', () => {
       const row = input.closest('.d2-row');
       if (row && row.dataset.supplier != null) {
         applySupplier(parseInt(row.dataset.supplier, 10));
       }
+    });
+    input.addEventListener('change', () => {
       if (input.value && input.value !== '0') showToast();
     });
   });
