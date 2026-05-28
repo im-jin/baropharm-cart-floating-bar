@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2f54eb" />
+  <title>바로아이 (Baro i) — OTC Plus | Pharmall</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="ai-page">
+
+  <!-- ════════════════ 좌측 사이드 (로고 / 대화검색 / 새대화 / 히스토리) ════════════════ -->
+  <aside class="ai-side">
+    <a class="ai-side-logo" href="index.html" aria-label="OTC 플러스 메인">
+      <img src="images/Pharmall_logo.svg" alt="Pharmall" />
+    </a>
+
+    <div class="ai-side-search">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" placeholder="대화 검색" />
+    </div>
+
+    <button class="ai-side-new" type="button">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      새로운 대화
+    </button>
+
+    <ul class="ai-history-list">
+      <li><button class="ai-history-item is-active" data-q="타이레놀 500mg 평균 사입가가 얼마예요?" type="button">타이레놀 500mg 평균 사입가가 얼마예요?</button></li>
+      <li><button class="ai-history-item" data-q="약사들이 가장 많이 추천한 종합감기약은?" type="button">약사들이 가장 많이 추천한 종합감기약은?</button></li>
+      <li><button class="ai-history-item" data-q="콘드로이친 들이고 싶은데 뭐가 좋아요?" type="button">콘드로이친 들이고 싶은데 뭐가 좋아요?</button></li>
+      <li><button class="ai-history-item" data-q="약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요" type="button">약국 오픈할 때 갖춰야 할 OTC</button></li>
+      <li><button class="ai-history-item" data-q="후시딘연고 어디서 얼마에 팔리나요?" type="button">후시딘연고 어디서 얼마에 팔리나요?</button></li>
+    </ul>
+  </aside>
+
+  <main class="ai-main">
+
+    <!-- ────────── HOME 상태 (초기) ────────── -->
+    <section class="ai-home" id="aiHome">
+
+      <p class="ai-home-eyebrow">
+        <img class="ai-home-eyebrow-icon" src="images/baro-i.png" alt="" aria-hidden="true" />
+        BARO i · OTC AGENT
+      </p>
+      <h1 class="ai-home-title">
+        OTC에 관한 <span class="ai-home-title-accent">무엇이든 물어보세요.</span>
+      </h1>
+      <p class="ai-home-sub">
+        OTC 사입가·셀링리뷰·신제품 — 바로팜 거래 데이터와 약사 28,400명의 평가로 답합니다.
+      </p>
+
+      <form class="ai-search" id="aiSearchForm" autocomplete="off">
+        <button class="ai-search-options" type="button" aria-label="옵션">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h13M4 12h9M4 18h13"/><circle cx="20" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="20" cy="18" r="2"/></svg>
+        </button>
+        <input id="aiInput" type="text" placeholder="OTC 에 대해 무엇이든 물어보세요" />
+        <button class="ai-search-send" type="submit" aria-label="질문 보내기">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </form>
+
+      <ul class="ai-prompts" id="aiPrompts">
+        <li>
+          <button class="ai-prompt" data-q="타이레놀 500mg 평균 사입가가 얼마예요?" type="button">
+            <svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-price">사입가</span>
+            <span class="ai-prompt-q">타이레놀 500mg 평균 사입가가 얼마예요?</span>
+          </button>
+        </li>
+        <li>
+          <button class="ai-prompt" data-q="약사들이 가장 많이 추천한 종합감기약은?" type="button">
+            <svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-review">셀링리뷰</span>
+            <span class="ai-prompt-q">약사들이 가장 많이 추천한 종합감기약은?</span>
+          </button>
+        </li>
+        <li>
+          <button class="ai-prompt" data-q="콘드로이친 들이고 싶은데 뭐가 좋아요?" type="button">
+            <svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-new">성분</span>
+            <span class="ai-prompt-q">콘드로이친 들이고 싶은데 뭐가 좋아요?</span>
+          </button>
+        </li>
+        <li>
+          <button class="ai-prompt" data-q="약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요" type="button">
+            <svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-set">개국</span>
+            <span class="ai-prompt-q">약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요</span>
+          </button>
+        </li>
+      </ul>
+
+      <p class="ai-home-foot">
+        * OTC 거래 데이터·셀링리뷰·심평원 사입가·바로팜 수급 정보 기반.
+        기본 의약품 정보는 <a href="https://drug.pharmallplus.com/" target="_blank" rel="noopener">의약품플러스</a>로 안내됩니다.
+      </p>
+    </section>
+
+    <!-- ────────── CHAT 상태 (검색 후) ────────── -->
+    <section class="ai-chat" id="aiChat" hidden>
+
+      <div class="ai-chat-thread">
+
+        <!-- 사용자 질문 (우측 버블) -->
+        <div class="ai-msg ai-msg-user">
+          <p class="ai-msg-bubble" id="aiUserQ">타이레놀 500mg 사입가 평균이 얼마인가요?</p>
+        </div>
+
+        <!-- 에이전트 응답 -->
+        <div class="ai-msg ai-msg-agent">
+
+          <!-- 로딩 (실행중) — 태그 + 한 줄 텍스트 + 연결된 블루 바 (ai-검색중.png 패턴) -->
+          <div class="ai-loading" id="aiLoading" hidden>
+            <span class="ai-loading-tag">
+              <img class="ai-loading-tag-icon" src="images/baro-i.png" alt="" aria-hidden="true" />
+              바로아이 분석중
+            </span>
+            <p class="ai-loading-text-wrap">
+              <span class="ai-loading-text" id="aiLoadingText">분석을 시작합니다…</span>
+            </p>
+            <div class="ai-loading-bars" aria-hidden="true">
+              <span class="ai-loading-bar"></span>
+              <span class="ai-loading-bar"></span>
+              <span class="ai-loading-bar"></span>
+            </div>
+          </div>
+
+          <!-- 답변 -->
+          <article class="ai-answer" id="aiAnswer" hidden>
+
+            <header class="ai-answer-tag">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+              OTC 거래 데이터
+            </header>
+
+            <div class="ai-answer-body">
+              <p>
+                지난 30일 바로팜 거래 기준 <strong>타이레놀정 500mg</strong>의 평균 사입가는
+                <strong>₩312</strong>, 범위는 <strong>₩280 ~ ₩340</strong>입니다.
+              </p>
+              <p>
+                5월 들어 약 <strong class="ai-inline-trend">▼ 3.2%</strong> 하락 추세이며,
+                공급은 원활(평균 입고 1.2일)합니다.
+              </p>
+              <p>
+                약사 <strong>2,481명</strong>의 셀링리뷰 누적 평가에서는
+                "잘 듣는다(34%)", "복용 편의(22%)" 키워드가 가장 자주 언급되었습니다.
+              </p>
+            </div>
+
+            <div class="ai-facts">
+              <div class="ai-fact-item">
+                <p class="ai-fact-label">평균 사입가</p>
+                <p class="ai-fact-value price-blur">₩312</p>
+              </div>
+              <div class="ai-fact-item">
+                <p class="ai-fact-label">30일 변동</p>
+                <p class="ai-fact-value"><span class="trend-down ai-trend-chip">▼ 3.2%</span></p>
+              </div>
+              <div class="ai-fact-item">
+                <p class="ai-fact-label">30일 거래 건수</p>
+                <p class="ai-fact-value">18,247<small>건</small></p>
+              </div>
+            </div>
+
+            <!-- 선택 가이드 -->
+            <h4 class="ai-guide-title">약사 응대 가이드</h4>
+            <ol class="ai-guide">
+              <li><strong>단일성분 vs 복합성분</strong> — 청소년·임산부에게는 아세트아미노펜 단일성분(타이레놀) 권장.</li>
+              <li><strong>1일 최대 4g(8정) 초과 금지</strong> — 간장 부담. 음주자·간장애 환자는 복용 전 상담.</li>
+              <li><strong>중복 복용 주의</strong> — 다른 해열·감기약과 함께 복용 시 아세트아미노펜 합산 점검.</li>
+              <li><strong>지속 통증·발열</strong> — 5일 이상 통증 또는 3일 이상 발열 지속 시 의사 상담 안내.</li>
+              <li><strong>응대 키워드</strong> — "잘 듣는다(34%)", "복용 편의(22%)" 가 약사 평가에서 가장 자주 언급.</li>
+            </ol>
+
+            <!-- 관련 제품 (다중) -->
+            <p class="ai-answer-related-label">관련 제품</p>
+            <div class="ai-product-list">
+              <a class="ai-product-card" href="detail.html">
+                <div class="ai-product-image">
+                  <img src="images/product-Tylenol.webp" alt="타이레놀정 500mg" />
+                </div>
+                <div class="ai-product-info">
+                  <p class="ai-product-brand">한국얀센 · 단일성분</p>
+                  <h3 class="ai-product-name">타이레놀정 500mg</h3>
+                  <p class="ai-product-spec">500mg · 10정 (PTP) <span class="rank-status">유통</span></p>
+                  <p class="ai-product-meta">셀링리뷰 <strong>2,481명</strong> · 평균 사입가 <span class="price-blur">₩312</span></p>
+                </div>
+                <span class="ai-product-cta">
+                  상세 보기
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+                </span>
+              </a>
+
+              <a class="ai-product-card" href="#">
+                <div class="ai-product-image">
+                  <img src="images/product-Brufen.png" alt="부루펜정 200mg" />
+                </div>
+                <div class="ai-product-info">
+                  <p class="ai-product-brand">삼일제약 · 대체 단일성분</p>
+                  <h3 class="ai-product-name">부루펜정 200mg</h3>
+                  <p class="ai-product-spec">200mg · 30정 (PTP) <span class="rank-status">유통</span></p>
+                  <p class="ai-product-meta">셀링리뷰 <strong>1,107명</strong> · 평균 사입가 <span class="price-blur">₩185</span></p>
+                </div>
+                <span class="ai-product-cta">
+                  상세 보기
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+                </span>
+              </a>
+
+              <a class="ai-product-card" href="#">
+                <div class="ai-product-image">
+                  <img src="images/product-Geborine.jpg" alt="게보린정" />
+                </div>
+                <div class="ai-product-info">
+                  <p class="ai-product-brand">삼진제약 · 복합성분 비교</p>
+                  <h3 class="ai-product-name">게보린정</h3>
+                  <p class="ai-product-spec">300mg · 10정 (PTP) <span class="rank-status">유통</span></p>
+                  <p class="ai-product-meta">셀링리뷰 <strong>1,415명</strong> · 평균 사입가 <span class="price-blur">₩418</span></p>
+                </div>
+                <span class="ai-product-cta">
+                  상세 보기
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+                </span>
+              </a>
+            </div>
+
+            <!-- 이어서 물어보기 -->
+            <p class="ai-answer-related-label">이어서 물어보기</p>
+            <ul class="ai-followups">
+              <li><button class="ai-followup" data-q="타이레놀이알서방정 사입가는?" type="button">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                타이레놀이알서방정 사입가는?
+              </button></li>
+              <li><button class="ai-followup" data-q="타이레놀과 게보린정 비교해줘" type="button">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                타이레놀과 게보린정 비교해줘
+              </button></li>
+              <li><button class="ai-followup" data-q="진통제 묶음 사입가 우수 제품?" type="button">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                진통제 묶음 사입가 우수 제품?
+              </button></li>
+            </ul>
+
+            <footer class="ai-source">
+              <span class="ai-source-label">근거</span>
+              <span>바로팜 30일 거래 DB (5/1 – 5/30) · 셀링리뷰 28,400명 누적 · 심평원 약가</span>
+            </footer>
+
+            <p class="ai-foot-note">
+              임상·금기·상호작용 등 기본 의약품 정보는
+              <a href="https://drug.pharmallplus.com/" target="_blank" rel="noopener">의약품플러스</a>에서 확인하실 수 있어요.
+            </p>
+            <p class="ai-disclaimer">* 일부 답변은 부정확할 수 있으며, 정확한 가격은 로그인 후 확인하실 수 있어요.</p>
+          </article>
+        </div>
+
+      </div>
+
+      <!-- 하단 입력창 (계속 질의) -->
+      <form class="ai-chat-input" id="aiChatInputForm" autocomplete="off">
+        <button class="ai-search-options" type="button" aria-label="옵션">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h13M4 12h9M4 18h13"/><circle cx="20" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="20" cy="18" r="2"/></svg>
+        </button>
+        <input id="aiInputChat" type="text" placeholder="OTC 에 대해 무엇이든 물어보세요" />
+        <button class="ai-search-send" type="submit" aria-label="질문 보내기">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </form>
+
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+      const homeEl = document.getElementById('aiHome');
+      const chatEl = document.getElementById('aiChat');
+      const loadingEl = document.getElementById('aiLoading');
+      const loadingTextEl = document.getElementById('aiLoadingText');
+      const answerEl = document.getElementById('aiAnswer');
+      const userQEl = document.getElementById('aiUserQ');
+      const inputHome = document.getElementById('aiInput');
+      const inputChat = document.getElementById('aiInputChat');
+      const formHome = document.getElementById('aiSearchForm');
+      const formChat = document.getElementById('aiChatInputForm');
+      const prompts = document.getElementById('aiPrompts');
+
+      /* prompt 별 분석 단계 (한 줄 읽고 인지할 시간 충분히) */
+      const STEPS_MAP = {
+        '타이레놀 500mg 평균 사입가가 얼마예요?': [
+          { text: '해열·소염·진통 카테고리에서 검색 중...', duration: 1100 },
+          { text: 'OTC 1,432건 중 타이레놀정 500mg 매칭', duration: 900 },
+          { text: '바로팜 30일 실거래 + 심평원 약가 조회 중...', duration: 1300 },
+          { text: '거래 18,247건 · 셀링리뷰 2,481명 분석 완료', duration: 1000 },
+          { text: '답변 생성 중...', duration: 1100 },
+        ],
+        '약사들이 가장 많이 추천한 종합감기약은?': [
+          { text: '감기·기침 카테고리에서 검색 중...', duration: 1100 },
+          { text: '종합감기약 84건 매칭', duration: 900 },
+          { text: '셀링리뷰 누적 평가 · 회전율 분석 중...', duration: 1300 },
+          { text: '약사 12,400명 평가 데이터 매칭 완료', duration: 1000 },
+          { text: 'TOP 3 답변 생성 중...', duration: 1100 },
+        ],
+        '콘드로이친 들이고 싶은데 뭐가 좋아요?': [
+          { text: '성분 분류 DB에서 콘드로이친 검색 중...', duration: 1100 },
+          { text: '콘드로이친 함유 OTC 32건 매칭', duration: 900 },
+          { text: '함량·회전율·셀링리뷰 누적 평가 분석 중...', duration: 1400 },
+          { text: '추천 TOP 3 산출 완료', duration: 1000 },
+          { text: '답변 생성 중...', duration: 1100 },
+        ],
+        '약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요': [
+          { text: '개국 OTC 큐레이션 데이터 조회 중...', duration: 1100 },
+          { text: '필수 카테고리 5개 매칭', duration: 900 },
+          { text: '회전율 · 셀링리뷰 · 묶음 사입가 분석 중...', duration: 1400 },
+          { text: '카테고리별 TOP 50품목 산출 완료', duration: 1000 },
+          { text: '답변 생성 중...', duration: 1100 },
+        ],
+      };
+      const STEPS_FALLBACK = [
+        { text: 'OTC 카테고리에서 검색 중...', duration: 1100 },
+        { text: '관련 OTC 데이터 매칭', duration: 900 },
+        { text: '바로팜 거래 · 셀링리뷰 분석 중...', duration: 1300 },
+        { text: '답변 생성 중...', duration: 1100 },
+      ];
+
+      /* 답변 데이터 (바로팜 고유 시나리오) */
+      const ANSWERS = {
+        '타이레놀 500mg 평균 사입가가 얼마예요?': {
+          tag: 'OTC 거래 데이터',
+          body: '<p>지난 30일 바로팜 거래 기준 <strong>타이레놀정 500mg</strong>의 평균 사입가는 <strong>₩312</strong>, 범위는 <strong>₩280 ~ ₩340</strong>입니다.</p>' +
+                '<p>5월 들어 약 <strong class="ai-inline-trend">▼ 3.2%</strong> 하락 추세이며, 공급은 원활(평균 입고 1.2일)합니다.</p>' +
+                '<p>약사 <strong>2,481명</strong>의 셀링리뷰 누적 평가에서는 "잘 듣는다(34%)", "복용 편의(22%)" 키워드가 가장 자주 언급되었습니다.</p>',
+          facts: [
+            { label: '평균 사입가', value: '<span class="price-blur">₩312</span>' },
+            { label: '30일 변동', value: '<span class="trend-down ai-trend-chip">▼ 3.2%</span>' },
+            { label: '30일 거래 건수', value: '18,247<small>건</small>' },
+          ],
+          guideTitle: '약사 응대 가이드',
+          guide: [
+            '<strong>단일성분 vs 복합성분</strong> — 청소년·임산부에게는 아세트아미노펜 단일성분(타이레놀) 권장.',
+            '<strong>1일 최대 4g(8정) 초과 금지</strong> — 간장 부담. 음주자·간장애 환자는 복용 전 상담.',
+            '<strong>중복 복용 주의</strong> — 다른 해열·감기약과 함께 복용 시 아세트아미노펜 합산 점검.',
+            '<strong>지속 통증·발열</strong> — 5일 이상 통증 또는 3일 이상 발열 지속 시 의사 상담 안내.',
+            '<strong>응대 키워드</strong> — "잘 듣는다(34%)", "복용 편의(22%)" 가 약사 평가에서 가장 자주 언급.',
+          ],
+          products: [
+            { brand: '한국얀센 · 단일성분', name: '타이레놀정 500mg', spec: '500mg · 10정 (PTP)', status: '유통', reviews: '2,481명', price: '₩312', img: 'product-Tylenol.webp', href: 'detail.html' },
+            { brand: '삼일제약 · 대체 단일성분', name: '부루펜정 200mg', spec: '200mg · 30정 (PTP)', status: '유통', reviews: '1,107명', price: '₩185', img: 'product-Brufen.png' },
+            { brand: '삼진제약 · 복합 비교', name: '게보린정', spec: '300mg · 10정 (PTP)', status: '유통', reviews: '1,415명', price: '₩418', img: 'product-Geborine.jpg' },
+          ],
+          followups: [
+            '타이레놀이알서방정 사입가는?',
+            '타이레놀과 게보린정 비교해줘',
+            '진통제 묶음 사입가 우수 제품?',
+          ],
+          source: '바로팜 30일 거래 DB (5/1 – 5/30) · 셀링리뷰 28,400명 누적 · 심평원 약가',
+        },
+
+        '약사들이 가장 많이 추천한 종합감기약은?': {
+          tag: '셀링리뷰 데이터',
+          body: '<p>약사 <strong>12,400명</strong>의 누적 평가 기준 종합감기약 TOP 3은 <strong>판콜에이내복액 (★4.7)</strong>, <strong>모드콜플러스 (★4.6)</strong>, <strong>화이투벤정 (★4.5)</strong>입니다.</p>' +
+                '<p>약사 평가에서 "복용 편의(31%)", "빠른 효과(24%)", "재구매 높음(18%)" 키워드가 가장 자주 언급되었습니다.</p>' +
+                '<p>5월 들어 감기 시즌 진입으로 회전율이 <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">▲ 22%</strong> 상승했어요.</p>',
+          facts: [
+            { label: '약사 평가 수', value: '12,400<small>명</small>' },
+            { label: '평균 별점', value: '★ 4.6' },
+            { label: '회전율 (30일)', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 22%</span>' },
+          ],
+          guideTitle: '약사 응대 가이드',
+          guide: [
+            '<strong>증상별 분류</strong> — 인후통·콧물 위주 / 기침 위주 / 종합형. 환자 우선 증상 확인 필수.',
+            '<strong>졸음 성분 안내</strong> — 항히스타민(클로르페니라민) 함유 시 졸음 안내. 운전자·학생 주의.',
+            '<strong>임산부·소아</strong> — 액제(시럽) 권장. 슈도에페드린·아세트아미노펜 함량 확인.',
+            '<strong>알코올 금기</strong> — 아세트아미노펜 + 음주 시 간 부담. 복용 중 음주 금지 안내.',
+            '<strong>응대 키워드</strong> — "복용 편의(31%)", "빠른 효과(24%)" 가 가장 자주 언급.',
+          ],
+          products: [
+            { brand: '동화약품 · 종합감기약', name: '판콜에이내복액', spec: '30mL · 10병', status: '유통', reviews: '4,128명', price: '₩540', img: 'product-Pancol.webp' },
+            { brand: '일양약품 · 종합감기약', name: '모드콜플러스', spec: '6정 · 1팩 (PTP)', status: '유통', reviews: '2,890명', price: '₩620', img: 'product-Modcol.png' },
+            { brand: '다케다 · 종합감기약', name: '화이투벤정', spec: '12정 · 1팩 (PTP)', status: '유통', reviews: '2,144명', price: '₩720', img: 'product-Hweetuben.png' },
+          ],
+          followups: [
+            '판콜에이내복액 사입가 추이는?',
+            '졸음 적은 감기약 추천해줘',
+            '어린이 종합감기약 TOP 3',
+          ],
+          source: 'Sell+ 셀링리뷰 90일 누적 (28,400명 약사) · 바로팜 회전율 데이터',
+        },
+
+        '콘드로이친 들이고 싶은데 뭐가 좋아요?': {
+          tag: '성분 추천',
+          body: '<p>콘드로이친 함유 OTC 중 약사 평가 + 회전율 TOP 3은 <strong>조인스정 (1,200mg)</strong>, <strong>콘드로골드 (글루코사민 복합)</strong>, <strong>콘로신정 (단일)</strong>입니다.</p>' +
+                '<p>고령 환자·관절 통증 응대 시 가장 자주 추천되며, "식후 복용 권장", "비타민 D 콜라보" 안내가 약사 평가에서 가장 자주 등장합니다.</p>' +
+                '<p>최근 30일 콘드로이친 카테고리 회전율은 <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">▲ 24%</strong> 로 안정적 상승 중.</p>',
+          facts: [
+            { label: '평균 사입가', value: '<span class="price-blur">₩4,820</span>' },
+            { label: '회전율 (30일)', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 24%</span>' },
+            { label: '평균 별점', value: '★ 4.5' },
+          ],
+          guideTitle: '약사 추천 가이드',
+          guide: [
+            '<strong>함량 1,200mg 이상</strong> — 1일 권장 섭취량 기준. 함량 낮은 제품은 효과 체감이 낮음.',
+            '<strong>글루코사민 복합</strong> — 50대+ 환자에게 무릎 관절 케어용으로 자주 추천.',
+            '<strong>비타민 D 콜라보</strong> — 골밀도 케어와 함께 노인 환자에게 묶음 추천.',
+            '<strong>식후 복용</strong> — 위장 부담 감소. 공복 복용 시 속쓰림 호소 주의.',
+            '<strong>응대 키워드</strong> — "관절 통증 완화(38%)", "꾸준한 복용 효과(22%)" 가 가장 자주 언급.',
+          ],
+          products: [
+            { brand: 'SK케미칼 · 단일 1,200mg', name: '조인스정 1200', spec: '200mg · 60정', status: '유통', reviews: '1,820명', price: '₩4,980', img: 'product-Joins.png' },
+            { brand: '대웅제약 · 복합', name: '콘드로골드', spec: '글루코사민 복합 · 90정', status: '유통', reviews: '1,245명', price: '₩5,200', img: 'product-Chondrogold.png' },
+            { brand: '광동제약 · 단일', name: '콘로신정', spec: '500mg · 60정', status: '유통', reviews: '798명', price: '₩4,280', img: 'product-Chondrosine.png' },
+          ],
+          followups: [
+            '글루코사민 추천해줘',
+            '50대+ 관절 OTC TOP',
+            '비타민D 묶음 추천',
+          ],
+          source: '바로팜 성분 분류 + 거래 + 셀링리뷰 30일 DB',
+        },
+
+        '약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요': {
+          tag: '개국 큐레이션',
+          body: '<p>신규 약국 첫 달 필수 OTC, <strong>5개 카테고리 50품목</strong>을 추천합니다.</p>' +
+                '<p><strong>진통제 / 종합감기약 / 소화제 / 외용연고 / 비타민 B군</strong> — 회전율과 셀링리뷰 기준 카테고리별 TOP 10.</p>' +
+                '<p>바로팜 묶음 주문 시 사입가 평균 대비 <strong class="ai-inline-trend">▼ 6.4%</strong>, 첫 달 평균 회전 일수는 <strong>14일</strong>입니다.</p>',
+          facts: [
+            { label: '추천 카테고리', value: '5<small>개</small>' },
+            { label: '묶음 사입가', value: '<span class="trend-down ai-trend-chip">▼ 6.4%</span>' },
+            { label: '평균 회전 일수', value: '14<small>일</small>' },
+          ],
+          guideTitle: '개국 큐레이션 가이드',
+          guide: [
+            '<strong>진통제 (단일·복합)</strong> — 타이레놀·게보린·애드빌·펜잘큐 4종. 청소년/임산부용 단일 필수.',
+            '<strong>종합감기약</strong> — 판콜에이·모드콜 2종. 시즌 진입 시 액제 비중 ↑.',
+            '<strong>소화제</strong> — 베아제·훼스탈 2종. 식후 응대 가장 잦음.',
+            '<strong>외용연고</strong> — 후시딘·마데카솔 2종. 상비약 코너 필수.',
+            '<strong>비타민 B군</strong> — 비타뉴플러스·아로나민 2종. 피로 응대 + 묶음 판매에 유리.',
+          ],
+          products: [
+            { brand: '한국얀센 · 진통제', name: '타이레놀정 500mg', spec: '500mg · 10정 (PTP)', status: '유통', reviews: '2,481명', price: '₩312', img: 'product-Tylenol.webp', href: 'detail.html' },
+            { brand: '동화약품 · 종합감기약', name: '판콜에이내복액', spec: '30mL · 10병', status: '유통', reviews: '4,128명', price: '₩540', img: 'product-Pancol.webp' },
+            { brand: '대웅제약 · 소화제', name: '베아제정', spec: '30정 · 1박스', status: '유통', reviews: '1,205명', price: '₩185', img: 'product-Bease.jpg' },
+            { brand: '동화약품 · 외용연고', name: '후시딘연고 5g', spec: '5g · 1튜브', status: '유통', reviews: '3,201명', price: '₩2,180', img: 'product-Fucidin.png' },
+            { brand: '유한양행 · 비타민B', name: '비타뉴플러스', spec: '60정 · 1박스', status: '유통', reviews: '892명', price: '₩4,800', img: 'product-Vitanew.png' },
+          ],
+          followups: [
+            '진통제 묶음 사입가 BEST',
+            '외용연고 카테고리 TOP 5',
+            '비타민 B군 카테고리 추천',
+          ],
+          source: '바로팜 개국 OTC 큐레이션 + 회전율 + 셀링리뷰 30일 DB',
+        },
+      };
+
+      function renderAnswer(q) {
+        const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 평균 사입가가 얼마예요?'];
+        const root = answerEl;
+        if (!root) return;
+
+        // tag
+        const tagEl = root.querySelector('.ai-answer-tag');
+        if (tagEl) {
+          const svgEl = tagEl.querySelector('svg');
+          const svgHTML = svgEl ? svgEl.outerHTML : '';
+          tagEl.innerHTML = svgHTML + ' ' + a.tag;
+        }
+
+        // body
+        const bodyEl = root.querySelector('.ai-answer-body');
+        if (bodyEl) bodyEl.innerHTML = a.body;
+
+        // facts
+        const factsEl = root.querySelector('.ai-facts');
+        if (factsEl) {
+          factsEl.innerHTML = a.facts.map(function (f) {
+            return '<div class="ai-fact-item"><p class="ai-fact-label">' + f.label + '</p><p class="ai-fact-value">' + f.value + '</p></div>';
+          }).join('');
+        }
+
+        // guide title
+        const guideTitleEl = root.querySelector('.ai-guide-title');
+        if (guideTitleEl) guideTitleEl.textContent = a.guideTitle;
+
+        // guide
+        const guideEl = root.querySelector('.ai-guide');
+        if (guideEl) guideEl.innerHTML = a.guide.map(function (g) { return '<li>' + g + '</li>'; }).join('');
+
+        // products
+        const productsEl = root.querySelector('.ai-product-list');
+        if (productsEl) {
+          productsEl.innerHTML = a.products.map(function (p) {
+            return '<a class="ai-product-card" href="' + (p.href || '#') + '">' +
+              '<div class="ai-product-image"><img src="images/' + p.img + '" alt="' + p.name + '" /></div>' +
+              '<div class="ai-product-info">' +
+                '<p class="ai-product-brand">' + p.brand + '</p>' +
+                '<h3 class="ai-product-name">' + p.name + '</h3>' +
+                '<p class="ai-product-spec">' + p.spec + ' <span class="rank-status">' + p.status + '</span></p>' +
+                '<p class="ai-product-meta">셀링리뷰 <strong>' + p.reviews + '</strong> · 평균 사입가 <span class="price-blur">' + p.price + '</span></p>' +
+              '</div>' +
+              '<span class="ai-product-cta">상세 보기 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>' +
+            '</a>';
+          }).join('');
+        }
+
+        // followups
+        const followupsEl = root.querySelector('.ai-followups');
+        if (followupsEl) {
+          followupsEl.innerHTML = a.followups.map(function (f) {
+            return '<li><button class="ai-followup" data-q="' + f + '" type="button">' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg> ' +
+              f +
+            '</button></li>';
+          }).join('');
+        }
+
+        // source
+        const sourceEl = root.querySelector('.ai-source');
+        if (sourceEl) {
+          sourceEl.innerHTML = '<span class="ai-source-label">근거</span><span>' + a.source + '</span>';
+        }
+      }
+
+      /* 한 줄 텍스트가 fade-cross 로 교체되는 로딩 */
+      function runSteps(steps, done) {
+        if (!loadingTextEl) { done(); return; }
+        loadingTextEl.classList.remove('is-out');
+        loadingTextEl.textContent = steps[0] ? steps[0].text : '';
+        let i = 0;
+        function next() {
+          // 현재 단계 표기 유지 시간 → 페이드 아웃 → 다음 텍스트로 교체 → 페이드 인
+          setTimeout(function () {
+            i++;
+            if (i >= steps.length) { done(); return; }
+            loadingTextEl.classList.add('is-out');
+            setTimeout(function () {
+              loadingTextEl.textContent = steps[i].text;
+              loadingTextEl.classList.remove('is-out');
+              next();
+            }, 180);
+          }, steps[i].duration);
+        }
+        next();
+      }
+
+      /* 답변 본문 타이핑 — 트리에서 텍스트 노드만 추출해 한 글자씩 채움 (HTML 구조 보존) */
+      function typeIntoElement(el, html, speed, done) {
+        el.innerHTML = html;
+        el.classList.add('is-typing-active');
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        const nodes = [];
+        let n;
+        while ((n = walker.nextNode())) nodes.push({ node: n, text: n.nodeValue });
+        // clear all text nodes
+        nodes.forEach(function (it) { it.node.nodeValue = ''; });
+
+        let qi = 0, ci = 0;
+        function tick() {
+          if (qi >= nodes.length) {
+            el.classList.remove('is-typing-active');
+            done && done();
+            return;
+          }
+          const item = nodes[qi];
+          if (ci >= item.text.length) {
+            qi++; ci = 0;
+            return tick();
+          }
+          const ch = item.text[ci];
+          item.node.nodeValue += ch;
+          ci++;
+          // 공백/줄바꿈은 빠르게 흘려보냄
+          const delay = /\s/.test(ch) ? Math.max(4, speed * 0.35) : speed;
+          setTimeout(tick, delay);
+        }
+        tick();
+      }
+
+      function gotoChat(q) {
+        if (q) userQEl.textContent = q;
+        homeEl.hidden = true;
+        chatEl.hidden = false;
+        answerEl.hidden = true;
+        answerEl.classList.remove('is-progressive');
+        loadingEl.hidden = false;
+        if (inputChat) inputChat.value = '';
+        window.scrollTo(0, 0);
+
+        const steps = STEPS_MAP[q] || STEPS_FALLBACK;
+        runSteps(steps, function () {
+          renderAnswer(q);
+          // 본문 외 블록을 CSS 가 숨기도록 클래스 먼저 부여 → 그 다음 노출
+          answerEl.classList.add('is-progressive');
+          loadingEl.hidden = true;
+          answerEl.hidden = false;
+
+          const bodyEl = answerEl.querySelector('.ai-answer-body');
+          const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 평균 사입가가 얼마예요?'];
+
+          const blocks = Array.prototype.filter.call(
+            answerEl.children,
+            function (el) { return !el.classList.contains('ai-answer-tag') && !el.classList.contains('ai-answer-body'); }
+          );
+
+          function revealNext(i) {
+            if (i >= blocks.length) return;
+            blocks[i].classList.add('is-shown');
+            setTimeout(function () { revealNext(i + 1); }, 320);
+          }
+
+          if (bodyEl) {
+            typeIntoElement(bodyEl, a.body, 14, function () {
+              revealNext(0);
+            });
+          } else {
+            revealNext(0);
+          }
+        });
+      }
+
+      if (prompts) {
+        prompts.addEventListener('click', function (e) {
+          const btn = e.target.closest('.ai-prompt');
+          if (!btn) return;
+          gotoChat(btn.dataset.q);
+        });
+      }
+      // 좌측 사이드 — 히스토리 클릭 / 새 대화 클릭
+      document.querySelectorAll('.ai-history-item').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          gotoChat(btn.dataset.q);
+        });
+      });
+      const newBtn = document.querySelector('.ai-side-new');
+      if (newBtn) {
+        newBtn.addEventListener('click', function () {
+          chatEl.hidden = true;
+          homeEl.hidden = false;
+          document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
+          if (inputHome) inputHome.value = '';
+          window.scrollTo(0, 0);
+        });
+      }
+      if (answerEl) {
+        answerEl.addEventListener('click', function (e) {
+          const btn = e.target.closest('.ai-followup');
+          if (!btn) return;
+          e.preventDefault();
+          gotoChat(btn.dataset.q);
+        });
+      }
+      if (formHome) {
+        formHome.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const v = (inputHome && inputHome.value || '').trim();
+          if (!v) return;
+          gotoChat(v);
+        });
+      }
+      if (formChat) {
+        formChat.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const v = (inputChat && inputChat.value || '').trim();
+          if (!v) return;
+          gotoChat(v);
+        });
+      }
+
+      // ?q=... 으로 들어오면 자동으로 chat 모드
+      const params = new URLSearchParams(window.location.search);
+      const qParam = params.get('q');
+      if (qParam) gotoChat(qParam);
+    })();
+  </script>
+
+</body>
+</html>

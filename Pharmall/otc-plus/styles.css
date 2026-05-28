@@ -1,0 +1,4612 @@
+/* ============================================================
+ * Drug+ (OTC Plus) — Pharmall
+ * Tokens-only stylesheet. No hardcoded colors / spacings.
+ * Palette: Pharmall = geekblue ramp; accents = blue (Drug+ logo).
+ * ============================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg-container); /* 비주얼 전체 화이트 */
+  color: var(--color-text);
+  font: var(--font-b3);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden; /* 히어로 글로우 누출 가로 스크롤 방지 */
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: transparent; color: inherit; }
+
+/* 셀링리뷰 = 무조건 SVG 로고로 표기 */
+.sellrev-logo {
+  height: 1em;          /* 폰트 라인 높이에 맞춤 */
+  width: auto;
+  display: inline-block;
+  vertical-align: -2px;
+}
+.sellrev-logo-inline { height: 16px; }
+
+/* 카드/리스트 클릭 가능하다는 시각 단서 */
+.cap-card,
+.otc-card,
+.newprod-card,
+.starter-card,
+.otcnow-item,
+.otcnow-theme,
+.rank-row,
+.rank-simple-item,
+.strip-card { cursor: pointer; }
+img { max-width: 100%; display: block; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 { margin: 0; }
+p { margin: 0; }
+
+.container {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--space-container-x);
+}
+
+/* ============================================================
+ * TOP NAV
+ * ============================================================ */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 0;
+}
+
+.topnav-inner {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--space-container-x);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.brand { display: inline-flex; align-items: center; }
+.brand img { height: 24px; display: block; }
+
+/* ── 텍스트 GNB (drug.pharmallplus.com 패턴) ── */
+.gnb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.gnb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  transition: color .15s ease, background .15s ease;
+}
+.gnb-item img { height: 22px; display: block; }
+.gnb-item:hover { background: var(--color-fill-tertiary); }
+.gnb-item.is-active::after {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  margin-left: 2px;
+}
+.gnb-item-text {
+  font: var(--font-h5);
+  color: var(--color-text);
+}
+.gnb-item-text.is-active { font-weight: 700; }
+
+.topnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iconbtn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: background .15s ease, color .15s ease;
+}
+.iconbtn:hover { background: var(--color-fill-tertiary); color: var(--color-text); }
+.iconbtn .dot {
+  position: absolute;
+  top: 10px; right: 11px;
+  width: 7px; height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--color-error);
+  border: 2px solid var(--color-bg-container);
+}
+
+.auth-link {
+  margin-left: 8px;
+  padding: 0 16px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  font: var(--font-h5);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.auth-link:hover {
+  border-color: var(--color-brand-pharmall);
+  color: var(--color-brand-pharmall-text);
+  background: var(--color-brand-pharmall-bg);
+}
+
+
+/* ============================================================
+ * HERO — Plani 톤 (라이트 + 좌우 분할 + 옅은 그라데이션 mesh + visual mock)
+ * ============================================================ */
+.hero {
+  position: relative;
+  background:
+    radial-gradient(900px 620px at 15% 0%,  var(--color-geekblue-2) 0%, transparent 55%),
+    radial-gradient(820px 580px at 88% 18%, var(--color-blue-2)     0%, transparent 55%),
+    radial-gradient(1000px 700px at 60% 100%, var(--color-purple-1) 0%, transparent 60%),
+    radial-gradient(700px 520px at 5% 90%,  var(--color-geekblue-1) 0%, transparent 60%),
+    var(--color-bg-base-white);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+/* Plani 변형 — topnav 뒤로 bleed + 댄싱 mesh blob + 컬러 무빙 wave */
+.hero.hero-plani {
+  background: var(--color-bg-base-white);
+  isolation: isolate;
+  margin-top: -72px;       /* topnav 높이만큼 위로 bleed (mesh/wave 가 topnav 뒤로 흐름) */
+}
+.hero-plani > .hero-inner {
+  padding-top: 160px;       /* 음수 margin 보정 + topnav 아래 여백 */
+}
+/* hero 하단을 다음 흰 섹션으로 부드럽게 페이드 — mesh 가 칼로 자른 듯 끊기지 않게 */
+.hero-plani::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 220px;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0)   0%,
+    rgba(255, 255, 255, 0.6) 55%,
+    rgba(255, 255, 255, 1)  100%);
+  z-index: 1;
+}
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  will-change: transform, opacity;
+  mix-blend-mode: multiply;
+}
+/* 4개 블롭, 모두 블루 패밀리 (brand-blue / purple / sky-blue / geekblue) */
+.hero-mesh-blob-1 {
+  width: 720px; height: 720px;
+  background: var(--color-brand-pharmall);
+  top: -20%; left: -8%;
+  opacity: 0.35;
+  animation: hero-mesh-1 22s ease-in-out infinite alternate;
+}
+.hero-mesh-blob-2 {
+  width: 640px; height: 640px;
+  background: var(--color-purple-5);
+  top: -10%; right: -10%;
+  opacity: 0.32;
+  animation: hero-mesh-2 28s ease-in-out infinite alternate;
+}
+.hero-mesh-blob-3 {
+  width: 760px; height: 760px;
+  background: var(--color-blue-4);
+  bottom: -30%; left: 28%;
+  opacity: 0.30;
+  animation: hero-mesh-3 26s ease-in-out infinite alternate;
+}
+.hero-mesh-blob-4 {
+  width: 580px; height: 580px;
+  background: var(--color-geekblue-5);
+  bottom: -20%; right: 8%;
+  opacity: 0.28;
+  animation: hero-mesh-4 32s ease-in-out infinite alternate;
+}
+/* 잉크가 물에 퍼지듯 — translate + 큰 scale pulse + opacity 변동 */
+@keyframes hero-mesh-1 {
+  0%   { transform: translate(0, 0) scale(1);     opacity: 0.30; }
+  50%  { transform: translate(140px, 100px) scale(1.25); opacity: 0.42; }
+  100% { transform: translate(60px, 220px) scale(1.1);   opacity: 0.34; }
+}
+@keyframes hero-mesh-2 {
+  0%   { transform: translate(0, 0) scale(1);     opacity: 0.28; }
+  50%  { transform: translate(-160px, 140px) scale(1.2);  opacity: 0.40; }
+  100% { transform: translate(-220px, 40px) scale(0.95);  opacity: 0.30; }
+}
+@keyframes hero-mesh-3 {
+  0%   { transform: translate(0, 0) scale(1);     opacity: 0.26; }
+  50%  { transform: translate(100px, -160px) scale(1.3); opacity: 0.38; }
+  100% { transform: translate(-80px, -240px) scale(1.1); opacity: 0.30; }
+}
+@keyframes hero-mesh-4 {
+  0%   { transform: translate(0, 0) scale(1);     opacity: 0.24; }
+  50%  { transform: translate(-120px, -120px) scale(1.22); opacity: 0.36; }
+  100% { transform: translate(80px, -200px) scale(1);      opacity: 0.28; }
+}
+.hero-plani > .hero-inner { position: relative; z-index: 2; }
+
+/* (구) wave-ray 제거 — 잉크 블룸 mesh-blob 으로 대체 */
+
+
+/* Plani-style 대형 statement */
+.hero-statement {
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin: 0 0 18px;
+  text-align: center;
+  word-break: keep-all;
+}
+.hero-statement-sub {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  margin: 0 auto 36px;
+  max-width: 640px;
+  word-break: keep-all;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .8s ease-out .4s forwards;
+}
+.hero-statement-sub strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+.hero-statement-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ai-fade-up .9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-statement-line:nth-child(1) { animation-delay: .15s; }
+.hero-statement-line:nth-child(2) { animation-delay: .30s; }
+.hero-statement-line:nth-child(3) { animation-delay: .45s; }
+.hero-statement-accent {
+  background: linear-gradient(95deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-geekblue-5) 45%,
+    var(--color-purple-6) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-shift 8s ease-in-out infinite;
+}
+.hero-statement strong {
+  color: var(--color-brand-pharmall);
+  font-weight: 800;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  filter: blur(110px);
+  border-radius: var(--radius-pill);
+}
+.hero-glow-a {
+  width: 640px; height: 520px;
+  background: var(--color-brand-pharmall);
+  top: -200px; left: -80px;
+  opacity: .18;
+}
+.hero-glow-b {
+  width: 580px; height: 480px;
+  background: var(--color-purple-6);
+  bottom: -180px; right: -100px;
+  opacity: .14;
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 100px var(--space-container-x) 120px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-brand-pharmall);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: ai-fade-up .7s ease-out .05s forwards;
+}
+
+.hero-title {
+  font-weight: 800;
+  font-size: clamp(34px, 4.6vw, 56px);
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+  margin: 0 0 22px;
+}
+.hero-title-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ai-fade-up .9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-title-line:nth-child(1) { animation-delay: .12s; }
+.hero-title-line:nth-child(2) { animation-delay: .28s; }
+.hero-title-accent {
+  background: linear-gradient(95deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-geekblue-5) 45%,
+    var(--color-purple-6) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  animation: title-shift 8s ease-in-out infinite;
+}
+@keyframes title-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+  margin: 0 0 36px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .8s ease-out .3s forwards;
+}
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .8s ease-out .45s forwards;
+}
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-h5);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.hero-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+}
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 18px;
+  font: var(--font-h5);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.hero-cta-secondary:hover { color: var(--color-text); }
+
+.hero-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .8s ease-out .6s forwards;
+}
+.hero-meta a {
+  color: var(--color-brand-pharmall);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 우측: AI 답변 미리보기 mock */
+.hero-right {
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ai-fade-up 1s ease-out .35s forwards;
+}
+.hero-preview {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: 0 24px 60px rgba(47,84,235,0.08);
+}
+.hero-preview-q {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 18px;
+  width: fit-content;
+  margin-left: auto;
+}
+.hero-preview-q-avatar { font-size: 14px; }
+.hero-preview-tag {
+  display: inline-block;
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-brand-pharmall);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-preview-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 18px;
+}
+.hero-preview-body strong { font-weight: 700; }
+.hero-preview-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  padding: 16px 0;
+  margin-bottom: 16px;
+}
+.hero-preview-facts > div {
+  padding: 0 16px;
+  border-right: 1px solid var(--color-border-secondary);
+}
+.hero-preview-facts > div:first-child { padding-left: 0; }
+.hero-preview-facts > div:last-child { padding-right: 0; border-right: 0; }
+.hero-preview-facts span {
+  display: block;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
+}
+.hero-preview-facts strong {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+.hero-preview-facts strong small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  margin-left: 2px;
+}
+.hero-preview-down { color: var(--color-blue-7); }
+.hero-preview-product {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-fill-tertiary);
+}
+.hero-preview-product img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-base-white);
+  object-fit: contain;
+  padding: 4px;
+}
+.hero-preview-product p {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+.hero-preview-product h4 {
+  font: var(--font-h6);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 2px 0 0;
+}
+.hero-preview-product-cta {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-bg-base-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+/* ── Chat input — plani 톤 glass + glow (ai-search 와 통일) ── */
+.chat {
+  position: relative;
+  margin: 44px auto 0;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 12px 18px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(47, 84, 235, 0.08);
+  color: var(--color-text);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: ai-fade-up .8s ease-out .45s forwards;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.chat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(47, 84, 235, 0.12);
+}
+.chat:focus-within {
+  box-shadow: 0 0 0 4px var(--color-geekblue-1), 0 12px 36px rgba(47, 84, 235, 0.18);
+  transform: translateY(-2px);
+}
+/* Border beam — 인풋 형태의 스트로크를 따라 그라데이션 빔이 이동.
+ * @property로 conic-gradient의 from 각도만 애니메이트 → 박스는 가만, 색만 흐름. */
+@property --beam {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+/* 빔을 박스 바깥 1px 얇게 아웃라인 */
+.chat::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius-lg) + 1px);
+  padding: 1px;
+  /* 라이트 파스텔 빔 — 레벨 3 톤으로 톤다운 */
+  background: conic-gradient(from var(--beam),
+    transparent 0deg,
+    transparent 80deg,
+    var(--color-brand-pharmall-border) 105deg,
+    var(--color-purple-3) 130deg,
+    var(--color-magenta-3) 155deg,
+    var(--color-cyan-3) 180deg,
+    transparent 205deg,
+    transparent 360deg);
+  opacity: .75;
+  -webkit-mask:
+    linear-gradient(var(--color-bg-base-black) 0 0) content-box,
+    linear-gradient(var(--color-bg-base-black) 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: chat-beam 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes chat-beam {
+  to { --beam: 360deg; }
+}
+/* 정적 보더 — 인풋 본체 윤곽 */
+.chat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-secondary);
+  pointer-events: none;
+}
+
+.chat-icon {
+  color: var(--color-brand-pharmall);
+  flex-shrink: 0;
+}
+#chatInput {
+  flex: 1;
+  height: 52px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: var(--font-b1);
+  color: var(--color-text);
+}
+#chatInput::placeholder { color: var(--color-text-tertiary); }
+
+.chat-send {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s ease, transform .15s ease;
+}
+.chat-send:hover { background: var(--color-brand-pharmall-hover); transform: translateY(-1px); }
+
+/* ── Prompt list (Naver AI 무드: ↳ + 한 줄 질문, 세로 일렬, 은은하게 페이드업) ── */
+/* 인풋 바로 아래 붙는 단일 글래스 컨테이너 — 4행, 행 사이 얇은 divider */
+.prompt-list {
+  margin: 14px auto 0;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 24px rgba(47, 84, 235, 0.06);
+  list-style: none;
+}
+.prompt-list li { width: 100%; }
+.prompt-list li + li {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.prompt-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background .15s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: prompt-fade-up .6s ease-out forwards;
+  animation-delay: calc(110ms * var(--i, 0) + 600ms);
+}
+
+@keyframes prompt-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.prompt-row:hover {
+  background: rgba(47, 84, 235, 0.05);
+}
+/* 시각 순서: arrow(left) · chip · text */
+.prompt-row .prompt-arrow {
+  order: 1;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: color .15s ease, transform .15s ease;
+}
+.prompt-row .ai-prompt-cat {
+  order: 2;
+  flex-shrink: 0;
+}
+.prompt-row .prompt-text {
+  order: 3;
+  font: var(--font-b3);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+.prompt-row:hover .prompt-arrow {
+  color: var(--color-brand-pharmall);
+  transform: translateX(2px);
+}
+.answer-q, .answer-a {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px;
+  align-items: start;
+}
+.answer-label {
+  font: var(--font-h4-b);
+  color: var(--color-text-tertiary);
+  line-height: 26px;
+}
+.answer-label-a { color: var(--color-brand-pharmall); }
+.answer-q span:last-child {
+  font: var(--font-h4);
+  color: var(--color-text);
+  padding-top: 1px;
+}
+.answer-a > div { font: var(--font-b2); color: var(--color-text-secondary); }
+.answer-a strong { color: var(--color-text); font-weight: 700; }
+.answer-source {
+  display: block;
+  margin-top: 8px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.answer-preview.is-flash {
+  animation: answer-flash .35s ease-out;
+}
+@keyframes answer-flash {
+  from { transform: translateY(4px); opacity: .6; }
+  to   { transform: translateY(0);   opacity: 1;  }
+}
+
+
+/* ============================================================
+ * SECTION
+ * ============================================================ */
+.section { padding: var(--space-section-y) 0; }
+.section-soft { background: var(--color-bg-container); }
+.banner-section { padding: 0 0 var(--space-section-y); }
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-gap-lg);
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.eyebrow {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-pharmall-text);
+  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.eyebrow-logo { height: 14px; }
+.section-title {
+  font: var(--font-display-6);  /* 700 28/38 — 페이지 타이틀 통일 */
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+.section-sub {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+}
+.link-more {
+  font: var(--font-h5);
+  color: var(--color-brand-pharmall-text);
+}
+.link-more:hover { color: var(--color-brand-pharmall-text-hover); }
+
+
+/* ============================================================
+ * CAPABILITY GRID
+ * ============================================================ */
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-gap-md);
+}
+.cap-card {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.cap-card:hover {
+  border-color: var(--color-brand-pharmall-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.cap-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.cap-icon-supply { background: var(--color-volcano-1);          color: var(--color-volcano-7); }
+.cap-icon-price  { background: var(--color-cyan-1);             color: var(--color-cyan-7); }
+.cap-icon-review { background: var(--color-magenta-1);          color: var(--color-magenta-6); }
+.cap-icon-curate { background: var(--color-brand-pharmall-bg);  color: var(--color-brand-pharmall); }
+.cap-icon-new    { background: var(--color-green-1);            color: var(--color-green-7); }
+.cap-icon-alt    { background: var(--color-purple-1);           color: var(--color-purple-6); }
+.cap-icon-trend  { background: var(--color-gold-1);             color: var(--color-gold-7); }
+.cap-icon-ad     { background: var(--color-orange-1);           color: var(--color-orange-7); }
+
+.cap-title {
+  font: var(--font-h4);
+  color: var(--color-text);
+  margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cap-badge-locked {
+  font: var(--font-caption);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-fill-secondary);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+.cap-desc { font: var(--font-b3); color: var(--color-text-secondary); margin-bottom: 12px; min-height: 40px; }
+.cap-sample {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  padding: 10px 12px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-border);
+  line-height: 1.5;
+}
+.cap-sample-coming {
+  font: var(--font-h6);
+  color: var(--color-brand-pharmall-text);
+  padding: 10px 12px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
+}
+.cap-card-sponsored {
+  border-style: dashed;
+  border-color: var(--color-orange-3);
+  background: var(--color-orange-1);
+}
+.cap-card-sponsored:hover { border-color: var(--color-orange-5); }
+
+
+/* ============================================================
+ * LIVE DATA — 3 columns
+ * ============================================================ */
+.live-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap-lg);
+}
+.live-card {
+  background: var(--color-bg-container);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--color-border-secondary);
+  display: flex;
+  flex-direction: column;
+}
+.live-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+}
+.live-pill-supply { background: var(--color-volcano-1); color: var(--color-volcano-7); }
+.live-pill-price  { background: var(--color-cyan-1);    color: var(--color-cyan-7); }
+.live-pill-new    { background: var(--color-green-1);   color: var(--color-green-7); }
+.live-pill svg    { flex-shrink: 0; }
+
+/* 사입가 게이트 카드 — 살짝 다른 배경 톤으로 차별화 */
+.live-card-locked { background: var(--color-cyan-1); border-color: var(--color-cyan-3); }
+.live-card-locked .live-list li,
+.live-card-locked .price-list li { background: var(--color-bg-container); }
+
+.price-blur {
+  display: inline-block;
+  filter: blur(4px);
+  user-select: none;
+  color: var(--color-text);
+  font-weight: 600;
+  transition: filter .25s ease;
+}
+.live-card-locked:hover .price-blur { filter: blur(3px); }
+
+.price-up   { background: var(--color-volcano-1); color: var(--color-volcano-7); }
+
+.live-cta-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-h5);
+  width: fit-content;
+}
+.live-cta-lock:hover { background: var(--color-brand-pharmall); color: var(--color-text-light); }
+
+/* live-title 보조 — 한 카드에 sub-section 2개 들어갈 때 */
+.live-title-sub {
+  font: var(--font-h4);
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+.live-title-spacer { margin-top: 20px; }
+
+.new-list, .trend-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.new-list li, .trend-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+}
+.new-name { font: var(--font-h5); color: var(--color-text); }
+.new-meta { font: var(--font-caption); color: var(--color-text-tertiary); margin-top: 2px; }
+.new-badge {
+  font: var(--font-caption);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+.new-badge-sponsored { background: var(--color-orange-1); color: var(--color-orange-7); }
+
+.trend-name { font: var(--font-h5); color: var(--color-text); }
+.trend-meta { font: var(--font-b5); color: var(--color-text-secondary); }
+.trend-meta strong { color: var(--color-gold-7); font-weight: 700; }
+
+.pulse {
+  position: relative;
+  width: 6px; height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-volcano-6);
+}
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-volcano-6);
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: .5; }
+  100% { transform: scale(2.6); opacity: 0;  }
+}
+.live-count {
+  font: var(--font-h6);
+  color: var(--color-text-tertiary);
+}
+.live-title {
+  font: var(--font-h3);
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+.live-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.live-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+}
+.live-name { font: var(--font-h5); color: var(--color-text); }
+.live-tag  { font: var(--font-caption); color: var(--color-text-tertiary); }
+.live-cta {
+  margin-top: auto;
+  font: var(--font-h5);
+  color: var(--color-brand-pharmall-text);
+}
+.live-cta:hover { color: var(--color-brand-pharmall-text-hover); }
+
+.price-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.price-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+}
+.price-name { font: var(--font-h5); color: var(--color-text); }
+.price-meta { font: var(--font-caption); color: var(--color-text-tertiary); margin-top: 2px; }
+.price-delta {
+  font: var(--font-h4-b);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+.price-down { background: var(--color-cyan-1); color: var(--color-cyan-8); }
+
+.recall-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.recall-list li {
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-red-1);
+  border-left: 3px solid var(--color-error);
+}
+.recall-date   { font: var(--font-caption); color: var(--color-error); margin-bottom: 4px; }
+.recall-name   { font: var(--font-h4); color: var(--color-text); margin-bottom: 4px; }
+.recall-reason { font: var(--font-b5); color: var(--color-text-secondary); line-height: 1.5; }
+
+
+/* ============================================================
+ * STARTER PACK — 개국 OTC 큐레이션
+ * ============================================================ */
+.starter-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-gap-md);
+}
+.starter-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.starter-card:hover {
+  border-color: var(--color-brand-pharmall-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.starter-head {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.starter-head img { width: 40px; height: 40px; object-fit: contain; }
+.starter-title-block h3 { font: var(--font-h4); color: var(--color-text); margin-bottom: 2px; }
+.starter-title-block p  { font: var(--font-caption); color: var(--color-text-tertiary); }
+.starter-save {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  align-self: start;
+  font: var(--font-caption);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  justify-self: start;
+}
+.starter-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
+  flex: 1;
+}
+.starter-items li {
+  font: var(--font-b4);
+  color: var(--color-text);
+  position: relative;
+  padding-left: 14px;
+}
+.starter-items li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 4px; height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+}
+.starter-cta { width: 100%; }
+
+
+/* ============================================================
+ * NEW PRODUCTS — 이번달 신제품 OTC
+ * ============================================================ */
+/* 단순 상품 전시 스타일 — images/이번달신제품.png 패턴 */
+.newprod-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-gap-md);
+}
+.newprod-card {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.newprod-card:hover { transform: translateY(-2px); }
+
+.newprod-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-container);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.newprod-media img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+}
+
+.newprod-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 2px;
+}
+.newprod-name {
+  font: var(--font-h5);
+  color: var(--color-text);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.newprod-spec {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
+}
+.newprod-price-row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.newprod-discount {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-volcano-7);
+}
+.newprod-price {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.newprod-channel {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+  width: fit-content;
+}
+
+
+/* ============================================================
+ * OTC 한눈에 보기 — 좌측 렌즈 / 우측 6-카드 보드 (ETF 트렌드 패턴)
+ * ============================================================ */
+/* 섹션 헤더 (full width, num + title + sub) — 사이드바에서 분리됨 */
+.atglance-head {
+  max-width: 880px;
+  margin: 0 0 40px;
+}
+.atglance-head .atglance-num   { margin-bottom: 8px; }
+.atglance-head .atglance-title { margin-bottom: 10px; }
+.atglance-head .atglance-sub   { margin-bottom: 0; max-width: 720px; }
+
+.atglance {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+}
+.atglance-side {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+}
+.atglance-num {
+  font: var(--font-h4);
+  color: var(--color-text-tertiary);
+  margin-bottom: 24px;
+}
+.atglance-title {
+  font: var(--font-display-6);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.atglance-sub {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+}
+
+.atglance-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  font: var(--font-h5);
+  margin-bottom: 20px;
+}
+.atglance-filter:hover { border-color: var(--color-brand-pharmall); }
+
+.atglance-lenses {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+.atglance-lens {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: var(--font-h5);
+  text-align: left;
+  transition: background .15s ease, color .15s ease;
+}
+.atglance-lens svg { color: var(--color-text-tertiary); flex-shrink: 0; }
+.atglance-lens:hover {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+}
+.atglance-lens.is-active {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font-weight: 700;
+}
+.atglance-lens.is-active svg { color: var(--color-text-light); }
+
+.atglance-footnote {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+}
+
+/* 우측 메인 */
+.atglance-main { min-width: 0; }
+.atglance-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.atglance-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-fill-secondary);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+}
+.atglance-status-date {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* 6-카드 그리드 */
+.atglance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap-md);
+}
+
+.otc-card {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.otc-card:hover {
+  border-color: var(--color-brand-pharmall-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.otc-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.otc-rank {
+  font: var(--font-h4-b);
+  color: var(--color-text);
+}
+.otc-fav { color: var(--color-text-quaternary); }
+.otc-fav:hover { color: var(--color-error); }
+
+.otc-card-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.otc-icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.otc-icon img { width: 70%; height: 70%; object-fit: contain; }
+.otc-icon-1 { background: var(--color-magenta-1); }
+.otc-icon-2 { background: var(--color-gold-1); }
+.otc-icon-3 { background: var(--color-cyan-1); }
+.otc-icon-4 { background: var(--color-purple-1); }
+.otc-icon-5 { background: var(--color-volcano-1); }
+.otc-icon-6 { background: var(--color-green-1); }
+
+.otc-flag {
+  position: absolute;
+  top: 38px;
+  left: 36px;
+  width: 22px; height: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  box-shadow: var(--shadow-on-gray-200);
+}
+
+.otc-badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+  font-weight: 600;
+}
+.otc-badge-pink { background: var(--color-magenta-1); color: var(--color-magenta-6); }
+.otc-badge-blue { background: var(--color-brand-pharmall-bg); color: var(--color-brand-pharmall-text); }
+
+.otc-name {
+  font: var(--font-h4-b);
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+.otc-code {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+}
+.otc-tags {
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+.otc-label {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  text-align: right;
+  margin-bottom: 4px;
+}
+.otc-metric {
+  font: 700 28px/36px var(--font-family-default);
+  text-align: right;
+  margin-bottom: 8px;
+}
+.otc-metric-up { color: var(--color-gold-7); }   /* ★ 별점 → 골드 */
+.otc-metric-pos { color: var(--color-error); }   /* % 상승 → 빨강 */
+
+.otc-price {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+.otc-up   { color: var(--color-error); font-weight: 700; }
+.otc-down { color: var(--color-brand-pharmall-text); font-weight: 700; }
+
+
+/* ============================================================
+ * OTC NOW — 3-column 랭킹 대시보드 (FUND NOW 패턴)
+ * ============================================================ */
+.otcnow-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.otcnow-title {
+  font: var(--font-display-6);  /* 700 28/38 — 통일 */
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+.otcnow-date {
+  font: var(--font-b5);
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+.otcnow-login {
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-b4);
+  transition: background .15s ease;
+}
+.otcnow-login strong { font-weight: 700; margin-left: 4px; }
+.otcnow-login:hover { background: var(--color-brand-pharmall-bg-hover); }
+
+.otcnow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap-lg);
+}
+.otcnow-card {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.otcnow-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.otcnow-card-head h3 {
+  font: var(--font-h3);
+  color: var(--color-text);
+}
+.otcnow-more {
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-secondary);
+}
+.otcnow-more:hover { color: var(--color-text); border-color: var(--color-border); }
+
+/* ── 카드 내부 3-탭 (신규진입/장기상승/품절해소) ── */
+.otcnow-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.otcnow-tab {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font: var(--font-h6);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.otcnow-tab:hover { color: var(--color-text); border-color: var(--color-border); }
+.otcnow-tab.is-active {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  border-color: var(--color-brand-pharmall-bg);
+  font-weight: 700;
+}
+
+/* ── 심플 랭킹 (1위 솔리드 + 화살표, 나머지는 깔끔한 rank+name) ── */
+.rank-simple {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.rank-simple-item {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 18px;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  transition: background .15s ease, color .15s ease;
+}
+.rank-simple-num {
+  font: var(--font-h3-b);     /* 700 18/26 — 굵고 큼직 */
+  color: var(--color-text);
+  text-align: left;
+}
+.rank-simple-name {
+  font: var(--font-h3-b);     /* 700 18/26 — rank와 동일 굵기 */
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rank-simple-arrow { color: var(--color-text-light); }
+
+.rank-simple-item:hover {
+  background: var(--color-fill-tertiary);
+}
+.rank-simple-item.is-active {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+.rank-simple-item.is-active .rank-simple-num,
+.rank-simple-item.is-active .rank-simple-name {
+  color: var(--color-text-light);
+}
+
+/* ── atglance 랭킹: 2개 카드 × 각 TOP 10 (OTC 한눈에 보기.png 패턴) ── */
+.atglance-rank-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.atglance-rank-block {
+  background: var(--color-bg-container);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  border: 1px solid var(--color-border-secondary);
+}
+.atglance-rank-block-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 16px;
+  padding: 0;
+}
+.atglance-rank-block-title .atglance-rank-count {
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+/* 동그라미 숫자 + 키워드 + 트렌드 인디케이터 */
+.rank-stroke {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.rank-stroke-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  transition: border-color .15s ease, background .15s ease;
+  cursor: pointer;
+  min-width: 0;
+}
+.rank-stroke-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-tertiary);
+  font: var(--font-caption);
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.rank-stroke-item.is-rank-1 .rank-stroke-num {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+.rank-stroke-name {
+  font: var(--font-body);
+  font-weight: 500;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rank-stroke-trend {
+  font: var(--font-caption);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: transparent;
+  padding: 0;
+}
+.rank-stroke-trend.up    { color: var(--color-volcano-7); }
+.rank-stroke-trend.down  { color: var(--color-cyan-8); }
+.rank-stroke-trend.same  { color: var(--color-text-tertiary); }
+.rank-stroke-item:hover {
+  background: var(--color-fill-tertiary);
+}
+.rank-stroke-item.is-active {
+  background: var(--color-bg-container);
+  border-color: var(--color-brand-pharmall);
+}
+
+/* 우측 보조 텍스트 (변동률 / NEW 등) */
+.rank-simple-side {
+  font: var(--font-h6);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+.rank-simple-new {
+  background: var(--color-volcano-1);
+  color: var(--color-volcano-7);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font: var(--font-caption);
+}
+.rank-simple-item.is-active .rank-simple-side { color: var(--color-text-light); }
+
+/* ── Col 2: 주간 인기 검색 키워드 — 텍스트 위주 ── */
+.otcnow-kw-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.otcnow-kw {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  border-bottom: 1px solid var(--color-border-secondary);
+  transition: background .15s ease, border-color .15s ease;
+}
+.otcnow-kw:hover { background: var(--color-fill-tertiary); }
+.otcnow-kw.is-active {
+  border: 1.5px solid var(--color-brand-pharmall);
+  background: var(--color-bg-container);
+}
+.otcnow-kw-name {
+  font: var(--font-h5);
+  color: var(--color-text);
+}
+.otcnow-kw-delta {
+  font: var(--font-h6);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+.otcnow-kw-new {
+  background: var(--color-volcano-1);
+  color: var(--color-volcano-7);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font: var(--font-caption);
+}
+
+/* ── Col 3: 이달의 테마 트렌드 — alternating 색 카드 ── */
+.otcnow-themes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.otcnow-theme {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.otcnow-theme:hover { transform: translateY(-2px); }
+.otcnow-theme-light {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+}
+.otcnow-theme-light .otcnow-theme-eyebrow { color: var(--color-brand-pharmall-text); opacity: .8; }
+.otcnow-theme-light .otcnow-theme-title { color: var(--color-brand-pharmall-text); }
+
+.otcnow-theme-dark {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+.otcnow-theme-dark .otcnow-theme-eyebrow { color: var(--color-text-light); opacity: .8; }
+.otcnow-theme-dark .otcnow-theme-title { color: var(--color-text-light); }
+
+.otcnow-theme-eyebrow {
+  font: var(--font-caption);
+  margin-bottom: 4px;
+}
+.otcnow-theme-title {
+  font: var(--font-h4);
+}
+.otcnow-theme-emoji {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+ * TRENDS — 성분별 순위 차트 스타일 (home.png 패턴)
+ * ============================================================ */
+
+/* Lens 토글 — 어떤 데이터로 볼지 */
+.lens-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding: 4px;
+  background: var(--color-fill-secondary);
+  border-radius: var(--radius-pill);
+  width: fit-content;
+}
+.lens-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font: var(--font-h5);
+  color: var(--color-text-secondary);
+  transition: background .15s ease, color .15s ease;
+}
+.lens-tab:hover { color: var(--color-text); }
+.lens-tab.is-active {
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  box-shadow: var(--shadow-on-gray-200);
+}
+
+/* 2-col 레이아웃: 카테고리 사이드바 + 메인 차트 영역 */
+.trend-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.trend-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1px solid var(--color-border-secondary);
+  padding-right: 24px;
+}
+.trend-cat {
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  transition: background .15s ease, color .15s ease;
+}
+.trend-cat:hover { background: var(--color-fill-tertiary); color: var(--color-text); }
+.trend-cat.is-active {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font-weight: 700;
+}
+
+.trend-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.trend-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.trend-chart-title {
+  font: var(--font-h3);
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+.trend-chart-sub {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.trend-pill-group {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  background: var(--color-fill-secondary);
+  border-radius: var(--radius-pill);
+}
+.trend-pill {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+.trend-pill.is-active {
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  box-shadow: var(--shadow-on-gray-200);
+}
+
+/* SVG Chart */
+.trend-chart {
+  width: 100%;
+  aspect-ratio: 640 / 300;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  box-sizing: border-box;
+}
+.trend-chart svg { width: 100%; height: 100%; display: block; }
+
+.trend-chart .grid line {
+  stroke: var(--color-border-secondary);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.trend-chart .grid-zero {
+  stroke: var(--color-border);
+  stroke-dasharray: none;
+}
+.trend-chart .axis-y text,
+.trend-chart .axis-x text {
+  font: var(--font-caption);
+  font-family: var(--font-family-default);
+  fill: var(--color-text-tertiary);
+}
+
+.trend-chart .line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.trend-chart .line-1 { stroke: var(--color-brand-pharmall); }
+.trend-chart .line-2 { stroke: var(--color-volcano-6); }
+.trend-chart .line-3 { stroke: var(--color-cyan-6); }
+.trend-chart .line-4 { stroke: var(--color-magenta-6); }
+.trend-chart .line-5 { stroke: var(--color-gold-6); }
+
+.trend-chart .dot { stroke: var(--color-bg-container); stroke-width: 2; }
+.trend-chart .dot-1 { fill: var(--color-brand-pharmall); }
+.trend-chart .dot-2 { fill: var(--color-volcano-6); }
+.trend-chart .dot-3 { fill: var(--color-cyan-6); }
+.trend-chart .dot-4 { fill: var(--color-magenta-6); }
+.trend-chart .dot-5 { fill: var(--color-gold-6); }
+
+/* Legend */
+.trend-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 16px;
+  padding: 0;
+}
+.trend-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.trend-legend em {
+  font-style: normal;
+  font-weight: 700;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font: var(--font-caption);
+}
+.trend-up   { background: var(--color-volcano-1); color: var(--color-volcano-7); }
+.trend-down { background: var(--color-blue-1);    color: var(--color-blue-7); }
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+.legend-dot-1 { background: var(--color-brand-pharmall); }
+.legend-dot-2 { background: var(--color-volcano-6); }
+.legend-dot-3 { background: var(--color-cyan-6); }
+.legend-dot-4 { background: var(--color-magenta-6); }
+.legend-dot-5 { background: var(--color-gold-6); }
+
+/* 랭킹 strip — 차트 아래 가로 카드 row */
+.trend-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-secondary);
+}
+.strip-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  text-align: center;
+  transition: background .15s ease;
+}
+.strip-card:hover { background: var(--color-brand-pharmall-bg); }
+.strip-rank {
+  width: 20px; height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-caption);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.strip-card img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.strip-name {
+  font: var(--font-b5);
+  color: var(--color-text);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.strip-meta {
+  font: var(--font-caption);
+  font-weight: 700;
+}
+
+
+/* ============================================================
+ * CATEGORY + SELLING REVIEW (통합 — home.png 패턴)
+ * ============================================================ */
+
+/* 토글: 카테고리 / 진료과목 — 센터 */
+.cat-toggle {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 32px;
+  padding: 4px;
+  background: var(--color-fill-secondary);
+  border-radius: var(--radius-pill);
+}
+.cat-toggle-btn {
+  padding: 8px 24px;
+  border-radius: var(--radius-pill);
+  font: var(--font-h5);
+  color: var(--color-text-secondary);
+  transition: background .15s ease, color .15s ease;
+}
+.cat-toggle-btn.is-active {
+  background: var(--color-text);
+  color: var(--color-text-light);
+}
+
+/* 가로 스크롤 카테고리 아이콘 row — 아이콘 크게, 여백 타이트 */
+.cat-row-wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+.cat-row {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 0 48px 20px 0;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.cat-row::-webkit-scrollbar { display: none; }
+
+.cat-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 72px;
+  padding: 4px 2px;
+  position: relative;
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  transition: color .15s ease;
+}
+.cat-icon img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  padding: 4px;
+  border: 2px solid transparent;
+  transition: border-color .15s ease, transform .15s ease, background .15s ease;
+}
+.cat-icon span {
+  font: var(--font-caption);
+  color: inherit;
+  text-align: center;
+  white-space: nowrap;
+}
+.cat-icon:hover img { transform: translateY(-2px); background: var(--color-fill-tertiary); }
+.cat-icon.is-active {
+  color: var(--color-brand-pharmall-text);
+  font-weight: 700;
+}
+.cat-icon.is-active img {
+  border-color: var(--color-brand-pharmall);
+  background: var(--color-brand-pharmall-bg);
+}
+.cat-icon.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--color-brand-pharmall);
+}
+
+.cat-scroll-right {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-on-gray-200);
+  transition: color .15s ease, border-color .15s ease;
+}
+.cat-scroll-right:hover { color: var(--color-text); border-color: var(--color-border); }
+
+/* ── 제품 리스트 (sub-1depth 패턴) ── */
+.rank-list {
+  display: flex;
+  flex-direction: column;
+}
+.rank-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1.3fr) 160px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.rank-row:last-child { border-bottom: 0; }
+
+.rank-num {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.rank-info { display: flex; flex-direction: column; gap: 6px; }
+.rank-brand { font: var(--font-caption); color: var(--color-text-tertiary); }
+.rank-name {
+  font: var(--font-h4);
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.rank-spec {
+  font: var(--font-b5);
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+.rank-status {
+  font: var(--font-caption);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font-weight: 500;
+}
+.rank-status-warn {
+  background: var(--color-volcano-1);
+  color: var(--color-volcano-7);
+}
+.rank-price {
+  font: var(--font-b4);
+  color: var(--color-text-secondary);
+}
+.rank-cat {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.rank-cat-sep { color: var(--color-text-quaternary); margin: 0 4px; }
+.rank-cta {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px 6px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font: var(--font-h6);
+  width: fit-content;
+  transition: border-color .15s ease, color .15s ease;
+}
+.rank-cta:hover { border-color: var(--color-brand-pharmall); color: var(--color-brand-pharmall-text); }
+.rank-cta-badge {
+  width: 18px; height: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font: var(--font-caption);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-image {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.rank-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.rank-image-empty {
+  background: var(--color-fill-tertiary);
+  border-style: dashed;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* ── 셀링리뷰 패널 ── */
+.rank-review {
+  padding-left: 20px;
+  border-left: 1px solid var(--color-border-secondary);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rank-review-head img { height: 16px; }
+.rank-review-meta {
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.rank-review-meta strong { color: var(--color-brand-pharmall-text); font-weight: 700; }
+.kw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  font: var(--font-caption);
+  color: var(--color-text);
+}
+.kw-chip em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-brand-pharmall-text);
+}
+.kw-chip-more {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-tertiary);
+}
+.rank-review-quote {
+  margin-top: auto;
+  padding: 10px 12px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* 빈 리뷰 상태 — 첫리뷰 작성 유도 */
+.rank-review-empty {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--color-fill-tertiary);
+  border-left: 0;
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+.rank-review-empty-title { font: var(--font-h5); color: var(--color-text-secondary); }
+.rank-review-empty-sub  { font: var(--font-b5); color: var(--color-text-tertiary); }
+.rank-review-empty-sub strong { color: var(--color-green-7); font-weight: 700; }
+.rank-review-write {
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  font: var(--font-h6);
+}
+.rank-review-write:hover { border-color: var(--color-brand-pharmall); color: var(--color-brand-pharmall-text); }
+.rank-review-x2 {
+  position: absolute;
+  top: 12px; right: 16px;
+  font: var(--font-h2-b);
+  color: var(--color-green-6);
+  opacity: .85;
+  transform: rotate(-8deg);
+}
+
+/* 더보기 outline pill */
+.rank-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.rank-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-brand-pharmall);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-h5);
+  transition: background .15s ease;
+}
+.rank-more:hover { background: var(--color-brand-pharmall-bg); }
+
+
+/* ============================================================
+ * LEGACY CATEGORY GRID (deprecated — kept for safety, unused)
+ * ============================================================ */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--space-gap-md);
+}
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 8px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  font: var(--font-b4);
+  color: var(--color-text);
+  text-align: center;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.cat-card:hover {
+  border-color: var(--color-brand-pharmall-border);
+  background: var(--color-brand-pharmall-bg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.cat-card img { width: 48px; height: 48px; object-fit: contain; }
+
+.cat-card-all { background: var(--color-fill-tertiary); border-style: dashed; }
+.cat-all-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--font-h2-b);
+  color: var(--color-text-tertiary);
+  border: 1px solid var(--color-border-secondary);
+}
+
+
+/* ============================================================
+ * TABS
+ * ============================================================ */
+.tab-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font: var(--font-h5);
+  color: var(--color-text-secondary);
+  transition: background .15s ease, color .15s ease;
+}
+.tab:hover { background: var(--color-fill-secondary); color: var(--color-text); }
+.tab.is-active {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+
+
+/* ============================================================
+ * PRODUCT GRID
+ * ============================================================ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-gap-md);
+}
+.product-card {
+  position: relative;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.product-card:hover {
+  border-color: var(--color-brand-pharmall-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-on-gray-200);
+}
+.product-rank {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  font: var(--font-h5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--color-fill-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-media img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+.product-badges {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.badge {
+  font: var(--font-caption);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+.badge-supply-ok   { background: var(--color-green-1); color: var(--color-green-7); }
+.badge-supply-warn { background: var(--color-volcano-1); color: var(--color-volcano-7); }
+.badge-price-good  { background: var(--color-brand-pharmall-bg); color: var(--color-brand-pharmall-text); }
+
+.product-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.product-brand { font: var(--font-caption); color: var(--color-text-tertiary); }
+.product-name  { font: var(--font-h5); color: var(--color-text); min-height: 40px; }
+
+.product-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-b5);
+  color: var(--color-text-secondary);
+}
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font: var(--font-h6);
+  color: var(--color-gold-7);
+}
+.review-count { color: var(--color-text-tertiary); }
+
+.product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 4px;
+}
+.price-now  { font: var(--font-h3-b); color: var(--color-text); }
+.price-unit { font: var(--font-caption); color: var(--color-text-tertiary); }
+
+.product-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+.btn {
+  height: 36px;
+  border-radius: var(--radius-sm);
+  font: var(--font-h5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn-ghost {
+  background: var(--color-fill-secondary);
+  color: var(--color-text);
+}
+.btn-ghost:hover { background: var(--color-fill); }
+.btn-primary {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+.btn-primary:hover { background: var(--color-brand-pharmall-active); }
+
+.product-ask {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-b5);
+  text-align: left;
+  width: 100%;
+  transition: background .15s ease;
+}
+.product-ask:hover { background: var(--color-brand-pharmall-bg-hover); }
+
+
+/* ============================================================
+ * BANNER
+ * ============================================================ */
+.banner {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg-dark);
+  min-height: 220px;
+}
+.banner img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: .8;
+}
+.banner-text {
+  position: relative;
+  padding: 48px;
+  max-width: 60%;
+  color: var(--color-text-light);
+  text-shadow: var(--shadow-text-overlay);
+}
+.banner-eyebrow {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-cyan-3);
+  margin-bottom: 8px;
+}
+.banner-title {
+  font: var(--font-h1);
+  margin-bottom: 8px;
+}
+.banner-sub {
+  font: var(--font-b3);
+  color: var(--color-text-quaternary);
+}
+
+
+/* ============================================================
+ * STEPS — How it works
+ * ============================================================ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-gap-md);
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+.step-num { width: 32px; height: 32px; margin-bottom: 16px; }
+.step h3 { font: var(--font-h4); color: var(--color-text); margin-bottom: 8px; }
+.step p  { font: var(--font-b4); color: var(--color-text-secondary); line-height: 1.6; }
+
+
+/* ============================================================
+ * FOOTER
+ * ============================================================ */
+.footer {
+  background: var(--color-bg-dark);
+  color: var(--color-text-quaternary);
+  padding: var(--space-section-y) 0 32px;
+}
+.footer-inner { display: flex; flex-direction: column; gap: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 8px; filter: brightness(0) invert(1); opacity: .9; }
+.footer-brand p { font: var(--font-b4); }
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap-lg);
+}
+.footer-cols h4 {
+  font: var(--font-h5);
+  color: var(--color-text-light);
+  margin-bottom: 12px;
+}
+.footer-cols ul { display: flex; flex-direction: column; gap: 8px; }
+.footer-cols li, .footer-cols a {
+  font: var(--font-b4);
+  color: var(--color-text-quaternary);
+  line-height: 1.6;
+}
+.footer-cols a:hover { color: var(--color-text-light); }
+
+.footer-meta {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-dark);
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+
+/* ============================================================
+ * FLOATING AGENT DOCK
+ * ============================================================ */
+.floating-agent {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 20px 6px 6px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font: var(--font-h5);
+  font-weight: 700;
+  box-shadow: 0 12px 36px rgba(47, 84, 235, 0.28);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.floating-agent-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+.floating-agent:hover {
+  background: var(--color-brand-pharmall-active);
+  box-shadow: 0 16px 44px rgba(47, 84, 235, 0.36);
+  transform: translateY(-2px);
+}
+
+
+/* ============================================================
+ * LIST PAGE — 카테고리 상품 리스트 (list.html / images/리스트.png 패턴)
+ * ============================================================ */
+.list-page {
+  padding: 32px 0 80px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 16px;
+}
+.breadcrumb a {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+}
+.breadcrumb a:hover { color: var(--color-text); }
+.breadcrumb-sep { color: var(--color-text-quaternary); }
+.breadcrumb-current { color: var(--color-text); }
+
+.list-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.list-title {
+  font: var(--font-h2);
+  color: var(--color-text);
+}
+.list-count {
+  font: var(--font-b3);
+  color: var(--color-text-tertiary);
+}
+
+.list-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 24px 0 16px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.list-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  border: 0;
+  background: transparent;
+  font: var(--font-h5);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.list-tab:hover { color: var(--color-text-secondary); }
+.list-tab.is-active {
+  color: var(--color-brand-pharmall);
+  border-bottom-color: var(--color-brand-pharmall);
+}
+.list-tab-count {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.list-tab.is-active .list-tab-count { color: var(--color-brand-pharmall); }
+.list-tab-icon {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.list-tab-icon-blue { background: var(--color-blue-6); }
+.list-tab-icon-green { background: var(--color-green-6); }
+
+.list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.list-toolbar-left {
+  display: flex;
+  gap: 8px;
+}
+.chip-filter {
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.chip-filter:hover {
+  border-color: var(--color-brand-pharmall-border);
+  color: var(--color-brand-pharmall);
+}
+.list-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.rank-num-plain {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font: var(--font-h5);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 40px;
+}
+.pagination-btn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination-btn:hover { background: var(--color-fill-tertiary); }
+.pagination-btn.is-active {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font-weight: 700;
+}
+
+
+/* ============================================================
+ * DETAIL PAGE — 제품 상세 (detail.html / images/상세.png 패턴)
+ * ============================================================ */
+.detail-page {
+  padding: 32px 0 80px;
+}
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  margin: 24px 0 56px;
+}
+
+/* 좌측 갤러리 */
+.detail-gallery-main {
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.detail-gallery-main img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+.detail-gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+}
+.detail-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1.5px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-container);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color .15s ease;
+}
+.detail-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.detail-thumb:hover { border-color: var(--color-text-tertiary); }
+.detail-thumb.is-active { border-color: var(--color-brand-pharmall); }
+
+/* 우측 정보 */
+.detail-brand {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.detail-name {
+  font: var(--font-h1);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 4px 0 6px;
+  letter-spacing: -0.02em;
+}
+.detail-spec {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+.detail-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.detail-status {
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+  font-weight: 600;
+}
+.detail-sellrev {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+}
+.detail-sellrev img { height: 14px; }
+.detail-sellrev strong { color: var(--color-text); }
+
+/* 가격 카드 */
+.detail-price-card {
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 24px;
+}
+.detail-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+.detail-price-label {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+.detail-price-value {
+  font: var(--font-h4);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.detail-price-trend .trend-down {
+  background: var(--color-blue-1);
+  color: var(--color-blue-7);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font: var(--font-caption);
+  font-weight: 700;
+}
+.detail-price-note {
+  margin-top: 8px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* 수량 옵션 */
+.detail-option {
+  margin-bottom: 20px;
+}
+.detail-option-label {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+.detail-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.detail-qty-btn {
+  width: 36px;
+  height: 40px;
+  border: 0;
+  background: var(--color-bg-container);
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+}
+.detail-qty-btn:hover { background: var(--color-fill-tertiary); }
+.detail-qty-input {
+  width: 56px;
+  height: 40px;
+  border: 0;
+  border-left: 1px solid var(--color-border-secondary);
+  border-right: 1px solid var(--color-border-secondary);
+  text-align: center;
+  font: var(--font-b3);
+  color: var(--color-text);
+  outline: none;
+}
+
+/* CTA */
+.detail-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.detail-cta {
+  height: 52px;
+  border-radius: var(--radius-md);
+  font: var(--font-h5);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 0;
+  transition: background .15s ease;
+}
+.detail-cta-secondary {
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-secondary);
+}
+.detail-cta-secondary:hover {
+  background: var(--color-fill-tertiary);
+}
+.detail-cta-primary {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+.detail-cta-primary:hover {
+  background: var(--color-brand-pharmall-hover);
+}
+
+/* 핵심 정보 박스 */
+.detail-keyfacts {
+  border-top: 1px solid var(--color-border-secondary);
+  padding: 20px 0 0;
+  margin: 0;
+  list-style: none;
+}
+.detail-keyfacts li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+}
+.detail-keyfact-label {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.detail-keyfact-value {
+  font: var(--font-b3);
+  color: var(--color-text);
+}
+
+/* 셀링리뷰 키워드 요약 */
+.detail-keywords {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 56px;
+}
+.detail-keywords-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.detail-keywords-head img { height: 16px; }
+.detail-keywords-head h2 {
+  font: var(--font-h4);
+  color: var(--color-text);
+}
+.detail-keywords-count {
+  margin-left: auto;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.detail-keywords-quote {
+  margin: 20px 0 0;
+  padding: 16px 18px;
+  background: var(--color-fill-tertiary);
+  border-left: 3px solid var(--color-brand-pharmall);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  font-style: normal;
+}
+
+/* 탭 */
+.detail-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 32px;
+}
+.detail-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  border: 0;
+  background: transparent;
+  font: var(--font-h5);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.detail-tab:hover { color: var(--color-text-secondary); }
+.detail-tab.is-active {
+  color: var(--color-brand-pharmall);
+  border-bottom-color: var(--color-brand-pharmall);
+}
+.detail-tab-count {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.detail-tab-panel {
+  padding: 12px 0;
+}
+.detail-body-img {
+  margin: 16px auto 40px;
+  max-width: 720px;
+  text-align: center;
+}
+.detail-body-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+}
+.detail-section {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.detail-section:last-child { border-bottom: 0; }
+.detail-section-title {
+  font: var(--font-h4);
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.detail-section-body {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+.detail-section-list {
+  margin: 0;
+  padding-left: 18px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+.detail-section-list li { padding: 2px 0; }
+
+
+/* ============================================================
+ * DETAIL v2 — Figma 디자인 그대로 (B-sub-1depth, node 703:57655)
+ * ============================================================ */
+.dtl { padding: 24px 0 100px; }
+
+/* breadcrumb 4-depth */
+.dtl-bc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 40px;
+}
+.dtl-bc a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+.dtl-bc a:hover { color: var(--color-text); }
+.dtl-bc-home {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-tertiary);
+}
+.dtl-bc-sep { color: var(--color-text-quaternary); }
+
+/* 헤더 grid : 좌 메인 / 우 사이드 (figma B-sub-1depth 비율 868 / 279) */
+.dtl-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 48px;
+}
+
+/* 좌 메인 상단 row : 정보 + 우측 썸네일 240 */
+.dtl-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 32px;
+}
+.dtl-top-info { min-width: 0; }
+.dtl-thumb {
+  width: 240px;
+  height: 240px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.dtl-thumb img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+/* ── 좌 메인 ── */
+.dtl-name {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0 0 8px;
+}
+.dtl-overline {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin: 0 0 24px;
+}
+
+.dtl-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.dtl-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+}
+.dtl-price-label {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.dtl-price-value {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+.dtl-price-range {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.dtl-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font: var(--font-h5);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.dtl-cta-primary:hover { background: var(--color-brand-pharmall-hover); }
+
+.dtl-section-label {
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+.dtl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+.dtl-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+  font-weight: 600;
+}
+.dtl-chip-primary {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall);
+}
+.dtl-chip-more { background: transparent; color: var(--color-text-tertiary); }
+
+.dtl-info-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+.dtl-info-row li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+.dtl-info-row svg { color: var(--color-text-tertiary); }
+
+.dtl-hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-secondary);
+  margin: 32px 0;
+}
+
+/* 셀링리뷰 가로 bar */
+.dtl-sr-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.dtl-sr-head img { height: 16px; }
+.dtl-sr-head p { font: var(--font-b3); color: var(--color-text-secondary); margin: 0; }
+.dtl-sr-head strong { color: var(--color-brand-pharmall); font-weight: 700; }
+
+.dtl-kwbars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dtl-kwbars li {
+  display: grid;
+  grid-template-columns: 180px 1fr 40px;
+  gap: 12px;
+  align-items: center;
+}
+.dtl-kwbar-label {
+  font: var(--font-b3);
+  color: var(--color-text);
+}
+.dtl-kwbar-track {
+  height: 22px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.dtl-kwbar-fill {
+  height: 100%;
+  background: linear-gradient(90deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-geekblue-5) 100%);
+  border-radius: var(--radius-sm);
+  transition: width .6s ease-out;
+}
+.dtl-kwbar-pct {
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+}
+.dtl-sr-more {
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.dtl-sr-more:hover {
+  border-color: var(--color-brand-pharmall-border);
+  color: var(--color-brand-pharmall);
+}
+
+/* 약사 자유 리뷰 카드 */
+.dtl-reviews {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  position: relative;
+}
+.dtl-review {
+  padding: 16px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+}
+.dtl-review-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.dtl-review-tags .dtl-chip {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+.dtl-review-body {
+  font: var(--font-b3);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.dtl-review-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+.dtl-reviews-more {
+  grid-column: 1 / -1;
+  text-align: right;
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding-top: 8px;
+}
+.dtl-reviews-more:hover { color: var(--color-brand-pharmall); }
+
+/* ── 우 사이드 ── */
+.dtl-side {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-left: 32px;
+  border-left: 1px solid var(--color-border-secondary);
+}
+.dtl-prod-img {
+  width: 240px;
+  height: 240px;
+  border-radius: var(--radius-md);
+  background: var(--color-fill-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.dtl-prod-img img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+.dtl-side-divider { display: none; }
+
+.dtl-sidebox-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 14px;
+}
+
+/* 동일성분 의약품 리스트 (TOP 10) */
+.dtl-rank10 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dtl-rank10 li {
+  display: grid;
+  grid-template-columns: 24px 36px 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 0;
+}
+.dtl-rank-num {
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: left;
+}
+.dtl-rank-trend {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+.dtl-rank-trend.up   { color: var(--color-volcano-7); }
+.dtl-rank-trend.down { color: var(--color-blue-7); }
+.dtl-rank-trend.new {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-volcano-1);
+  color: var(--color-volcano-7);
+  letter-spacing: 0.04em;
+}
+.dtl-rank-name {
+  font: var(--font-b3);
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 성분 베스트 점유율 차트 */
+.dtl-share img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+.dtl-share-months {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* ── 추천 상품 row ── */
+.dtl-recom {
+  margin-bottom: 56px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.dtl-recom-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.dtl-recom-title {
+  font: var(--font-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.dtl-recom-ad {
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  padding: 2px 6px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+}
+.dtl-recom-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+}
+.dtl-recom-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .15s ease;
+}
+.dtl-recom-card:hover { transform: translateY(-2px); }
+.dtl-recom-img {
+  aspect-ratio: 1 / 1;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.dtl-recom-img img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+}
+.dtl-recom-name {
+  font: var(--font-caption);
+  color: var(--color-text);
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dtl-recom-price {
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+.dtl-recom-price small {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  margin-left: 1px;
+}
+.dtl-recom-discount {
+  color: var(--color-volcano-7);
+  margin-right: 3px;
+}
+
+/* ── 본문 큰 이미지 ── */
+.dtl-body-img {
+  display: flex;
+  justify-content: center;
+}
+.dtl-body-img img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
+
+/* ============================================================
+ * AI PAGE — OTC Agent (ai.html / ai-홈.png · ai-검색중.png 패턴)
+ * ============================================================ */
+/* HTML hidden 속성은 모든 display 룰을 이김 (user-agent의 display:none이 override되지 않도록) */
+[hidden] { display: none !important; }
+
+body.ai-page {
+  background: var(--color-bg-base-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body.ai-page .ai-main,
+body.ai-page .ai-home,
+body.ai-page .ai-chat,
+body.ai-page .ai-chat-thread {
+  margin-top: 0 !important;
+}
+body.ai-page .ai-chat { padding-top: 40px !important; }
+/* .ai-home 은 자체 flex-center 로 처리 — padding-top 강제 X */
+
+/* AI 페이지 그라데이션 배경 (옅은 파스텔 mesh — brand-pharmall + 보라/마젠타 톤) */
+body.ai-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(720px 540px at 12% 8%,  var(--color-geekblue-1) 0%, transparent 60%),
+    radial-gradient(680px 520px at 92% 22%, var(--color-purple-1)   0%, transparent 60%),
+    radial-gradient(560px 480px at 50% 92%, var(--color-magenta-1)  0%, transparent 65%);
+}
+body.ai-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+}
+body.ai-page > .ai-main { position: relative; z-index: 1; }
+body.ai-page > .ai-side { position: fixed; z-index: 10; }
+
+/* 좌측 사이드 (확장형: 로고 + 새 대화 + 히스토리 리스트) */
+.ai-side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-right: 1px solid var(--color-border-secondary);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  z-index: 10;
+}
+.ai-side-logo {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  margin: 4px 0 20px 4px;
+  text-decoration: none;
+}
+.ai-side-logo img { width: auto; height: 26px; object-fit: contain; display: block; }
+
+/* 대화 검색 */
+.ai-side-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+}
+.ai-side-search input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: var(--font-b3);
+  color: var(--color-text);
+}
+.ai-side-search input::placeholder { color: var(--color-text-tertiary); }
+
+/* 새로운 대화 */
+.ai-side-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+  font: var(--font-b3);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  margin-bottom: 16px;
+  text-align: left;
+  transition: background .15s ease, color .15s ease;
+}
+.ai-side-new:hover {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+}
+
+/* 히스토리 — 단순 텍스트 한 줄 */
+.ai-history-list {
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.ai-history-item {
+  width: 100%;
+  display: block;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font: var(--font-b3);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background .15s ease, color .15s ease;
+}
+.ai-history-item:hover {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+}
+.ai-history-item.is-active {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* 메인 영역 */
+.ai-main {
+  margin-left: 260px;
+  display: block;
+}
+
+/* ───── HOME 상태 (plani 톤: 화면 세로 가운데, 큰 타이포 + sub + 인풋 + 추천) ───── */
+.ai-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 80px;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.ai-home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-brand-pharmall);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: ai-fade-up .7s ease-out .05s forwards;
+}
+.ai-home-eyebrow-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.ai-home-title {
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: ai-fade-up .8s ease-out .15s forwards;
+}
+.ai-home-title-accent {
+  background: linear-gradient(95deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-geekblue-5) 45%,
+    var(--color-purple-6) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  animation: ai-title-shift 8s ease-in-out infinite;
+}
+@keyframes ai-title-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.ai-home-sub {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 44px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .8s ease-out .3s forwards;
+}
+
+@keyframes ai-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 검색창 — 홈 인라인(가운데), glassmorphism + glow focus */
+.ai-search {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 12px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(47, 84, 235, 0.10);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ai-fade-up .8s ease-out .45s forwards;
+}
+.ai-search:hover {
+  box-shadow: 0 12px 36px rgba(47, 84, 235, 0.14);
+}
+.ai-search:focus-within {
+  border-color: var(--color-brand-pharmall);
+  box-shadow: 0 0 0 4px var(--color-geekblue-1), 0 12px 36px rgba(47, 84, 235, 0.18);
+}
+.ai-search-options {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ai-search-options:hover { background: var(--color-fill-tertiary); color: var(--color-text); }
+#aiInput, #aiInputChat {
+  flex: 1;
+  height: 38px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: var(--color-text);
+}
+#aiInput::placeholder, #aiInputChat::placeholder { color: var(--color-text-tertiary); }
+.ai-search-send {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: var(--color-fill-secondary);
+  color: var(--color-text-tertiary);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .15s ease, color .15s ease;
+}
+.ai-search:focus-within .ai-search-send,
+.ai-search-send:hover {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+}
+
+/* 추천 질문 리스트 — 진입 stagger */
+.ai-prompts {
+  width: 100%;
+  max-width: 720px;
+  margin: 32px auto 0;
+  padding: 0;
+  list-style: none;
+}
+.ai-prompts li {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ai-fade-up .6s ease-out forwards;
+}
+.ai-prompts li:nth-child(1) { animation-delay: .60s; }
+.ai-prompts li:nth-child(2) { animation-delay: .72s; }
+.ai-prompts li:nth-child(3) { animation-delay: .84s; }
+.ai-prompts li:nth-child(4) { animation-delay: .96s; }
+
+.ai-prompt {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 8px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border-secondary);
+  transition: background .2s ease, padding-left .2s ease;
+  font-family: inherit;
+}
+.ai-prompts li:last-child .ai-prompt { border-bottom: 0; }
+.ai-prompt:hover {
+  background: rgba(255,255,255,0.6);
+  padding-left: 16px;
+}
+.ai-prompt:hover .ai-prompt-arrow { transform: translateX(2px); }
+.ai-prompt-arrow { transition: transform .2s ease; }
+.ai-prompt-arrow {
+  color: var(--color-brand-pharmall);
+  flex-shrink: 0;
+}
+.ai-prompt-cat {
+  font: var(--font-caption);
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+.ai-prompt-cat-price  { background: var(--color-brand-pharmall-bg); color: var(--color-brand-pharmall); }
+.ai-prompt-cat-review { background: var(--color-orange-1);         color: var(--color-orange-7); }
+.ai-prompt-cat-new    { background: var(--color-gold-1);           color: var(--color-gold-7); }
+.ai-prompt-cat-set    { background: var(--color-purple-1);         color: var(--color-purple-7); }
+.ai-prompt-q {
+  font: var(--font-b3);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.ai-home-foot {
+  margin-top: 48px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  line-height: 1.7;
+}
+.ai-home-foot a { color: var(--color-brand-pharmall); }
+
+/* ───── CHAT 상태 ───── */
+.ai-chat {
+  display: block;
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto !important;
+  padding: 16px 24px 140px !important;
+}
+.ai-chat-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.ai-chat-thread > :first-child { margin-top: 0 !important; }
+.ai-msg, .ai-msg-user, .ai-msg-agent, .ai-msg-bubble { margin-top: 0 !important; }
+
+/* 사용자 질문 (우측 버블) */
+.ai-msg-user {
+  display: flex;
+  justify-content: flex-end;
+}
+.ai-msg-bubble {
+  background: var(--color-fill-secondary);
+  padding: 12px 18px;
+  border-radius: 18px;
+  font: var(--font-b2);
+  color: var(--color-text);
+  max-width: 70%;
+}
+
+/* 에이전트 응답 영역 */
+.ai-msg-agent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 로딩 (실행중) */
+.ai-loading {
+  padding: 8px 0;
+}
+.ai-loading-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-brand-pharmall);
+  padding: 4px 10px 4px 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  margin-bottom: 12px;
+}
+.ai-loading-tag-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+.ai-loading-status {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-bottom: 14px;
+}
+.ai-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ai-skeleton span {
+  display: block;
+  height: 14px;
+  background: linear-gradient(90deg,
+    var(--color-fill-tertiary) 0%,
+    var(--color-fill-secondary) 50%,
+    var(--color-fill-tertiary) 100%);
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: ai-shimmer 1.4s linear infinite;
+}
+.ai-skeleton span:nth-child(2) { width: 92%; }
+@keyframes ai-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ── 분석 단계 (한 줄 텍스트 fade-cross + 연결된 블루 바 — ai-검색중.png 패턴) ── */
+.ai-loading-text-wrap {
+  margin: 0 0 14px;
+  min-height: 22px;
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+}
+.ai-loading-text {
+  display: inline-block;
+  transition: opacity .18s ease, transform .18s ease;
+  opacity: 1;
+  transform: translateY(0);
+  will-change: opacity, transform;
+}
+.ai-loading-text.is-out {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+
+/* 3개 바 — 같은 키프레임 + 음수 delay 로 위→아래 연결된 wave 느낌 */
+.ai-loading-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 640px;
+}
+.ai-loading-bar {
+  display: block;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-blue-2) 0%,
+    var(--color-blue-4) 45%,
+    var(--color-blue-3) 65%,
+    var(--color-blue-2) 100%
+  );
+  background-color: var(--color-blue-2);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: ai-bar-wave 2.4s linear infinite;
+}
+.ai-loading-bar:nth-child(1) { width: 100%; animation-delay: 0s; }
+.ai-loading-bar:nth-child(2) { width: 100%; animation-delay: -0.4s; }
+.ai-loading-bar:nth-child(3) { width: 55%;  animation-delay: -0.8s; }
+@keyframes ai-bar-wave {
+  0%   { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* 답변 본문 (plani 톤: 프레임 없음, 페이지 위 자연 텍스트 흐름) */
+.ai-answer {
+  background: transparent;
+  border: 0;
+  padding: 8px 0 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ai-answer * { box-sizing: border-box; }
+.ai-answer > *,
+.ai-answer .ai-product-list,
+.ai-answer .ai-guide,
+.ai-answer .ai-followups { width: 100%; }
+.ai-answer-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  padding: 0;
+  background: transparent;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ai-answer-body {
+  font-size: 17px;
+  color: var(--color-text);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+.ai-answer-body p {
+  margin: 0 0 14px;
+}
+.ai-answer-body p:last-child { margin-bottom: 0; }
+.ai-answer-body strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.ai-inline-trend {
+  color: var(--color-blue-7);
+  font-weight: 700;
+  padding: 0;
+  background: transparent;
+}
+
+/* ── 타이핑 중: 본문 끝(마지막 텍스트 노드)에 깜빡이는 caret ── */
+.ai-answer-body.is-typing-active p:last-child::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 3px;
+  vertical-align: -2px;
+  background: var(--color-brand-pharmall);
+  animation: ai-caret 1s steps(2) infinite;
+}
+@keyframes ai-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ── 답변 reveal: 본문 타이핑 동안 나머지 블록 숨김 → 끝나면 JS 로 하나씩 .is-shown 부여
+   숨김 셀렉터에 :not(.is-shown) 가 있어야 .is-shown 룰이 특이도에서 안 짐 ── */
+.ai-answer.is-progressive > :not(.ai-answer-tag):not(.ai-answer-body):not(.is-shown) {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition:
+    opacity .45s cubic-bezier(.2,.7,.2,1),
+    transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.ai-answer.is-progressive > .is-shown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition:
+    opacity .45s cubic-bezier(.2,.7,.2,1),
+    transform .45s cubic-bezier(.2,.7,.2,1);
+}
+
+/* facts — 보더 없는 큰 숫자 (plani 톤) */
+.ai-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  background: transparent;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  padding: 28px 0;
+  margin-bottom: 40px;
+}
+.ai-fact-item {
+  text-align: left;
+  padding: 0 28px 0 0;
+  border: 0;
+}
+.ai-fact-item + .ai-fact-item { padding-left: 28px; border-left: 1px solid var(--color-border-secondary); }
+.ai-fact-label {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.ai-fact-value {
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--color-text);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.ai-fact-value small {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  margin-left: 3px;
+}
+.ai-trend-chip {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: transparent;
+  padding: 0;
+}
+
+.ai-answer-related-label {
+  font: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* 선택 가이드 (직접 입력 답변 패턴) */
+.ai-guide-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 14px;
+}
+.ai-guide {
+  list-style: none;
+  counter-reset: ai-step;
+  margin: 0 0 36px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ai-guide li {
+  counter-increment: ai-step;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.ai-guide li::before {
+  content: counter(ai-step);
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3px;
+}
+.ai-guide li strong { color: var(--color-text); font-weight: 700; }
+
+/* 다중 제품 카드 컨테이너 */
+.ai-product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.ai-product-list .ai-product-card {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+.ai-product-list .ai-product-card:last-child {
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+/* 이어서 물어보기 칩 */
+.ai-followups {
+  list-style: none;
+  margin: 0 0 36px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.ai-followups li { width: 100%; }
+.ai-followup {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 4px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border-secondary);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--color-text);
+  transition: padding-left .15s ease, color .15s ease;
+}
+.ai-followups li:last-child .ai-followup { border-bottom: 0; }
+.ai-followup:hover {
+  padding-left: 10px;
+  color: var(--color-brand-pharmall);
+}
+.ai-followup svg { color: var(--color-brand-pharmall); flex-shrink: 0; }
+
+/* 보조 안내 (drug.pharmallplus.com 링크) */
+.ai-foot-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.ai-foot-note a {
+  color: var(--color-brand-pharmall);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 제품 카드 — 미니멀 (plani 톤) */
+.ai-product-card {
+  display: grid;
+  grid-template-columns: 88px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 4px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  border-radius: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left .15s ease;
+  margin-bottom: 32px;
+}
+.ai-product-card:hover {
+  padding-left: 12px;
+  transform: none;
+}
+.ai-product-image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.ai-product-image img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+.ai-product-info { min-width: 0; }
+.ai-product-brand {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.ai-product-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ai-product-spec {
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+}
+.ai-product-spec .rank-status {
+  margin-left: 4px;
+  padding: 2px 6px;
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+.ai-product-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+.ai-product-meta strong { color: var(--color-text); }
+.ai-product-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall);
+  font: var(--font-caption);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* 출처 / 면책 */
+.ai-source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-secondary);
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.ai-source-label {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+.ai-disclaimer {
+  margin-top: 10px;
+  font: var(--font-caption);
+  color: var(--color-text-quaternary);
+}
+
+/* 하단 입력창 (chat 상태) — 바텀 픽스트 */
+.ai-chat-input {
+  position: fixed;
+  bottom: 24px;
+  left: 260px;
+  right: 0;
+  margin: 0 auto;
+  width: calc(100% - 284px);
+  max-width: 760px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(47, 84, 235, 0.10);
+  transition: border-color .2s ease, box-shadow .2s ease;
+  z-index: 100;
+}
+.ai-chat-input:hover {
+  box-shadow: 0 12px 36px rgba(47, 84, 235, 0.14);
+}
+.ai-chat-input:focus-within {
+  border-color: var(--color-brand-pharmall);
+  box-shadow: 0 0 0 4px var(--color-geekblue-1), 0 12px 36px rgba(47, 84, 235, 0.18);
+}
+
+
+/* ============================================================
+ * RESPONSIVE
+ * ============================================================ */
+@media (max-width: 1080px) {
+  .topnav-inner { grid-template-columns: auto auto 1fr auto; gap: 12px; }
+  .topnav-search { max-width: 320px; }
+  .capability-grid { grid-template-columns: repeat(2, 1fr); }
+  .live-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(6, 1fr); }
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .footer-cols { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .topnav-inner {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    row-gap: 12px;
+  }
+  .service-tabs { display: none; }
+  .topnav-search { grid-column: 1 / -1; max-width: none; }
+  .topnav-actions { grid-row: 1; grid-column: 2; }
+
+  .hero-inner { padding: 56px var(--space-container-x) 64px; }
+  .hero-title { font: var(--font-h1-b); }
+  .hero-sub { font: var(--font-b3); }
+  .chat { padding: 6px 6px 6px 12px; }
+  #chatInput { height: 40px; font: var(--font-b2); }
+  .chat-send { width: 40px; height: 40px; }
+
+  .section { padding: 56px 0; }
+  .section-head { margin-bottom: 24px; }
+  .section-title { font: var(--font-h2); }
+
+  .capability-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .cat-card img, .cat-all-icon { width: 40px; height: 40px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: 1fr; }
+  .banner-text { padding: 24px; max-width: 100%; }
+  .banner-title { font: var(--font-h2); }
+  .floating-agent span { display: none; }
+  .floating-agent { padding: 6px; }
+
+  /* AI 페이지 — 모바일에선 LNB(사이드바) 숨기고 main 풀폭 사용 */
+  body.ai-page .ai-side { display: none; }
+  body.ai-page .ai-main { margin-left: 0; }
+  body.ai-page .ai-home,
+  body.ai-page .ai-chat { padding-left: 16px; padding-right: 16px; }
+  body.ai-page .ai-chat-input {
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+}

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2f54eb" />
+  <title>Drug+ — 약국 전용 OTC AI Agent | Pharmall</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ════════════════ TOP NAV — drug.pharmallplus.com 패턴 매칭 ════════════════ -->
+  <header class="topnav">
+    <div class="topnav-inner">
+
+      <!-- 좌측: 팜올플러스 로고만 (텍스트 라벨 없음) -->
+      <a class="brand" href="#" aria-label="팜올플러스">
+        <img src="images/Pharmall_logo.svg" alt="팜올플러스" />
+      </a>
+
+      <!-- GNB — 모든 뎁스명 SVG 워드마크. 활성 표시는 우측 dot. -->
+      <nav class="gnb" aria-label="주메뉴">
+        <a class="gnb-item is-active" href="#" aria-current="page" aria-label="OTC 플러스">
+          <img src="images/OTCplus_logo.svg" alt="OTC 플러스" />
+        </a>
+        <a class="gnb-item" href="#" aria-label="오픈 Plus">
+          <img src="images/openplus_logo.svg" alt="오픈 Plus" />
+        </a>
+        <a class="gnb-item" href="#" aria-label="에듀 Plus">
+          <img src="images/eduplus_logo.svg" alt="에듀 Plus" />
+        </a>
+        <a class="gnb-item" href="#" aria-label="의약품 Plus">
+          <img src="images/Drugplus_logo.svg" alt="의약품 Plus" />
+        </a>
+      </nav>
+
+      <!-- 우측: 아이콘 3개 + 로그인 / 회원가입 -->
+      <div class="topnav-actions">
+        <button class="iconbtn" aria-label="검색">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="iconbtn" aria-label="알림">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2zM10 21a2 2 0 0 0 4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <button class="iconbtn" aria-label="장바구니">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+        </button>
+        <a class="auth-link" href="#">로그인 / 회원가입</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ════════════════ HERO — Plani 무드 (large statement + 댄싱 그라데이션 mesh + 챗박스 + 추천) ════════════════ -->
+    <section class="hero hero-plani">
+      <div class="hero-mesh" aria-hidden="true">
+        <span class="hero-mesh-blob hero-mesh-blob-1"></span>
+        <span class="hero-mesh-blob hero-mesh-blob-2"></span>
+        <span class="hero-mesh-blob hero-mesh-blob-3"></span>
+        <span class="hero-mesh-blob hero-mesh-blob-4"></span>
+      </div>
+
+      <div class="hero-inner">
+        <p class="hero-eyebrow">OTC AGENT FOR PHARMACISTS</p>
+        <h1 class="hero-statement">
+          <span class="hero-statement-line">약사의 시간을 아끼는 <span class="hero-statement-accent">OTC 플러스</span>.</span>
+        </h1>
+        <p class="hero-statement-sub">
+          사입가·셀링리뷰·신제품·수급 — OTC 거래의 모든 답을<br/>
+          바로팜 데이터와 약사 <strong>28,400명</strong>의 평가로 한 번에 알려드립니다.
+        </p>
+
+        <!-- Chat box -->
+        <form class="chat" id="chatForm" autocomplete="off">
+          <div class="chat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </div>
+          <input id="chatInput" type="text" placeholder="예) 이번달 출시된 신제품 OTC 알려줘" />
+          <button type="submit" class="chat-send" aria-label="질문 보내기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+
+        <!-- 자주 묻는 질문셋 (바로팜 고유 데이터 시나리오) -->
+        <ul class="prompt-list" id="promptChips">
+          <li><button class="prompt-row" data-q="타이레놀 500mg 평균 사입가가 얼마예요?" style="--i:0">
+            <svg class="prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-price">사입가</span>
+            <span class="prompt-text">타이레놀 500mg 평균 사입가가 얼마예요?</span>
+          </button></li>
+          <li><button class="prompt-row" data-q="약사들이 가장 많이 추천한 종합감기약은?" style="--i:1">
+            <svg class="prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-review">셀링리뷰</span>
+            <span class="prompt-text">약사들이 가장 많이 추천한 종합감기약은?</span>
+          </button></li>
+          <li><button class="prompt-row" data-q="콘드로이친 들이고 싶은데 뭐가 좋아요?" style="--i:2">
+            <svg class="prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-new">성분</span>
+            <span class="prompt-text">콘드로이친 들이고 싶은데 뭐가 좋아요?</span>
+          </button></li>
+          <li><button class="prompt-row" data-q="약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요" style="--i:3">
+            <svg class="prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            <span class="ai-prompt-cat ai-prompt-cat-set">개국</span>
+            <span class="prompt-text">약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요.</span>
+          </button></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ OTC NOW — atglance와 중복되어 숨김. col 2(키워드)만 추후 atglance 사이드로 이관 ════════════════ -->
+    <section class="section section-soft" style="display:none">
+      <div class="container">
+        <header class="otcnow-head">
+          <div>
+            <h2 class="otcnow-title">OTC NOW</h2>
+            <p class="otcnow-date">기준일 : 2026.05.27</p>
+          </div>
+          <a class="otcnow-login" href="#">
+            잠깐! 나만의 OTC를 관리하고 싶다면? <strong>로그인</strong>
+          </a>
+        </header>
+
+        <div class="otcnow-grid">
+          <!-- ① 약사 자주 묻는 OTC TOP — 심플 랭킹 (1위 솔리드 블루) -->
+          <article class="otcnow-card">
+            <header class="otcnow-card-head">
+              <h3>OTC TOP 10</h3>
+              <a class="otcnow-more" href="#">더보기</a>
+            </header>
+
+            <!-- 3-탭 -->
+            <div class="otcnow-tabs" role="tablist">
+              <button class="otcnow-tab is-active" role="tab" aria-selected="true">신규 진입</button>
+              <button class="otcnow-tab" role="tab" aria-selected="false">장기 상승</button>
+              <button class="otcnow-tab" role="tab" aria-selected="false">품절 해소</button>
+            </div>
+
+            <ol class="rank-simple">
+              <li class="rank-simple-item is-active">
+                <span class="rank-simple-num">1</span>
+                <span class="rank-simple-name">타이레놀정 500mg</span>
+                <span class="rank-simple-side">-</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">2</span>
+                <span class="rank-simple-name">후시딘연고 5g</span>
+                <span class="rank-simple-side trend-up">▲</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">3</span>
+                <span class="rank-simple-name">게보린정</span>
+                <span class="rank-simple-side trend-down">▼</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">4</span>
+                <span class="rank-simple-name">판콜에이내복액</span>
+                <span class="rank-simple-side trend-up">▲</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">5</span>
+                <span class="rank-simple-name">베아제정</span>
+                <span class="rank-simple-side rank-simple-new">NEW</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">6</span>
+                <span class="rank-simple-name">마데카솔연고</span>
+                <span class="rank-simple-side trend-up">▲</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">7</span>
+                <span class="rank-simple-name">우루사정 100mg</span>
+                <span class="rank-simple-side rank-simple-new">NEW</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">8</span>
+                <span class="rank-simple-name">애드빌정</span>
+                <span class="rank-simple-side trend-up">▲</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">9</span>
+                <span class="rank-simple-name">아로나민골드</span>
+                <span class="rank-simple-side trend-down">▼</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">10</span>
+                <span class="rank-simple-name">훼스탈플러스정</span>
+                <span class="rank-simple-side trend-down">▼</span>
+              </li>
+            </ol>
+          </article>
+
+          <!-- ② 주간 인기 검색 키워드 — rank-simple 스타일 -->
+          <article class="otcnow-card">
+            <header class="otcnow-card-head">
+              <h3>주간 인기 키워드</h3>
+              <a class="otcnow-more" href="#">더보기</a>
+            </header>
+
+            <div class="otcnow-tabs" role="tablist">
+              <button class="otcnow-tab is-active" role="tab" aria-selected="true">전체</button>
+              <button class="otcnow-tab" role="tab" aria-selected="false">증상</button>
+              <button class="otcnow-tab" role="tab" aria-selected="false">계열</button>
+            </div>
+
+            <ol class="rank-simple">
+              <li class="rank-simple-item is-active">
+                <span class="rank-simple-num">1</span>
+                <span class="rank-simple-name">감기약</span>
+                <svg class="rank-simple-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">2</span>
+                <span class="rank-simple-name">환절기 알러지</span>
+                <span class="rank-simple-side">-</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">3</span>
+                <span class="rank-simple-name">종합비타민</span>
+                <span class="rank-simple-side trend-up">▲ 20</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">4</span>
+                <span class="rank-simple-name">임산부 진통제</span>
+                <span class="rank-simple-side trend-up">▲ 2</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">5</span>
+                <span class="rank-simple-name">어린이 해열제</span>
+                <span class="rank-simple-side trend-down">▼ 1</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">6</span>
+                <span class="rank-simple-name">소화제</span>
+                <span class="rank-simple-side trend-down">▼ 3</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">7</span>
+                <span class="rank-simple-name">인후염</span>
+                <span class="rank-simple-side trend-down">▼ 2</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">8</span>
+                <span class="rank-simple-name">안약</span>
+                <span class="rank-simple-side rank-simple-new">NEW</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">9</span>
+                <span class="rank-simple-name">멀미약</span>
+                <span class="rank-simple-side trend-down">▼ 1</span>
+              </li>
+              <li class="rank-simple-item">
+                <span class="rank-simple-num">10</span>
+                <span class="rank-simple-name">수면유도제</span>
+                <span class="rank-simple-side rank-simple-new">NEW</span>
+              </li>
+            </ol>
+          </article>
+
+          <!-- ③ 이달의 OTC 테마 트렌드 -->
+          <article class="otcnow-card">
+            <header class="otcnow-card-head">
+              <h3>이달의 OTC 테마 트렌드</h3>
+              <a class="otcnow-more" href="#">더보기</a>
+            </header>
+            <ul class="otcnow-themes">
+              <li class="otcnow-theme otcnow-theme-light">
+                <div>
+                  <p class="otcnow-theme-eyebrow">개국 약국이 가장 많이 들이는</p>
+                  <p class="otcnow-theme-title">진통제 베스트 5종 세트</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">📈</span>
+              </li>
+              <li class="otcnow-theme otcnow-theme-dark">
+                <div>
+                  <p class="otcnow-theme-eyebrow">환절기 응대 강화</p>
+                  <p class="otcnow-theme-title">알러지·비염 OTC 큐레이션</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">🍃</span>
+              </li>
+              <li class="otcnow-theme otcnow-theme-light">
+                <div>
+                  <p class="otcnow-theme-eyebrow">약사가 직접 평가한</p>
+                  <p class="otcnow-theme-title">종합비타민 셀링리뷰 비교</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">⭐</span>
+              </li>
+              <li class="otcnow-theme otcnow-theme-dark">
+                <div>
+                  <p class="otcnow-theme-eyebrow">사입가 평균 -5% 이상</p>
+                  <p class="otcnow-theme-title">이번주 사입가 우수 OTC</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">💰</span>
+              </li>
+              <li class="otcnow-theme otcnow-theme-light">
+                <div>
+                  <p class="otcnow-theme-eyebrow">응대 빈도 1위 카테고리</p>
+                  <p class="otcnow-theme-title">마스크 시즌 외용 OTC</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">🩹</span>
+              </li>
+              <li class="otcnow-theme otcnow-theme-dark">
+                <div>
+                  <p class="otcnow-theme-eyebrow">NEW · 이번달 출시</p>
+                  <p class="otcnow-theme-title">5월 신규 허가 OTC 6종</p>
+                </div>
+                <span class="otcnow-theme-emoji" aria-hidden="true">✨</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ OTC 한눈에 보기 — 섹션 헤더 + (좌측 렌즈 / 우측 6-카드 보드) ════════════════ -->
+    <section class="section">
+      <div class="container">
+        <header class="atglance-head">
+          <p class="atglance-num">02.</p>
+          <h2 class="atglance-title">한눈에 보는 OTC</h2>
+          <p class="atglance-sub">증상·계열로 보는 OTC, 약사 리뷰 키워드까지 한 화면에.</p>
+        </header>
+
+        <div class="atglance">
+          <!-- 좌측: 필터 + 렌즈 리스트 -->
+          <aside class="atglance-side">
+            <button class="atglance-filter" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>5월</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+
+            <ul class="atglance-lenses" role="tablist">
+              <li><button class="atglance-lens is-active" role="tab" aria-selected="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="4" width="14" height="18" rx="2"/><path d="M9 9h8M9 13h8M9 17h5"/></svg>
+                개국 OTC 진통제 TOP
+              </button></li>
+              <li><button class="atglance-lens" role="tab" aria-selected="false">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="4" width="14" height="18" rx="2"/><path d="M9 9h8M9 13h8M9 17h5"/></svg>
+                환절기 알러지·감기 OTC
+              </button></li>
+              <li><button class="atglance-lens" role="tab" aria-selected="false">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+                사입가 우수 OTC TOP
+              </button></li>
+              <li><button class="atglance-lens" role="tab" aria-selected="false">
+                <img class="sellrev-logo sellrev-logo-inline" src="images/SellingReview_logo.svg" alt="셀링리뷰" />
+                ★ 급상승
+              </button></li>
+              <li><button class="atglance-lens" role="tab" aria-selected="false">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>
+                이번달 신제품 OTC
+              </button></li>
+            </ul>
+
+            <p class="atglance-footnote">
+              *셀링리뷰는 약사 28,400명의 누적 평가 기준입니다.<br/>
+              *사입가는 바로팜 실거래 평균 (정확한 가격은 로그인 후).
+            </p>
+          </aside>
+
+          <!-- 우측: 상태 헤더 + 랭킹 리스트 (OTC NOW rank-simple 스타일) -->
+          <div class="atglance-main">
+            <header class="atglance-main-head">
+              <div>
+                <h3 class="atglance-main-title">개국 OTC 진통제 TOP 10</h3>
+                <p class="atglance-main-sub">바로팜 거래량 + 셀링리뷰 누적 기준</p>
+              </div>
+              <div class="atglance-status">
+                <span class="atglance-status-pill">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.7 1 6.3 2.7L21 8"/><path d="M21 3v5h-5"/></svg>
+                  실시간
+                </span>
+                <span class="atglance-status-date">2026.05.27 기준</span>
+              </div>
+            </header>
+
+            <div class="atglance-rank-group">
+              <!-- 단일성분 TOP 10 -->
+              <div class="atglance-rank-block">
+                <h4 class="atglance-rank-block-title">
+                  단일성분 <span class="atglance-rank-count">TOP 10</span>
+                </h4>
+                <ol class="rank-stroke">
+                  <li>
+                    <a class="rank-stroke-item is-rank-1" href="detail.html">
+                      <span class="rank-stroke-num">1</span>
+                      <span class="rank-stroke-name">타이레놀정 500mg</span>
+                      <span class="rank-stroke-trend same">-</span>
+                    </a>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">2</span>
+                    <span class="rank-stroke-name">부루펜정 200mg</span>
+                    <span class="rank-stroke-trend up">▲ 2</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">3</span>
+                    <span class="rank-stroke-name">애드빌정</span>
+                    <span class="rank-stroke-trend down">▼ 1</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">4</span>
+                    <span class="rank-stroke-name">타이레놀이알서방정</span>
+                    <span class="rank-stroke-trend up">▲ 3</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">5</span>
+                    <span class="rank-stroke-name">낙센정</span>
+                    <span class="rank-stroke-trend down">▼ 2</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">6</span>
+                    <span class="rank-stroke-name">이부프로펜정 400mg</span>
+                    <span class="rank-stroke-trend up">▲ 1</span>
+                  </li>
+                  <li class="rank-stroke-item is-active">
+                    <span class="rank-stroke-num">7</span>
+                    <span class="rank-stroke-name">펠루비정</span>
+                    <span class="rank-stroke-trend up">▲ 12</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">8</span>
+                    <span class="rank-stroke-name">덱시부프로펜정 300mg</span>
+                    <span class="rank-stroke-trend down">▼ 1</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">9</span>
+                    <span class="rank-stroke-name">부루펜시럽 100mL</span>
+                    <span class="rank-stroke-trend up">▲ 2</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">10</span>
+                    <span class="rank-stroke-name">스로펜정</span>
+                    <span class="rank-stroke-trend same">-</span>
+                  </li>
+                </ol>
+              </div>
+
+              <!-- 복합성분 TOP 10 -->
+              <div class="atglance-rank-block">
+                <h4 class="atglance-rank-block-title">
+                  복합성분 <span class="atglance-rank-count">TOP 10</span>
+                </h4>
+                <ol class="rank-stroke">
+                  <li class="rank-stroke-item is-rank-1">
+                    <span class="rank-stroke-num">1</span>
+                    <span class="rank-stroke-name">게보린정</span>
+                    <span class="rank-stroke-trend same">-</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">2</span>
+                    <span class="rank-stroke-name">사리돈에이</span>
+                    <span class="rank-stroke-trend up">▲ 2</span>
+                  </li>
+                  <li class="rank-stroke-item is-active">
+                    <span class="rank-stroke-num">3</span>
+                    <span class="rank-stroke-name">펜잘큐정</span>
+                    <span class="rank-stroke-trend down">▼ 1</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">4</span>
+                    <span class="rank-stroke-name">이지엔식스이브정</span>
+                    <span class="rank-stroke-trend up">▲ 1</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">5</span>
+                    <span class="rank-stroke-name">이부콜벤정 200mg</span>
+                    <span class="rank-stroke-trend same">-</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">6</span>
+                    <span class="rank-stroke-name">그날엔이브정</span>
+                    <span class="rank-stroke-trend down">▼ 2</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">7</span>
+                    <span class="rank-stroke-name">아세트반큐정</span>
+                    <span class="rank-stroke-trend up">▲ 12</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">8</span>
+                    <span class="rank-stroke-name">타이레놀콜드-에스정</span>
+                    <span class="rank-stroke-trend up">▲ 1</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">9</span>
+                    <span class="rank-stroke-name">사리돈정</span>
+                    <span class="rank-stroke-trend up">▲ 3</span>
+                  </li>
+                  <li class="rank-stroke-item">
+                    <span class="rank-stroke-num">10</span>
+                    <span class="rank-stroke-name">솔표게보린프리정</span>
+                    <span class="rank-stroke-trend up">▲ 11</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ CATEGORY + SELLING REVIEW (한눈에 보는 OTC 바로 아래로 이동) ════════════════ -->
+    <section class="section section-soft">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">
+              <img src="images/SellingReview_logo.svg" alt="SellingReview" class="eyebrow-logo" />
+              · 카테고리 × 셀링리뷰 TOP
+            </p>
+            <h2 class="section-title">증상·계열로 보는 OTC, 약사 리뷰 키워드까지 한 화면에</h2>
+          </div>
+        </header>
+
+        <!-- 토글: 카테고리 / 진료과목 -->
+        <div class="cat-toggle" role="tablist">
+          <button class="cat-toggle-btn is-active" role="tab" aria-selected="true">카테고리</button>
+          <button class="cat-toggle-btn" role="tab" aria-selected="false">진료과목</button>
+        </div>
+
+        <!-- 가로 스크롤 카테고리 아이콘 row -->
+        <div class="cat-row-wrap">
+          <ul class="cat-row" id="catRow">
+            <li><button class="cat-icon"><img src="images/category-liver-gall.png" alt=""><span>간·담도</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-stomach.png" alt=""><span>위장관</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-oral.png" alt=""><span>구강</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-ent-allergy.png" alt=""><span>비염·알러지</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-muscle-joint.png" alt=""><span>근골격계</span></button></li>
+            <li><button class="cat-icon is-active"><img src="images/category-fever-pain.png" alt=""><span>해열·소염·진통</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-cough.png" alt=""><span>진해거담</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-neuro-mental.png" alt=""><span>신경·정신</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-eye.png" alt=""><span>안과</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-skin-itch.png" alt=""><span>피부염·가려움</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-skin-repair.png" alt=""><span>피부 손상·재생</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-topical.png" alt=""><span>외용 감염</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-hair-scalp.png" alt=""><span>탈모·두피</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-vitamin.png" alt=""><span>비타민</span></button></li>
+            <li><button class="cat-icon"><img src="images/category-women.png" alt=""><span>여성</span></button></li>
+          </ul>
+          <button class="cat-scroll-right" aria-label="다음 카테고리" id="catScrollRight">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <!-- 제품 리스트 (랭킹 / 정보 / 이미지 / 셀링리뷰) -->
+        <ul class="rank-list">
+          <li class="rank-row">
+            <img class="rank-num" src="images/number-1.svg" alt="1위" />
+            <div class="rank-info">
+              <p class="rank-brand">한국얀센</p>
+              <h3 class="rank-name">타이레놀정 500mg <span class="rank-spec">500mg · 10정 (PTP)</span> <span class="rank-status">유통</span></h3>
+              <p class="rank-price">평균 <span class="price-blur">₩312</span> · 범위 <span class="price-blur">₩280–340</span></p>
+              <p class="rank-cat">해열·소염·진통 <span class="rank-cat-sep">›</span> 아세트아미노펜, 단일제</p>
+              <button class="rank-cta">
+                <span class="rank-cta-badge">B</span>
+                주문하기
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="rank-image">
+              <img src="images/product-Tylenol.webp" alt="타이레놀정 500mg" />
+            </div>
+            <div class="rank-review">
+              <div class="rank-review-head">
+                <img src="images/SellingReview_logo.svg" alt="셀링리뷰" />
+              </div>
+              <p class="rank-review-meta"><strong>2,481명</strong>의 약사님들이 이런 점을 좋아하셨어요!</p>
+              <div class="kw-chips">
+                <span class="kw-chip">😌 잘 듣는다 <em>34%</em></span>
+                <span class="kw-chip">💊 복용 편의 <em>22%</em></span>
+                <span class="kw-chip kw-chip-more">+5</span>
+              </div>
+              <p class="rank-review-quote">지명으로 가장 많이 찾으시는 진통제. 응대 시 신뢰도 높음.</p>
+            </div>
+          </li>
+
+          <li class="rank-row">
+            <img class="rank-num" src="images/number-2.svg" alt="2위" />
+            <div class="rank-info">
+              <p class="rank-brand">삼진제약</p>
+              <h3 class="rank-name">게보린정 <span class="rank-spec">300mg · 10정 (PTP)</span> <span class="rank-status">유통</span></h3>
+              <p class="rank-price">평균 <span class="price-blur">₩418</span> · 범위 <span class="price-blur">₩390–445</span></p>
+              <p class="rank-cat">해열·소염·진통 <span class="rank-cat-sep">›</span> 이소프로필안티피린, 복합</p>
+              <button class="rank-cta">
+                <span class="rank-cta-badge">B</span>
+                주문하기
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="rank-image">
+              <img src="images/product-Geborine.jpg" alt="게보린정" />
+            </div>
+            <div class="rank-review">
+              <div class="rank-review-head">
+                <img src="images/SellingReview_logo.svg" alt="셀링리뷰" />
+              </div>
+              <p class="rank-review-meta"><strong>1,415명</strong>의 약사님들이 이런 점을 좋아하셨어요!</p>
+              <div class="kw-chips">
+                <span class="kw-chip">⚡ 빠른 효과 <em>28%</em></span>
+                <span class="kw-chip">🤝 단골 선호 <em>19%</em></span>
+                <span class="kw-chip kw-chip-more">+4</span>
+              </div>
+              <p class="rank-review-quote">생리통·두통 응대용 표준. 청소년 환자에겐 단일 성분 권장.</p>
+            </div>
+          </li>
+
+          <li class="rank-row">
+            <img class="rank-num" src="images/number-3.svg" alt="3위" />
+            <div class="rank-info">
+              <p class="rank-brand">한국화이자</p>
+              <h3 class="rank-name">애드빌정 <span class="rank-spec">200mg · 10정 (PTP)</span> <span class="rank-status">유통</span></h3>
+              <p class="rank-price">평균 <span class="price-blur">₩265</span> · 범위 <span class="price-blur">₩240–290</span></p>
+              <p class="rank-cat">해열·소염·진통 <span class="rank-cat-sep">›</span> 이부프로펜, 단일제</p>
+              <button class="rank-cta">
+                <span class="rank-cta-badge">B</span>
+                주문하기
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="rank-image rank-image-empty">
+              <span>등록된 이미지 없음</span>
+            </div>
+            <div class="rank-review rank-review-empty">
+              <p class="rank-review-empty-title">아직 등록된 셀링리뷰가 없어요.</p>
+              <p class="rank-review-empty-sub">첫 리뷰 작성하고 <strong>포인트 ×2</strong> 받으세요!</p>
+              <button class="rank-review-write">리뷰 작성하기</button>
+              <span class="rank-review-x2" aria-hidden="true">×2</span>
+            </div>
+          </li>
+
+          <li class="rank-row">
+            <img class="rank-num" src="images/number-4.svg" alt="4위" />
+            <div class="rank-info">
+              <p class="rank-brand">동화약품</p>
+              <h3 class="rank-name">판콜에이내복액 <span class="rank-spec">30mL · 10병</span> <span class="rank-status rank-status-warn">수급 불안정</span></h3>
+              <p class="rank-price">평균 <span class="price-blur">₩540</span> · 범위 <span class="price-blur">₩510–575</span></p>
+              <p class="rank-cat">감기·기침 <span class="rank-cat-sep">›</span> 종합감기약, 액제</p>
+              <button class="rank-cta">
+                <span class="rank-cta-badge">B</span>
+                주문하기
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="rank-image">
+              <img src="images/product-Pancol.webp" alt="판콜에이내복액" />
+            </div>
+            <div class="rank-review">
+              <div class="rank-review-head">
+                <img src="images/SellingReview_logo.svg" alt="셀링리뷰" />
+              </div>
+              <p class="rank-review-meta"><strong>1,720명</strong>의 약사님들이 이런 점을 좋아하셨어요!</p>
+              <div class="kw-chips">
+                <span class="kw-chip">🥤 마시기 편함 <em>31%</em></span>
+                <span class="kw-chip">🔁 재구매 多 <em>24%</em></span>
+                <span class="kw-chip kw-chip-more">+6</span>
+              </div>
+              <p class="rank-review-quote">시럽 결품 잦음. 화이투벤·모드콜로 대체 응대 권장.</p>
+            </div>
+          </li>
+
+          <li class="rank-row">
+            <img class="rank-num" src="images/number-5.svg" alt="5위" />
+            <div class="rank-info">
+              <p class="rank-brand">대웅제약</p>
+              <h3 class="rank-name">베아제정 <span class="rank-spec">30정 / 60정</span> <span class="rank-status rank-status-warn">수급 불안정</span></h3>
+              <p class="rank-price">평균 <span class="price-blur">₩185</span> · 범위 <span class="price-blur">₩170–205</span></p>
+              <p class="rank-cat">소화·위장 <span class="rank-cat-sep">›</span> 소화효소제, 복합</p>
+              <button class="rank-cta">
+                <span class="rank-cta-badge">B</span>
+                주문하기
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="rank-image">
+              <img src="images/product-Bease.jpg" alt="베아제정" />
+            </div>
+            <div class="rank-review">
+              <div class="rank-review-head">
+                <img src="images/SellingReview_logo.svg" alt="셀링리뷰" />
+              </div>
+              <p class="rank-review-meta"><strong>1,209명</strong>의 약사님들이 이런 점을 좋아하셨어요!</p>
+              <div class="kw-chips">
+                <span class="kw-chip">💨 더부룩함 해소 <em>26%</em></span>
+                <span class="kw-chip">😄 속이 편해요 <em>21%</em></span>
+                <span class="kw-chip kw-chip-more">+5</span>
+              </div>
+              <p class="rank-review-quote">대체 후보: 훼스탈플러스(★4.5) · 그날엔(★4.3) 공급 원활.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="rank-more-wrap">
+          <a class="rank-more" href="#">
+            해열·소염·진통 더보기
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ STARTER PACK — 개국 OTC 큐레이션 (한눈에 보는 OTC 바로 아래로 이동) ════════════════ -->
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">OTC Starter Pack</p>
+            <h2 class="section-title">개국 약국 진열용 OTC 큐레이션</h2>
+          </div>
+          <p class="section-sub">셀링리뷰 + 회전율 + 사입가 기준으로 약사 28K가 검증한 진열 세트. 묶음 주문 시 사입가 절감.</p>
+        </header>
+
+        <div class="starter-grid">
+          <article class="starter-card">
+            <div class="starter-head">
+              <img src="images/category-painkiller.png" alt="" />
+              <div class="starter-title-block">
+                <h3>진통·해열 세트</h3>
+                <p>5종 · 일반 진통 응대 커버</p>
+              </div>
+              <span class="starter-save">▼ 5.8%</span>
+            </div>
+            <ul class="starter-items">
+              <li>타이레놀정 500mg</li>
+              <li>애드빌정</li>
+              <li>게보린정</li>
+              <li>펜잘큐정</li>
+              <li>사리돈에이</li>
+            </ul>
+            <button class="btn btn-primary starter-cta">세트 장바구니 담기</button>
+          </article>
+
+          <article class="starter-card">
+            <div class="starter-head">
+              <img src="images/category-stomach.png" alt="" />
+              <div class="starter-title-block">
+                <h3>소화·위장 세트</h3>
+                <p>5종 · 식후 응대 커버</p>
+              </div>
+              <span class="starter-save">▼ 4.3%</span>
+            </div>
+            <ul class="starter-items">
+              <li>베아제정</li>
+              <li>훼스탈플러스정</li>
+              <li>가스활명수큐액</li>
+              <li>까스명수액</li>
+              <li>그날엔정</li>
+            </ul>
+            <button class="btn btn-primary starter-cta">세트 장바구니 담기</button>
+          </article>
+
+          <article class="starter-card">
+            <div class="starter-head">
+              <img src="images/category-cough.png" alt="" />
+              <div class="starter-title-block">
+                <h3>감기·기침 세트</h3>
+                <p>5종 · 환절기 핵심</p>
+              </div>
+              <span class="starter-save">▼ 6.2%</span>
+            </div>
+            <ul class="starter-items">
+              <li>판콜에이내복액</li>
+              <li>화이투벤</li>
+              <li>모드콜</li>
+              <li>펜잘콜드</li>
+              <li>콜대원</li>
+            </ul>
+            <button class="btn btn-primary starter-cta">세트 장바구니 담기</button>
+          </article>
+
+          <article class="starter-card">
+            <div class="starter-head">
+              <img src="images/category-topical.png" alt="" />
+              <div class="starter-title-block">
+                <h3>외용·연고 세트</h3>
+                <p>5종 · 상비 외용</p>
+              </div>
+              <span class="starter-save">▼ 3.9%</span>
+            </div>
+            <ul class="starter-items">
+              <li>후시딘연고 5g</li>
+              <li>마데카솔연고</li>
+              <li>케토톱플라스타</li>
+              <li>멘소래담큐</li>
+              <li>안티프라민</li>
+            </ul>
+            <button class="btn btn-primary starter-cta">세트 장바구니 담기</button>
+          </article>
+
+          <article class="starter-card">
+            <div class="starter-head">
+              <img src="images/category-vitamin.png" alt="" />
+              <div class="starter-title-block">
+                <h3>비타민·영양 세트</h3>
+                <p>5종 · 회전율 1위 카테고리</p>
+              </div>
+              <span class="starter-save">▼ 7.1%</span>
+            </div>
+            <ul class="starter-items">
+              <li>아로나민골드</li>
+              <li>임팩타민</li>
+              <li>센트룸</li>
+              <li>비타500</li>
+              <li>마이비타민C</li>
+            </ul>
+            <button class="btn btn-primary starter-cta">세트 장바구니 담기</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ (구) atglance 6-카드 그리드 — 리스트로 교체되어 숨김 ════════════════ -->
+    <section class="section" style="display:none">
+      <div class="container">
+        <div class="atglance">
+          <div class="atglance-grid-legacy">
+              <!-- Card 1 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">1</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-1">
+                    <img src="images/product-Tylenol.webp" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇰🇷</span>
+                  <span class="otc-badge otc-badge-pink">응대빈도 1위</span>
+                </div>
+                <h3 class="otc-name">타이레놀정 500mg</h3>
+                <p class="otc-code">EDI 632300130</p>
+                <p class="otc-tags">개국 필수 | 단일 성분</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.9</p>
+                <p class="otc-price">평균 사입가 ₩312 <span class="otc-down">▼ 14 (4.2%)</span></p>
+              </article>
+
+              <!-- Card 2 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">2</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-2">
+                    <img src="images/product-Geborine.jpg" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇰🇷</span>
+                  <span class="otc-badge otc-badge-blue">복합 진통</span>
+                </div>
+                <h3 class="otc-name">게보린정</h3>
+                <p class="otc-code">EDI 642602511</p>
+                <p class="otc-tags">단골 선호 | 복합</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.7</p>
+                <p class="otc-price">평균 사입가 ₩418 <span class="otc-up">▲ 9 (2.1%)</span></p>
+              </article>
+
+              <!-- Card 3 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">3</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-3">
+                    <img src="images/category-painkiller.png" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇺🇸</span>
+                  <span class="otc-badge otc-badge-pink">셀링리뷰 TOP</span>
+                </div>
+                <h3 class="otc-name">애드빌정</h3>
+                <p class="otc-code">EDI 671401990 · 한국화이자</p>
+                <p class="otc-tags">생리통 1위 | 단일</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.8</p>
+                <p class="otc-price">평균 사입가 ₩265 <span class="otc-down">▼ 8 (3.0%)</span></p>
+              </article>
+
+              <!-- Card 4 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">4</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-4">
+                    <img src="images/category-fever-pain.png" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇰🇷</span>
+                  <span class="otc-badge otc-badge-blue">청소년 가능</span>
+                </div>
+                <h3 class="otc-name">펜잘큐정</h3>
+                <p class="otc-code">EDI 645900330 · 종근당</p>
+                <p class="otc-tags">두통·생리통 | 복합</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.6</p>
+                <p class="otc-price">평균 사입가 ₩280 <span class="otc-up">▲ 5 (1.8%)</span></p>
+              </article>
+
+              <!-- Card 5 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">5</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-5">
+                    <img src="images/category-painkiller.png" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇰🇷</span>
+                  <span class="otc-badge otc-badge-pink">복합 진통</span>
+                </div>
+                <h3 class="otc-name">사리돈에이</h3>
+                <p class="otc-code">EDI 619701850 · 바이엘코리아</p>
+                <p class="otc-tags">두통 표준 | 복합</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.5</p>
+                <p class="otc-price">평균 사입가 ₩320 <span class="otc-down">▼ 4 (1.2%)</span></p>
+              </article>
+
+              <!-- Card 6 -->
+              <article class="otc-card">
+                <header class="otc-card-head">
+                  <span class="otc-rank">6</span>
+                  <button class="otc-fav" aria-label="찜">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                  </button>
+                </header>
+                <div class="otc-card-media">
+                  <div class="otc-icon otc-icon-6">
+                    <img src="images/category-fever-pain.png" alt="" />
+                  </div>
+                  <span class="otc-flag" aria-hidden="true">🇰🇷</span>
+                  <span class="otc-badge otc-badge-blue">소아 가능</span>
+                </div>
+                <h3 class="otc-name">이지엔식스이브정</h3>
+                <p class="otc-code">EDI 671900260 · 대웅제약</p>
+                <p class="otc-tags">생리통 특화 | 단일</p>
+                <p class="otc-label"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> ★</p>
+                <p class="otc-metric otc-metric-up">★ 4.7</p>
+                <p class="otc-price">평균 사입가 ₩395 <span class="otc-up">▲ 6 (1.5%)</span></p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ (구) Lens/Chart/3-up — 임시 보존, 추후 정리 ════════════════ -->
+    <section class="section section-soft" style="display:none">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">Today · 2026.05.27</p>
+            <h2 class="section-title">오늘 약국에서 가장 자주 묻는 OTC 데이터</h2>
+          </div>
+          <a class="link-more" href="#">전체 보기 →</a>
+        </header>
+
+        <!-- Lens 토글 — 어떤 트렌드로 볼 것인가 -->
+        <div class="lens-tabs" role="tablist">
+          <button class="lens-tab is-active" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            사입가 변동
+          </button>
+          <button class="lens-tab" role="tab" aria-selected="false">셀링리뷰 ★ 추이</button>
+          <button class="lens-tab" role="tab" aria-selected="false">수급 안정성</button>
+        </div>
+
+        <div class="trend-layout">
+          <!-- 좌측: 카테고리 사이드바 -->
+          <aside class="trend-sidebar" aria-label="카테고리">
+            <button class="trend-cat is-active">해열·소염·진통</button>
+            <button class="trend-cat">소화·위장</button>
+            <button class="trend-cat">감기·기침</button>
+            <button class="trend-cat">외용·연고</button>
+            <button class="trend-cat">비타민·영양</button>
+            <button class="trend-cat">눈·코·알러지</button>
+            <button class="trend-cat">피부·재생</button>
+          </aside>
+
+          <!-- 우측: 차트 + 범례 + 랭킹 strip -->
+          <div class="trend-main">
+            <div class="trend-chart-head">
+              <div>
+                <h3 class="trend-chart-title">해열·소염·진통 카테고리 사입가 변동률</h3>
+                <p class="trend-chart-sub">최근 5주 · 바로팜 거래가 평균 기준 · 정확한 가격은 로그인 후</p>
+              </div>
+              <div class="trend-pill-group">
+                <button class="trend-pill is-active">5주</button>
+                <button class="trend-pill">3개월</button>
+                <button class="trend-pill">1년</button>
+              </div>
+            </div>
+
+            <!-- SVG Chart -->
+            <div class="trend-chart">
+              <svg viewBox="0 0 640 300" preserveAspectRatio="none" aria-hidden="true">
+                <!-- Grid -->
+                <g class="grid">
+                  <line x1="60" y1="60"  x2="620" y2="60"  />
+                  <line x1="60" y1="105" x2="620" y2="105" />
+                  <line x1="60" y1="150" x2="620" y2="150" class="grid-zero" />
+                  <line x1="60" y1="195" x2="620" y2="195" />
+                  <line x1="60" y1="240" x2="620" y2="240" />
+                </g>
+                <!-- Y-axis labels -->
+                <g class="axis-y">
+                  <text x="50" y="64"  text-anchor="end">+5%</text>
+                  <text x="50" y="109" text-anchor="end">+2.5%</text>
+                  <text x="50" y="154" text-anchor="end">0</text>
+                  <text x="50" y="199" text-anchor="end">-2.5%</text>
+                  <text x="50" y="244" text-anchor="end">-5%</text>
+                </g>
+                <!-- X-axis labels -->
+                <g class="axis-x">
+                  <text x="80"  y="270" text-anchor="middle">04.27</text>
+                  <text x="200" y="270" text-anchor="middle">05.04</text>
+                  <text x="320" y="270" text-anchor="middle">05.11</text>
+                  <text x="440" y="270" text-anchor="middle">05.18</text>
+                  <text x="560" y="270" text-anchor="middle">05.25</text>
+                </g>
+
+                <!-- Lines -->
+                <polyline class="line line-1" points="80,150 200,168 320,188 440,207 560,213" />
+                <polyline class="line line-2" points="80,150 200,142 320,132 440,123 560,118" />
+                <polyline class="line line-3" points="80,150 200,162 320,171 440,174 560,177" />
+                <polyline class="line line-4" points="80,150 200,132 320,114 440,105 560,96" />
+                <polyline class="line line-5" points="80,150 200,154 320,159 440,160 560,163" />
+
+                <!-- End dots -->
+                <circle class="dot dot-1" cx="560" cy="213" r="4" />
+                <circle class="dot dot-2" cx="560" cy="118" r="4" />
+                <circle class="dot dot-3" cx="560" cy="177" r="4" />
+                <circle class="dot dot-4" cx="560" cy="96"  r="4" />
+                <circle class="dot dot-5" cx="560" cy="163" r="4" />
+              </svg>
+            </div>
+
+            <!-- Legend -->
+            <ul class="trend-legend">
+              <li><span class="legend-dot legend-dot-1"></span>타이레놀정 500mg<em class="trend-down">▼ 4.2%</em></li>
+              <li><span class="legend-dot legend-dot-2"></span>게보린정<em class="trend-up">▲ 2.1%</em></li>
+              <li><span class="legend-dot legend-dot-3"></span>후시딘연고 5g<em class="trend-down">▼ 1.8%</em></li>
+              <li><span class="legend-dot legend-dot-4"></span>베아제정<em class="trend-up">▲ 3.6%</em></li>
+              <li><span class="legend-dot legend-dot-5"></span>판콜에이내복액<em class="trend-down">▼ 0.9%</em></li>
+            </ul>
+
+            <!-- 랭킹 strip — 차트 하단 가로 카드 row (home.png 패턴) -->
+            <div class="trend-strip">
+              <article class="strip-card">
+                <span class="strip-rank">1</span>
+                <img src="images/product-Tylenol.webp" alt="" />
+                <p class="strip-name">타이레놀정 500mg</p>
+                <p class="strip-meta trend-down">▼ 4.2%</p>
+              </article>
+              <article class="strip-card">
+                <span class="strip-rank">2</span>
+                <img src="images/product-Geborine.jpg" alt="" />
+                <p class="strip-name">게보린정</p>
+                <p class="strip-meta trend-up">▲ 2.1%</p>
+              </article>
+              <article class="strip-card">
+                <span class="strip-rank">3</span>
+                <img src="images/product-urusa.jpg" alt="" />
+                <p class="strip-name">후시딘연고 5g</p>
+                <p class="strip-meta trend-down">▼ 1.8%</p>
+              </article>
+              <article class="strip-card">
+                <span class="strip-rank">4</span>
+                <img src="images/product-Bease.jpg" alt="" />
+                <p class="strip-name">베아제정</p>
+                <p class="strip-meta trend-up">▲ 3.6%</p>
+              </article>
+              <article class="strip-card">
+                <span class="strip-rank">5</span>
+                <img src="images/product-Pancol.webp" alt="" />
+                <p class="strip-name">판콜에이내복액</p>
+                <p class="strip-meta trend-down">▼ 0.9%</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- (구) 3-up 카드는 chart 아래 보조 위치 보조 — 수급/신제품 보조 패널 -->
+        <div class="live-grid" style="margin-top: 32px;">
+          <!-- ① OTC 수급 모니터링 -->
+          <article class="live-card">
+            <header class="live-head">
+              <span class="live-pill live-pill-supply">
+                <span class="pulse"></span>
+                OTC 수급 불안정
+              </span>
+              <span class="live-count">5 품목</span>
+            </header>
+            <h3 class="live-title">발주 전 한 번 더 확인할 OTC</h3>
+            <ul class="live-list">
+              <li><span class="live-name">베아제정</span><span class="live-tag">전 포장</span></li>
+              <li><span class="live-name">판콜에이내복액</span><span class="live-tag">시럽 일부</span></li>
+              <li><span class="live-name">후시딘인텐시브크림</span><span class="live-tag">평균 +3일</span></li>
+              <li><span class="live-name">마이프린정</span><span class="live-tag">10정 결품</span></li>
+              <li><span class="live-name">가스활명수큐액</span><span class="live-tag">일부 도매</span></li>
+            </ul>
+            <a class="live-cta" href="#">동일성분 대체 OTC 함께 보기 →</a>
+          </article>
+
+          <!-- ② 사입가 인사이트 (게이트) -->
+          <article class="live-card live-card-locked">
+            <header class="live-head">
+              <span class="live-pill live-pill-price">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                사입가 인사이트
+              </span>
+              <span class="live-count">이번주 TOP</span>
+            </header>
+            <h3 class="live-title">사입가 변동 큰 OTC</h3>
+            <ul class="price-list">
+              <li>
+                <div>
+                  <p class="price-name">타이레놀정 500mg</p>
+                  <p class="price-meta">평균 <span class="price-blur">₩312</span> · 범위 <span class="price-blur">₩280–340</span></p>
+                </div>
+                <span class="price-delta price-down">▼ 4.2%</span>
+              </li>
+              <li>
+                <div>
+                  <p class="price-name">게보린정</p>
+                  <p class="price-meta">평균 <span class="price-blur">₩418</span> · 범위 <span class="price-blur">₩390–445</span></p>
+                </div>
+                <span class="price-delta price-up">▲ 2.1%</span>
+              </li>
+              <li>
+                <div>
+                  <p class="price-name">후시딘연고 5g</p>
+                  <p class="price-meta">평균 <span class="price-blur">₩2,840</span> · 범위 <span class="price-blur">₩2,700–2,980</span></p>
+                </div>
+                <span class="price-delta price-down">▼ 1.8%</span>
+              </li>
+              <li>
+                <div>
+                  <p class="price-name">베아제정</p>
+                  <p class="price-meta">평균 <span class="price-blur">₩185</span> · 범위 <span class="price-blur">₩170–205</span></p>
+                </div>
+                <span class="price-delta price-up">▲ 3.6%</span>
+              </li>
+              <li>
+                <div>
+                  <p class="price-name">판콜에이내복액</p>
+                  <p class="price-meta">평균 <span class="price-blur">₩540</span> · 범위 <span class="price-blur">₩510–575</span></p>
+                </div>
+                <span class="price-delta price-down">▼ 0.9%</span>
+              </li>
+            </ul>
+            <a class="live-cta live-cta-lock" href="#">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              로그인하고 정확한 거래가 보기 →
+            </a>
+          </article>
+
+          <!-- ③ 신제품 + 셀링리뷰 급상승 -->
+          <article class="live-card">
+            <header class="live-head">
+              <span class="live-pill live-pill-new">신제품 · 트렌드</span>
+              <span class="live-count">이번달 6건</span>
+            </header>
+
+            <h3 class="live-title live-title-sub">이번달 신규 허가 OTC</h3>
+            <ul class="new-list">
+              <li>
+                <div>
+                  <p class="new-name">아이로파인안약</p>
+                  <p class="new-meta">가려움 안약 · 알러지 시즌</p>
+                </div>
+                <span class="new-badge new-badge-sponsored">Sponsored</span>
+              </li>
+              <li>
+                <div>
+                  <p class="new-name">가스로엔정</p>
+                  <p class="new-meta">소화효소 + 천연제산제</p>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <p class="new-name">비타뉴플러스</p>
+                  <p class="new-meta">활성형 비타민 B군</p>
+                </div>
+              </li>
+            </ul>
+
+            <h3 class="live-title live-title-sub live-title-spacer">셀링리뷰 ★ 급상승</h3>
+            <ul class="trend-list">
+              <li>
+                <span class="trend-name">우루사정 100mg</span>
+                <span class="trend-meta">★ 4.5 → <strong>4.8</strong></span>
+              </li>
+              <li>
+                <span class="trend-name">아로나민골드</span>
+                <span class="trend-meta">★ 4.3 → <strong>4.6</strong></span>
+              </li>
+              <li>
+                <span class="trend-name">마데카솔연고</span>
+                <span class="trend-meta">★ 4.6 → <strong>4.8</strong></span>
+              </li>
+            </ul>
+
+            <a class="live-cta" href="#">전체 신제품·트렌드 →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ THIS MONTH — 신제품 OTC + Sponsored ════════════════ -->
+    <section class="section section-soft">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">This Month · 2026.05</p>
+            <h2 class="section-title">5월 약사들이 주목한 신규 OTC</h2>
+          </div>
+          <a class="link-more" href="#">신제품 전체 →</a>
+        </header>
+
+        <div class="newprod-grid">
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-Tylenol.webp" alt="타이레놀정 500mg" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">타이레놀정 500mg</h3>
+              <p class="newprod-spec">500mg 외 10정 (PTP)</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">10%</span>
+                <span class="newprod-price">3,120원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-Geborine.jpg" alt="게보린정" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">게보린정</h3>
+              <p class="newprod-spec">300mg 외 10정 (PTP)</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">10%</span>
+                <span class="newprod-price">4,180원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-Bease.jpg" alt="베아제정" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">베아제정</h3>
+              <p class="newprod-spec">30정 외 1박스</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">10%</span>
+                <span class="newprod-price">5,550원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-Pancol.webp" alt="판콜에이내복액" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">판콜에이내복액</h3>
+              <p class="newprod-spec">30mL 외 10병</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">10%</span>
+                <span class="newprod-price">5,400원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-urusa.jpg" alt="우루사정" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">우루사정</h3>
+              <p class="newprod-spec">100mg 외 50정 (PTP)</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">15%</span>
+                <span class="newprod-price">8,900원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+
+          <article class="newprod-card">
+            <div class="newprod-media"><img src="images/product-Tylenol.webp" alt="타이레놀이알서방정" /></div>
+            <div class="newprod-body">
+              <h3 class="newprod-name">타이레놀이알서방정</h3>
+              <p class="newprod-spec">650mg 외 24정 (PTP)</p>
+              <span class="newprod-price-row">
+                <span class="newprod-discount">10%</span>
+                <span class="newprod-price">6,480원</span>
+              </span>
+              <span class="newprod-channel">유통</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ MIDDLE BANNER ════════════════ -->
+    <section class="banner-section">
+      <div class="container">
+        <a class="banner" href="#">
+          <img src="images/middle-banner.png" alt="" />
+          <div class="banner-text">
+            <p class="banner-eyebrow">New · Sell+ × Drug+</p>
+            <h3 class="banner-title">셀링리뷰 데이터로 더 똑똑해진 Agent</h3>
+            <p class="banner-sub">동료 약사 28,400명이 실제로 권한 패턴까지 답변에 반영됩니다.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ HOW IT WORKS — 5 STEPS (사용자 결정: 숨김) ════════════════ -->
+    <section class="section" style="display:none">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">Workflow</p>
+            <h2 class="section-title">Drug+ Agent와 OTC Plus가 이어지는 방식</h2>
+          </div>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <img src="images/number-1.svg" alt="1" class="step-num" />
+            <h3>Agent에게 묻기</h3>
+            <p>증상·제품·성분으로 자연어 질문. 7개 도메인이 자동 라우팅됩니다.</p>
+          </li>
+          <li class="step">
+            <img src="images/number-2.svg" alt="2" class="step-num" />
+            <h3>고유 데이터 답변</h3>
+            <p>식약처·DUR·셀링리뷰·바로팜 수급 데이터를 근거로 한 줄 답변.</p>
+          </li>
+          <li class="step">
+            <img src="images/number-3.svg" alt="3" class="step-num" />
+            <h3>관련 OTC 추천</h3>
+            <p>답변 옆에 OTC 카드. 사입가·셀링리뷰·재고 상태가 같이 보여요.</p>
+          </li>
+          <li class="step">
+            <img src="images/number-4.svg" alt="4" class="step-num" />
+            <h3>대체약·비교</h3>
+            <p>품절·금기·고가 이슈가 있으면 동일 성분 대체약을 자동 제안.</p>
+          </li>
+          <li class="step">
+            <img src="images/number-5.svg" alt="5" class="step-num" />
+            <h3>장바구니 → PharmAll</h3>
+            <p>그대로 PharmAll 주문 흐름으로. 사입가·결제·발송 한 번에.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ OTC AGENT CAPABILITIES — 바로팜 고유 데이터 7가지 (페이지 하단 — 무엇을 해주는 서비스인지 안내) ════════════════ -->
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">What OTC Agent Knows</p>
+            <h2 class="section-title">OTC를 들여올 때 약사님이 진짜 궁금해하는 7가지</h2>
+          </div>
+          <p class="section-sub">기본 약물 정보가 아닌, 약국 OTC 구매·진열 의사결정에 필요한 데이터만.</p>
+        </header>
+
+        <div class="capability-grid">
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-supply">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg>
+            </div>
+            <h3 class="cap-title">OTC 수급·품절</h3>
+            <p class="cap-desc">바로팜 도매 입고 데이터 기반. 포장 단위별 결품·입고 예정일까지.</p>
+            <p class="cap-sample">"후시딘 지금 들어와?" → 5g·10g 공급 원활 · 인텐시브크림 입고 평균 3일 지연</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-price">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3 class="cap-title">사입가 인사이트<span class="cap-badge-locked">로그인 필요</span></h3>
+            <p class="cap-desc">심평원 등재가 + 바로팜 실거래 평균. 최저~최고 범위로 의사결정 지원.</p>
+            <p class="cap-sample">"타이레놀 500mg 사입가" → 범위 ₩280–340 · 바로팜 평균 -4.2%</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-review">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            </div>
+            <h3 class="cap-title"><img class="sellrev-logo" src="images/SellingReview_logo.svg" alt="셀링리뷰" /> 키워드</h3>
+            <p class="cap-desc">약사 28,400명의 실제 추천 패턴 · 별점 · 구매처 · 키워드 분석.</p>
+            <p class="cap-sample">"종합감기약 추천?" → 판콜에이 (★4.7) · 키워드 "복용 편의" 1위</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-curate">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <h3 class="cap-title">카테고리·성분 큐레이션</h3>
+            <p class="cap-desc">증상·계열·세트 기준 OTC 큐레이션. 개국·시즌·이벤트별.</p>
+            <p class="cap-sample">"개국용 진통제 세트" → 타이레놀 · 애드빌 · 게보린 · 펜잘큐 · 사리돈</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-new">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3 class="cap-title">신규 허가 · 이번달 신제품</h3>
+            <p class="cap-desc">식약처 OTC 신규 허가 + Sell+ 평가가 쌓인 신제품 우선 노출.</p>
+            <p class="cap-sample">"이번달 신제품?" → 아이로파인안약 · 가스로엔정 · 비타뉴플러스</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-alt">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v4l5-5-5-5v4H5v6"/><path d="M17 17H7v-4l-5 5 5 5v-4h12v-6"/></svg>
+            </div>
+            <h3 class="cap-title">동일성분 대체 OTC</h3>
+            <p class="cap-desc">품절·고가·금기 이슈 시 동일 효능군 대체 추천 + 사입가 비교.</p>
+            <p class="cap-sample">"베아제 대체?" → 훼스탈플러스 (★4.5) · 그날엔 (★4.3) 공급 원활</p>
+          </article>
+
+          <article class="cap-card">
+            <div class="cap-icon cap-icon-trend">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+            </div>
+            <h3 class="cap-title">매출·회전율 인사이트</h3>
+            <p class="cap-desc">바로팜 거래 데이터 기반 카테고리·지역·시즌별 회전율 트렌드.</p>
+            <p class="cap-sample">"환절기 알러지약 회전율?" → 액티피드 +18% · 클라리틴 +12% (전년 대비)</p>
+          </article>
+
+          <article class="cap-card cap-card-sponsored">
+            <div class="cap-icon cap-icon-ad">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11v2a2 2 0 0 0 2 2h3l5 4V5L8 9H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+            </div>
+            <h3 class="cap-title">제약사 광고·신제품 발견</h3>
+            <p class="cap-desc">제약사 sponsored 신제품 슬롯 · 약사 신뢰도 기반 노출.</p>
+            <p class="cap-sample-coming">For Pharma Partners · 문의하기 →</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════ FOOTER ════════════════ -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img src="images/Pharmall_logo.svg" alt="Pharmall+" />
+          <p>약국을 위한 OTC AI Agent · Drug+</p>
+        </div>
+        <div class="footer-cols">
+          <div>
+            <h4>서비스</h4>
+            <ul>
+              <li><a href="#">Drug+</a></li>
+              <li><a href="#">Sell+</a></li>
+              <li><a href="#">Open+</a></li>
+              <li><a href="#">Edu+</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>데이터 출처</h4>
+            <ul>
+              <li>식품의약품안전처 DUR</li>
+              <li>건강보험심사평가원 약가 고시</li>
+              <li>바로팜 수급 · 사입 DB</li>
+              <li>셀링리뷰 약사 평가 DB</li>
+            </ul>
+          </div>
+          <div>
+            <h4>안내</h4>
+            <ul>
+              <li>Agent 답변은 약사 판단을 보조하기 위한 참고 자료입니다.</li>
+              <li>유통 정보는 실시간이 아닐 수 있어요.</li>
+              <li>최종 권유는 약사 책임으로 진행해 주세요.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="footer-meta">© Baropharm Inc. · Drug+ v0.1 · 2026.05.27</p>
+      </div>
+    </footer>
+  </main>
+
+
+  <!-- ════════════════ FLOATING AGENT DOCK — Baro i ════════════════ -->
+  <button class="floating-agent" id="floatingAgent" aria-label="바로아이에게 묻기">
+    <img class="floating-agent-icon" src="images/baro-i.png" alt="바로아이" />
+    <span>바로아이에게 묻기</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
