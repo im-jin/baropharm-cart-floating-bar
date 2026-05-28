@@ -66,3 +66,35 @@
 3. **ai.html 의 STEPS_MAP / ANSWERS 확장** — 사용자 임의 질문에도 대응 (현재 4개 prompt 한정)
 4. **atglance 5개 lens 콘텐츠 채우기** — 환절기 / 사입가 / 셀링리뷰 ★ / 신제품 (현재 진통제만)
 5. **HERO 그 외 영역의 `Drug+` / `Agent` 표기 → 바로아이 통일** (banner-title, capability eyebrow, footer 등)
+
+---
+
+## ✨ 2026-05-28 후반 — 팜올플러스 홈 (`/Pharmall/index.html`) 신규
+
+- 신설 파일: `Pharmall/index.html`, `Pharmall/styles.css` (otc-plus 와 별도)
+- 스코프: **above-the-fold 1400px** 만 (사용자 요청)
+- 소스: **라이브 사이트 pharmallplus.com** (Figma `paHcO3Txnfb8yirTkkCCWA/20189-54400` 는 신규 리뉴얼 디자인이지만 라이브 카피가 더 정확해서 라이브 기준)
+- 이미지는 `.ph-img` 점선 placeholder (파일명만 노출, 사용자가 직접 업데이트 예정)
+
+### 구조 (좌 845 / 우 411)
+**좌측 (4 섹션)**:
+1. 이주의 품절 트렌드 — 탭(신규진입/장기전환/품절해소) + 5건 리스트
+2. 이달의 강의 + 이벤트 — 2-col row
+3. 에듀 플러스 — 강의 카드 3개
+4. **오픈 플러스 + AI 진입 CTA** (★ 메인 → 오픈플러스 AI 동선의 핵심) — `openplus-ai.html` 로 deeplink, 매물 카드 6개 (3x2)
+
+**우측 (3 블록, sticky)**:
+1. 약사 프로필 카드
+2. 퀵메뉴 4개 (받은제안서·매물관리·순수익·수강내역)
+3. 의약품 검색 순위 TOP 5 — 탭(전문/일반) + 5건
+
+### 디자인 결정
+- GNB 동일 패턴 (OTC Plus 와 공유)
+- 오픈플러스 AI CTA: brand-pharmall → purple-6 그라데이션 pill, 바로아이 아이콘 + "조건만 알려주세요 — AI 가 매물 골라드릴게요"
+- 매물 카드 포맷: 라이브 그대로 (태그 + 위치 + 월조제/일매 + 매매가/임대보증금)
+- 토큰만 사용, raw hex 금지 (예외: brand-pharmall 의 rgba alpha 변형)
+
+### 다음 (팜올홈 후속)
+- `openplus-ai.html` 신규 — OpenPlus AI 챗 페이지 (ai.html 패턴 재사용 가능)
+- 1400px 아래 추가 섹션 (오늘의 뉴스 / 학술 / 수강 후기) — 사용자 우선순위 OK 시
+- 이미지 실제 자산으로 교체 (사용자 직접)
