@@ -3977,22 +3977,22 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   color: var(--color-text-light);
 }
 
-/* 컨텍스트 큐레이션 인트로 — 작은 정보 톤, 단정 X */
+/* 컨텍스트 큐레이션 힌트 — sub 와 인풋 사이 (단정 X, 제안형) */
 .ai-prompts-intro {
   width: 100%;
   max-width: 720px;
-  margin: 28px auto 6px;
-  padding: 10px 14px;
+  margin: -20px auto 24px;  /* sub margin-bottom 44px 일부 흡수 */
+  padding: 10px 16px;
   background: var(--color-brand-pharmall-bg);
   color: var(--color-text-secondary);
   border-radius: var(--radius-pill);
   font: var(--font-caption);
   font-weight: 500;
-  text-align: left;
+  text-align: center;
   letter-spacing: -0.01em;
   opacity: 0;
   transform: translateY(8px);
-  animation: ai-fade-up .6s ease-out .55s forwards;
+  animation: ai-fade-up .6s ease-out .4s forwards;
 }
 .ai-prompts-intro strong {
   font-weight: 700;
@@ -4004,7 +4004,7 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
 .ai-prompts {
   width: 100%;
   max-width: 720px;
-  margin: 6px auto 0;
+  margin: 32px auto 0;
   padding: 0;
   list-style: none;
 }
