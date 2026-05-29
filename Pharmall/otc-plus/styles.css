@@ -783,6 +783,9 @@ p { margin: 0; }
  * ============================================================ */
 .section { padding: var(--space-section-y) 0; }
 .section-soft { background: var(--color-bg-container); }
+
+/* 가로 풀폭 회색 bg — 위아래 섹션과 명확히 구분 (바로팜 레이아웃 패턴) */
+.section-layout-bg { background: var(--color-bg-layout); }
 .banner-section { padding: 0 0 var(--space-section-y); }
 
 /* ============================================================
@@ -1161,8 +1164,11 @@ p { margin: 0; }
  * Phase 3 — 데이터 차별화 뱃지 (Upbit-tone: 굵은 숫자 강조)
  * ============================================================ */
 .eyebrow-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   margin-left: 8px;
-  padding: 2px 8px;
+  padding: 3px 8px 3px 6px;
   font: var(--font-h6);
   font-weight: 600;
   color: var(--color-text-tertiary);          /* 중성 */
@@ -1171,6 +1177,12 @@ p { margin: 0; }
   letter-spacing: 0;
   vertical-align: middle;
   text-transform: none;
+}
+.eyebrow-source-icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  flex-shrink: 0;
 }
 
 .data-badge {
@@ -1275,14 +1287,11 @@ p { margin: 0; }
   color: var(--color-brand-pharmall);
 }
 
-/* 공통: 모듈 안의 콘텐츠 블록 — fill bg 박스로 깔끔하게 구분 (STARTER 패턴) */
+/* 공통: 모듈 안의 콘텐츠 블록 — 회색 박스 제거, 카드 내부에 자연스럽게 흐름 */
 .module-rank,
 .module-swap,
 .module-products {
-  background: var(--color-fill-tertiary);
-  border-radius: var(--radius-md);
-  padding: 8px 14px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   flex: 1;
 }
 
