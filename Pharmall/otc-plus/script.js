@@ -47,12 +47,40 @@
   const chipsWrap = document.getElementById('promptChips');
   const floatingBtn = document.getElementById('floatingAgent');
 
-  /* HERO 의 챗박스/prompt 는 ai.html?q=... 로 진입. 답변 시연은 ai.html 안에서. */
-  function goToAi(q) {
+  /* ai.html 로 진입 — context-aware 파라미터까지 전달
+   * URL 컨트랙트:
+   *   ai.html?q=<question>
+   *           &ctx=<main|detail|list>
+   *           &product=<sku-slug>   &product_name=<encoded>
+   *           &category=<slug>      &category_name=<encoded>
+   *           &back=<page-url>
+   * ctx 인자는 (1) 명시적으로 넘기거나 (2) floating dock 의 data-* 에서 자동 추출 */
+  function goToAi(q, ctxOverride) {
     const url = new URL('ai.html', window.location.href);
     if (q) url.searchParams.set('q', q);
+
+    var ctx = ctxOverride || {};
+    // floating dock 에 박힌 data-* 가 디폴트 컨텍스트
+    if (!ctxOverride && floatingBtn && floatingBtn.dataset) {
+      var d = floatingBtn.dataset;
+      if (d.ctx) ctx.ctx = d.ctx;
+      if (d.product) ctx.product = d.product;
+      if (d.productName) ctx.product_name = d.productName;
+      if (d.category) ctx.category = d.category;
+      if (d.categoryName) ctx.category_name = d.categoryName;
+    }
+    // 자동: 현재 페이지 경로를 back 으로 (chip 클릭 시 복귀)
+    if (ctx.ctx && !ctx.back) ctx.back = window.location.pathname.split('/').pop() || '';
+
+    ['ctx','product','product_name','category','category_name','back'].forEach(function (key) {
+      if (ctx[key]) url.searchParams.set(key, ctx[key]);
+    });
+
     window.location.href = url.toString();
   }
+
+  // 노출 (다른 스크립트가 직접 호출할 수 있게)
+  window.OtcAi = { goToAi: goToAi };
 
   if (chipsWrap) {
     chipsWrap.addEventListener('click', function (e) {

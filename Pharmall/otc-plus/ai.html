@@ -106,6 +106,13 @@
 
       <div class="ai-chat-thread">
 
+        <!-- 컨텍스트 breadcrumb chip — URL 의 ctx 파라미터에 따라 표시 -->
+        <a class="ai-context-chip" id="aiContextChip" href="#" hidden>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+          <span class="ai-context-chip-label" id="aiContextChipLabel">컨텍스트</span>
+          <span class="ai-context-chip-back">← 돌아가기</span>
+        </a>
+
         <!-- 사용자 질문 (우측 버블) -->
         <div class="ai-msg ai-msg-user">
           <p class="ai-msg-bubble" id="aiUserQ">타이레놀 500mg 사입가 평균이 얼마인가요?</p>
@@ -629,14 +636,21 @@
           const btn = e.target.closest('.ai-prompt');
           if (!btn) return;
           gotoChat(btn.dataset.q);
+          renderContextChip();
         });
       }
+      function hideContextChip() {
+        const chip = document.getElementById('aiContextChip');
+        if (chip) chip.hidden = true;
+      }
+
       // 좌측 사이드 — 히스토리 클릭 / 새 대화 클릭
       document.querySelectorAll('.ai-history-item').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
           btn.classList.add('is-active');
           gotoChat(btn.dataset.q);
+          hideContextChip(); // 히스토리는 다른 대화 — 이전 컨텍스트 chip 숨김
         });
       });
       const newBtn = document.querySelector('.ai-side-new');
@@ -646,6 +660,7 @@
           homeEl.hidden = false;
           document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
           if (inputHome) inputHome.value = '';
+          hideContextChip();
           window.scrollTo(0, 0);
         });
       }
@@ -663,6 +678,7 @@
           const v = (inputHome && inputHome.value || '').trim();
           if (!v) return;
           gotoChat(v);
+          renderContextChip();
         });
       }
       if (formChat) {
@@ -671,13 +687,43 @@
           const v = (inputChat && inputChat.value || '').trim();
           if (!v) return;
           gotoChat(v);
+          renderContextChip();
         });
+      }
+
+      /* 컨텍스트 chip — URL 의 ctx/product_name/category_name/back 으로 렌더 */
+      function renderContextChip() {
+        const chip = document.getElementById('aiContextChip');
+        const label = document.getElementById('aiContextChipLabel');
+        if (!chip || !label) return;
+        const params = new URLSearchParams(window.location.search);
+        const ctx = params.get('ctx');
+        if (!ctx || ctx === 'main') { chip.hidden = true; return; }
+
+        let txt = '';
+        if (ctx === 'detail') {
+          const name = params.get('product_name') || '제품';
+          txt = name + ' 상세에서 시작';
+        } else if (ctx === 'list') {
+          const name = params.get('category_name') || '카테고리';
+          txt = name + ' 카테고리에서 시작';
+        } else {
+          txt = ctx + ' 에서 시작';
+        }
+        label.textContent = txt;
+        const back = params.get('back');
+        if (back) chip.setAttribute('href', back);
+        else chip.setAttribute('href', '#');
+        chip.hidden = false;
       }
 
       // ?q=... 으로 들어오면 자동으로 chat 모드
       const params = new URLSearchParams(window.location.search);
       const qParam = params.get('q');
-      if (qParam) gotoChat(qParam);
+      if (qParam) {
+        gotoChat(qParam);
+        renderContextChip();
+      }
     })();
   </script>
 
