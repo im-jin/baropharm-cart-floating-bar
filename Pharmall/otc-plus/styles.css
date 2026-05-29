@@ -1479,16 +1479,18 @@ p { margin: 0; }
 .medrank {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: var(--space-gap-md);
-  align-items: start;
-}
-
-/* 좌측 사이드 — TOP 10 랭킹 */
-.medrank-side {
+  gap: 0;
+  align-items: stretch;
   background: var(--color-bg-container);
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-lg);
   overflow: hidden;
+}
+
+/* 좌측 사이드 — TOP 10 랭킹 (외곽 박스 X, 우측에 divider) */
+.medrank-side {
+  border-right: 1px solid var(--color-border-secondary);
+  background: transparent;
 }
 .medrank-side-head {
   padding: 16px 18px;
@@ -1543,24 +1545,23 @@ p { margin: 0; }
   white-space: nowrap;
 }
 
-/* 우측 메인 — 1위 상세 + 동일 효능 */
+/* 우측 메인 — 1위 상세 + 동일 효능 (외곽 박스 X, 내부 라인 divider) */
 .medrank-main {
   display: flex;
   flex-direction: column;
-  gap: var(--space-gap-md);
+  gap: 0;
   min-width: 0;
 }
 
-/* 1위 상세 카드 (좌 정보 / 중 썸 / 우 셀링리뷰) */
+/* 1위 상세 — 외곽 border X, 아래에 divider */
 .medrank-featured {
   display: grid;
-  grid-template-columns: 1fr 200px 280px;
-  gap: 24px;
+  grid-template-columns: 1fr 180px 260px;
+  gap: 20px;
   align-items: start;
   padding: 24px;
-  background: var(--color-bg-container);
-  border: 1px solid var(--color-border-secondary);
-  border-radius: var(--radius-lg);
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 .medrank-featured-body { min-width: 0; }
 .medrank-featured-brand {
@@ -1635,12 +1636,10 @@ p { margin: 0; }
   flex-wrap: wrap;
 }
 
-/* 동일 효능 의약품 그리드 */
+/* 동일 효능 의약품 그리드 (외곽 박스 X) */
 .medrank-related {
   padding: 20px 24px 24px;
-  background: var(--color-bg-container);
-  border: 1px solid var(--color-border-secondary);
-  border-radius: var(--radius-lg);
+  background: transparent;
 }
 .medrank-related-head {
   display: flex;
@@ -1716,7 +1715,10 @@ p { margin: 0; }
 /* 반응형 */
 @media (max-width: 1080px) {
   .medrank { grid-template-columns: 1fr; }
-  .medrank-side { position: static; }
+  .medrank-side {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-secondary);
+  }
   .medrank-featured { grid-template-columns: 1fr; }
   .medrank-related-grid { grid-template-columns: repeat(3, 1fr); }
 }
