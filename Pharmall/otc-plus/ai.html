@@ -299,6 +299,77 @@
       const formChat = document.getElementById('aiChatInputForm');
       const prompts = document.getElementById('aiPrompts');
 
+      /* 컨텍스트별 홈 (제목 + sub + 추천 프롬프트셋)
+       * URL 의 ctx=detail&product=X 또는 ctx=list&category=Y 에 따라 적용 */
+      const PROMPTS_BY_CTX = {
+        'detail:tylenol-500mg': {
+          title: ['타이레놀정 500mg,', '무엇이 궁금하세요?'],
+          sub: '사입가·대체품·셀링리뷰 — 이 제품의 모든 답을 바로팜 데이터로.',
+          prompts: [
+            { q: '타이레놀정 500mg 30일 사입가 추이는?', cat: '사입가', catClass: 'ai-prompt-cat-price' },
+            { q: '타이레놀 대체 단일성분 추천해줘', cat: '대체품', catClass: 'ai-prompt-cat-new' },
+            { q: '타이레놀과 게보린정 비교해줘', cat: '비교', catClass: 'ai-prompt-cat-review' },
+            { q: '타이레놀 셀링리뷰 키워드 알려줘', cat: '셀링리뷰', catClass: 'ai-prompt-cat-review' },
+          ],
+        },
+        'list:fever-pain': {
+          title: ['해열·소염·진통 카테고리,', '무엇이 궁금하세요?'],
+          sub: '이 카테고리의 사입가·회전율·약사 평가를 한 번에.',
+          prompts: [
+            { q: '해열·소염·진통 셀링리뷰 TOP 5는?', cat: 'TOP', catClass: 'ai-prompt-cat-review' },
+            { q: '진통제 묶음 사입가 우수 제품?', cat: '사입가', catClass: 'ai-prompt-cat-price' },
+            { q: '이번달 출시된 진통제 신제품 알려줘', cat: '신제품', catClass: 'ai-prompt-cat-new' },
+            { q: '회전율 좋은 진통제는?', cat: '회전율', catClass: 'ai-prompt-cat-set' },
+          ],
+        },
+      };
+
+      function getCtxKey(params) {
+        const ctx = params.get('ctx');
+        if (ctx === 'detail') {
+          const product = params.get('product');
+          return product ? 'detail:' + product : null;
+        }
+        if (ctx === 'list') {
+          const category = params.get('category');
+          return category ? 'list:' + category : null;
+        }
+        return null;
+      }
+
+      function applyContextualHome() {
+        const params = new URLSearchParams(window.location.search);
+        const key = getCtxKey(params);
+        if (!key || !PROMPTS_BY_CTX[key]) return;
+        const cfg = PROMPTS_BY_CTX[key];
+
+        // title (앞부분 + 그라데이션 강조부분)
+        const titleEl = document.querySelector('.ai-home-title');
+        if (titleEl && cfg.title) {
+          titleEl.innerHTML = cfg.title[0] + ' <span class="ai-home-title-accent">' + cfg.title[1] + '</span>';
+        }
+
+        // sub
+        const subEl = document.querySelector('.ai-home-sub');
+        if (subEl && cfg.sub) {
+          subEl.textContent = cfg.sub;
+        }
+
+        // 프롬프트 카드 4개 교체
+        const promptsEl = document.getElementById('aiPrompts');
+        if (promptsEl) {
+          promptsEl.innerHTML = cfg.prompts.map(function (p, i) {
+            return '<li style="--i:' + i + '">' +
+              '<button class="ai-prompt" data-q="' + p.q + '" type="button">' +
+                '<svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>' +
+                '<span class="ai-prompt-cat ' + p.catClass + '">' + p.cat + '</span>' +
+                '<span class="ai-prompt-q">' + p.q + '</span>' +
+              '</button>' +
+            '</li>';
+          }).join('');
+        }
+      }
+
       /* prompt 별 분석 단계 (한 줄 읽고 인지할 시간 충분히) */
       const STEPS_MAP = {
         '타이레놀 500mg 평균 사입가가 얼마예요?': [
@@ -778,6 +849,9 @@
         else chip.setAttribute('href', '#');
         chip.hidden = false;
       }
+
+      // 컨텍스트별 홈 (제목 + sub + 프롬프트셋) 먼저 적용
+      applyContextualHome();
 
       // ?q=... 으로 들어오면 자동으로 chat 모드
       const params = new URLSearchParams(window.location.search);
