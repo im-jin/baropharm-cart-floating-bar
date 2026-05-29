@@ -711,20 +711,33 @@
         next();
       }
 
-      /* 답변 본문 타이핑 — 트리에서 텍스트 노드만 추출해 한 글자씩 채움 (HTML 구조 보존) */
+      /* 답변 본문 타이핑 — 트리에서 텍스트 노드만 추출해 한 글자씩 채움
+       *   caret 엘리먼트를 현재 타이핑 위치(텍스트 노드 바로 뒤)에 동적 삽입.
+       *   <strong> / <p> 중첩 어디에 있든 caret 이 정확히 따라감. */
       function typeIntoElement(el, html, speed, done) {
         el.innerHTML = html;
         el.classList.add('is-typing-active');
+
+        const caret = document.createElement('span');
+        caret.className = 'ai-caret';
+
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
         const nodes = [];
         let n;
         while ((n = walker.nextNode())) nodes.push({ node: n, text: n.nodeValue });
-        // clear all text nodes
         nodes.forEach(function (it) { it.node.nodeValue = ''; });
+
+        function placeCaretAfter(node) {
+          if (!node || !node.parentNode) return;
+          if (caret.previousSibling !== node) {
+            node.parentNode.insertBefore(caret, node.nextSibling);
+          }
+        }
 
         let qi = 0, ci = 0;
         function tick() {
           if (qi >= nodes.length) {
+            if (caret.parentNode) caret.parentNode.removeChild(caret);
             el.classList.remove('is-typing-active');
             done && done();
             return;
@@ -736,8 +749,8 @@
           }
           const ch = item.text[ci];
           item.node.nodeValue += ch;
+          placeCaretAfter(item.node);
           ci++;
-          // 공백/줄바꿈은 빠르게 흘려보냄
           const delay = /\s/.test(ch) ? Math.max(4, speed * 0.35) : speed;
           setTimeout(tick, delay);
         }

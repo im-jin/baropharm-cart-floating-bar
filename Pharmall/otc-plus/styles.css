@@ -4997,14 +4997,13 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   background: transparent;
 }
 
-/* ── 타이핑 중: 본문 끝(마지막 텍스트 노드)에 깜빡이는 caret ── */
-.ai-answer-body.is-typing-active p:last-child::after {
-  content: '';
+/* ── 타이핑 중: JS 가 현재 타이핑 위치에 caret 엘리먼트를 동적 삽입 ── */
+.ai-caret {
   display: inline-block;
   width: 2px;
-  height: 0.95em;
-  margin-left: 3px;
-  vertical-align: -2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: -1px;
   background: var(--color-brand-pharmall);
   animation: ai-caret 1s steps(2) infinite;
 }
