@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#09b9ba" />
+  <title>Aroundpharm Beauty — 한국 약국에서 만나는 K-뷰티</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-loading="true">
+
+  <!-- ──────── 상단 nav ──────── -->
+  <header class="bt-topnav">
+    <a class="bt-brand" href="./">
+      <span class="bt-brand-name">Aroundpharm</span>
+      <span class="bt-brand-tag">BEAUTY</span>
+    </a>
+    <div class="bt-topnav-actions">
+      <button class="bt-iconbtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+      </button>
+      <button class="bt-iconbtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="bt-page">
+
+    <!-- ──────── ① 메인 배너 ──────── -->
+    <section class="bt-banner-wrap">
+      <div class="bt-banner">
+        <span class="bt-banner-eyebrow">AROUNDPHARM BEAUTY</span>
+        <h1 class="bt-banner-title">한국 약국에서 만나는<br/><strong>검증된 K-뷰티</strong></h1>
+        <p class="bt-banner-sub">약사가 고르고, 약국이 보증하는 셀렉션</p>
+        <div class="bt-banner-indicator"><strong>1</strong><span>/</span><span>3</span></div>
+      </div>
+    </section>
+
+    <!-- ──────── ①-2 어라운드팜 뷰티 컨셉 안내 ──────── -->
+    <section class="bt-card bt-concept">
+      <h2 class="bt-card-title">어라운드팜 뷰티, 이렇게 이용하세요</h2>
+      <p class="bt-concept-lead">
+        검증된 뷰티 브랜드가 전국 약국에 <strong>샵인샵</strong>으로 입점했어요.
+        약사 추천으로 안심하고 만나보세요.
+      </p>
+      <ol class="bt-concept-steps">
+        <li class="bt-concept-step">
+          <span class="bt-concept-num">1</span>
+          <span class="bt-concept-body">
+            <strong class="bt-concept-step-title">입점 브랜드 둘러보기</strong>
+            <span class="bt-concept-step-desc">약사가 검증한 K-뷰티 브랜드를 한눈에</span>
+          </span>
+        </li>
+        <li class="bt-concept-step">
+          <span class="bt-concept-num">2</span>
+          <span class="bt-concept-body">
+            <strong class="bt-concept-step-title">약국에서 직접 만나기</strong>
+            <span class="bt-concept-step-desc">가까운 입점 약국에서 체험하고 구매</span>
+          </span>
+        </li>
+        <li class="bt-concept-step">
+          <span class="bt-concept-num">3</span>
+          <span class="bt-concept-body">
+            <strong class="bt-concept-step-title">어디서나 다시 만나기</strong>
+            <span class="bt-concept-step-desc">어라운드팜에서 언제든 재구매</span>
+          </span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ──────── ② 입점 브랜드 ──────── -->
+    <section class="bt-card">
+      <div class="bt-card-title-row">
+        <h2 class="bt-card-title">입점 브랜드</h2>
+        <span class="bt-card-more">전국 약국에서 만나보세요</span>
+      </div>
+      <div class="bt-brands" id="btBrands"><!-- injected --></div>
+    </section>
+
+    <!-- ──────── ③ 약사픽 뷰티 랭킹 ──────── -->
+    <section class="bt-card bt-section--ranking">
+      <div class="bt-card-title-row">
+        <h2 class="bt-card-title">약사픽 뷰티 랭킹</h2>
+        <span class="bt-card-more">약사 추천 베스트</span>
+      </div>
+      <ol class="bt-ranking" id="btRanking"><!-- injected --></ol>
+    </section>
+
+    <!-- ──────── ④ 뷰티 매대 약국 찾기 ──────── -->
+    <section class="bt-card">
+      <h2 class="bt-card-title">어라운드팜 뷰티 약국</h2>
+      <div class="bt-pharmacy-map">
+        <span class="bt-pharmacy-map-pin" aria-hidden="true">📍</span>
+        <span class="bt-pharmacy-map-text">위치를 켜고 가까운 뷰티 약국을 찾아보세요</span>
+      </div>
+      <button class="bt-btn bt-btn-primary bt-btn-block" data-action="findPharmacy">
+        내 주변 약국 찾기
+      </button>
+    </section>
+
+    <!-- ──────── ⑤⑥ 샘플 신청 / 입점 문의 ──────── -->
+    <section class="bt-card">
+      <div class="bt-utility-row">
+        <button class="bt-utility-card" data-action="sample">
+          <img class="bt-utility-icon" src="images/icons/svc-sample.png" alt="" />
+          <span>
+            <span class="bt-utility-title">샘플 신청</span>
+            <span class="bt-utility-desc">가까운 약국으로 발송</span>
+          </span>
+        </button>
+        <button class="bt-utility-card" data-action="inquiry">
+          <img class="bt-utility-icon" src="images/icons/svc-inquiry.png" alt="" />
+          <span>
+            <span class="bt-utility-title">입점 문의</span>
+            <span class="bt-utility-desc">브랜드 입점 상담</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ──────── 어라운드팜 본래 약국 서비스 ──────── -->
+    <div class="bt-divider">
+      <span class="bt-divider-line" aria-hidden="true"></span>
+      <span class="bt-divider-text">어라운드팜 약국 서비스</span>
+      <span class="bt-divider-line" aria-hidden="true"></span>
+    </div>
+
+    <!-- 내 주변 약국 찾기 -->
+    <section class="bt-card">
+      <h2 class="bt-card-title">내 주변 약국 찾기</h2>
+      <div class="bt-quick-row">
+        <button class="bt-quick-btn" data-action="findPharmacy">
+          <img class="bt-quick-icon" src="images/icons/qa-now.png" alt="" />
+          <span class="bt-quick-l1">내주변 지금</span>
+          <span class="bt-quick-l2">영업중</span>
+        </button>
+        <button class="bt-quick-btn" data-action="findPharmacy">
+          <img class="bt-quick-icon" src="images/icons/qa-night.png" alt="" />
+          <span class="bt-quick-l1">밤새도록 24시간</span>
+          <span class="bt-quick-l2">심야운영</span>
+        </button>
+        <button class="bt-quick-btn" data-action="findPharmacy">
+          <img class="bt-quick-icon" src="images/icons/qa-holiday.png" alt="" />
+          <span class="bt-quick-l1">한가위</span>
+          <span class="bt-quick-l2">연휴영업</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 서비스별 맞춤 약국 찾기 -->
+    <section class="bt-card">
+      <h2 class="bt-card-title">서비스별 맞춤 약국 찾기</h2>
+      <div class="bt-service-grid">
+        <button class="bt-service-item" data-action="findPharmacy">
+          <span class="bt-service-icon-box"><img class="bt-service-icon" src="images/icons/svc-visit.png" alt="" /></span>
+          <span class="bt-service-label">방문상담</span>
+        </button>
+        <button class="bt-service-item" data-action="findPharmacy">
+          <span class="bt-service-icon-box"><img class="bt-service-icon" src="images/icons/svc-rx.png" alt="" /></span>
+          <span class="bt-service-label">처방전접수</span>
+        </button>
+        <button class="bt-service-item" data-action="inquiry">
+          <span class="bt-service-icon-box"><img class="bt-service-icon" src="images/icons/svc-inquiry.png" alt="" /></span>
+          <span class="bt-service-label">1:1문의</span>
+        </button>
+        <button class="bt-service-item" data-action="sample">
+          <span class="bt-service-icon-box"><img class="bt-service-icon" src="images/icons/svc-sample.png" alt="" /></span>
+          <span class="bt-service-label">샘플체험</span>
+        </button>
+        <button class="bt-service-item" data-action="findPharmacy">
+          <span class="bt-service-icon-box"><img class="bt-service-icon" src="images/icons/svc-pharmfriend.png" alt="" /></span>
+          <span class="bt-service-label">팜친약국</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 1분 건강 이야기 -->
+    <section class="bt-card">
+      <div class="bt-card-title-row">
+        <h2 class="bt-card-title">1분 만에 끝내는 건강 이야기</h2>
+        <span class="bt-card-more">약사 건강 팁</span>
+      </div>
+      <div class="bt-content-scroll">
+        <button class="bt-content-card" data-action="content">
+          <span class="bt-content-thumb" style="background:#fdebd9"></span>
+          <span class="bt-content-title">영양제, 언제 먹어야 가장 좋을까?</span>
+        </button>
+        <button class="bt-content-card" data-action="content">
+          <span class="bt-content-thumb" style="background:#dcefff"></span>
+          <span class="bt-content-title">하루 물 섭취량, 제대로 알기</span>
+        </button>
+        <button class="bt-content-card" data-action="content">
+          <span class="bt-content-thumb" style="background:#e3f5dc"></span>
+          <span class="bt-content-title">환절기 면역력 관리 3가지</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="bt-footer">
+      <div class="bt-footer-brand">Aroundpharm <strong>BEAUTY</strong></div>
+      <p class="bt-footer-note">한국 약국이 보증하는 K-뷰티 셀렉션 · aroundpharm.com</p>
+    </footer>
+
+  </main>
+
+  <!-- ──────── 하단 nav ──────── -->
+  <nav class="bt-bottomnav">
+    <a class="bt-bottomnav-item is-active" href="./">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>
+      <span>홈</span>
+    </a>
+    <a class="bt-bottomnav-item" data-action="findPharmacy">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <span>약국찾기</span>
+    </a>
+    <a class="bt-bottomnav-item" data-action="event">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v13H4zM4 7l2-3h12l2 3M9 11h6"/></svg>
+      <span>이벤트</span>
+    </a>
+    <a class="bt-bottomnav-item" data-action="my">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+      <span>마이</span>
+    </a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>

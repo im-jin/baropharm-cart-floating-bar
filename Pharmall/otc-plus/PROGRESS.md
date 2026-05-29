@@ -3,7 +3,7 @@
 > 매 세션 끝(`오늘 마침` / `오늘 마무리`)에 갱신. 다음 세션 시작(`이어서`)에 가장 먼저 읽는 파일.
 
 ## 마지막 작업 일자
-2026-05-28
+2026-05-29
 
 ## 현재 상태
 - **4 페이지**: index.html / ai.html / list.html / detail.html
@@ -61,11 +61,12 @@
    - script.js 의 `goToAi()` 가 어디서나 ai.html 로 진입
 
 ## 다음에 들어갈 때 할 일 (우선순위)
-1. **detail.html 컨텍스트 추천** — "이 제품에 대해 묻기" 박스 (3~4개 deeplink: 사입가 추이 / 대체품 / 비교)
-2. **list.html 카테고리 컨텍스트 트리거** — "이 카테고리 Agent 에게 묻기" 인라인
-3. **ai.html 의 STEPS_MAP / ANSWERS 확장** — 사용자 임의 질문에도 대응 (현재 4개 prompt 한정)
-4. **atglance 5개 lens 콘텐츠 채우기** — 환절기 / 사입가 / 셀링리뷰 ★ / 신제품 (현재 진통제만)
-5. **HERO 그 외 영역의 `Drug+` / `Agent` 표기 → 바로아이 통일** (banner-title, capability eyebrow, footer 등)
+★ 1. **시드 데이터 → 페이지 박기** — `data/kakao-seeds.json` 의 5개 카테고리를 실제 페이지에 노출. selling_review 부터 시작 추천 (가장 임팩트 큼)
+2. **detail.html 컨텍스트 추천** — "이 제품에 대해 묻기" 박스 (3~4개 deeplink: 사입가 추이 / 대체품 / 비교)
+3. **list.html 카테고리 컨텍스트 트리거** — "이 카테고리 Agent 에게 묻기" 인라인
+4. **ai.html 의 STEPS_MAP / ANSWERS 확장** — `kakao-seeds.json` 의 `otc_counseling` 으로 채움
+5. **atglance 5개 lens 콘텐츠 채우기** — 환절기 / 사입가 / 셀링리뷰 ★ / 신제품 (현재 진통제만) → seeds 의 `otc_trend` 활용
+6. **HERO 그 외 영역의 `Drug+` / `Agent` 표기 → 바로아이 통일** (banner-title, capability eyebrow, footer 등)
 
 ---
 
@@ -117,3 +118,38 @@
 ### URL (GitHub Pages)
 - 팜올 홈: https://im-jin.github.io/baropharm-cart-floating-bar/Pharmall/
 - OTC Plus: https://im-jin.github.io/baropharm-cart-floating-bar/Pharmall/otc-plus/
+
+---
+
+## ✨ 2026-05-29 — 컨텐츠 시드 추출 (카카오톡 → 페이지 데이터)
+
+### 배경
+- 페이지의 카피/질문/답변/셀링리뷰 멘트가 placeholder. 실제 약사 톤이 안 박혀서 신뢰감 약함.
+- 소스: 바로팜 단톡방 카카오톡 export (`~/Downloads/KakaoTalkChats (1).txt`, 8개월치, 100,833 lines / 7.8MB)
+- **OTC only 스코프** — ETC 처방룰/청구/마약류는 제외 (사용자 지시).
+
+### 신규 파일
+| 파일 | 용도 |
+|------|------|
+| `data/kakao-seeds.json` | 5개 카테고리 시드 (stockout / selling_price / selling_review / otc_counseling / otc_trend) — 익명화 완료 |
+| `data/EXTRACT-NOTES.md` | 추출 방법론 + 익명화 룰 + 페이지 매핑 |
+
+### 5개 카테고리
+1. **stockout** — 품절/입고. OTC 17개 제품 명시. → atglance 수급 lens, 이주의 품절
+2. **selling_price** — 셀링가 Q/A. 무조날s 15000 등 실제 가격대. → detail 셀링가 박스, ai.html 답변
+3. **selling_review** ★ — 약사 권유 멘트 ("벤포벨 많이 추천 드립니다", "마진 보다는 유명품"). → CATEGORY × 셀링리뷰
+4. **otc_counseling** — 손님 증상 → 일반약 추천 패턴. → HERO 추천 질문, ai.html STEPS_MAP
+5. **otc_trend** — 방송 효과(글루타치온, 오메가), 시즌성, 신제품. → atglance 환절기/방송 lens
+
+### 익명화 룰
+- 발신자명 → 약사 A/B/C
+- 약국명/전번/지역 삭제
+- 환자 신원 일반화
+- **이모지·말투 보존** (톤이 핵심)
+- raw 카카오톡 파일은 git 제외 (~/Downloads/ 로컬만)
+
+### 다음 (시드 → 페이지)
+- selling_review 5개 멘트 → index.html CATEGORY × 셀링리뷰 placeholder 교체
+- otc_counseling Q 4개 → index.html HERO 추천 질문 교체
+- otc_counseling + selling_price → ai.html STEPS_MAP / ANSWERS 확장
+- stockout 제품명 17개 → atglance 수급 lens + Pharmall/index.html 이주의 품절

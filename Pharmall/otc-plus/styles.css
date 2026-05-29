@@ -2987,6 +2987,12 @@ p { margin: 0; }
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
+.rank-review-author {
+  margin-top: 4px;
+  padding: 0 4px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
 
 /* 빈 리뷰 상태 — 첫리뷰 작성 유도 */
 .rank-review-empty {
@@ -4989,6 +4995,27 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
 .ai-answer-body strong {
   font-weight: 700;
   color: var(--color-text);
+}
+.ai-answer-body .ai-answer-kakao {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--color-fill-tertiary);
+  border-left: 3px solid var(--color-brand-pharmall);
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+.ai-answer-kakao-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-caption);
+  font-weight: 700;
+  vertical-align: middle;
 }
 .ai-inline-trend {
   color: var(--color-blue-7);
