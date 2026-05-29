@@ -100,6 +100,14 @@
     });
   }
 
+  const aiSearchCta = document.getElementById('aiSearchCta');
+  if (aiSearchCta) {
+    aiSearchCta.addEventListener('click', function () {
+      const v = (chatInput && chatInput.value || '').trim();
+      goToAi(v);
+    });
+  }
+
   if (floatingBtn) {
     floatingBtn.addEventListener('click', function () {
       goToAi();

@@ -76,21 +76,31 @@
           바로팜 데이터와 약사 <strong>28,400명</strong>의 평가로 한 번에 알려드립니다.
         </p>
 
-        <!-- Chat box -->
-        <form class="chat" id="chatForm" autocomplete="off">
-          <div class="chat-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-              <circle cx="12" cy="12" r="4"/>
+        <!-- Chat box + 바로아이 검색 CTA (나란히) -->
+        <div class="chat-wrap">
+          <form class="chat" id="chatForm" autocomplete="off">
+            <div class="chat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            </div>
+            <input id="chatInput" type="text" placeholder="OTC 키워드 또는 자연어로 검색 — 예) 타이레놀, 졸리지 않은 감기약" />
+            <button type="submit" class="chat-send" aria-label="검색">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+          <button type="button" class="ai-search-cta" id="aiSearchCta" aria-label="바로아이 검색">
+            <svg class="ai-search-cta-sparkle" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12 1.5l1.95 5.85L19.8 9.3l-5.85 1.95L12 17.1l-1.95-5.85L4.2 9.3l5.85-1.95zM18.6 14.4l1.05 3.15 3.15 1.05-3.15 1.05-1.05 3.15-1.05-3.15-3.15-1.05 3.15-1.05z"/>
             </svg>
-          </div>
-          <input id="chatInput" type="text" placeholder="예) 이번달 출시된 신제품 OTC 알려줘" />
-          <button type="submit" class="chat-send" aria-label="질문 보내기">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            <span>바로아이 검색</span>
           </button>
-        </form>
+        </div>
+      </div>
+    </section>
 
-        <!-- 자주 묻는 질문셋 (바로팜 고유 데이터 시나리오) -->
+    <!-- ════════════════ 지금 약사님이 많이 궁금해해요! — HERO 다음 흰 바디 ════════════════ -->
+    <section class="section prompt-section">
+      <div class="container">
+        <h2 class="prompt-section-title">지금 약사님이 많이 궁금해해요!</h2>
         <ul class="prompt-list" id="promptChips">
           <li><button class="prompt-row" data-q="타이레놀 500mg 10정, 약국 평균 판매가는?" style="--i:0">
             <svg class="prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
@@ -1867,13 +1877,7 @@
   </main>
 
 
-  <!-- ════════════════ FLOATING AGENT DOCK — Baro i (메인 컨텍스트) ════════════════ -->
-  <button class="floating-agent" id="floatingAgent"
-          data-ctx="main"
-          aria-label="바로아이에게 묻기">
-    <img class="floating-agent-icon" src="images/baro-i.png" alt="바로아이" />
-    <span>바로아이에게 묻기</span>
-  </button>
+  <!-- index.html 은 HERO 에 바로아이 검색 CTA 가 있어서 floating dock 불필요 (list.html / detail.html 은 유지) -->
 
   <script src="script.js"></script>
 </body>

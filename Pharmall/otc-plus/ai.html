@@ -176,6 +176,11 @@
               OTC 거래 데이터
             </header>
 
+            <div class="ai-answer-summary" id="aiAnswerSummary">
+              <p class="ai-answer-summary-label">한 줄 답</p>
+              <p class="ai-answer-summary-text">약국 평균 판매가 <strong>₩2,800 ~ ₩3,200</strong> (대세 <strong>₩3,000</strong>) · 사입가 <strong>₩312/정</strong></p>
+            </div>
+
             <div class="ai-answer-body">
               <p>
                 지난 30일 바로팜 거래 기준 <strong>타이레놀정 500mg</strong>의 평균 사입가는
@@ -482,6 +487,7 @@
       const ANSWERS = {
         '타이레놀 500mg 10정, 약국 평균 판매가는?': {
           tag: 'OTC 가격 데이터',
+          summary: '약국 평균 판매가 <strong>₩2,800 ~ ₩3,200</strong> (대세 <strong>₩3,000</strong>) · 사입가 <strong>₩312/정</strong>',
           body: '<p>약국 포스 데이터 기준 <strong>타이레놀정 500mg 10정</strong>의 약국 평균 판매가는 <strong>₩2,800 ~ ₩3,200</strong>이며, 약사 사이에서 가장 자주 언급되는 가격은 <strong>₩3,000</strong>입니다.</p>' +
                 '<p>바로팜 30일 평균 사입가는 <strong>₩312/정</strong> (10정 박스당 약 <strong>₩3,120</strong>). 마진율은 약 8 ~ 14% 구간이며, 5월 들어 사입가는 <strong class="ai-inline-trend">▼ 3.2%</strong> 하락 추세.</p>' +
                 '<p>약사 <strong>2,481명</strong>의 셀링리뷰에서는 "지명 손님 많음(38%)", "복용 편의(22%)", "단일성분 응대 폭(18%)" 키워드가 가장 자주 언급되었습니다.</p>' +
@@ -514,6 +520,7 @@
 
         '콜대원 지명 손님께 같이 권할 OTC는?': {
           tag: '셀링리뷰 + 약사 권유 패턴',
+          summary: '<strong>콜대원 + 콜대원 나이트</strong> + 영양제(벤포벨) + 갈근탕 6포 — 추가권유 타율 <strong>31%</strong>',
           body: '<p>약사 사이에서 가장 자주 공유되는 추가권유 패턴은 <strong>콜대원 + 콜대원 나이트</strong>입니다. "콜대원 지명하는 분께 나이트 하나씩 추가로 권해보고 있어요. 타율 좋아요" — 약사 대표 TIP.</p>' +
                 '<p>그 다음으로 자주 권하는 건 <strong>피로회복 영양제(벤포벨 등)</strong>와 <strong>인후통 한방(갈근탕 6포)</strong>. 환절기 시즌엔 <strong>비타민 C</strong> 추가권유 비중이 올라갑니다.</p>' +
                 '<p>약사 <strong>3,840명</strong>의 셀링리뷰에서 "추가권유 타율 높음(31%)", "재구매 많음(24%)" 키워드 노출.</p>' +
@@ -546,6 +553,7 @@
 
         '이석증 손님께 권할 영양제는?': {
           tag: 'OTC 카운슬링 + 논문 근거',
+          summary: '<strong>비타민 D</strong> + 은행잎엑스 + 피크노제놀 — BPPV 재발 ↔ Vit.D 결핍 논문 근거',
           body: '<p>이석증(BPPV) 손님께 약사들이 가장 자주 권하는 영양제는 <strong>비타민 D</strong>, <strong>은행잎엑스</strong>, <strong>피크노제놀</strong> 3종입니다. (병원약과 별개의 보조 케어 영역)</p>' +
                 '<p>약사 카운슬링 시 인용되는 논문 근거: <em>비타민 D 결핍과 BPPV 재발 간의 연관성</em> — 비타민 D 보충이 이석증 재발을 줄일 수 있다는 결론.</p>' +
                 '<p>약사 <strong>1,820명</strong>의 셀링리뷰에서 "재발 케어(28%)", "복용 편의(22%)", "노인 응대(18%)" 키워드 노출.</p>' +
@@ -578,6 +586,7 @@
 
         '환절기 알러지·감기 일반약 라인업은?': {
           tag: '시즌 라인업',
+          summary: '<strong>항히스타민 ▲28%</strong> + 1회용 안약 + 종합감기약 + 진해거담 + 비타민 C — 5종 라인업',
           body: '<p>환절기(9~10월) 회전율 상승 카테고리는 <strong>항히스타민 · 1회용 안약 · 종합감기약 · 진해거담제 · 비타민 C</strong> 5종입니다. 약사 권장 라인업.</p>' +
                 '<p>9월 일반약 순위 기준: <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">항히스타민제 ▲ 28%</strong>, <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">리쥬비넥스 ▲ 14%</strong>. 1회용 안약(케토핀프리 등)은 알러지 시즌 진입 직전 사입 권장 (품절 잦음).</p>' +
                 '<p>약사 <strong>4,128명</strong>의 셀링리뷰에서 "환절기 회전 우수(34%)", "추가권유 좋음(21%)" 키워드 노출.</p>' +
@@ -622,6 +631,10 @@
           const svgHTML = svgEl ? svgEl.outerHTML : '';
           tagEl.innerHTML = svgHTML + ' ' + a.tag;
         }
+
+        // summary (한 줄 답)
+        const summaryEl = root.querySelector('.ai-answer-summary-text');
+        if (summaryEl && a.summary) summaryEl.innerHTML = a.summary;
 
         // body
         const bodyEl = root.querySelector('.ai-answer-body');
