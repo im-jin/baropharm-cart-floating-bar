@@ -96,5 +96,24 @@
 
 ### 다음 (팜올홈 후속)
 - `openplus-ai.html` 신규 — OpenPlus AI 챗 페이지 (ai.html 패턴 재사용 가능)
-- 1400px 아래 추가 섹션 (오늘의 뉴스 / 학술 / 수강 후기) — 사용자 우선순위 OK 시
-- 이미지 실제 자산으로 교체 (사용자 직접)
+- 1400px 아래 추가 섹션 (오늘의 뉴스 / 학술 / 수강 후기 / 검색 TOP5 / 신규 약사 이벤트)
+- HERO 슬라이드 인터랙션 (현재는 정적 1프레임 — JS 추가 필요)
+- 매물 카드 / 강의 카드 thumb 실제 이미지로 교체 (현재는 CSS 그라데이션)
+- Figma 디테일 추가 검수 (사용자가 "이미지랑 안 맞는다" 피드백 — 다음 세션에서 노드별로 비교 필요)
+
+### 2026-05-28 마지막 (Figma 기준 재정렬)
+사용자 피드백: 라이브 → Figma 기준으로 재구성. 이미지도 직접 채워.
+- 좌측 섹션 변경: 이주의 품절 → HERO 슬라이드 / 강의+이벤트 → 개인화 카드 / 에듀+ → 뉴스 / 오픈+ 유지
+- 우측 변경: 검색 TOP5 → 수강중 강의 + 강의 리뷰 (Figma 기준 R3, R4)
+- 이미지 placeholder (`.ph-img`) 전부 실제 비주얼로 교체:
+  - HERO art: 인라인 SVG (캡슐 + 돋보기 + 별)
+  - 매물 thumb: CSS 그라데이션 3종 (geekblue/purple/magenta) + 우측 위치 pin 칩
+  - 프로필 아바타: brand-pharmall→purple-6 그라디언트 + 글자 "약"
+  - 수강중 강의 thumb: brand 그라디언트 + ▶ 플레이 버튼 + 라벨
+- GNB cross-link 보강:
+  - Pharmall index 의 OTC 플러스 → `otc-plus/index.html`
+  - otc-plus 의 brand 로고 → `../index.html` (팜올 홈으로 복귀)
+
+### URL (GitHub Pages)
+- 팜올 홈: https://im-jin.github.io/baropharm-cart-floating-bar/Pharmall/
+- OTC Plus: https://im-jin.github.io/baropharm-cart-floating-bar/Pharmall/otc-plus/

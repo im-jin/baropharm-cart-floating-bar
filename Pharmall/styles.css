@@ -1,7 +1,8 @@
 /* ============================================================
- * 팜올플러스 홈 (above-the-fold ~1400px)
- * 구조: GNB + 2-column (좌 845 / 우 411) + footer
- * 라이브 사이트 (pharmallplus.com) 기준 카피
+ * 팜올플러스 홈 (Figma `paHcO3Txnfb8yirTkkCCWA/20189-54400` 기준)
+ * above-the-fold ~1400px
+ * 좌 845: HERO 슬라이드 / 개인화 카드 / 뉴스 / 오픈+ (AI CTA)
+ * 우 411: 프로필 / 퀵메뉴 / 수강중 강의 / 강의 리뷰
  * ============================================================ */
 
 * { box-sizing: border-box; }
@@ -18,22 +19,35 @@ button { font-family: inherit; cursor: pointer; background: none; border: 0; pad
 ul, ol { list-style: none; margin: 0; padding: 0; }
 h1, h2, h3, h4, h5, p { margin: 0; }
 
-/* 이미지 placeholder — alt 텍스트(파일명) 노출, 점선 박스 */
+/* ──────────── 이미지 placeholder ──────────── */
+/* 파일명만 작게 노출, 연한 그라디언트 (실제 이미지로 자연스럽게 swap 가능하게) */
 .ph-img {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-fill-tertiary);
-  color: var(--color-text-tertiary);
-  font: var(--font-caption);
-  border: 1px dashed var(--color-border);
+  align-items: flex-end;
+  justify-content: flex-start;
+  background: linear-gradient(135deg,
+    var(--color-geekblue-1) 0%,
+    var(--color-purple-1) 100%);
+  color: var(--color-text-quaternary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0;
   border-radius: var(--radius-md);
-  text-align: center;
-  padding: 8px;
+  padding: 8px 10px;
   word-break: break-all;
+  overflow: hidden;
 }
-.ph-img::before { content: "🖼  "; margin-right: 4px; }
+.ph-img::after {
+  content: attr(data-name);
+  display: block;
+  line-height: 1.2;
+}
 .ph-img-cover { aspect-ratio: 16 / 9; }
+.ph-img-avatar { aspect-ratio: 1 / 1; border-radius: 50%; padding: 0; }
+.ph-img-avatar::after { display: none; }
+.ph-img-art { width: 100%; height: 100%; border-radius: 0; }
+.ph-img-art::after { color: rgba(255,255,255,0.6); }
 
 /* ============================================================
  * GNB
@@ -68,14 +82,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .gnb-item img { height: 22px; display: block; }
 .gnb-item:hover { background: var(--color-fill-tertiary); }
-.gnb-item.is-active::after {
-  content: '';
-  display: inline-block;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--color-brand-pharmall);
-  margin-left: 6px;
-}
+
 .gnb-search {
   display: flex;
   align-items: center;
@@ -156,28 +163,6 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .section-more:hover { color: var(--color-brand-pharmall); }
 
-.tabs {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-.tab {
-  font: var(--font-b3);
-  font-weight: 500;
-  color: var(--color-text-tertiary);
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-  transition: background .15s ease, color .15s ease;
-}
-.tab.is-active {
-  background: var(--color-fill-tertiary);
-  color: var(--color-text);
-  font-weight: 700;
-}
-.tab:hover:not(.is-active) { color: var(--color-text-secondary); }
-.tabs-sm .tab { padding: 4px 10px; font: var(--font-caption); font-weight: 600; }
-
 .tag {
   display: inline-flex;
   align-items: center;
@@ -203,174 +188,206 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .badge-gold { background: var(--color-gold-1); color: var(--color-gold-7); }
 
-.trend-up    { color: var(--color-volcano-7); }
-.trend-down  { color: var(--color-cyan-8); }
-.same        { color: var(--color-text-tertiary); }
-
-/* ============================================================
- * 카드 컨테이너 공통
- * ============================================================ */
-.oos-trend,
-.edu-plus,
+/* 카드 컨테이너 공통 */
+.my-deal,
+.news,
 .open-plus,
 .profile-card,
 .quick-menu,
-.drug-top {
+.my-lecture,
+.edu-reviews {
   background: var(--color-bg-container);
   border-radius: var(--radius-lg);
   padding: 20px 24px;
   border: 1px solid var(--color-border-secondary);
 }
 .quick-menu { padding: 8px; }
+.profile-card,
+.my-lecture,
+.edu-reviews { padding: 20px; }
 
 /* ============================================================
- * L1 — 이주의 품절 트렌드
+ * L1 — HERO 슬라이드 배너 (의약품플러스 프로모 / 845×119)
+ * Figma: 보라 그라디언트 + 우측 돋보기 일러스트 + 우하단 페이지 인디케이터
  * ============================================================ */
-.oos-list li {
-  display: grid;
-  grid-template-columns: 28px 1fr auto;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 4px;
-  border-top: 1px solid var(--color-border-secondary);
+.hero-banner {
+  position: relative;
+  display: block;
+  height: 120px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(169deg, #8c08ea 0%, #4c1d95 60%, #070a20 100%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  isolation: isolate;
 }
-.oos-list li:first-child { border-top: 0; }
-.oos-num {
-  width: 22px; height: 22px;
+.hero-banner-text {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.hero-banner-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.hero-banner-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(-27deg, #ffffff 16%, #e8c6ff 147%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-banner-art {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 4px 20px rgba(140, 8, 234, 0.35));
+}
+.hero-banner-art svg { width: 100%; height: 100%; display: block; }
+.hero-banner-paging {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-pill);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
+.hero-banner-arrow,
+.hero-banner-pause {
+  width: 16px;
+  height: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: var(--color-fill-tertiary);
-  color: var(--color-text-tertiary);
-  font: var(--font-caption);
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.85;
+}
+.hero-banner-count em { opacity: 0.5; margin: 0 2px; }
+.hero-banner-count span:last-child { opacity: 0.5; }
+
+/* ============================================================
+ * L2 — 개인화 카드 "약사님 조건에 맞는 새로운 제안서"
+ * ============================================================ */
+.my-deal-head h3 {
+  font: var(--font-h4);
+  color: var(--color-text);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.my-deal-accent { color: var(--color-brand-pharmall); }
+.my-deal-card {
+  display: block;
+  padding: 16px 18px;
+  background: var(--color-brand-pharmall-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.my-deal-card:hover {
+  border-color: var(--color-brand-pharmall);
+  transform: translateY(-1px);
+}
+.my-deal-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.my-deal-title {
+  font: var(--font-b1);
   font-weight: 700;
-  font-size: 11px;
+  color: var(--color-text);
+  margin-bottom: 6px;
 }
-.oos-list li:first-child .oos-num {
-  background: var(--color-brand-pharmall);
-  color: #fff;
-}
-.oos-name {
+.my-deal-meta {
   font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+}
+.my-deal-cta {
+  display: inline-block;
+  font: var(--font-b3);
+  font-weight: 600;
+  color: var(--color-brand-pharmall);
+}
+
+/* ============================================================
+ * L3 — 최근 언론사 뉴스
+ * ============================================================ */
+.news-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.news-tab {
+  font: var(--font-b3);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  transition: background .15s ease, color .15s ease;
+}
+.news-tab.is-active {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+  font-weight: 700;
+}
+.news-tab:hover:not(.is-active) { color: var(--color-text-secondary); }
+.news-tabs .section-more { margin-left: 8px; }
+
+.news-list li + li {
+  border-top: 1px solid var(--color-border-secondary);
+}
+.news-list a {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  transition: background .15s ease;
+}
+.news-list a:hover { background: var(--color-fill-tertiary); }
+.news-cat {
+  font: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-brand-pharmall);
+  text-align: center;
+}
+.news-title {
+  font: var(--font-b2);
   font-weight: 500;
   color: var(--color-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.oos-trend {
+.news-date {
   font: var(--font-caption);
-  font-weight: 700;
+  color: var(--color-text-tertiary);
   flex-shrink: 0;
 }
 
 /* ============================================================
- * L2 — 이달의 강의 + 이벤트 (2-col row)
+ * L4 — 오픈 플러스 + AI 진입 CTA (★ 메인 → 오픈+ AI 동선의 핵심)
  * ============================================================ */
-.row-2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.month-lecture,
-.event-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-bg-container);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-secondary);
-  overflow: hidden;
-  transition: border-color .15s ease, transform .15s ease;
-}
-.month-lecture:hover,
-.event-card:hover {
-  border-color: var(--color-brand-pharmall);
-  transform: translateY(-1px);
-}
-.month-lecture .ph-img-cover,
-.event-card-thumb { border-radius: 0; border-left: 0; border-right: 0; border-top: 0; }
-.month-lecture-body,
-.event-card-body { padding: 16px 18px; }
-.month-lecture-eyebrow,
-.event-card-body .tag { display: inline-block; margin-bottom: 8px; }
-.month-lecture-eyebrow {
-  font: var(--font-caption);
-  font-weight: 700;
-  color: var(--color-brand-pharmall);
-  letter-spacing: 0.04em;
-}
-.month-lecture-title,
-.event-card-title {
-  font: var(--font-b1);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-.event-card-meta {
-  font: var(--font-caption);
-  color: var(--color-text-tertiary);
-  margin-bottom: 10px;
-}
-.month-lecture-cta,
-.event-card-cta {
-  display: inline-block;
-  font: var(--font-b3);
-  font-weight: 600;
-  color: var(--color-brand-pharmall);
-}
-.event-card { flex-direction: column-reverse; }
-
-/* ============================================================
- * L3 — 에듀 플러스
- * ============================================================ */
-.edu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.edu-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--color-border-secondary);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: border-color .15s ease, transform .15s ease;
-}
-.edu-card:hover {
-  border-color: var(--color-brand-pharmall);
-  transform: translateY(-1px);
-}
-.edu-card-thumb { border-radius: 0; border: 0; }
-.edu-card-body { padding: 12px 14px; }
-.edu-card-cat {
-  font: var(--font-caption);
-  color: var(--color-brand-pharmall);
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.edu-card-title {
-  font: var(--font-b3);
-  font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.45;
-  margin-bottom: 6px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.edu-card-meta {
-  font: var(--font-caption);
-  color: var(--color-text-tertiary);
-}
-
-/* ============================================================
- * L4 — 오픈 플러스 (AI CTA + 매물 그리드)
- * ============================================================ */
-
-/* AI 진입 CTA — 가장 눈에 띄게 (메인 → 오픈플러스 AI 동선의 핵심) */
 .open-plus-ai {
   display: flex;
   align-items: center;
@@ -413,7 +430,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .open-plus-ai:hover .open-plus-ai-cta { background: rgba(255, 255, 255, 0.28); }
 
-/* 매물 카드 그리드 — 3x2 */
+/* 매물 카드 그리드 — 3개 가로 */
 .op-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -431,7 +448,42 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   border-color: var(--color-brand-pharmall);
   transform: translateY(-1px);
 }
-.op-card-thumb { aspect-ratio: 16 / 9; border-radius: 0; border: 0; }
+/* 매물 thumb — CSS 그라데이션 + 위치 pin 칩 (실제 이미지 swap 가능) */
+.op-card-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+  overflow: hidden;
+}
+.op-card-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 100% at 50% 100%, rgba(255,255,255,0.18) 0%, transparent 70%),
+    radial-gradient(40% 60% at 20% 20%, rgba(255,255,255,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+.op-thumb-1 { background: linear-gradient(135deg, var(--color-geekblue-4) 0%, var(--color-purple-5) 100%); }
+.op-thumb-2 { background: linear-gradient(135deg, var(--color-blue-5) 0%, var(--color-geekblue-6) 100%); }
+.op-thumb-3 { background: linear-gradient(135deg, var(--color-purple-4) 0%, var(--color-magenta-5) 100%); }
+.op-thumb-pin {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
 .op-card-body { padding: 12px 14px 14px; }
 .op-card-tags {
   display: flex;
@@ -478,13 +530,14 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--color-brand-pharmall-bg);
-  color: var(--color-brand-pharmall);
+  background: linear-gradient(135deg, var(--color-brand-pharmall) 0%, var(--color-purple-6) 100%);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font: var(--font-h4);
+  font-size: 20px;
   font-weight: 800;
+  letter-spacing: -0.02em;
   flex-shrink: 0;
 }
 .profile-name {
@@ -552,45 +605,115 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 
 /* ============================================================
- * R3 — 의약품 검색 순위 TOP 5
+ * R3 — 수강중인 강의
  * ============================================================ */
-.drug-top-list li {
-  display: grid;
-  grid-template-columns: 24px 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 4px;
-  border-top: 1px solid var(--color-border-secondary);
+.my-lecture-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.drug-top-list li:first-child { border-top: 0; }
-.drug-top-num {
-  width: 20px; height: 20px;
+.my-lecture-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--color-brand-pharmall) 0%, var(--color-purple-6) 100%);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.my-lecture-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 80% at 70% 30%, rgba(255,255,255,0.25) 0%, transparent 60%),
+    radial-gradient(50% 60% at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.my-lecture-thumb-play {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-brand-pharmall);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: var(--color-fill-tertiary);
-  color: var(--color-text-tertiary);
-  font: var(--font-caption);
-  font-weight: 700;
+  font-size: 16px;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.my-lecture-thumb-label {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.95);
   font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
-.drug-top-list li:first-child .drug-top-num {
-  background: var(--color-brand-pharmall);
-  color: #fff;
+.my-lecture-cat {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
 }
-.drug-top-name {
+.my-lecture-title {
   font: var(--font-b3);
-  font-weight: 500;
+  font-weight: 700;
   color: var(--color-text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  margin-bottom: 12px;
+  line-height: 1.4;
 }
-.drug-top-trend {
+.my-lecture-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.my-lecture-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--color-fill-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.my-lecture-progress-bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-brand-pharmall);
+  border-radius: 3px;
+}
+.my-lecture-progress-text {
   font: var(--font-caption);
   font-weight: 700;
-  flex-shrink: 0;
+  color: var(--color-brand-pharmall);
+}
+.my-lecture-cta {
+  font: var(--font-b3);
+  font-weight: 600;
+  color: var(--color-brand-pharmall);
+}
+
+/* ============================================================
+ * R4 — 에듀+ 강의 리뷰
+ * ============================================================ */
+.edu-reviews-list li {
+  padding: 12px 0;
+}
+.edu-reviews-list li + li {
+  border-top: 1px solid var(--color-border-secondary);
+}
+.edu-reviews-quote {
+  font: var(--font-b3);
+  color: var(--color-text);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.edu-reviews-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
 }
 
 /* ============================================================
@@ -603,7 +726,6 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   .gnb-nav { display: none; }
   .gnb-search { max-width: none; }
   .op-grid { grid-template-columns: repeat(2, 1fr); }
-  .edu-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 720px) {
@@ -612,15 +734,18 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   .gnb-auth { display: none; }
   .home-inner { padding: 0 14px; gap: 14px; }
   .home { padding: 14px 0 60px; }
-  .row-2col { grid-template-columns: 1fr; }
-  .op-grid,
-  .edu-grid { grid-template-columns: 1fr; }
+  .op-grid { grid-template-columns: 1fr; }
   .open-plus-ai-icon { width: 36px; height: 36px; }
   .open-plus-ai-title { font: var(--font-b3); font-weight: 700; }
   .open-plus-ai-cta { display: none; }
-  .oos-trend,
-  .edu-plus,
+  .my-deal,
+  .news,
   .open-plus,
   .profile-card,
-  .drug-top { padding: 16px; }
+  .my-lecture,
+  .edu-reviews { padding: 16px; }
+  .hero-banner { height: 100px; }
+  .hero-banner-text { left: 18px; }
+  .hero-banner-title { font-size: 18px; }
+  .hero-banner-art { display: none; }
 }
