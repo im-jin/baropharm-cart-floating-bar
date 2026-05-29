@@ -1514,31 +1514,42 @@ p { margin: 0; }
 }
 .medrank-item {
   display: grid;
-  grid-template-columns: 24px 1fr;
+  grid-template-columns: 22px 1fr;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
+  padding: 9px 12px;
   border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--color-text);
   font: var(--font-b3);
+  font-weight: 500;
   transition: background .15s ease;
 }
 .medrank-item:hover { background: var(--color-fill-tertiary); }
+/* 2~10위: 작은 채워진 배지 (brand-pharmall-bg + brand-pharmall 텍스트) */
 .medrank-num {
-  width: 22px;
-  text-align: center;
-  font: var(--font-h5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-xs, 3px);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall);
+  font-size: 11px;
   font-weight: 700;
-  color: var(--color-text-tertiary);
   letter-spacing: -0.02em;
 }
+/* 1위: brand-pharmall solid 강조 row, 배지 흰색 */
 .medrank-item.is-active {
   background: var(--color-brand-pharmall);
   color: var(--color-text-light);
   font-weight: 700;
 }
-.medrank-item.is-active .medrank-num { color: var(--color-text-light); }
+.medrank-item.is-active .medrank-num {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--color-text-light);
+}
 .medrank-name {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1553,13 +1564,13 @@ p { margin: 0; }
   min-width: 0;
 }
 
-/* 1위 상세 — 외곽 border X, 아래에 divider */
+/* 1위 상세 — 외곽 border X, 아래에 divider, 이미지 매칭 그리드 */
 .medrank-featured {
   display: grid;
-  grid-template-columns: 1fr 180px 260px;
+  grid-template-columns: 1fr 100px 260px;
   gap: 20px;
-  align-items: start;
-  padding: 24px;
+  align-items: center;
+  padding: 20px 24px;
   background: transparent;
   border-bottom: 1px solid var(--color-border-secondary);
 }
@@ -1575,26 +1586,31 @@ p { margin: 0; }
   letter-spacing: -0.02em;
   margin-bottom: 8px;
 }
-.medrank-featured-spec {
-  font: var(--font-caption);
-  color: var(--color-text-secondary);
-  margin-bottom: 14px;
-}
+/* 가격 + spec 같은 줄 (이미지 매칭) */
 .medrank-featured-price {
-  font: var(--font-display-5);
+  font: var(--font-display-6);            /* 28px bold */
   color: var(--color-text);
   letter-spacing: -0.025em;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
 }
 .medrank-featured-price small {
   font: var(--font-h4);
-  color: var(--color-text-secondary);
-  margin-left: 4px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-left: 2px;
+}
+.medrank-featured-spec {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 12px;
 }
 .medrank-featured-note {
   font: var(--font-caption);
-  color: var(--color-text-tertiary);
-  margin-bottom: 16px;
+  color: var(--color-volcano-7);          /* 빨간/주황 톤 (이미지 매칭) */
+  margin-bottom: 14px;
 }
 .medrank-featured-cta { display: inline-block; }
 
@@ -1621,8 +1637,15 @@ p { margin: 0; }
   background: var(--color-fill-tertiary);
   border-radius: var(--radius-md);
 }
-.medrank-review-head { margin-bottom: 10px; }
-.medrank-review-head .sellrev-logo { height: 16px; display: block; }
+.medrank-review-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
 .medrank-review-meta {
   font: var(--font-b3);
   color: var(--color-text);
@@ -1724,6 +1747,123 @@ p { margin: 0; }
 }
 @media (max-width: 720px) {
   .medrank-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ============================================================
+ * OTC 검색 트렌드 — 워드클라우드 + TOP 10 변동
+ * ============================================================ */
+.trend-head { text-align: center; margin-bottom: 32px; }
+.trend-title {
+  font: var(--font-display-3);             /* 700 40/52 */
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.trend-title-emoji { font-size: 0.9em; }
+.trend-sub {
+  font: var(--font-b2);
+  color: var(--color-text-secondary);
+  letter-spacing: -0.01em;
+}
+
+.trend {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: var(--space-gap-md);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  align-items: center;
+}
+
+/* 워드클라우드 — flex wrap with mixed sizes */
+.trend-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 18px;
+  min-height: 300px;
+  padding: 16px;
+}
+.tc-word {
+  display: inline-block;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.tc-xl { font-size: 36px; font-weight: 800; color: var(--color-text); }
+.tc-lg { font-size: 28px; font-weight: 700; color: var(--color-text); }
+.tc-md { font-size: 20px; font-weight: 600; color: var(--color-text-secondary); }
+.tc-sm { font-size: 16px; font-weight: 500; color: var(--color-text-tertiary); }
+.tc-xs { font-size: 13px; font-weight: 400; color: var(--color-text-tertiary); }
+
+/* TOP 10 변동 리스트 */
+.trend-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.trend-list li {
+  display: grid;
+  grid-template-columns: 28px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 4px;
+  border-top: 1px solid var(--color-border-secondary);
+}
+.trend-list li:first-child { border-top: 0; }
+.tn-rank {
+  width: 22px;
+  text-align: center;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: -0.02em;
+}
+.trend-list li:nth-child(-n+3) .tn-rank {
+  color: var(--color-brand-pharmall);
+}
+.tn-name {
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+.tn-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.tn-change {
+  font: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-volcano-7);
+  min-width: 56px;
+  text-align: right;
+}
+
+/* 더 보기 버튼 (가운데 정렬) */
+.trend-foot { text-align: center; margin-top: 28px; }
+.trend-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-text-light);
+  font: var(--font-b3);
+  font-weight: 700;
+  transition: background .15s ease;
+}
+.trend-more:hover { background: var(--color-text-secondary); }
+
+@media (max-width: 1080px) {
+  .trend { grid-template-columns: 1fr; }
+  .trend-cloud { min-height: 240px; }
 }
 
 
