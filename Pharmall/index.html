@@ -52,51 +52,23 @@
       <!-- ────────── 좌측 메인 컬럼 ────────── -->
       <section class="home-left">
 
-        <!-- L1: HERO 슬라이드 배너 — 의약품플러스 프로모 (Figma node 20189:54424) -->
-        <a class="hero-banner" href="#" aria-label="의약품플러스 — 가장 쉽고 정확한 의약품 검색">
-          <div class="hero-banner-text">
-            <p class="hero-banner-eyebrow">의약품의 모든 것, 의약품 플러스</p>
-            <h2 class="hero-banner-title">가장 쉽고 정확한 의약품 검색</h2>
-          </div>
-          <div class="hero-banner-art" aria-hidden="true">
-            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="hbCapsuleA" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#f8e6ff"/>
-                  <stop offset="1" stop-color="#d4a4ff"/>
-                </linearGradient>
-                <linearGradient id="hbCapsuleB" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#7e3afa"/>
-                  <stop offset="1" stop-color="#5b1cd6"/>
-                </linearGradient>
-                <radialGradient id="hbHalo" cx="50%" cy="50%" r="50%">
-                  <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
-                  <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-                </radialGradient>
-              </defs>
-              <circle cx="82" cy="78" r="62" fill="url(#hbHalo)"/>
-              <g transform="translate(58 50) rotate(-18 26 26)">
-                <rect x="0" y="14" width="52" height="26" rx="13" fill="url(#hbCapsuleA)"/>
-                <rect x="26" y="14" width="26" height="26" rx="13" fill="url(#hbCapsuleB)"/>
-                <circle cx="14" cy="22" r="3" fill="#ffffff" opacity="0.7"/>
-              </g>
-              <g transform="translate(92 78)">
-                <circle cx="20" cy="20" r="20" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.85"/>
-                <circle cx="20" cy="20" r="14" fill="#ffffff" opacity="0.12"/>
-                <line x1="34" y1="34" x2="50" y2="50" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
-              </g>
-              <circle cx="42" cy="34" r="2" fill="#ffffff" opacity="0.8"/>
-              <circle cx="138" cy="50" r="1.5" fill="#ffffff" opacity="0.7"/>
-              <circle cx="120" cy="20" r="1.2" fill="#ffffff" opacity="0.6"/>
-            </svg>
+        <!-- L1: HERO 슬라이드 배너 — 2 슬라이드 자동 순환 -->
+        <div class="hero-banner">
+          <div class="hero-banner-slides" id="heroSlides">
+            <a class="hero-banner-slide is-active" href="#" data-slide="0" aria-label="의약품 플러스 — 가장 쉽고 정확한 의약품 검색">
+              <img src="otc-plus/images/home-topbanner.png" alt="의약품의 모든 것, 의약품 플러스 — 가장 쉽고 정확한 의약품 검색" />
+            </a>
+            <a class="hero-banner-slide" href="#" data-slide="1" aria-label="팜올플러스 — 개국의 시작과 끝">
+              <img src="otc-plus/images/home-topbanner-2.png" alt="팜올플러스 — 개국의 시작과 끝" />
+            </a>
           </div>
           <div class="hero-banner-paging" aria-hidden="true">
-            <span class="hero-banner-arrow">‹</span>
-            <span class="hero-banner-count"><strong>1</strong> <em>/</em> <span>3</span></span>
-            <span class="hero-banner-arrow">›</span>
-            <span class="hero-banner-pause">❚❚</span>
+            <button class="hero-banner-arrow" type="button" data-dir="prev" aria-label="이전">‹</button>
+            <span class="hero-banner-count"><strong id="heroSlideIdx">1</strong> <em>/</em> <span>2</span></span>
+            <button class="hero-banner-arrow" type="button" data-dir="next" aria-label="다음">›</button>
+            <button class="hero-banner-pause" type="button" id="heroPause" aria-label="일시정지">❚❚</button>
           </div>
-        </a>
+        </div>
 
         <!-- L2: 개인화 카드 — 약사님 조건에 맞는 새로운 제안서 (Figma node 20189:54440) -->
         <section class="my-deal">
@@ -135,70 +107,55 @@
           </ul>
         </section>
 
-        <!-- L4: 오픈플러스 매물 + AI 진입 CTA (Figma node 20189:54673) -->
-        <section class="open-plus">
+        <!-- 메인 → 오픈플러스 AI 진입 (사용자 핵심 목표, 독립 배너) -->
+        <a class="openplus-ai-banner" href="openplus-ai.html" aria-label="오픈플러스 AI 에게 매물 추천 받기">
+          <img class="openplus-ai-banner-icon" src="otc-plus/images/baro-i.png" alt="" aria-hidden="true" />
+          <div class="openplus-ai-banner-text">
+            <p class="openplus-ai-banner-eyebrow">OPENPLUS AI</p>
+            <p class="openplus-ai-banner-title">조건만 알려주세요 — AI 가 약국 매물을 골라드릴게요</p>
+          </div>
+          <span class="openplus-ai-banner-cta">시작하기 →</span>
+        </a>
+
+        <!-- L4: 에듀 플러스 (3 클래스 카드) — 오픈+ 자리 교체 -->
+        <section class="edu-plus">
           <header class="section-head">
             <div>
-              <h3>오픈 플러스</h3>
-              <p class="section-sub">신규 매물 1,240건 · 약사 직거래 + 중개매물</p>
+              <h3>에듀 플러스</h3>
+              <p class="section-sub">약사를 위한 보수교육 · 임상 콘텐츠</p>
             </div>
-            <a class="section-more" href="#">전체 매물 →</a>
+            <a class="section-more" href="#">강의 더보기 →</a>
           </header>
 
-          <!-- 메인 → 오픈플러스 AI 동선 (사용자 핵심 목표) -->
-          <a class="open-plus-ai" href="openplus-ai.html" aria-label="오픈플러스 AI 에게 매물 추천 받기">
-            <img class="open-plus-ai-icon" src="otc-plus/images/baro-i.png" alt="" aria-hidden="true" />
-            <div class="open-plus-ai-text">
-              <p class="open-plus-ai-eyebrow">OPENPLUS AI</p>
-              <p class="open-plus-ai-title">조건만 알려주세요 — AI 가 매물 골라드릴게요</p>
-            </div>
-            <span class="open-plus-ai-cta">시작하기 →</span>
-          </a>
-
-          <div class="op-grid">
-            <a class="op-card" href="#">
-              <div class="op-card-thumb op-thumb-1">
-                <span class="op-thumb-pin">📍 경기 양주</span>
+          <div class="edu-grid">
+            <a class="edu-card" href="#">
+              <div class="edu-card-thumb">
+                <img src="otc-plus/images/edu-class-01.png" alt="환자가 매일 묻는 질환 상담 가이드" />
               </div>
-              <div class="op-card-body">
-                <div class="op-card-tags">
-                  <span class="tag tag-blue">중개매물</span>
-                  <span class="tag tag-grey">매매</span>
-                </div>
-                <h4 class="op-card-title">수익률 6% 기존약국상가 매도</h4>
-                <p class="op-card-loc">경기 양주시</p>
-                <p class="op-card-stat">월 조제 <strong>1,400만원</strong> · 일매 <strong>70만원</strong></p>
-                <p class="op-card-price">매매가 <strong>100,000만원</strong></p>
+              <div class="edu-card-body">
+                <p class="edu-card-cat">미나약사 해답노트</p>
+                <h4 class="edu-card-title">환자가 매일 묻는 질환 상담 가이드</h4>
+                <p class="edu-card-meta">이미나 약사 · 8강</p>
               </div>
             </a>
-            <a class="op-card" href="#">
-              <div class="op-card-thumb op-thumb-2">
-                <span class="op-thumb-pin">📍 서울 강남</span>
+            <a class="edu-card" href="#">
+              <div class="edu-card-thumb">
+                <img src="otc-plus/images/edu-class-02.png" alt="기본 질환 일반약 길라잡이" />
               </div>
-              <div class="op-card-body">
-                <div class="op-card-tags">
-                  <span class="tag tag-green">약사직거래</span>
-                  <span class="tag tag-grey">임대</span>
-                </div>
-                <h4 class="op-card-title">강남역 도보 3분 조제 위주 약국</h4>
-                <p class="op-card-loc">서울 강남구</p>
-                <p class="op-card-stat">월 조제 <strong>2,300만원</strong> · 일매 <strong>250만원</strong></p>
-                <p class="op-card-price">보증금 <strong>5,000만원</strong> · 월세 380만원</p>
+              <div class="edu-card-body">
+                <p class="edu-card-cat">정답 조합 정답 멘트</p>
+                <h4 class="edu-card-title">기본 질환 일반약 길라잡이</h4>
+                <p class="edu-card-meta">배승원 약사 · 12강</p>
               </div>
             </a>
-            <a class="op-card" href="#">
-              <div class="op-card-thumb op-thumb-3">
-                <span class="op-thumb-pin">📍 경기 분당</span>
+            <a class="edu-card" href="#">
+              <div class="edu-card-thumb">
+                <img src="otc-plus/images/edu-class-03.png" alt="개국 전 확인 필수! 개국의 첫 걸음" />
               </div>
-              <div class="op-card-body">
-                <div class="op-card-tags">
-                  <span class="tag tag-blue">중개매물</span>
-                  <span class="tag tag-grey">분양</span>
-                </div>
-                <h4 class="op-card-title">분당 정자동 신규 약국 분양</h4>
-                <p class="op-card-loc">경기 성남시 분당구</p>
-                <p class="op-card-stat">예상 월 조제 <strong>1,800만원</strong></p>
-                <p class="op-card-price">분양가 <strong>78,000만원</strong></p>
+              <div class="edu-card-body">
+                <p class="edu-card-cat">「약사's 책상」 연계</p>
+                <h4 class="edu-card-title">개국 전 확인 필수! 개국의 첫 걸음</h4>
+                <p class="edu-card-meta">유선춘 약사 · 6강</p>
               </div>
             </a>
           </div>
@@ -252,13 +209,13 @@
             <a class="section-more" href="#">전체 →</a>
           </header>
           <a class="my-lecture-card" href="#">
-            <div class="my-lecture-thumb" aria-hidden="true">
-              <span class="my-lecture-thumb-play">▶</span>
-              <span class="my-lecture-thumb-label">OTC 응대 시리즈</span>
+            <div class="my-lecture-thumb">
+              <img class="my-lecture-thumb-img" src="otc-plus/images/today-class-cover.png" alt="OTC 전문 노하우 — 이렇게 일반약 상담하세요" />
+              <span class="my-lecture-thumb-play" aria-hidden="true">▶</span>
             </div>
             <div class="my-lecture-body">
-              <p class="my-lecture-cat">에듀+ · OTC 응대 시리즈</p>
-              <h4 class="my-lecture-title">진통제 응대 완전정복 — 단일/복합 성분 차이</h4>
+              <p class="my-lecture-cat">에듀+ · OTC 전문 노하우</p>
+              <h4 class="my-lecture-title">이렇게 일반약 상담하세요 — 일반약 월매출 1억 노하우</h4>
               <div class="my-lecture-progress">
                 <div class="my-lecture-progress-bar"><span style="width: 30%"></span></div>
                 <span class="my-lecture-progress-text">30%</span>
@@ -291,5 +248,44 @@
     </div>
   </main>
 
+  <script>
+    (function () {
+      'use strict';
+      const slides = Array.from(document.querySelectorAll('.hero-banner-slide'));
+      const idxEl = document.getElementById('heroSlideIdx');
+      const pauseBtn = document.getElementById('heroPause');
+      if (slides.length < 2) return;
+      let current = 0, paused = false, timer = null;
+
+      function setSlide(i) {
+        current = ((i % slides.length) + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle('is-active', idx === current));
+        if (idxEl) idxEl.textContent = String(current + 1);
+      }
+      function start() {
+        if (timer) return;
+        timer = setInterval(() => { if (!paused) setSlide(current + 1); }, 5000);
+      }
+
+      document.querySelectorAll('.hero-banner-arrow').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const dir = btn.dataset.dir;
+          setSlide(dir === 'next' ? current + 1 : current - 1);
+        });
+      });
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          paused = !paused;
+          pauseBtn.textContent = paused ? '▶' : '❚❚';
+        });
+      }
+      setSlide(0);
+      start();
+    })();
+  </script>
 </body>
 </html>

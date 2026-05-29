@@ -191,7 +191,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 /* 카드 컨테이너 공통 */
 .my-deal,
 .news,
-.open-plus,
+.edu-plus,
 .profile-card,
 .quick-menu,
 .my-lecture,
@@ -212,49 +212,35 @@ h1, h2, h3, h4, h5, p { margin: 0; }
  * ============================================================ */
 .hero-banner {
   position: relative;
-  display: block;
-  height: 120px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: linear-gradient(169deg, #8c08ea 0%, #4c1d95 60%, #070a20 100%);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   isolation: isolate;
+  background: #070a20;
 }
-.hero-banner-text {
+.hero-banner-slides {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 845 / 119;
+}
+.hero-banner-slide {
   position: absolute;
-  left: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-}
-.hero-banner-eyebrow {
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-.hero-banner-title {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: linear-gradient(-27deg, #ffffff 16%, #e8c6ff 147%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.hero-banner-art {
-  position: absolute;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 160px;
-  height: 160px;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity .6s ease;
   pointer-events: none;
-  z-index: 1;
-  filter: drop-shadow(0 4px 20px rgba(140, 8, 234, 0.35));
 }
-.hero-banner-art svg { width: 100%; height: 100%; display: block; }
+.hero-banner-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.hero-banner-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 .hero-banner-paging {
   position: absolute;
   right: 16px;
@@ -280,7 +266,15 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   font-size: 14px;
   line-height: 1;
   opacity: 0.85;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity .15s ease;
 }
+.hero-banner-arrow:hover,
+.hero-banner-pause:hover { opacity: 1; }
 .hero-banner-count em { opacity: 0.5; margin: 0 2px; }
 .hero-banner-count span:last-child { opacity: 0.5; }
 
@@ -386,40 +380,39 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 
 /* ============================================================
- * L4 — 오픈 플러스 + AI 진입 CTA (★ 메인 → 오픈+ AI 동선의 핵심)
+ * OpenPlus AI 배너 (★ 메인 → 오픈+ AI 동선 — 독립 배너)
  * ============================================================ */
-.open-plus-ai {
+.openplus-ai-banner {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 14px 16px 14px 12px;
-  margin-bottom: 14px;
   background: linear-gradient(135deg,
     var(--color-brand-pharmall) 0%,
     var(--color-purple-6) 100%);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   color: #fff;
   transition: transform .15s ease, box-shadow .15s ease;
   box-shadow: 0 6px 20px rgba(47, 84, 235, 0.18);
 }
-.open-plus-ai:hover {
+.openplus-ai-banner:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 28px rgba(47, 84, 235, 0.28);
 }
-.open-plus-ai-icon { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
-.open-plus-ai-text { flex: 1; }
-.open-plus-ai-eyebrow {
+.openplus-ai-banner-icon { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
+.openplus-ai-banner-text { flex: 1; }
+.openplus-ai-banner-eyebrow {
   font: var(--font-caption);
   font-weight: 700;
   letter-spacing: 0.12em;
   opacity: 0.85;
   margin-bottom: 2px;
 }
-.open-plus-ai-title {
+.openplus-ai-banner-title {
   font: var(--font-b2);
   font-weight: 700;
 }
-.open-plus-ai-cta {
+.openplus-ai-banner-cta {
   font: var(--font-b3);
   font-weight: 700;
   padding: 8px 14px;
@@ -428,93 +421,61 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   flex-shrink: 0;
   transition: background .15s ease;
 }
-.open-plus-ai:hover .open-plus-ai-cta { background: rgba(255, 255, 255, 0.28); }
+.openplus-ai-banner:hover .openplus-ai-banner-cta { background: rgba(255, 255, 255, 0.28); }
 
-/* 매물 카드 그리드 — 3개 가로 */
-.op-grid {
+/* ============================================================
+ * L4 — 에듀 플러스 (3 클래스 카드)
+ * ============================================================ */
+.edu-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
-.op-card {
+.edu-card {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color .15s ease, transform .15s ease;
+  background: var(--color-bg-container);
 }
-.op-card:hover {
+.edu-card:hover {
   border-color: var(--color-brand-pharmall);
   transform: translateY(-1px);
 }
-/* 매물 thumb — CSS 그라데이션 + 위치 pin 칩 (실제 이미지 swap 가능) */
-.op-card-thumb {
+.edu-card-thumb {
   position: relative;
-  aspect-ratio: 16 / 9;
-  border-radius: 0;
+  width: 100%;
+  background: var(--color-fill-tertiary);
   overflow: hidden;
 }
-.op-card-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 100% at 50% 100%, rgba(255,255,255,0.18) 0%, transparent 70%),
-    radial-gradient(40% 60% at 20% 20%, rgba(255,255,255,0.25) 0%, transparent 60%);
-  pointer-events: none;
+.edu-card-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.op-thumb-1 { background: linear-gradient(135deg, var(--color-geekblue-4) 0%, var(--color-purple-5) 100%); }
-.op-thumb-2 { background: linear-gradient(135deg, var(--color-blue-5) 0%, var(--color-geekblue-6) 100%); }
-.op-thumb-3 { background: linear-gradient(135deg, var(--color-purple-4) 0%, var(--color-magenta-5) 100%); }
-.op-thumb-pin {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  font-size: 11px;
+.edu-card-body { padding: 12px 14px 14px; }
+.edu-card-cat {
+  font: var(--font-caption);
   font-weight: 600;
-  border-radius: var(--radius-pill);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  color: var(--color-brand-pharmall);
+  margin-bottom: 6px;
 }
-.op-card-body { padding: 12px 14px 14px; }
-.op-card-tags {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-.op-card-title {
+.edu-card-title {
   font: var(--font-b3);
   font-weight: 700;
   color: var(--color-text);
   margin-bottom: 6px;
+  line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.op-card-loc {
+.edu-card-meta {
   font: var(--font-caption);
   color: var(--color-text-tertiary);
-  margin-bottom: 8px;
-}
-.op-card-stat,
-.op-card-price {
-  font: var(--font-caption);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}
-.op-card-stat strong,
-.op-card-price strong {
-  color: var(--color-text);
-  font-weight: 700;
 }
 
 /* ============================================================
@@ -614,24 +575,20 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .my-lecture-thumb {
   position: relative;
-  aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, var(--color-brand-pharmall) 0%, var(--color-purple-6) 100%);
   border-radius: var(--radius-md);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--color-fill-tertiary);
 }
-.my-lecture-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 80% at 70% 30%, rgba(255,255,255,0.25) 0%, transparent 60%),
-    radial-gradient(50% 60% at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 70%);
-  pointer-events: none;
+.my-lecture-thumb-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .my-lecture-thumb-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -640,19 +597,9 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  z-index: 1;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-.my-lecture-thumb-label {
-  position: absolute;
-  bottom: 10px;
-  left: 12px;
-  z-index: 1;
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 14px;
+  padding-left: 2px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 .my-lecture-cat {
   font: var(--font-caption);
