@@ -3697,6 +3697,21 @@ body.ai-page::after {
 body.ai-page > .ai-main { position: relative; z-index: 1; }
 body.ai-page > .ai-side { position: fixed; z-index: 10; }
 
+/* ai.html 의 topnav — 솔리드 흰바탕 (mesh 위에서 가독성), z-index 사이드보다 위 */
+body.ai-page > .topnav-ai {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--color-border-secondary);
+  z-index: 60;
+}
+/* 사이드바는 topnav 아래에서 시작 */
+body.ai-page .topnav-ai ~ .ai-side {
+  top: 72px;
+}
+/* topnav 가 brand 를 보여주니 사이드바 안 로고는 숨김 */
+body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
+
 /* 좌측 사이드 (확장형: 로고 + 새 대화 + 히스토리 리스트) */
 .ai-side {
   position: fixed;
