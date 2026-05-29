@@ -785,34 +785,38 @@ p { margin: 0; }
 .section-soft { background: var(--color-bg-container); }
 .banner-section { padding: 0 0 var(--space-section-y); }
 
+/* ============================================================
+ * Upbit-tone 섹션 헤더 스케일 — 타이틀 키우고 sub 키우고 라벨 중성화
+ * ============================================================ */
 .section-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: var(--space-gap-lg);
-  margin-bottom: 32px;
+  margin-bottom: 36px;
   flex-wrap: wrap;
 }
 .eyebrow {
-  font: var(--font-caption);
+  font: var(--font-h6);                 /* 600 12/16 — 작지만 또렷 */
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-brand-pharmall-text);
-  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);    /* brand 색 X — 중성 */
+  margin-bottom: 10px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 .eyebrow-logo { height: 14px; }
 .section-title {
-  font: var(--font-display-6);  /* 700 28/38 — 페이지 타이틀 통일 */
+  font: var(--font-display-5);          /* 700 32/42 — Upbit 톤 ↑ */
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
 }
 .section-sub {
-  font: var(--font-b3);
+  font: var(--font-b2);                 /* 16px — sub 키움 */
   color: var(--color-text-secondary);
-  max-width: 480px;
+  max-width: 560px;
+  letter-spacing: -0.01em;
 }
 .link-more {
   font: var(--font-h5);
@@ -1159,13 +1163,14 @@ p { margin: 0; }
 .eyebrow-source {
   margin-left: 8px;
   padding: 2px 8px;
-  font: var(--font-caption);
+  font: var(--font-h6);
   font-weight: 600;
-  color: var(--color-brand-pharmall);
-  background: var(--color-brand-pharmall-bg);
-  border-radius: var(--radius-pill);
+  color: var(--color-text-tertiary);          /* 중성 */
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-sm);
   letter-spacing: 0;
   vertical-align: middle;
+  text-transform: none;
 }
 
 .data-badge {
@@ -1195,10 +1200,10 @@ p { margin: 0; }
 
 /* ============================================================
  * 2순위 모듈 row — 리뷰 / 품절대체 / 시즌 (3 컬럼)
- * Upbit 톤: 큰 숫자, 명확한 순위, 강한 컨트라스트
+ * Upbit 톤: 큰 타이틀, 중성 라벨, 명확한 위계, 넉넉한 패딩
  * ============================================================ */
-.section-head-tight { margin-bottom: 24px; }
-.section-title-md { font: var(--font-h3); letter-spacing: -0.02em; }
+.section-head-tight { margin-bottom: 28px; }
+.section-title-md { font: var(--font-h1-b); letter-spacing: -0.02em; }   /* 24px bold */
 
 .module-row {
   display: grid;
@@ -1222,48 +1227,70 @@ p { margin: 0; }
 }
 
 .module-head { margin-bottom: 18px; }
+
+/* 라벨 — 중성 + 작음 (강조색 X) */
 .module-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  font: var(--font-caption);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font: var(--font-h6);
   font-weight: 700;
   letter-spacing: 0;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-tertiary);
+  text-transform: none;
 }
-.module-tag-review   { background: var(--color-brand-pharmall-bg); color: var(--color-brand-pharmall); }
-.module-tag-shortage { background: var(--color-volcano-1); color: var(--color-volcano-7); }
-.module-tag-season   { background: var(--color-green-1); color: var(--color-green-7); }
+/* (구) 컬러 변형 룰은 중성 톤으로 통일됨 — 추가 modifier 룰 X */
 
 .module-title {
-  font: var(--font-h4);
-  font-weight: 800;
+  font: var(--font-h1-b);                 /* 700 24px — Upbit 카드 타이틀 톤 */
   color: var(--color-text);
-  margin-bottom: 6px;
-  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  letter-spacing: -0.025em;
 }
 .module-sub {
-  font: var(--font-caption);
+  font: var(--font-b3);
   color: var(--color-text-tertiary);
+  line-height: 1.5;
 }
 
 .module-more {
   margin-top: auto;
-  padding-top: 14px;
-  font: var(--font-caption);
-  font-weight: 600;
-  color: var(--color-text-tertiary);
-  transition: color .15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+  font: var(--font-h6);
+  font-weight: 700;
+  transition: background .15s ease, color .15s ease;
 }
-.module-more:hover { color: var(--color-brand-pharmall); }
+.module-more:hover {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall);
+}
+
+/* 공통: 모듈 안의 콘텐츠 블록 — fill bg 박스로 깔끔하게 구분 (STARTER 패턴) */
+.module-rank,
+.module-swap,
+.module-products {
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  flex: 1;
+}
 
 /* 모듈 1: 리뷰 랭킹 — 원형 배지 + 이름 + 키워드 */
 .module-rank {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 8px;
+  gap: 0;
 }
 .module-rank li {
   display: grid;
@@ -1271,7 +1298,7 @@ p { margin: 0; }
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  border-top: 1px solid var(--color-border-secondary);
+  border-top: 1px solid var(--color-border);
 }
 .module-rank li:first-child { border-top: 0; }
 .module-rank-num {
@@ -1316,8 +1343,7 @@ p { margin: 0; }
 .module-swap {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 8px;
+  gap: 0;
 }
 .module-swap li {
   display: grid;
@@ -1325,7 +1351,7 @@ p { margin: 0; }
   gap: 10px;
   align-items: center;
   padding: 12px 0;
-  border-top: 1px solid var(--color-border-secondary);
+  border-top: 1px solid var(--color-border);
 }
 .module-swap li:first-child { border-top: 0; }
 .swap-from, .swap-to {
@@ -1343,8 +1369,8 @@ p { margin: 0; }
   font-weight: 700;
   padding: 2px 6px;
   border-radius: var(--radius-sm);
-  background: var(--color-volcano-1);
-  color: var(--color-volcano-7);
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-tertiary);
   letter-spacing: 0;
 }
 .swap-name {
@@ -1373,8 +1399,7 @@ p { margin: 0; }
 .module-products {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 8px;
+  gap: 0;
 }
 .module-products li {
   display: grid;
@@ -1382,7 +1407,7 @@ p { margin: 0; }
   gap: 12px;
   align-items: center;
   padding: 10px 0;
-  border-top: 1px solid var(--color-border-secondary);
+  border-top: 1px solid var(--color-border);
 }
 .module-products li:first-child { border-top: 0; }
 .mp-thumb {
@@ -1530,19 +1555,20 @@ p { margin: 0; }
 .atglance-num {
   font: var(--font-h4);
   color: var(--color-text-tertiary);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 .atglance-title {
-  font: var(--font-display-6);
+  font: var(--font-display-4);          /* 700 36/48 — Upbit-tone showcase */
   color: var(--color-text);
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  margin-bottom: 12px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 14px;
 }
 .atglance-sub {
-  font: var(--font-b3);
+  font: var(--font-b2);                 /* 16px */
   color: var(--color-text-secondary);
   margin-bottom: 24px;
+  letter-spacing: -0.01em;
 }
 
 .atglance-filter {
