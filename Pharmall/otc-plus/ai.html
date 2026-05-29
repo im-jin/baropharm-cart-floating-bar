@@ -59,11 +59,10 @@
     </button>
 
     <ul class="ai-history-list">
-      <li><button class="ai-history-item is-active" data-q="타이레놀 500mg 평균 사입가가 얼마예요?" type="button">타이레놀 500mg 평균 사입가가 얼마예요?</button></li>
-      <li><button class="ai-history-item" data-q="약사들이 가장 많이 추천한 종합감기약은?" type="button">약사들이 가장 많이 추천한 종합감기약은?</button></li>
-      <li><button class="ai-history-item" data-q="콘드로이친 들이고 싶은데 뭐가 좋아요?" type="button">콘드로이친 들이고 싶은데 뭐가 좋아요?</button></li>
-      <li><button class="ai-history-item" data-q="약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요" type="button">약국 오픈할 때 갖춰야 할 OTC</button></li>
-      <li><button class="ai-history-item" data-q="후시딘연고 어디서 얼마에 팔리나요?" type="button">후시딘연고 어디서 얼마에 팔리나요?</button></li>
+      <li><button class="ai-history-item is-active" data-q="타이레놀 500mg 10정, 약국 평균 판매가는?" type="button">타이레놀 500mg 10정, 약국 평균 판매가는?</button></li>
+      <li><button class="ai-history-item" data-q="콜대원 지명 손님께 같이 권할 OTC는?" type="button">콜대원 지명 손님께 같이 권할 OTC는?</button></li>
+      <li><button class="ai-history-item" data-q="이석증 손님께 권할 영양제는?" type="button">이석증 손님께 권할 영양제는?</button></li>
+      <li><button class="ai-history-item" data-q="환절기 알러지·감기 일반약 라인업은?" type="button">환절기 알러지·감기 일반약 라인업은?</button></li>
     </ul>
   </aside>
 
@@ -191,7 +190,7 @@
                 "잘 듣는다(34%)", "복용 편의(22%)" 키워드가 가장 자주 언급되었습니다.
               </p>
               <p class="ai-answer-kakao">
-                <span class="ai-answer-kakao-label">단톡방에서도</span>
+                <span class="ai-answer-kakao-label">TIP</span>
                 "타이레놀 500mg 10정 3000원이 대세인가요?" 같은 가격 문의가 가장 자주 올라오는 표준 제품입니다.
                 보험 처방용은 조제용 생산이 중단돼 약국 일반 OTC 를 비보험으로 사용한다는 흐름이 함께 공유되고 있어요.
               </p>
@@ -446,28 +445,28 @@
         '타이레놀 500mg 10정, 약국 평균 판매가는?': [
           { text: '해열·소염·진통 카테고리에서 검색 중...', duration: 1100 },
           { text: '타이레놀정 500mg · 약국 포스 데이터 조회 중...', duration: 1100 },
-          { text: '단톡방 가격 문의 흐름 + 셀링리뷰 분석 중...', duration: 1300 },
+          { text: '약사 가격 트렌드 + 셀링리뷰 분석 중...', duration: 1300 },
           { text: '거래 18,247건 · 셀링리뷰 2,481명 매칭 완료', duration: 1000 },
           { text: '답변 생성 중...', duration: 1100 },
         ],
         '콜대원 지명 손님께 같이 권할 OTC는?': [
           { text: '감기·기침 카테고리에서 검색 중...', duration: 1100 },
           { text: '콜대원 지명 응대 시나리오 매칭 중...', duration: 1100 },
-          { text: '단톡방 추가권유 패턴 + 셀링리뷰 분석 중...', duration: 1300 },
+          { text: '약사 추가권유 패턴 + 셀링리뷰 분석 중...', duration: 1300 },
           { text: '약사 3,840명 권유 데이터 매칭 완료', duration: 1000 },
           { text: '추가권유 TOP 3 답변 생성 중...', duration: 1100 },
         ],
         '이석증 손님께 권할 영양제는?': [
           { text: '카운슬링 카테고리에서 이석증 검색 중...', duration: 1100 },
           { text: 'BPPV 연관 영양제 매칭 중...', duration: 1100 },
-          { text: '단톡방 추천 흐름 + 논문 근거 조회 중...', duration: 1400 },
+          { text: '약사 카운슬링 흐름 + 논문 근거 조회 중...', duration: 1400 },
           { text: '비타민D · 은행잎 · 피크노 매칭 완료', duration: 1000 },
           { text: '답변 생성 중...', duration: 1100 },
         ],
         '환절기 알러지·감기 일반약 라인업은?': [
           { text: '환절기 시즌 OTC 카테고리 조회 중...', duration: 1100 },
           { text: '항히스타민·종합감기·1회용안약 매칭 중...', duration: 1100 },
-          { text: '9월 일반약 순위 + 단톡방 시즌 흐름 분석 중...', duration: 1400 },
+          { text: '9월 일반약 순위 + 시즌 트렌드 분석 중...', duration: 1400 },
           { text: '5개 카테고리 라인업 산출 완료', duration: 1000 },
           { text: '답변 생성 중...', duration: 1100 },
         ],
@@ -479,137 +478,140 @@
         { text: '답변 생성 중...', duration: 1100 },
       ];
 
-      /* 답변 데이터 (바로팜 고유 시나리오) */
+      /* 답변 데이터 (바로팜 고유 데이터 + 약사 TIP 기반) */
       const ANSWERS = {
-        '타이레놀 500mg 평균 사입가가 얼마예요?': {
-          tag: 'OTC 거래 데이터',
-          body: '<p>지난 30일 바로팜 거래 기준 <strong>타이레놀정 500mg</strong>의 평균 사입가는 <strong>₩312</strong>, 범위는 <strong>₩280 ~ ₩340</strong>입니다.</p>' +
-                '<p>5월 들어 약 <strong class="ai-inline-trend">▼ 3.2%</strong> 하락 추세이며, 공급은 원활(평균 입고 1.2일)합니다.</p>' +
-                '<p>약사 <strong>2,481명</strong>의 셀링리뷰 누적 평가에서는 "잘 듣는다(34%)", "복용 편의(22%)" 키워드가 가장 자주 언급되었습니다.</p>',
+        '타이레놀 500mg 10정, 약국 평균 판매가는?': {
+          tag: 'OTC 가격 데이터',
+          body: '<p>약국 포스 데이터 기준 <strong>타이레놀정 500mg 10정</strong>의 약국 평균 판매가는 <strong>₩2,800 ~ ₩3,200</strong>이며, 약사 사이에서 가장 자주 언급되는 가격은 <strong>₩3,000</strong>입니다.</p>' +
+                '<p>바로팜 30일 평균 사입가는 <strong>₩312/정</strong> (10정 박스당 약 <strong>₩3,120</strong>). 마진율은 약 8 ~ 14% 구간이며, 5월 들어 사입가는 <strong class="ai-inline-trend">▼ 3.2%</strong> 하락 추세.</p>' +
+                '<p>약사 <strong>2,481명</strong>의 셀링리뷰에서는 "지명 손님 많음(38%)", "복용 편의(22%)", "단일성분 응대 폭(18%)" 키워드가 가장 자주 언급되었습니다.</p>' +
+                '<p class="ai-answer-kakao"><span class="ai-answer-kakao-label">TIP</span>"타이레놀 500mg 10정 3000원이 대세인가요?" 같은 가격 문의가 가장 자주 올라옵니다. 보험 처방용은 조제용 생산이 중단돼 일반 OTC를 비보험으로 사용한다는 흐름도 함께 공유되고 있어요.</p>',
           facts: [
-            { label: '평균 사입가', value: '<span class="price-blur">₩312</span>' },
-            { label: '30일 변동', value: '<span class="trend-down ai-trend-chip">▼ 3.2%</span>' },
+            { label: '약국 평균 판매가', value: '<span class="price-blur">₩3,000</span>' },
+            { label: '평균 사입가 (정당)', value: '<span class="price-blur">₩312</span>' },
             { label: '30일 거래 건수', value: '18,247<small>건</small>' },
           ],
           guideTitle: '약사 응대 가이드',
           guide: [
-            '<strong>단일성분 vs 복합성분</strong> — 청소년·임산부에게는 아세트아미노펜 단일성분(타이레놀) 권장.',
-            '<strong>1일 최대 4g(8정) 초과 금지</strong> — 간장 부담. 음주자·간장애 환자는 복용 전 상담.',
-            '<strong>중복 복용 주의</strong> — 다른 해열·감기약과 함께 복용 시 아세트아미노펜 합산 점검.',
-            '<strong>지속 통증·발열</strong> — 5일 이상 통증 또는 3일 이상 발열 지속 시 의사 상담 안내.',
-            '<strong>응대 키워드</strong> — "잘 듣는다(34%)", "복용 편의(22%)" 가 약사 평가에서 가장 자주 언급.',
+            '<strong>가격대 응대</strong> — 약사 사이 대세가 ₩3,000. 인근 약국 시세 기준 ±10% 범위 권장.',
+            '<strong>단일성분 vs 복합</strong> — 청소년·임산부에게는 아세트아미노펜 단일성분(타이레놀) 우선.',
+            '<strong>보험 처방용 한계</strong> — 500mg 조제용 단종. ER650 변형 또는 일반 OTC 비보험 사용 안내.',
+            '<strong>1일 최대 4g(8정)</strong> — 음주자·간장애 환자는 복용 전 상담.',
+            '<strong>응대 키워드</strong> — "지명 손님 많음(38%)", "복용 편의(22%)" 가 약사 평가에서 가장 자주 언급.',
           ],
           products: [
             { brand: '한국얀센 · 단일성분', name: '타이레놀정 500mg', spec: '500mg · 10정 (PTP)', status: '유통', reviews: '2,481명', price: '₩312', img: 'product-Tylenol.webp', href: 'detail.html', category: 'fever-pain', categoryName: '해열·소염·진통' },
+            { brand: '한국얀센 · ER 보험용', name: '타이레놀 ER650', spec: '650mg · 24정', status: '유통', reviews: '1,820명', price: '₩285', img: 'product-Tylenol.webp', category: 'fever-pain', categoryName: '해열·소염·진통' },
             { brand: '삼일제약 · 대체 단일성분', name: '부루펜정 200mg', spec: '200mg · 30정 (PTP)', status: '유통', reviews: '1,107명', price: '₩185', img: 'product-Brufen.png', category: 'fever-pain', categoryName: '해열·소염·진통' },
-            { brand: '삼진제약 · 복합 비교', name: '게보린정', spec: '300mg · 10정 (PTP)', status: '유통', reviews: '1,415명', price: '₩418', img: 'product-Geborine.jpg', category: 'fever-pain', categoryName: '해열·소염·진통' },
           ],
           followups: [
-            '타이레놀이알서방정 사입가는?',
-            '타이레놀과 게보린정 비교해줘',
-            '진통제 묶음 사입가 우수 제품?',
+            '타이레놀 ER650, 보험용은 따로 있나요?',
+            '콜대원 지명 손님께 같이 권할 OTC는?',
+            '어린이용 타이레놀시럽, 응대 포인트는?',
           ],
-          source: '바로팜 30일 거래 DB (5/1 – 5/30) · 셀링리뷰 28,400명 누적 · 심평원 약가',
+          source: '바로팜 30일 거래 DB · 약국 포스 판매가 · 약사 가격 트렌드 · 셀링리뷰 28,400명',
         },
 
-        '약사들이 가장 많이 추천한 종합감기약은?': {
-          tag: '셀링리뷰 데이터',
-          body: '<p>약사 <strong>12,400명</strong>의 누적 평가 기준 종합감기약 TOP 3은 <strong>판콜에이내복액 (★4.7)</strong>, <strong>모드콜플러스 (★4.6)</strong>, <strong>화이투벤정 (★4.5)</strong>입니다.</p>' +
-                '<p>약사 평가에서 "복용 편의(31%)", "빠른 효과(24%)", "재구매 높음(18%)" 키워드가 가장 자주 언급되었습니다.</p>' +
-                '<p>5월 들어 감기 시즌 진입으로 회전율이 <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">▲ 22%</strong> 상승했어요.</p>',
+        '콜대원 지명 손님께 같이 권할 OTC는?': {
+          tag: '셀링리뷰 + 약사 권유 패턴',
+          body: '<p>약사 사이에서 가장 자주 공유되는 추가권유 패턴은 <strong>콜대원 + 콜대원 나이트</strong>입니다. "콜대원 지명하는 분께 나이트 하나씩 추가로 권해보고 있어요. 타율 좋아요" — 약사 대표 TIP.</p>' +
+                '<p>그 다음으로 자주 권하는 건 <strong>피로회복 영양제(벤포벨 등)</strong>와 <strong>인후통 한방(갈근탕 6포)</strong>. 환절기 시즌엔 <strong>비타민 C</strong> 추가권유 비중이 올라갑니다.</p>' +
+                '<p>약사 <strong>3,840명</strong>의 셀링리뷰에서 "추가권유 타율 높음(31%)", "재구매 많음(24%)" 키워드 노출.</p>' +
+                '<p class="ai-answer-kakao"><span class="ai-answer-kakao-label">TIP</span>"콜대원 지명하는 분께 나이트 하나씩 추가로 권해보고 있어요" / "이런거 권해 드릴때는 마진 보다는 유명품 위주로 해야 잘 사가셔요" — 약사 권유 노하우가 자주 공유됩니다.</p>',
           facts: [
-            { label: '약사 평가 수', value: '12,400<small>명</small>' },
-            { label: '평균 별점', value: '★ 4.6' },
-            { label: '회전율 (30일)', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 22%</span>' },
+            { label: '대표 추가권유', value: '콜대원 나이트' },
+            { label: '추가권유 타율', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">31%</span>' },
+            { label: '환절기 회전', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 22%</span>' },
           ],
-          guideTitle: '약사 응대 가이드',
+          guideTitle: '약사 추가권유 가이드',
           guide: [
-            '<strong>증상별 분류</strong> — 인후통·콧물 위주 / 기침 위주 / 종합형. 환자 우선 증상 확인 필수.',
-            '<strong>졸음 성분 안내</strong> — 항히스타민(클로르페니라민) 함유 시 졸음 안내. 운전자·학생 주의.',
-            '<strong>임산부·소아</strong> — 액제(시럽) 권장. 슈도에페드린·아세트아미노펜 함량 확인.',
-            '<strong>알코올 금기</strong> — 아세트아미노펜 + 음주 시 간 부담. 복용 중 음주 금지 안내.',
-            '<strong>응대 키워드</strong> — "복용 편의(31%)", "빠른 효과(24%)" 가 가장 자주 언급.',
+            '<strong>콜대원 + 나이트</strong> — 약사 대표 추가권유 패턴. 콜대원 지명 손님은 잠 못 자는 니즈 동반이 잦음.',
+            '<strong>피로회복 영양제</strong> — "이럴 때 좋은 영양제 함 드셔보시죠" 권유 — 마진보다 유명품(벤포벨 등) 우선.',
+            '<strong>인후통 한방</strong> — 갈근탕 6포 구성이 팔기 좋음. 헤란스시럽 같은 라인 동반.',
+            '<strong>환절기 비타민 C</strong> — 종합감기약 + 비타민 C 묶음 회전 ▲ 22%.',
+            '<strong>응대 키워드</strong> — "추가권유 타율 높음(31%)", "재구매 많음(24%)" 자주 언급.',
           ],
           products: [
+            { brand: '대원제약 · 종합감기약', name: '콜대원', spec: '6포 · 1팩', status: '유통', reviews: '2,890명', price: '₩280', img: 'product-Pancol.webp', category: 'cough', categoryName: '감기·기침' },
+            { brand: '대원제약 · 야간형', name: '콜대원 나이트', spec: '6포 · 1팩', status: '유통', reviews: '1,840명', price: '₩380', img: 'product-Modcol.png', category: 'cough', categoryName: '감기·기침' },
+            { brand: '광동제약 · 피로회복', name: '벤포벨정', spec: '60정 · 1박스', status: '유통', reviews: '1,205명', price: '₩520', img: 'product-Vitanew.png', category: 'vitamin', categoryName: '비타민' },
+          ],
+          followups: [
+            '콜대원 나이트 약국 판매가는?',
+            '갈근탕 6포, 잘 팔리는 구성은?',
+            '환절기 추가권유 영양제 TOP',
+          ],
+          source: '바로팜 30일 거래 + 약사 추가권유 패턴 + 셀링리뷰 28,400명',
+        },
+
+        '이석증 손님께 권할 영양제는?': {
+          tag: 'OTC 카운슬링 + 논문 근거',
+          body: '<p>이석증(BPPV) 손님께 약사들이 가장 자주 권하는 영양제는 <strong>비타민 D</strong>, <strong>은행잎엑스</strong>, <strong>피크노제놀</strong> 3종입니다. (병원약과 별개의 보조 케어 영역)</p>' +
+                '<p>약사 카운슬링 시 인용되는 논문 근거: <em>비타민 D 결핍과 BPPV 재발 간의 연관성</em> — 비타민 D 보충이 이석증 재발을 줄일 수 있다는 결론.</p>' +
+                '<p>약사 <strong>1,820명</strong>의 셀링리뷰에서 "재발 케어(28%)", "복용 편의(22%)", "노인 응대(18%)" 키워드 노출.</p>' +
+                '<p class="ai-answer-kakao"><span class="ai-answer-kakao-label">TIP</span>"이석증에 병원약 말고 영양제 개념으로 어떤게 도움이 될까요? 은행잎엑스, 피크노 정도일까요" → "비타민D 추가하셔야합니다. BPPV 재발 연관 논문이 있어요" 흐름이 공유됩니다.</p>',
+          facts: [
+            { label: '대표 카테고리', value: '비타민 D' },
+            { label: '논문 근거', value: 'BPPV ↔ Vit.D 결핍' },
+            { label: '셀링리뷰', value: '1,820<small>명</small>' },
+          ],
+          guideTitle: '약사 카운슬링 가이드',
+          guide: [
+            '<strong>비타민 D 우선</strong> — BPPV 재발 ↔ 비타민D 결핍 연관 논문 다수. 결핍 의심 시 정기 보충 권장.',
+            '<strong>은행잎엑스 보조</strong> — 미세순환 개선 · 어지러움 동반 손님께 부가 권유.',
+            '<strong>피크노제놀</strong> — 항산화 보조. 노인 환자에게 묶음 케어.',
+            '<strong>지속 어지러움</strong> — 2주 이상 지속 또는 빈혈·심혈관 의심 시 병원 상담 안내.',
+            '<strong>응대 키워드</strong> — "재발 케어(28%)", "노인 응대(18%)" 자주 언급.',
+          ],
+          products: [
+            { brand: '종근당 · 비타민D', name: '비타민D 4000IU', spec: '30캡슐 · 1박스', status: '유통', reviews: '892명', price: '₩4,800', img: 'product-Vitanew.png', category: 'vitamin', categoryName: '비타민' },
+            { brand: 'GNM · 은행잎', name: '은행잎엑스', spec: '60정 · 1박스', status: '유통', reviews: '534명', price: '₩7,200', img: 'product-Joins.png', category: 'vitamin', categoryName: '비타민' },
+            { brand: '뉴트리코어 · 항산화', name: '피크노제놀', spec: '60캡슐 · 1박스', status: '유통', reviews: '396명', price: '₩8,400', img: 'product-Chondrogold.png', category: 'vitamin', categoryName: '비타민' },
+          ],
+          followups: [
+            '만성 어지러움에 권할 영양제는?',
+            '노인 균형감각 케어 영양제 TOP',
+            '비타민 D 추천 라인업',
+          ],
+          source: '약사 카운슬링 흐름 · BPPV 논문 근거 · 셀링리뷰 28,400명',
+        },
+
+        '환절기 알러지·감기 일반약 라인업은?': {
+          tag: '시즌 라인업',
+          body: '<p>환절기(9~10월) 회전율 상승 카테고리는 <strong>항히스타민 · 1회용 안약 · 종합감기약 · 진해거담제 · 비타민 C</strong> 5종입니다. 약사 권장 라인업.</p>' +
+                '<p>9월 일반약 순위 기준: <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">항히스타민제 ▲ 28%</strong>, <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">리쥬비넥스 ▲ 14%</strong>. 1회용 안약(케토핀프리 등)은 알러지 시즌 진입 직전 사입 권장 (품절 잦음).</p>' +
+                '<p>약사 <strong>4,128명</strong>의 셀링리뷰에서 "환절기 회전 우수(34%)", "추가권유 좋음(21%)" 키워드 노출.</p>' +
+                '<p class="ai-answer-kakao"><span class="ai-answer-kakao-label">TIP</span>"알러지 1회용 안약 일반약 판매용 뭐가 있나요. 케토핀프리 10관짜리가 품절인가봐요" / "8월은 휴가준비로 일반약도 늘고, 냉방병때문에 감기환자도 늘잖아요" — 시즌 진입 흐름이 공유됩니다.</p>',
+          facts: [
+            { label: '추천 카테고리', value: '5<small>종</small>' },
+            { label: '환절기 회전', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 28%</span>' },
+            { label: '핵심 카테고리', value: '항히스타민' },
+          ],
+          guideTitle: '환절기 라인업 가이드',
+          guide: [
+            '<strong>항히스타민제</strong> — 알러지 1차. 졸음 적은 2세대 우선(세티리진·로라타딘).',
+            '<strong>1회용 안약</strong> — 케토핀프리 10/30관. 시즌 진입 직전 사입 권장 (품절 잦음).',
+            '<strong>종합감기약</strong> — 콜대원·판콜에이·모드콜. 시럽 비중 ↑.',
+            '<strong>진해거담제</strong> — 헤란스시럽 6포. 인후통 동반 시 갈근탕 묶음.',
+            '<strong>비타민 C</strong> — 면역 케어 추가권유. 종합감기약 손님께 묶음 권유 좋음.',
+          ],
+          products: [
+            { brand: '한국얀센 · 1회용 안약', name: '케토핀프리', spec: '10관 · 1박스', status: '품절 빈번', reviews: '1,452명', price: '₩4,200', img: 'product-Brufen.png', category: 'eye', categoryName: '안과' },
             { brand: '동화약품 · 종합감기약', name: '판콜에이내복액', spec: '30mL · 10병', status: '유통', reviews: '4,128명', price: '₩540', img: 'product-Pancol.webp', category: 'cough', categoryName: '감기·기침' },
-            { brand: '일양약품 · 종합감기약', name: '모드콜플러스', spec: '6정 · 1팩 (PTP)', status: '유통', reviews: '2,890명', price: '₩620', img: 'product-Modcol.png', category: 'cough', categoryName: '감기·기침' },
-            { brand: '다케다 · 종합감기약', name: '화이투벤정', spec: '12정 · 1팩 (PTP)', status: '유통', reviews: '2,144명', price: '₩720', img: 'product-Hweetuben.png', category: 'cough', categoryName: '감기·기침' },
+            { brand: '한미약품 · 진해거담', name: '헤란스시럽', spec: '6포 · 1팩', status: '유통', reviews: '892명', price: '₩680', img: 'product-Modcol.png', category: 'cough', categoryName: '진해거담' },
+            { brand: '유한양행 · 비타민C', name: '비타뉴플러스', spec: '60정 · 1박스', status: '유통', reviews: '892명', price: '₩4,800', img: 'product-Vitanew.png', category: 'vitamin', categoryName: '비타민' },
           ],
           followups: [
-            '판콜에이내복액 사입가 추이는?',
-            '졸음 적은 감기약 추천해줘',
-            '어린이 종합감기약 TOP 3',
+            '알러지 1회용 안약 라인업은?',
+            '졸음 적은 항히스타민 추천',
+            '환절기 셀링리뷰 키워드 TOP',
           ],
-          source: 'Sell+ 셀링리뷰 90일 누적 (28,400명 약사) · 바로팜 회전율 데이터',
-        },
-
-        '콘드로이친 들이고 싶은데 뭐가 좋아요?': {
-          tag: '성분 추천',
-          body: '<p>콘드로이친 함유 OTC 중 약사 평가 + 회전율 TOP 3은 <strong>조인스정 (1,200mg)</strong>, <strong>콘드로골드 (글루코사민 복합)</strong>, <strong>콘로신정 (단일)</strong>입니다.</p>' +
-                '<p>고령 환자·관절 통증 응대 시 가장 자주 추천되며, "식후 복용 권장", "비타민 D 콜라보" 안내가 약사 평가에서 가장 자주 등장합니다.</p>' +
-                '<p>최근 30일 콘드로이친 카테고리 회전율은 <strong class="ai-inline-trend" style="color:var(--color-volcano-7)">▲ 24%</strong> 로 안정적 상승 중.</p>',
-          facts: [
-            { label: '평균 사입가', value: '<span class="price-blur">₩4,820</span>' },
-            { label: '회전율 (30일)', value: '<span class="trend-up ai-trend-chip" style="background:var(--color-volcano-1);color:var(--color-volcano-7)">▲ 24%</span>' },
-            { label: '평균 별점', value: '★ 4.5' },
-          ],
-          guideTitle: '약사 추천 가이드',
-          guide: [
-            '<strong>함량 1,200mg 이상</strong> — 1일 권장 섭취량 기준. 함량 낮은 제품은 효과 체감이 낮음.',
-            '<strong>글루코사민 복합</strong> — 50대+ 환자에게 무릎 관절 케어용으로 자주 추천.',
-            '<strong>비타민 D 콜라보</strong> — 골밀도 케어와 함께 노인 환자에게 묶음 추천.',
-            '<strong>식후 복용</strong> — 위장 부담 감소. 공복 복용 시 속쓰림 호소 주의.',
-            '<strong>응대 키워드</strong> — "관절 통증 완화(38%)", "꾸준한 복용 효과(22%)" 가 가장 자주 언급.',
-          ],
-          products: [
-            { brand: 'SK케미칼 · 단일 1,200mg', name: '조인스정 1200', spec: '200mg · 60정', status: '유통', reviews: '1,820명', price: '₩4,980', img: 'product-Joins.png', category: 'muscle-joint', categoryName: '근골격계' },
-            { brand: '대웅제약 · 복합', name: '콘드로골드', spec: '글루코사민 복합 · 90정', status: '유통', reviews: '1,245명', price: '₩5,200', img: 'product-Chondrogold.png', category: 'muscle-joint', categoryName: '근골격계' },
-            { brand: '광동제약 · 단일', name: '콘로신정', spec: '500mg · 60정', status: '유통', reviews: '798명', price: '₩4,280', img: 'product-Chondrosine.png', category: 'muscle-joint', categoryName: '근골격계' },
-          ],
-          followups: [
-            '글루코사민 추천해줘',
-            '50대+ 관절 OTC TOP',
-            '비타민D 묶음 추천',
-          ],
-          source: '바로팜 성분 분류 + 거래 + 셀링리뷰 30일 DB',
-        },
-
-        '약국 오픈할 때 꼭 갖춰야 할 OTC 알려주세요': {
-          tag: '개국 큐레이션',
-          body: '<p>신규 약국 첫 달 필수 OTC, <strong>5개 카테고리 50품목</strong>을 추천합니다.</p>' +
-                '<p><strong>진통제 / 종합감기약 / 소화제 / 외용연고 / 비타민 B군</strong> — 회전율과 셀링리뷰 기준 카테고리별 TOP 10.</p>' +
-                '<p>바로팜 묶음 주문 시 사입가 평균 대비 <strong class="ai-inline-trend">▼ 6.4%</strong>, 첫 달 평균 회전 일수는 <strong>14일</strong>입니다.</p>',
-          facts: [
-            { label: '추천 카테고리', value: '5<small>개</small>' },
-            { label: '묶음 사입가', value: '<span class="trend-down ai-trend-chip">▼ 6.4%</span>' },
-            { label: '평균 회전 일수', value: '14<small>일</small>' },
-          ],
-          guideTitle: '개국 큐레이션 가이드',
-          guide: [
-            '<strong>진통제 (단일·복합)</strong> — 타이레놀·게보린·애드빌·펜잘큐 4종. 청소년/임산부용 단일 필수.',
-            '<strong>종합감기약</strong> — 판콜에이·모드콜 2종. 시즌 진입 시 액제 비중 ↑.',
-            '<strong>소화제</strong> — 베아제·훼스탈 2종. 식후 응대 가장 잦음.',
-            '<strong>외용연고</strong> — 후시딘·마데카솔 2종. 상비약 코너 필수.',
-            '<strong>비타민 B군</strong> — 비타뉴플러스·아로나민 2종. 피로 응대 + 묶음 판매에 유리.',
-          ],
-          products: [
-            { brand: '한국얀센 · 진통제', name: '타이레놀정 500mg', spec: '500mg · 10정 (PTP)', status: '유통', reviews: '2,481명', price: '₩312', img: 'product-Tylenol.webp', href: 'detail.html', category: 'fever-pain', categoryName: '해열·소염·진통' },
-            { brand: '동화약품 · 종합감기약', name: '판콜에이내복액', spec: '30mL · 10병', status: '유통', reviews: '4,128명', price: '₩540', img: 'product-Pancol.webp', category: 'cough', categoryName: '감기·기침' },
-            { brand: '대웅제약 · 소화제', name: '베아제정', spec: '30정 · 1박스', status: '유통', reviews: '1,205명', price: '₩185', img: 'product-Bease.jpg', category: 'stomach', categoryName: '소화·위장' },
-            { brand: '동화약품 · 외용연고', name: '후시딘연고 5g', spec: '5g · 1튜브', status: '유통', reviews: '3,201명', price: '₩2,180', img: 'product-Fucidin.png', category: 'topical', categoryName: '외용 감염' },
-            { brand: '유한양행 · 비타민B', name: '비타뉴플러스', spec: '60정 · 1박스', status: '유통', reviews: '892명', price: '₩4,800', img: 'product-Vitanew.png', category: 'vitamin', categoryName: '비타민' },
-          ],
-          followups: [
-            '진통제 묶음 사입가 BEST',
-            '외용연고 카테고리 TOP 5',
-            '비타민 B군 카테고리 추천',
-          ],
-          source: '바로팜 개국 OTC 큐레이션 + 회전율 + 셀링리뷰 30일 DB',
+          source: '바로팜 9월 일반약 순위 + 약사 시즌 트렌드 + 셀링리뷰 28,400명',
         },
       };
 
       function renderAnswer(q) {
-        const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 평균 사입가가 얼마예요?'];
+        const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 10정, 약국 평균 판매가는?'];
         const root = answerEl;
         if (!root) return;
 
@@ -781,7 +783,7 @@
           answerEl.hidden = false;
 
           const bodyEl = answerEl.querySelector('.ai-answer-body');
-          const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 평균 사입가가 얼마예요?'];
+          const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 10정, 약국 평균 판매가는?'];
 
           const blocks = Array.prototype.filter.call(
             answerEl.children,
