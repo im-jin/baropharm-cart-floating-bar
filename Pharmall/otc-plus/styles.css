@@ -1473,6 +1473,259 @@ p { margin: 0; }
 
 
 /* ============================================================
+ * 의약품 순위 TOP 10 — atglance 대체 패턴
+ * 좌 사이드(랭킹 리스트) + 우 메인(1위 카드 + 동일 효능 그리드)
+ * ============================================================ */
+.medrank {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-gap-md);
+  align-items: start;
+}
+
+/* 좌측 사이드 — TOP 10 랭킹 */
+.medrank-side {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.medrank-side-head {
+  padding: 16px 18px;
+  background: var(--color-brand-pharmall-bg);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.medrank-side-head h3 {
+  font: var(--font-h4-b);
+  color: var(--color-brand-pharmall);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.medrank-side-head p {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.medrank-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 8px 12px;
+}
+.medrank-item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  font: var(--font-b3);
+  transition: background .15s ease;
+}
+.medrank-item:hover { background: var(--color-fill-tertiary); }
+.medrank-num {
+  width: 22px;
+  text-align: center;
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: -0.02em;
+}
+.medrank-item.is-active {
+  background: var(--color-brand-pharmall);
+  color: var(--color-text-light);
+  font-weight: 700;
+}
+.medrank-item.is-active .medrank-num { color: var(--color-text-light); }
+.medrank-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 우측 메인 — 1위 상세 + 동일 효능 */
+.medrank-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-gap-md);
+  min-width: 0;
+}
+
+/* 1위 상세 카드 (좌 정보 / 중 썸 / 우 셀링리뷰) */
+.medrank-featured {
+  display: grid;
+  grid-template-columns: 1fr 200px 280px;
+  gap: 24px;
+  align-items: start;
+  padding: 24px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+}
+.medrank-featured-body { min-width: 0; }
+.medrank-featured-brand {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
+}
+.medrank-featured-name {
+  font: var(--font-h3-b);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.medrank-featured-spec {
+  font: var(--font-caption);
+  color: var(--color-text-secondary);
+  margin-bottom: 14px;
+}
+.medrank-featured-price {
+  font: var(--font-display-5);
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+}
+.medrank-featured-price small {
+  font: var(--font-h4);
+  color: var(--color-text-secondary);
+  margin-left: 4px;
+}
+.medrank-featured-note {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 16px;
+}
+.medrank-featured-cta { display: inline-block; }
+
+.medrank-featured-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-fill-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.medrank-featured-thumb img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+/* 우측 셀링리뷰 정보 */
+.medrank-featured-review {
+  padding: 16px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+}
+.medrank-review-head { margin-bottom: 10px; }
+.medrank-review-head .sellrev-logo { height: 16px; display: block; }
+.medrank-review-meta {
+  font: var(--font-b3);
+  color: var(--color-text);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.medrank-review-meta strong { font-weight: 700; }
+.medrank-featured-review .kw-chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* 동일 효능 의약품 그리드 */
+.medrank-related {
+  padding: 20px 24px 24px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+}
+.medrank-related-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.medrank-related-head h4 {
+  font: var(--font-h4-b);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+.medrank-related-more {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+.medrank-related-more:hover { color: var(--color-brand-pharmall); }
+
+.medrank-related-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.medrank-related-grid li {
+  display: flex;
+  flex-direction: column;
+}
+.mrelated-thumb {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--color-fill-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.mrelated-thumb img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+.mrelated-brand {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 2px;
+}
+.mrelated-name {
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.mrelated-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 6px;
+}
+.mrelated-price {
+  font: var(--font-h6);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 반응형 */
+@media (max-width: 1080px) {
+  .medrank { grid-template-columns: 1fr; }
+  .medrank-side { position: static; }
+  .medrank-featured { grid-template-columns: 1fr; }
+  .medrank-related-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .medrank-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ============================================================
  * NEW PRODUCTS — 이번달 신제품 OTC
  * ============================================================ */
 /* 단순 상품 전시 스타일 — images/이번달신제품.png 패턴 */
