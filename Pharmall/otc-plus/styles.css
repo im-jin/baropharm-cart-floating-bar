@@ -816,9 +816,9 @@ p { margin: 0; }
   letter-spacing: -0.025em;
 }
 .section-sub {
-  font: var(--font-b2);                 /* 16px — sub 키움 */
+  font: var(--font-b3);                 /* 14px — 한 줄로 노출 */
   color: var(--color-text-secondary);
-  max-width: 560px;
+  max-width: none;                      /* 줄바꿈 방지 */
   letter-spacing: -0.01em;
 }
 .link-more {
@@ -1348,60 +1348,49 @@ p { margin: 0; }
   white-space: nowrap;
 }
 
-/* 모듈 2: 품절 → 대체품 스왑 */
-.module-swap {
+/* 모듈 2: 품절 → 대체품 — 테이블 형식 (헤더 + 1-line rows) */
+.module-swap-table {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-.module-swap li {
+.swap-row {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr auto;
   gap: 10px;
   align-items: center;
-  padding: 12px 0;
-  border-top: 1px solid var(--color-border);
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border-secondary);
+  font: var(--font-b3);
+  white-space: nowrap;
+  overflow: hidden;
 }
-.module-swap li:first-child { border-top: 0; }
-.swap-from, .swap-to {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-.swap-from { opacity: 0.7; }
-.swap-flag {
-  display: inline-block;
-  align-self: start;
-  font: var(--font-caption);
-  font-size: 10px;
+.swap-row:first-child { border-top: 0; }
+.swap-header {
+  font: var(--font-h6);
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  background: var(--color-fill-tertiary);
   color: var(--color-text-tertiary);
+  padding: 8px 0;
   letter-spacing: 0;
 }
-.swap-name {
-  font: var(--font-b3);
-  font-weight: 700;
-  color: var(--color-text);
+.swap-rating-h { text-align: right; }
+.swap-from {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+  font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
-.swap-from .swap-name { text-decoration: line-through; color: var(--color-text-tertiary); font-weight: 600; }
-.swap-arrow { color: var(--color-brand-pharmall); flex-shrink: 0; }
-.swap-tag {
-  display: inline-block;
-  align-self: start;
-  font: var(--font-caption);
-  font-size: 11px;
+.swap-to {
+  color: var(--color-text);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.swap-rating {
   font-weight: 700;
   color: var(--color-gold-7);
-  background: var(--color-gold-1);
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
+  text-align: right;
 }
 
 /* 모듈 3: 시즌 추천 — 썸네일 + 정보 */
@@ -1426,6 +1415,17 @@ p { margin: 0; }
   background: linear-gradient(135deg, var(--color-geekblue-1) 0%, var(--color-purple-1) 100%);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--color-border-secondary);
+}
+
+/* 썸네일 공통 — border-secondary 일괄 (사용자 요청) */
+.starter-head img,
+.rank-image,
+.newprod-media,
+.ai-product-image {
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
 }
 .mp-thumb::after {
   content: attr(data-name);
