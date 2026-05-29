@@ -1778,26 +1778,27 @@ p { margin: 0; }
   align-items: center;
 }
 
-/* 워드클라우드 — flex wrap with mixed sizes */
+/* 방사형 워드클라우드 — 각 단어 절대 위치 (중심 정렬) */
 .trend-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 14px 18px;
-  min-height: 300px;
-  padding: 16px;
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
 }
 .tc-word {
+  position: absolute;
   display: inline-block;
   letter-spacing: -0.025em;
   line-height: 1;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
 }
-.tc-xl { font-size: 36px; font-weight: 800; color: var(--color-text); }
-.tc-lg { font-size: 28px; font-weight: 700; color: var(--color-text); }
+.tc-xl { font-size: 38px; font-weight: 800; color: var(--color-text); }
+.tc-lg { font-size: 28px; font-weight: 700; color: var(--color-brand-pharmall); }
 .tc-md { font-size: 20px; font-weight: 600; color: var(--color-text-secondary); }
 .tc-sm { font-size: 16px; font-weight: 500; color: var(--color-text-tertiary); }
-.tc-xs { font-size: 13px; font-weight: 400; color: var(--color-text-tertiary); }
+.tc-xs { font-size: 13px; font-weight: 400; color: var(--color-text-quaternary); }
 
 /* TOP 10 변동 리스트 */
 .trend-list {
