@@ -1388,9 +1388,23 @@ p { margin: 0; }
   text-overflow: ellipsis;
 }
 .swap-rating {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
   font-weight: 700;
-  color: var(--color-gold-7);
+  color: var(--color-text);
   text-align: right;
+}
+
+/* 별점 아이콘 — yellow-6 (옐로우 따뜻) */
+.star-icon { color: var(--color-yellow-6); flex-shrink: 0; }
+.mp-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--color-text);
+  font-weight: 700;
 }
 
 /* 모듈 3: 시즌 추천 — 썸네일 + 정보 */
@@ -1409,14 +1423,15 @@ p { margin: 0; }
 }
 .module-products li:first-child { border-top: 0; }
 .mp-thumb {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--color-geekblue-1) 0%, var(--color-purple-1) 100%);
   position: relative;
   overflow: hidden;
   border: 1px solid var(--color-border-secondary);
 }
+.module-products li { grid-template-columns: 40px 1fr; padding: 8px 0; }
 
 /* 썸네일 공통 — border-secondary 일괄 (사용자 요청) */
 .starter-head img,
