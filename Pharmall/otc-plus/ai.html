@@ -93,6 +93,9 @@
         </button>
       </form>
 
+      <!-- 컨텍스트 진입 시만 노출: "혹시 X 관련해서 궁금하신가요? 큐레이션해드릴게요" -->
+      <p class="ai-prompts-intro" id="aiPromptsIntro" hidden></p>
+
       <ul class="ai-prompts" id="aiPrompts">
         <li>
           <button class="ai-prompt" data-q="타이레놀 500mg 평균 사입가가 얼마예요?" type="button">
@@ -328,12 +331,12 @@
       const formChat = document.getElementById('aiChatInputForm');
       const prompts = document.getElementById('aiPrompts');
 
-      /* 컨텍스트별 홈 (제목 + sub + 추천 프롬프트셋)
-       * URL 의 ctx=detail&product=X 또는 ctx=list&category=Y 에 따라 적용 */
+      /* 컨텍스트별 홈 — 타이틀/sub 는 그대로 두고, 프롬프트 위에 큐레이션 인트로만 추가.
+       * 사용자가 단지 다른 거 물어보러 왔을 수도 있어서 단정하지 않음.
+       * URL 의 ctx=detail&product=X 또는 ctx=list&category=Y 에 따라 적용. */
       const PROMPTS_BY_CTX = {
         'detail:tylenol-500mg': {
-          title: ['타이레놀정 500mg,', '무엇이 궁금하세요?'],
-          sub: '사입가·대체품·셀링리뷰 — 이 제품의 모든 답을 바로팜 데이터로.',
+          introTarget: '타이레놀정 500mg',
           prompts: [
             { q: '타이레놀정 500mg 30일 사입가 추이는?', cat: '사입가', catClass: 'ai-prompt-cat-price' },
             { q: '타이레놀 대체 단일성분 추천해줘', cat: '대체품', catClass: 'ai-prompt-cat-new' },
@@ -342,8 +345,7 @@
           ],
         },
         'list:fever-pain': {
-          title: ['해열·소염·진통 카테고리,', '무엇이 궁금하세요?'],
-          sub: '이 카테고리의 사입가·회전율·약사 평가를 한 번에.',
+          introTarget: '해열·소염·진통 카테고리',
           prompts: [
             { q: '해열·소염·진통 셀링리뷰 TOP 5는?', cat: 'TOP', catClass: 'ai-prompt-cat-review' },
             { q: '진통제 묶음 사입가 우수 제품?', cat: '사입가', catClass: 'ai-prompt-cat-price' },
@@ -352,6 +354,27 @@
           ],
         },
       };
+
+      /* 페이지 첫 로드 시 기본 상태 저장 — 새대화 클릭 시 클린 리셋용 */
+      const __defaults = {};
+      function captureDefaults() {
+        const introEl = document.getElementById('aiPromptsIntro');
+        const promptsEl = document.getElementById('aiPrompts');
+        if (introEl) __defaults.introText = introEl.textContent;
+        if (promptsEl) __defaults.promptsHtml = promptsEl.innerHTML;
+      }
+
+      function renderPromptItems(items) {
+        return items.map(function (p, i) {
+          return '<li style="--i:' + i + '">' +
+            '<button class="ai-prompt" data-q="' + p.q + '" type="button">' +
+              '<svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>' +
+              '<span class="ai-prompt-cat ' + p.catClass + '">' + p.cat + '</span>' +
+              '<span class="ai-prompt-q">' + p.q + '</span>' +
+            '</button>' +
+          '</li>';
+        }).join('');
+      }
 
       function getCtxKey(params) {
         const ctx = params.get('ctx');
@@ -372,30 +395,27 @@
         if (!key || !PROMPTS_BY_CTX[key]) return;
         const cfg = PROMPTS_BY_CTX[key];
 
-        // title (앞부분 + 그라데이션 강조부분)
-        const titleEl = document.querySelector('.ai-home-title');
-        if (titleEl && cfg.title) {
-          titleEl.innerHTML = cfg.title[0] + ' <span class="ai-home-title-accent">' + cfg.title[1] + '</span>';
+        // 인트로 큐레이션 라인 (단정 X, 제안형)
+        const introEl = document.getElementById('aiPromptsIntro');
+        if (introEl && cfg.introTarget) {
+          introEl.innerHTML = '💡 혹시 <strong>' + cfg.introTarget + '</strong> 관련해서 궁금하신가요? 질문을 큐레이션해드릴게요.';
+          introEl.hidden = false;
         }
 
-        // sub
-        const subEl = document.querySelector('.ai-home-sub');
-        if (subEl && cfg.sub) {
-          subEl.textContent = cfg.sub;
-        }
-
-        // 프롬프트 카드 4개 교체
+        // 프롬프트 4개 교체
         const promptsEl = document.getElementById('aiPrompts');
-        if (promptsEl) {
-          promptsEl.innerHTML = cfg.prompts.map(function (p, i) {
-            return '<li style="--i:' + i + '">' +
-              '<button class="ai-prompt" data-q="' + p.q + '" type="button">' +
-                '<svg class="ai-prompt-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>' +
-                '<span class="ai-prompt-cat ' + p.catClass + '">' + p.cat + '</span>' +
-                '<span class="ai-prompt-q">' + p.q + '</span>' +
-              '</button>' +
-            '</li>';
-          }).join('');
+        if (promptsEl) promptsEl.innerHTML = renderPromptItems(cfg.prompts);
+      }
+
+      /* 새대화 — 컨텍스트 완전 리셋 (URL 도 정리) */
+      function resetHomeToClean() {
+        const introEl = document.getElementById('aiPromptsIntro');
+        const promptsEl = document.getElementById('aiPrompts');
+        if (introEl) { introEl.textContent = ''; introEl.hidden = true; }
+        if (promptsEl && __defaults.promptsHtml) promptsEl.innerHTML = __defaults.promptsHtml;
+        // URL 의 ctx/product/category/back/q 다 클리어
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState({}, '', window.location.pathname);
         }
       }
 
@@ -779,6 +799,7 @@
           document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
           if (inputHome) inputHome.value = '';
           hideContextChip();
+          resetHomeToClean();              // 컨텍스트 키워드 싹 날아간 새대화창
           window.scrollTo(0, 0);
         });
       }
@@ -879,7 +900,8 @@
         chip.hidden = false;
       }
 
-      // 컨텍스트별 홈 (제목 + sub + 프롬프트셋) 먼저 적용
+      // 기본 홈 상태 보존 후 컨텍스트 적용
+      captureDefaults();
       applyContextualHome();
 
       // ?q=... 으로 들어오면 자동으로 chat 모드

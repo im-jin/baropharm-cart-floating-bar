@@ -3977,11 +3977,34 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   color: var(--color-text-light);
 }
 
+/* 컨텍스트 큐레이션 인트로 — 작은 정보 톤, 단정 X */
+.ai-prompts-intro {
+  width: 100%;
+  max-width: 720px;
+  margin: 28px auto 6px;
+  padding: 10px 14px;
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+  font-weight: 500;
+  text-align: left;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: ai-fade-up .6s ease-out .55s forwards;
+}
+.ai-prompts-intro strong {
+  font-weight: 700;
+  color: var(--color-brand-pharmall);
+}
+.ai-prompts-intro[hidden] { display: none; }
+
 /* 추천 질문 리스트 — 진입 stagger */
 .ai-prompts {
   width: 100%;
   max-width: 720px;
-  margin: 32px auto 0;
+  margin: 6px auto 0;
   padding: 0;
   list-style: none;
 }
