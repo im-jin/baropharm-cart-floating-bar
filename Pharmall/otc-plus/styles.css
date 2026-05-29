@@ -3211,12 +3211,18 @@ p { margin: 0; }
   margin-top: 8px;
 }
 .btn {
-  height: 36px;
+  height: 40px;
+  padding: 0 18px;
   border-radius: var(--radius-sm);
   font: var(--font-h5);
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
   transition: background .15s ease, color .15s ease, border-color .15s ease;
 }
 .btn-ghost {
