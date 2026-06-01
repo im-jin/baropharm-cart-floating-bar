@@ -610,15 +610,17 @@
           const p = PRODUCTS[key] || {brand:'—', spec:'—', price:'—', reviews:'—', img:'product-Tylenol.webp', kw:[], quote:''};
           const num = idx + 1;
           const kwChips = (p.kw || []).slice(0,2).map(function(k){return '<span class="kw-chip">' + k + '</span>';}).join('');
-          return '<li class="rank-row">' +
+          /* 카드 전체 클릭 → detail.html (제품별 detail 페이지 생기기 전까진 공통으로 타이레놀 detail 로) */
+          return '<li class="rank-row" data-product="' + key + '" style="cursor:pointer">' +
             '<img class="rank-num" src="images/number-' + num + '.svg" alt="' + num + '위" />' +
             '<div class="rank-info">' +
               '<p class="rank-brand">' + p.brand + '</p>' +
               '<h3 class="rank-name">' + key + ' <span class="rank-spec">' + p.spec + '</span> <span class="rank-status">유통</span></h3>' +
               '<p class="rank-price">평균 <span class="price-blur">' + p.price + '</span></p>' +
-              '<button class="rank-cta"><span class="rank-cta-badge">B</span>주문하기' +
-              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
-              '</button>' +
+              '<a class="rank-cta" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(key) + '" target="_blank" rel="noopener">' +
+                '<span class="rank-cta-badge">B</span>바로팜 주문' +
+                '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+              '</a>' +
             '</div>' +
             '<div class="rank-image"><img src="images/' + p.img + '" alt="' + key + '" /></div>' +
             '<div class="rank-review">' +
@@ -629,6 +631,13 @@
             '</div>' +
           '</li>';
         }).join('');
+
+        list.querySelectorAll('.rank-row').forEach(function (row) {
+          row.addEventListener('click', function (e) {
+            if (e.target.closest('a, button')) return; // 카드 안 link/button 은 그대로
+            window.location.href = 'detail.html';
+          });
+        });
       }
 
       const params = new URLSearchParams(window.location.search);
