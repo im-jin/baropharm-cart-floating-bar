@@ -137,6 +137,21 @@
 
       <div class="ai-chat-thread">
 
+        <!-- ───── 인터랙티브 플로우 (진료과 / 우리지역) — URL ?flow=clinic|region 진입 시 JS 가 렌더 ───── -->
+        <section class="ai-flow" id="aiFlow" hidden>
+          <header class="ai-flow-head">
+            <span class="ai-flow-tag" id="aiFlowTag">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 1.5l1.95 5.85L19.8 9.3l-5.85 1.95L12 17.1l-1.95-5.85L4.2 9.3l5.85-1.95z"/></svg>
+              <span id="aiFlowTagText">플로우</span>
+            </span>
+          </header>
+          <p class="ai-flow-intro" id="aiFlowIntro"></p>
+
+          <div class="ai-flow-steps" id="aiFlowSteps"></div>
+
+          <article class="ai-flow-result" id="aiFlowResult" hidden></article>
+        </section>
+
         <!-- 컨텍스트 breadcrumb chip — URL 의 ctx 파라미터에 따라 표시 -->
         <a class="ai-context-chip" id="aiContextChip" href="#" hidden>
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
@@ -822,6 +837,287 @@
       /* 시드에 없는 자유 질의 q → 자동 생성 답변 (LLM 미연동 데모용)
        * 사용자가 일일이 답 안 줘도 모든 키워드에 대해 자연스러운 framing 답이 나옴.
        * 실제 운영 시 backend (Vercel Edge + Anthropic API) 로 교체. */
+      /* ─────── 인터랙티브 플로우 (진료과 / 우리지역) ─────── */
+      const FLOW_DEFS = {
+        clinic: {
+          tagText: '진료과 맞춤 OTC 추천',
+          intro: '주변 병의원 진료과에 맞춰 필요한 OTC 품목을 추천해드릴게요. 가장 가까운 병의원 진료과를 선택해주세요.',
+          steps: [
+            { type: 'choice', label: 'Q1. 진료과 선택', choices: ['내과','이비인후과','소아청소년과','피부과','정형외과','산부인과','치과','한의원','기타'] },
+            { type: 'choice', label: 'Q2. 약국 상황 선택', sub: '선택한 진료과 기준으로 어떤 목적의 추천이 필요하신가요?', choices: ['신규 개국 준비','기존 품목 보강','계절/시즌 대비','품절 대체품 확인'] },
+            { type: 'choice', label: 'Q3. 추천 범위 선택', sub: '어떤 형태로 추천받고 싶으신가요?', choices: ['필수 구비 품목 중심','인기 제품 중심','리뷰 좋은 제품 중심','사입가/마진 고려 제품 중심'] }
+          ]
+        },
+        region: {
+          tagText: '우리지역 인기 OTC',
+          intro: '우리지역에서 많이 찾는 OTC 상품을 찾아드릴게요. 먼저 확인하고 싶은 지역을 입력해주세요.',
+          steps: [
+            { type: 'input', label: 'Q1. 지역 입력', sub: '지금 확인하고 싶은 지역을 시/군/구 단위로 입력해주세요.', placeholder: '예: 서울시 강남구', examples: ['서울시 강남구','서울시 마포구','경기도 성남시','부산시 해운대구'] },
+            { type: 'input', label: 'Q2. 카테고리 입력', sub: '궁금하신 의약품 카테고리를 알려주세요.', placeholder: '예: 감기, 위장약', examples: ['감기','위장약','여드름','영양제','안약','관절','파스','어린이 감기약'] },
+            { type: 'choice', label: 'Q3. 추천 기준 선택', sub: '어떤 기준으로 보고 싶으신가요?', choices: ['최근 인기순','주문 증가순','리뷰 좋은 순','평균 사입가 낮은 순','품절 대체 가능 상품'] }
+          ]
+        }
+      };
+
+      /* 진료과별 추천 카테고리 + 제품 시드 */
+      const CLINIC_RESULT = {
+        '내과': {
+          categories: ['위장약','소화제','변비약','설사약','간장약','영양제'],
+          products: [
+            { name: '베아제정', cat: '소화효소', kw: '식후 응대 28%', price: '₩185', stock: '유통' },
+            { name: '까스활명수', cat: '액제 소화제', kw: '빠른 응급 28%', price: '₩620', stock: '유통' },
+            { name: '겔포스', cat: '제산제', kw: '속쓰림 31%', price: '₩520', stock: '유통' },
+            { name: '우루사', cat: '간장약', kw: '피로회복 동반 24%', price: '₩4,800', stock: '유통' },
+            { name: '벤포벨정', cat: '비타민B군', kw: '추가권유 1위 31%', price: '₩520', stock: '유통' }
+          ]
+        },
+        '이비인후과': {
+          categories: ['종합감기약','진해거담','비염약','인후염 가글','1회용 안약','비타민C'],
+          products: [
+            { name: '판콜에이내복액', cat: '종합감기 시럽', kw: '재구매 多 24%', price: '₩540', stock: '유통' },
+            { name: '콜대원', cat: '종합감기약', kw: '복용 편의 31%', price: '₩280', stock: '유통' },
+            { name: '지르텍정 10mg', cat: '알러지 1차', kw: '환절기 ▲28%', price: '₩430', stock: '유통' },
+            { name: '헤란스시럽', cat: '진해거담', kw: '6포 팔기 좋음', price: '₩680', stock: '유통' },
+            { name: '케토핀프리', cat: '1회용 안약', kw: '품절 잦음', price: '₩4,200', stock: '품절 빈번' }
+          ]
+        },
+        '소아청소년과': {
+          categories: ['어린이 진통','어린이 감기','어린이 비염','어린이 소화','어린이 비타민'],
+          products: [
+            { name: '어린이타이레놀현탁액', cat: '어린이 진통·해열', kw: '의사 권장 19%', price: '₩3,200', stock: '유통' },
+            { name: '콜대원 키즈펜시럽', cat: '어린이 감기', kw: '복용 편의 28%', price: '₩780', stock: '유통' },
+            { name: '챔프시럽', cat: '어린이 진통·해열', kw: '재구매 24%', price: '₩2,800', stock: '유통' },
+            { name: '아이미루', cat: '어린이 영양제', kw: '추가권유 18%', price: '₩6,800', stock: '유통' }
+          ]
+        },
+        '피부과': {
+          categories: ['외용 항생','외용 재생','가려움 외용','자외선 차단','한방 외용'],
+          products: [
+            { name: '후시딘연고 5g', cat: '항생 외용', kw: '상비 표준 34%', price: '₩2,180', stock: '유통' },
+            { name: '마데카솔연고', cat: '재생 케어', kw: '흉터 케어 22%', price: '₩3,200', stock: '유통' },
+            { name: '이지덤 습윤밴드', cat: '습윤밴드', kw: '재구매 24%', price: '₩4,500', stock: '유통' },
+            { name: '리도멕스로션', cat: '가려움', kw: '약사 권장 18%', price: '₩5,800', stock: '유통' }
+          ]
+        },
+        '정형외과': {
+          categories: ['진통제','외용 관절','외용 근육','파스','한방 진통'],
+          products: [
+            { name: '타이레놀정 500mg', cat: '진통 단일성분', kw: '지명 38%', price: '₩312', stock: '유통' },
+            { name: '부루펜정 200mg', cat: 'NSAIDs', kw: '근육통 굿 31%', price: '₩185', stock: '유통' },
+            { name: '케토톱플라스타', cat: '관절 외용', kw: '재구매 28%', price: '₩4,500', stock: '유통' },
+            { name: '안티프라민', cat: '근육 외용', kw: '운동 후 22%', price: '₩2,800', stock: '유통' }
+          ]
+        },
+        '산부인과': {
+          categories: ['진통제 (생리통)','엽산·비타민','철분','비타민D','한방'],
+          products: [
+            { name: '게보린정', cat: '생리통 응대', kw: '단골 선호 19%', price: '₩418', stock: '유통' },
+            { name: '훼로바유정', cat: '철분', kw: '균등공급 품목', price: '₩3,800', stock: '간헐 입고' },
+            { name: '비타민D 4000IU', cat: '비타민D', kw: '논문 근거 28%', price: '₩4,800', stock: '유통' }
+          ]
+        },
+        '치과': {
+          categories: ['진통제','인후염 가글','구내염 외용','비타민C'],
+          products: [
+            { name: '타이레놀정 500mg', cat: '진통 단일성분', kw: '치통 표준 24%', price: '₩312', stock: '유통' },
+            { name: '오라메디연고', cat: '구내염 외용', kw: '약사 권장 22%', price: '₩3,200', stock: '유통' }
+          ]
+        },
+        '한의원': {
+          categories: ['한방 감기','한방 진통','갈근탕','당귀수산','계지복령환'],
+          products: [
+            { name: '갈근탕 6포', cat: '한방 감기', kw: '6포 팔기 좋음', price: '₩2,400', stock: '유통' },
+            { name: '당귀수산', cat: '한방 진통', kw: '계지복령환 동반', price: '₩4,200', stock: '유통' }
+          ]
+        },
+        '기타': {
+          categories: ['일반 인기 OTC','종합비타민','건기식'],
+          products: [
+            { name: '타이레놀정 500mg', cat: '진통', kw: '지명 1위', price: '₩312', stock: '유통' },
+            { name: '벤포벨정', cat: '피로회복', kw: '추가권유 31%', price: '₩520', stock: '유통' }
+          ]
+        }
+      };
+
+      let _flowState = null;
+      function startFlow(type) {
+        const def = FLOW_DEFS[type];
+        if (!def) return;
+        _flowState = { type: type, answers: [], stepIdx: 0 };
+        homeEl.hidden = true;
+        chatEl.hidden = false;
+        loadingEl.hidden = true;
+        answerEl.hidden = true;
+        const flowEl = document.getElementById('aiFlow');
+        const userMsgEl = document.querySelector('.ai-msg-user');
+        const agentMsgEl = document.querySelector('.ai-msg-agent');
+        if (flowEl) flowEl.hidden = false;
+        if (userMsgEl) userMsgEl.hidden = true;
+        if (agentMsgEl) agentMsgEl.hidden = true;
+        document.getElementById('aiFlowTagText').textContent = def.tagText;
+        document.getElementById('aiFlowIntro').textContent = def.intro;
+        document.getElementById('aiFlowResult').hidden = true;
+        document.getElementById('aiFlowSteps').innerHTML = '';
+        renderFlowStep();
+      }
+
+      function renderFlowStep() {
+        const def = FLOW_DEFS[_flowState.type];
+        const stepIdx = _flowState.stepIdx;
+        const step = def.steps[stepIdx];
+        const stepsEl = document.getElementById('aiFlowSteps');
+        if (!step) { renderFlowResult(); return; }
+
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'ai-flow-step';
+        stepDiv.dataset.stepIdx = stepIdx;
+        let html = '<p class="ai-flow-q-label">' + step.label + '</p>';
+        if (step.sub) html += '<p class="ai-flow-q-sub">' + step.sub + '</p>';
+
+        if (step.type === 'choice') {
+          html += '<div class="ai-flow-choices">' +
+            step.choices.map(function (c) {
+              return '<button type="button" class="ai-flow-choice" data-value="' + c + '">' + c + '</button>';
+            }).join('') +
+            '</div>';
+        } else if (step.type === 'input') {
+          html += '<form class="ai-flow-input-form">' +
+            '<input type="text" class="ai-flow-input" placeholder="' + (step.placeholder || '') + '" />' +
+            '<button type="submit" class="ai-flow-input-submit">다음 →</button>' +
+            '</form>';
+          if (step.examples) {
+            html += '<div class="ai-flow-examples">예시:' +
+              step.examples.map(function (e) {
+                return '<button type="button" class="ai-flow-example" data-value="' + e + '">' + e + '</button>';
+              }).join('') +
+              '</div>';
+          }
+        }
+        stepDiv.innerHTML = html;
+        stepsEl.appendChild(stepDiv);
+        setTimeout(function () { stepDiv.classList.add('is-shown'); }, 30);
+
+        if (step.type === 'choice') {
+          stepDiv.querySelectorAll('.ai-flow-choice').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              advanceFlow(btn.dataset.value, stepDiv);
+            });
+          });
+        } else if (step.type === 'input') {
+          const form = stepDiv.querySelector('.ai-flow-input-form');
+          const input = stepDiv.querySelector('.ai-flow-input');
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const v = input.value.trim();
+            if (v) advanceFlow(v, stepDiv);
+          });
+          stepDiv.querySelectorAll('.ai-flow-example').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              input.value = btn.dataset.value;
+              advanceFlow(btn.dataset.value, stepDiv);
+            });
+          });
+        }
+      }
+
+      function advanceFlow(value, stepDiv) {
+        _flowState.answers.push(value);
+        stepDiv.classList.add('is-answered');
+        const html = stepDiv.innerHTML;
+        const labelMatch = html.match(/<p class="ai-flow-q-label">([^<]*)<\/p>/);
+        const label = labelMatch ? labelMatch[1] : '';
+        stepDiv.innerHTML = '<p class="ai-flow-q-label">' + label + '</p><p class="ai-flow-answered"><span class="ai-flow-answered-mark">✓</span>' + value + '</p>';
+        _flowState.stepIdx++;
+        setTimeout(renderFlowStep, 320);
+      }
+
+      function renderFlowResult() {
+        const resultEl = document.getElementById('aiFlowResult');
+        if (!resultEl) return;
+        const type = _flowState.type;
+        const answers = _flowState.answers;
+        let html = '';
+
+        if (type === 'clinic') {
+          const clinic = answers[0];
+          const purpose = answers[1];
+          const scope = answers[2];
+          const r = CLINIC_RESULT[clinic] || CLINIC_RESULT['기타'];
+          html = '<header class="ai-flow-result-head"><span class="ai-flow-result-tag">진료과 맞춤 결과</span><a class="ai-flow-result-deeplink" href="ai.html?q=' + encodeURIComponent(clinic + ' 진료과 ' + scope + ' OTC 추천') + '">바로아이에게 더 깊이 묻기 →</a></header>' +
+            '<p class="ai-flow-result-summary"><strong>' + clinic + '</strong> 기준으로 <strong>' + purpose + '</strong> + <strong>' + scope + '</strong> 우선 구비 OTC 카테고리를 추천드릴게요.</p>' +
+            '<div class="ai-flow-result-cats"><p class="ai-flow-result-label">추천 카테고리</p><div class="ai-flow-cat-chips">' +
+            r.categories.map(function (c) { return '<span class="ai-flow-cat-chip">' + c + '</span>'; }).join('') +
+            '</div></div>' +
+            '<div class="ai-flow-result-cards"><p class="ai-flow-result-label">추천 제품</p>' +
+            r.products.map(function (p) {
+              return '<div class="ai-flow-product">' +
+                '<div class="ai-flow-product-info">' +
+                  '<p class="ai-flow-product-cat">' + p.cat + '</p>' +
+                  '<h4 class="ai-flow-product-name">' + p.name + '</h4>' +
+                  '<p class="ai-flow-product-meta"><span class="ai-flow-product-kw">' + p.kw + '</span> · 평균 사입가 <span class="price-blur">' + p.price + '</span> · <span class="ai-flow-product-stock">' + p.stock + '</span></p>' +
+                '</div>' +
+                '<div class="ai-flow-product-actions">' +
+                  '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
+                  '<a class="ai-flow-product-order" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">바로팜 주문 ↗</a>' +
+                '</div>' +
+              '</div>';
+            }).join('') +
+            '</div>' +
+            '<div class="ai-flow-result-followups"><p class="ai-flow-result-label">이어서 물어보기</p>' +
+            ['이 진료과 기준으로 개국 세트 추천해줘','가격대별로 다시 보여줘','리뷰 좋은 제품만 보여줘','품절 대체품도 알려줘'].map(function (f) {
+              return '<button type="button" class="ai-flow-followup" data-q="' + clinic + ' — ' + f + '">' + f + '</button>';
+            }).join('') +
+            '</div>';
+        } else if (type === 'region') {
+          const region = answers[0];
+          const cat = answers[1];
+          const sort = answers[2];
+          html = '<header class="ai-flow-result-head"><span class="ai-flow-result-tag">우리지역 인기 결과</span><a class="ai-flow-result-deeplink" href="search.html?q=' + encodeURIComponent(cat) + '">전체 검색 결과 보기 →</a></header>' +
+            '<p class="ai-flow-result-summary"><strong>' + region + '</strong>에서 최근 관심이 높은 <strong>' + cat + '</strong> 관련 OTC 상품 (' + sort + ').</p>' +
+            '<div class="ai-flow-result-cards"><p class="ai-flow-result-label">인기 TOP 5</p>' +
+            [1,2,3,4,5].map(function (rank) {
+              const sample = ['타이레놀정 500mg','벤포벨정','콜대원','지르텍정 10mg','베아제정'][rank-1];
+              return '<div class="ai-flow-product">' +
+                '<span class="ai-flow-product-rank">' + rank + '</span>' +
+                '<div class="ai-flow-product-info">' +
+                  '<p class="ai-flow-product-cat">' + cat + ' · ' + region + '</p>' +
+                  '<h4 class="ai-flow-product-name">' + sample + '</h4>' +
+                  '<p class="ai-flow-product-meta"><span class="ai-flow-product-kw">지역 인기 ▲</span> · 평균 사입가 <span class="price-blur">₩' + (200 + rank * 80) + '</span> · 유통</p>' +
+                '</div>' +
+                '<div class="ai-flow-product-actions">' +
+                  '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
+                  '<a class="ai-flow-product-order" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(sample) + '" target="_blank" rel="noopener">바로팜 주문 ↗</a>' +
+                '</div>' +
+              '</div>';
+            }).join('') +
+            '</div>' +
+            '<div class="ai-flow-result-followups"><p class="ai-flow-result-label">이어서 물어보기</p>' +
+            ['이 지역에서 더 잘 나가는 제품 보여줘','가격 낮은 순으로 다시 보여줘','리뷰 좋은 제품만 보여줘','대체품도 같이 알려줘'].map(function (f) {
+              return '<button type="button" class="ai-flow-followup" data-q="' + region + ' ' + cat + ' — ' + f + '">' + f + '</button>';
+            }).join('') +
+            '</div>';
+        }
+
+        resultEl.innerHTML = html;
+        resultEl.hidden = false;
+        setTimeout(function () { resultEl.classList.add('is-shown'); }, 30);
+
+        resultEl.querySelectorAll('.ai-flow-followup').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const q = btn.dataset.q;
+            saveUserHistoryItem(q);
+            renderUserHistory();
+            const flowEl = document.getElementById('aiFlow');
+            const userMsgEl = document.querySelector('.ai-msg-user');
+            const agentMsgEl = document.querySelector('.ai-msg-agent');
+            if (flowEl) flowEl.hidden = true;
+            if (userMsgEl) userMsgEl.hidden = false;
+            if (agentMsgEl) agentMsgEl.hidden = false;
+            gotoChat(q);
+          });
+        });
+      }
+
       function makeGenericAnswer(q) {
         const safe = q.replace(/</g, '&lt;');
         return {
@@ -1237,12 +1533,15 @@
       // ?q=... 으로 들어오면 자동으로 chat 모드 + 히스토리에 추가
       const params = new URLSearchParams(window.location.search);
       const qParam = params.get('q');
+      const flowParam = params.get('flow');
       if (qParam) {
         saveUserHistoryItem(qParam);
         renderUserHistory();
         gotoChat(qParam);
         renderContextChip();
         syncHistoryActive(qParam);
+      } else if (flowParam && FLOW_DEFS[flowParam]) {
+        startFlow(flowParam);
       }
 
       // 사이드바 히스토리 — 현재 질문과 매칭되는 항목 active

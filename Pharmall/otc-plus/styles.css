@@ -5320,6 +5320,266 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   margin: 0 auto !important;
   padding: 16px 24px 140px !important;
 }
+/* ─────── 인터랙티브 플로우 (진료과 / 우리지역) ─────── */
+.ai-flow {
+  margin: 0 0 32px;
+  padding: 24px 28px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+}
+.ai-flow-head { margin-bottom: 12px; }
+.ai-flow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-caption);
+  font-weight: 700;
+}
+.ai-flow-tag svg { animation: ai-cta-sparkle 1.4s ease-in-out infinite; transform-origin: center; }
+.ai-flow-intro {
+  font: var(--font-h5);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+.ai-flow-steps { display: flex; flex-direction: column; gap: 18px; }
+.ai-flow-step {
+  padding: 16px 18px;
+  background: var(--color-fill-tertiary);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.ai-flow-step.is-shown { opacity: 1; transform: translateY(0); }
+.ai-flow-step.is-answered { background: var(--color-brand-pharmall-bg); }
+.ai-flow-q-label {
+  font: var(--font-b2);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+.ai-flow-q-sub {
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  margin: 0 0 12px;
+}
+.ai-flow-answered {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-b3);
+  font-weight: 600;
+}
+.ai-flow-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.ai-flow-choice {
+  padding: 9px 16px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  font: var(--font-b3);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.ai-flow-choice:hover {
+  border-color: var(--color-brand-pharmall);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+}
+.ai-flow-input-form { display: flex; gap: 8px; margin-top: 4px; }
+.ai-flow-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-container);
+  font: var(--font-b2);
+  color: var(--color-text);
+  outline: none;
+}
+.ai-flow-input:focus { border-color: var(--color-brand-pharmall); }
+.ai-flow-input-submit {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-b2);
+  font-weight: 700;
+  cursor: pointer;
+}
+.ai-flow-input-submit:hover { filter: brightness(1.05); }
+.ai-flow-examples {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  align-items: center;
+}
+.ai-flow-example {
+  padding: 4px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-container);
+  color: var(--color-text-secondary);
+  font: var(--font-caption);
+  cursor: pointer;
+}
+.ai-flow-example:hover { color: var(--color-brand-pharmall-text); }
+.ai-flow-result {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-secondary);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.ai-flow-result.is-shown { opacity: 1; transform: translateY(0); }
+.ai-flow-result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ai-flow-result-tag {
+  display: inline-flex;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-caption);
+  font-weight: 700;
+}
+.ai-flow-result-deeplink {
+  font: var(--font-b3);
+  font-weight: 600;
+  color: var(--color-brand-pharmall-text);
+}
+.ai-flow-result-deeplink:hover { text-decoration: underline; }
+.ai-flow-result-summary {
+  font: var(--font-h5);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+.ai-flow-result-label {
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 10px;
+}
+.ai-flow-result-cats { margin-bottom: 24px; }
+.ai-flow-cat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ai-flow-cat-chip {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-b3);
+  font-weight: 600;
+}
+.ai-flow-result-cards { margin-bottom: 24px; }
+.ai-flow-product {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.ai-flow-product:last-child { border-bottom: 0; }
+.ai-flow-product-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-b3);
+  font-weight: 700;
+}
+.ai-flow-product-info { min-width: 0; }
+.ai-flow-product-cat {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin: 0 0 2px;
+}
+.ai-flow-product-name {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+.ai-flow-product-meta {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+  margin: 0;
+}
+.ai-flow-product-kw { color: var(--color-brand-pharmall-text); font-weight: 600; }
+.ai-flow-product-stock { color: var(--color-text-secondary); }
+.ai-flow-product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.ai-flow-product-detail,
+.ai-flow-product-order {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: var(--radius-pill);
+  font: var(--font-caption);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ai-flow-product-detail {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text-secondary);
+}
+.ai-flow-product-detail:hover { background: var(--color-fill-secondary); }
+.ai-flow-product-order {
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+}
+.ai-flow-product-order:hover { filter: brightness(1.05); }
+.ai-flow-result-followups { display: flex; flex-wrap: wrap; gap: 8px; }
+.ai-flow-result-followups .ai-flow-result-label { width: 100%; }
+.ai-flow-followup {
+  padding: 8px 14px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  color: var(--color-text-secondary);
+  font: var(--font-b3);
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease;
+}
+.ai-flow-followup:hover {
+  border-color: var(--color-brand-pharmall);
+  color: var(--color-brand-pharmall-text);
+}
+
 .ai-chat-thread {
   display: flex;
   flex-direction: column;
