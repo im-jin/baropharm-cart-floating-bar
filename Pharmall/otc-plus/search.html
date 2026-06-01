@@ -70,34 +70,13 @@
         </div>
       </header>
 
-      <!-- 카테고리 3컬럼 트리 (검색.png 패턴 — 대/중/소분류) -->
+      <!-- 카테고리 3컬럼 트리 (검색.png 패턴 — 대/중/소분류, JS 가 검색어에 따라 채움) -->
       <section class="search-cat-tree">
         <p class="search-cat-tree-label">상품 검색결과</p>
-        <div class="search-cat-tree-grid">
-          <ul class="search-cat-col" aria-label="대분류">
-            <li>외용제 줄임</li>
-            <li class="is-active">구강용제</li>
-            <li>안과용제</li>
-            <li>이비인후과용제</li>
-            <li>비뇨생식기관용제</li>
-            <li>피부질환용제</li>
-          </ul>
-          <ul class="search-cat-col" aria-label="중분류">
-            <li>외용 진통</li>
-            <li>외용 진경</li>
-            <li class="is-active">잇몸·치주 외용</li>
-            <li>구내염 외용</li>
-            <li>구강 위생</li>
-            <li>인후염 외용</li>
-          </ul>
-          <ul class="search-cat-col" aria-label="소분류">
-            <li class="is-active">CARBOXYMETHYLCELLULOSE + POTASSIUM + SODIUM</li>
-            <li>DICLOFENAC</li>
-            <li>BENZYDAMINE</li>
-            <li>CHLORHEXIDINE</li>
-            <li>POVIDONE-IODINE</li>
-            <li>TRIAMCINOLONE</li>
-          </ul>
+        <div class="search-cat-tree-grid" id="searchCatTreeGrid">
+          <ul class="search-cat-col" data-col="0" aria-label="대분류"></ul>
+          <ul class="search-cat-col" data-col="1" aria-label="중분류"></ul>
+          <ul class="search-cat-col" data-col="2" aria-label="소분류"></ul>
         </div>
       </section>
 
@@ -149,7 +128,7 @@
       </div>
 
       <!-- 상품 리스트 -->
-      <ul class="rank-list rank-list-page">
+      <ul class="rank-list rank-list-page" id="searchResultsList">
 
         <li class="rank-row">
 <img class="rank-num" src="images/number-1.svg" alt="1위" />
@@ -471,39 +450,193 @@
 
   <script src="script.js?v=20260601a"></script>
   <script>
-    /* search.html — URL ?q=<keyword> 받아서 헤더 + AI 분석 박스 갱신 */
+    /* search.html — URL ?q=<keyword> 받아 카테고리 트리 / AI 박스 / 카드 리스트 일관 갱신
+     * SEARCH_DB = 키워드 → (카테고리 3뎁스 + 관련 칩 + AI 요약/TIP + 카드 5개) 매핑.
+     * 매칭 안되면 generic fallback. */
     (function () {
+      const PRODUCTS = {
+        '타이레놀정 500mg': {brand:'한국얀센 · 단일성분', spec:'500mg · 10정 (PTP)', price:'₩312', reviews:'2,481명', img:'product-Tylenol.webp', kw:['😌 잘 듣는다 34%','💊 복용 편의 22%'], quote:'지명 진통제 표준. 청소년·임산부 단일성분 권장.'},
+        '게보린정': {brand:'삼진제약 · 복합', spec:'300mg · 10정 (PTP)', price:'₩418', reviews:'1,415명', img:'product-Geborine.jpg', kw:['⚡ 빠른 효과 28%','🤝 단골 선호 19%'], quote:'생리통·두통 응대 표준.'},
+        '부루펜정 200mg': {brand:'삼일제약 · 이부프로펜', spec:'200mg · 30정 (PTP)', price:'₩185', reviews:'1,107명', img:'product-Brufen.png', kw:['🦴 근육통에 굿 31%','⏱ 효과 빠름 18%'], quote:'소염 효과 강조. 위장 보호 안내 동반.'},
+        '베아제정': {brand:'대웅제약 · 소화효소', spec:'30정 · 1박스', price:'₩185', reviews:'1,205명', img:'product-Bease.jpg', kw:['🍽 식후 28%','🤝 단골 19%'], quote:'식후 더부룩함 응대 표준.'},
+        '훼스탈': {brand:'한독 · 복합 소화효소', spec:'30정 · 1박스', price:'₩240', reviews:'920명', img:'product-Bease.jpg', kw:['🍱 소화 25%','💊 부드러움 17%'], quote:'소화효소 복합. 식후 응대 강세.'},
+        '판콜에이내복액': {brand:'동화약품 · 종합감기약', spec:'30mL · 10병', price:'₩540', reviews:'4,128명', img:'product-Pancol.webp', kw:['🥤 마시기 편함 31%','🔁 재구매 多 24%'], quote:'시럽 결품 잦음. 화이투벤·모드콜로 대체.'},
+        '모드콜플러스': {brand:'일양약품 · 종합감기약', spec:'6정 · 1팩', price:'₩620', reviews:'2,890명', img:'product-Pancol.webp', kw:['💊 복용 편의 24%','⚡ 빠른 효과 18%'], quote:'정제형 종합감기. 학생·직장인 응대.'},
+        '화이투벤정': {brand:'다케다 · 종합감기약', spec:'12정 · 1팩', price:'₩720', reviews:'2,144명', img:'product-Pancol.webp', kw:['🏥 의사 처방 톤 22%'], quote:'복합 감기 응대. 인지도 높음.'},
+        '벤포벨정': {brand:'광동제약 · 피로회복', spec:'60정 · 1박스', price:'₩520', reviews:'1,205명', img:'product-urusa.jpg', kw:['🔁 재구매 多 24%','💪 피로회복 31%'], quote:'추가권유 1순위. 마진 보다 유명품 위주 권유.'},
+        '비타민D 4000IU': {brand:'종근당 · 비타민D', spec:'30캡슐 · 1박스', price:'₩4,800', reviews:'892명', img:'product-urusa.jpg', kw:['🦴 골 케어 28%','👵 노인 응대 18%'], quote:'BPPV(이석증) 재발 ↔ 비타민D 결핍 논문 근거.'},
+        '은행잎엑스': {brand:'GNM · 은행잎', spec:'60정 · 1박스', price:'₩7,200', reviews:'534명', img:'product-urusa.jpg', kw:['🌀 미세순환 22%'], quote:'어지러움 동반 손님 보조 권유.'},
+        '케토핀프리': {brand:'한국얀센 · 1회용 안약', spec:'10관 · 1박스', price:'₩4,200', reviews:'1,452명', img:'product-Brufen.png', kw:['👁 알러지 1차 34%'], quote:'환절기 회전 ▲28%. 품절 잦음 — 시즌 진입 직전 사입.'},
+        '까스활명수': {brand:'동화약품 · 액제 소화제', spec:'75mL · 10병', price:'₩620', reviews:'3,128명', img:'product-Bease.jpg', kw:['🥤 빠른 응급 28%','🔁 재구매 22%'], quote:'급체·복부팽만 즉효 응대. 까스 빠진 활명수도 라인업.'},
+        '겔포스': {brand:'보령 · 액상 제산제', spec:'20mL · 12포', price:'₩520', reviews:'1,820명', img:'product-Bease.jpg', kw:['🔥 속쓰림 31%','💊 복용 편의 18%'], quote:'속쓰림 응대 표준.'},
+        '비타뉴플러스': {brand:'유한양행 · 비타민B군', spec:'60정 · 1박스', price:'₩4,800', reviews:'892명', img:'product-urusa.jpg', kw:['💪 피로 24%','💊 묶음 좋음 18%'], quote:'추가권유 + 묶음 판매에 유리.'}
+      };
+
+      const SEARCH_DB = {
+        '타이레놀': {
+          cat: [['해열·소염·진통','단일성분 진통제','복합 진통제'],
+                ['아세트아미노펜 단독','부루펜 (이부프로펜)','이소프로필안티피린 복합'],
+                ['ACETAMINOPHEN','IBUPROFEN','ACETAMINOPHEN + CAFFEINE']],
+          active: [0,0,0],
+          chips: ['+ 아세트아미노펜','+ 단일성분','+ ER 650','+ 어린이 시럽'],
+          summary: '<strong>‘타이레놀’</strong> 검색 결과 가장 많이 찾으시는 건 <strong>타이레놀정 500mg</strong>, 약국 평균 판매가 <strong>₩2,800~3,200</strong> (대세 <strong>₩3,000</strong>) · 사입가 <strong>₩312/정</strong>.',
+          tip: '청소년·임산부에게는 단일성분(아세트아미노펜) 우선. 보험 처방용 500mg 조제용 단종 → ER650 변형 또는 일반 OTC 비보험 사용 안내가 약사 사이에서 자주 공유됩니다.',
+          count: 434,
+          products: ['타이레놀정 500mg','게보린정','부루펜정 200mg']
+        },
+        '위장약': {
+          cat: [['소화·위장','간·담도','비만·체중'],
+                ['소화효소제','제산제·위산','지사제'],
+                ['PANCREATIN','HYDROTALCITE','ALMAGATE']],
+          active: [0,0,0],
+          chips: ['+ 소화효소','+ 제산제','+ 식후 응대','+ 속쓰림'],
+          summary: '<strong>‘위장약’</strong> 검색 결과 가장 많이 찾으시는 건 <strong>베아제정 · 까스활명수 · 겔포스</strong>. 약사 평균 추가권유 타율 <strong>24%</strong>.',
+          tip: '식후 더부룩함은 소화효소제(베아제·훼스탈), 신트림·속쓰림은 제산제(겔포스). 만성·재발 시 H2 차단제 권유 또는 병원 안내.',
+          count: 287,
+          products: ['베아제정','까스활명수','겔포스']
+        },
+        '감기': {
+          cat: [['감기·기침','진해거담','비염·알러지'],
+                ['종합감기약','졸음 적음(2세대)','시럽·액제'],
+                ['ACETAMINOPHEN + CHLORPHENIRAMINE','PSEUDOEPHEDRINE','DEXTROMETHORPHAN']],
+          active: [0,0,0],
+          chips: ['+ 종합감기약','+ 코감기','+ 인후염','+ 졸음 적음'],
+          summary: '<strong>‘감기약’</strong> TOP 3 — 판콜에이·모드콜·화이투벤. 시즌 회전 <strong>▲22%</strong>, 추가권유 비타민C 묶음 좋음.',
+          tip: '운전자·학생은 졸음 적은 2세대(세티리진/로라타딘) 항히스타민 동반. 어린이는 시럽 권장.',
+          count: 512,
+          products: ['판콜에이내복액','모드콜플러스','화이투벤정']
+        },
+        '영양제': {
+          cat: [['영양제·비타민','건강기능식품','한방 보조'],
+                ['종합비타민','비타민D · 단일','오메가·콜라겐'],
+                ['VITAMIN B COMPLEX','VITAMIN D3 4000IU','OMEGA-3']],
+          active: [0,1,1],
+          chips: ['+ 종합비타민','+ 비타민 D','+ 오메가','+ 콜라겐'],
+          summary: '<strong>‘영양제’</strong> 약사 권장 라인업 — 벤포벨(피로회복) · 비타민D 4000IU · 은행잎엑스 · 피크노제놀.',
+          tip: '환절기엔 비타민C 추가권유 타율 높음. 이석증·고령엔 비타민D 우선(BPPV 논문 근거).',
+          count: 892,
+          products: ['벤포벨정','비타민D 4000IU','은행잎엑스']
+        },
+        '안약': {
+          cat: [['안과용제','이비인후과용제','피부질환용제'],
+                ['알러지 안약','인공눈물','항생제 안약'],
+                ['KETOTIFEN','SODIUM HYALURONATE','OFLOXACIN']],
+          active: [0,0,0],
+          chips: ['+ 1회용 안약','+ 알러지 안약','+ 인공눈물','+ 케토핀프리'],
+          summary: '<strong>‘안약’</strong> 환절기 라인업 — 케토핀프리(1회용 알러지) 회전 <strong>▲28%</strong>. 품절 빈도 1위.',
+          tip: '1회용 10관/30관 시즌 진입 직전 사입 권장. 만성 알러지엔 항히스타민제 (경구) 동반.',
+          count: 145,
+          products: ['케토핀프리','벤포벨정','비타뉴플러스']
+        },
+        '콜대원': {
+          cat: [['감기·기침','진해거담','종합'],
+                ['액제 종합감기약','정제 종합감기약','시럽'],
+                ['ACETAMINOPHEN + DEXTROMETHORPHAN','SODIUM 함유']],
+          active: [0,0,0],
+          chips: ['+ 콜대원 나이트','+ 콜대원 큐','+ 시즌 추가권유','+ 인후염'],
+          summary: '<strong>‘콜대원’</strong> 지명 손님 — 콜대원 + <strong>콜대원 나이트</strong> 추가권유 타율 <strong>31%</strong>. 환절기 비타민C 묶음 좋음.',
+          tip: '"콜대원 지명하는 분께 나이트 하나씩 추가로 권해보고 있어요. 타율 좋아요" — 약사 대표 추가권유 패턴.',
+          count: 87,
+          products: ['판콜에이내복액','모드콜플러스','벤포벨정']
+        }
+      };
+
+      function getResult(q) {
+        if (SEARCH_DB[q]) return SEARCH_DB[q];
+        for (const key in SEARCH_DB) {
+          if (q.indexOf(key) >= 0 || key.indexOf(q) >= 0) return SEARCH_DB[key];
+        }
+        // generic fallback — 검색어를 카테고리에 그대로 뿌림
+        return {
+          cat: [['검색 결과','관련 카테고리','연관 키워드'],
+                [q,'관련 OTC','관련 영양제'],
+                [q,'동일 성분 OTC','대체 OTC']],
+          active: [0,0,0],
+          chips: ['+ 단일성분','+ 복합성분','+ 시럽','+ 어린이용'].map(function(s){return s.replace('+','+ '+q+' ');}),
+          summary: '<strong>‘' + q + '’</strong> 에 대한 약사 데이터 · 셀링리뷰 · 사입가 추이를 정리하는 중. 더 깊은 답은 바로아이에게.',
+          tip: '검색어와 정확히 매칭되는 카테고리가 시드 데이터에 없어요. 좌측 트리에서 관련 카테고리를 선택하거나, 바로아이 검색으로 자유 질의해 보세요.',
+          count: '—',
+          products: ['타이레놀정 500mg','베아제정','벤포벨정']
+        };
+      }
+
+      function renderCatTree(cat, active) {
+        const grid = document.getElementById('searchCatTreeGrid');
+        if (!grid) return;
+        cat.forEach(function (col, i) {
+          const ul = grid.querySelector('[data-col="' + i + '"]');
+          if (!ul) return;
+          ul.innerHTML = col.map(function (item, idx) {
+            const cls = idx === active[i] ? ' class="is-active"' : '';
+            return '<li' + cls + '>' + item + '</li>';
+          }).join('');
+        });
+      }
+
+      function renderChips(chips) {
+        const el = document.getElementById('searchRelatedChips');
+        if (!el) return;
+        el.innerHTML = chips.map(function (c) {
+          return '<button class="search-related-chip">' + c + '</button>';
+        }).join('');
+      }
+
+      function renderCards(productKeys) {
+        const list = document.getElementById('searchResultsList');
+        if (!list) return;
+        list.innerHTML = productKeys.map(function (key, idx) {
+          const p = PRODUCTS[key] || {brand:'—', spec:'—', price:'—', reviews:'—', img:'product-Tylenol.webp', kw:[], quote:''};
+          const num = idx + 1;
+          const kwChips = (p.kw || []).slice(0,2).map(function(k){return '<span class="kw-chip">' + k + '</span>';}).join('');
+          return '<li class="rank-row">' +
+            '<img class="rank-num" src="images/number-' + num + '.svg" alt="' + num + '위" />' +
+            '<div class="rank-info">' +
+              '<p class="rank-brand">' + p.brand + '</p>' +
+              '<h3 class="rank-name">' + key + ' <span class="rank-spec">' + p.spec + '</span> <span class="rank-status">유통</span></h3>' +
+              '<p class="rank-price">평균 <span class="price-blur">' + p.price + '</span></p>' +
+              '<button class="rank-cta"><span class="rank-cta-badge">B</span>주문하기' +
+              '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+              '</button>' +
+            '</div>' +
+            '<div class="rank-image"><img src="images/' + p.img + '" alt="' + key + '" /></div>' +
+            '<div class="rank-review">' +
+              '<div class="rank-review-head"><img src="images/SellingReview_logo.svg" alt="셀링리뷰" /></div>' +
+              '<p class="rank-review-meta"><strong>' + p.reviews + '</strong>의 약사님들이 이런 점을 좋아하셨어요!</p>' +
+              '<div class="kw-chips">' + kwChips + '</div>' +
+              '<p class="rank-review-quote">' + (p.quote || '') + '</p>' +
+            '</div>' +
+          '</li>';
+        }).join('');
+      }
+
       const params = new URLSearchParams(window.location.search);
-      const q = (params.get('q') || '').trim();
-      if (!q) return;
+      const q = (params.get('q') || '타이레놀').trim();
 
       const qEl = document.getElementById('searchQuery');
       if (qEl) qEl.textContent = '‘' + q + '’';
 
-      // 검색어 관련 칩 placeholder (실 데이터 매칭은 다음 step)
-      const chipsEl = document.getElementById('searchRelatedChips');
-      if (chipsEl) {
-        chipsEl.innerHTML = ['+ 단일성분', '+ 복합성분', '+ 시럽', '+ 어린이용']
-          .map(function (suffix) {
-            return '<button class="search-related-chip">' + q + ' ' + suffix + '</button>';
-          }).join('');
-      }
+      const r = getResult(q);
 
-      // AI 분석 박스 — 검색어로 채움
+      const countEl = document.getElementById('searchCount');
+      if (countEl) countEl.textContent = r.count;
+
+      renderCatTree(r.cat, r.active);
+      renderChips(r.chips);
+
       const summaryEl = document.getElementById('searchAiSummary');
-      if (summaryEl) {
-        summaryEl.innerHTML =
-          '<strong>‘' + q + '’</strong> 검색 결과를 분석했어요. ' +
-          '약사 사이에서 가장 자주 언급되는 가격대와 응대 노하우를 정리한 한 줄 답을 함께 제공합니다.';
-      }
+      if (summaryEl) summaryEl.innerHTML = r.summary;
 
-      // deeplink — 바로아이에게 더 깊이 묻기
+      const tipEl = document.querySelector('.search-ai-tip');
+      if (tipEl) tipEl.innerHTML = '<span class="search-ai-tip-label">TIP</span>' + r.tip;
+
       const deeplinkEl = document.getElementById('searchAiDeeplink');
-      if (deeplinkEl) {
-        deeplinkEl.href = 'ai.html?q=' + encodeURIComponent(q);
-      }
+      if (deeplinkEl) deeplinkEl.href = 'ai.html?q=' + encodeURIComponent(q);
 
-      // 페이지 타이틀
+      renderCards(r.products);
+
+      // tab count + title
+      const firstTabCount = document.querySelector('.list-tab.is-active .list-tab-count');
+      if (firstTabCount) firstTabCount.textContent = r.count;
       document.title = '‘' + q + '’ 검색 결과 — OTC 플러스 | Pharmall';
     })();
   </script>
