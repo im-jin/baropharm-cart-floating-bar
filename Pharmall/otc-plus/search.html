@@ -59,26 +59,6 @@
         <span class="breadcrumb-current">검색 결과</span>
       </nav>
 
-      <!-- 가로 카테고리 row (상단 필터) -->
-      <div class="cat-row-wrap">
-        <ul class="cat-row">
-          <li><a class="cat-icon" href="#"><img src="images/category-liver-gall.png" alt=""><span>간·담도</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-stomach.png" alt=""><span>위장관</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-oral.png" alt=""><span>구강</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-ent-allergy.png" alt=""><span>비염·알러지</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-muscle-joint.png" alt=""><span>근골격계</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-fever-pain.png" alt=""><span>해열·소염·진통</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-cough.png" alt=""><span>진해거담</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-neuro-mental.png" alt=""><span>신경·정신</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-eye.png" alt=""><span>안과</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-skin-itch.png" alt=""><span>피부염·가려움</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-skin-repair.png" alt=""><span>피부 손상·재생</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-topical.png" alt=""><span>외용 감염</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-vitamin.png" alt=""><span>비타민</span></a></li>
-          <li><a class="cat-icon" href="#"><img src="images/category-women.png" alt=""><span>여성</span></a></li>
-        </ul>
-      </div>
-
       <!-- 검색 결과 헤더 -->
       <header class="search-head">
         <h1 class="search-head-title"><span class="search-head-q" id="searchQuery">‘타이레놀’</span> 검색결과 <span id="searchCount">434</span>개 상품이 검색되었어요</h1>
@@ -89,6 +69,37 @@
           <button class="search-related-chip">타이레놀 + 어린이 시럽</button>
         </div>
       </header>
+
+      <!-- 카테고리 3컬럼 트리 (검색.png 패턴 — 대/중/소분류) -->
+      <section class="search-cat-tree">
+        <p class="search-cat-tree-label">상품 검색결과</p>
+        <div class="search-cat-tree-grid">
+          <ul class="search-cat-col" aria-label="대분류">
+            <li>외용제 줄임</li>
+            <li class="is-active">구강용제</li>
+            <li>안과용제</li>
+            <li>이비인후과용제</li>
+            <li>비뇨생식기관용제</li>
+            <li>피부질환용제</li>
+          </ul>
+          <ul class="search-cat-col" aria-label="중분류">
+            <li>외용 진통</li>
+            <li>외용 진경</li>
+            <li class="is-active">잇몸·치주 외용</li>
+            <li>구내염 외용</li>
+            <li>구강 위생</li>
+            <li>인후염 외용</li>
+          </ul>
+          <ul class="search-cat-col" aria-label="소분류">
+            <li class="is-active">CARBOXYMETHYLCELLULOSE + POTASSIUM + SODIUM</li>
+            <li>DICLOFENAC</li>
+            <li>BENZYDAMINE</li>
+            <li>CHLORHEXIDINE</li>
+            <li>POVIDONE-IODINE</li>
+            <li>TRIAMCINOLONE</li>
+          </ul>
+        </div>
+      </section>
 
       <!-- AI 분석 박스 (검색 결과 상단) -->
       <section class="search-ai-box" id="searchAiBox">
@@ -458,7 +469,7 @@
     <span>바로아이에게 묻기</span>
   </button>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260601a"></script>
   <script>
     /* search.html — URL ?q=<keyword> 받아서 헤더 + AI 분석 박스 갱신 */
     (function () {

@@ -3580,6 +3580,62 @@ p { margin: 0; }
   background: var(--color-brand-pharmall-bg);
 }
 
+/* 검색 결과 카테고리 3컬럼 트리 (검색.png 패턴) */
+.search-cat-tree {
+  margin: 0 0 24px;
+  padding: 18px 20px;
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+}
+.search-cat-tree-label {
+  margin: 0 0 12px;
+  font: var(--font-b3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.search-cat-tree-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+.search-cat-col {
+  list-style: none;
+  margin: 0;
+  padding: 0 14px;
+  border-right: 1px solid var(--color-border-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.search-cat-col:first-child { padding-left: 0; }
+.search-cat-col:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+.search-cat-col li {
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  font: var(--font-b3);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+.search-cat-col li:hover {
+  background: var(--color-fill-tertiary);
+  color: var(--color-text);
+}
+.search-cat-col li.is-active {
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font-weight: 600;
+}
+.search-cat-col li.is-active::after {
+  content: ' ›';
+  margin-left: 4px;
+  color: var(--color-brand-pharmall);
+}
+
 /* AI 분석 박스 — 검색 결과 상단 */
 .search-ai-box {
   margin-bottom: 28px;
