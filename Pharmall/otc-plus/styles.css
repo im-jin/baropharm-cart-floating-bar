@@ -1182,10 +1182,11 @@ p { margin: 0; }
 }
 .flow-entry-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 36px 32px 32px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 24px 28px;
   border-radius: var(--radius-lg);
   background: var(--color-bg-container);
   border: 1px solid var(--color-border-secondary);
@@ -1215,13 +1216,19 @@ p { margin: 0; }
   border-radius: var(--radius-md);
   background: var(--color-brand-pharmall);
   color: var(--color-bg-container);
-  margin-bottom: 4px;
+  flex-shrink: 0;
 }
 .flow-entry-card-region .flow-entry-icon {
   background: var(--color-purple-6);
 }
+.flow-entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
 .flow-entry-title {
-  font: var(--font-h3);
+  font: var(--font-h4);
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -1229,13 +1236,13 @@ p { margin: 0; }
 .flow-entry-sub {
   font: var(--font-b3);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 .flow-entry-cta {
   display: inline-flex;
   align-items: center;
-  margin-top: auto;
-  font: var(--font-b2);
+  margin-top: 4px;
+  font: var(--font-b3);
   font-weight: 700;
   color: var(--color-brand-pharmall-text);
 }
