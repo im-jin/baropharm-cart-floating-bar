@@ -1173,13 +1173,78 @@ p { margin: 0; }
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-gap-md);
 }
+
+/* ── 개국 OTC 가이드 — 단일 박스 + 5개 row (사용자 의도 B 변형) ── */
+.pack-guide {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.pack-guide-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pack-guide-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border-secondary);
+  transition: background .15s ease;
+}
+.pack-guide-row:last-child { border-bottom: 0; }
+.pack-guide-row:hover { background: var(--color-fill-tertiary); }
+.pack-guide-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+.pack-guide-info {
+  min-width: 0;
+}
+.pack-guide-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.pack-guide-sub {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+.pack-guide-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-caption);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .15s ease, color .15s ease;
+}
+.pack-guide-arrow svg { animation: ai-cta-sparkle 1.4s ease-in-out infinite; transform-origin: center; }
+.pack-guide-row:hover .pack-guide-arrow {
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+}
 .starter-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
   background: var(--color-bg-container);
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-md);
-  padding: 20px;
+  padding: 28px 20px 20px;
+  cursor: pointer;
   transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 .starter-card:hover {
@@ -1187,16 +1252,41 @@ p { margin: 0; }
   transform: translateY(-2px);
   box-shadow: var(--shadow-on-gray-200);
 }
-.starter-head {
-  display: grid;
-  grid-template-columns: 40px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 14px;
+.starter-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 4px;
 }
-.starter-head img { width: 40px; height: 40px; object-fit: contain; }
-.starter-title-block h3 { font: var(--font-h4); color: var(--color-text); margin-bottom: 2px; }
-.starter-title-block p  { font: var(--font-caption); color: var(--color-text-tertiary); }
+.starter-title {
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.starter-sub {
+  font: var(--font-caption);
+  color: var(--color-text-tertiary);
+  margin-bottom: 12px;
+}
+.starter-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-caption);
+  font-weight: 600;
+  transition: background .15s ease, color .15s ease;
+}
+.starter-arrow svg { animation: ai-cta-sparkle 1.4s ease-in-out infinite; transform-origin: center; }
+.starter-card:hover .starter-arrow {
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+}
+/* 옛 head / title-block / save (마크업 제거됐지만 fallback 차원으로) */
+.starter-head, .starter-title-block, .starter-save { display: none; }
 .starter-save {
   grid-column: 1 / -1;
   margin-top: 4px;
