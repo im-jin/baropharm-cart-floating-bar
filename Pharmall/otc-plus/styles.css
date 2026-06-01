@@ -3458,23 +3458,48 @@ p { margin: 0; }
   padding: 6px 20px 6px 6px;
   border: 0;
   border-radius: var(--radius-pill);
-  background: var(--color-brand-pharmall);
+  background: linear-gradient(120deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-blue-7) 35%,
+    var(--color-purple-6) 65%,
+    var(--color-brand-pharmall) 100%);
+  background-size: 200% 100%;
   color: var(--color-text-light);
   font: var(--font-h5);
   font-weight: 700;
   box-shadow: 0 12px 36px rgba(47, 84, 235, 0.28);
   cursor: pointer;
-  transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+  overflow: hidden;
+  transition: filter .2s ease, box-shadow .2s ease, transform .2s ease;
+  animation: ai-cta-gradient 4.5s ease-in-out infinite;
+}
+.floating-agent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  animation: ai-cta-sweep 3.2s ease-in-out infinite;
+  pointer-events: none;
 }
 .floating-agent-icon {
+  position: relative;
+  z-index: 1;
   width: 40px;
   height: 40px;
   object-fit: contain;
   display: block;
   background: transparent;
 }
+.floating-agent > span {
+  position: relative;
+  z-index: 1;
+}
 .floating-agent:hover {
-  background: var(--color-brand-pharmall-active);
+  filter: brightness(1.05);
   box-shadow: 0 16px 44px rgba(47, 84, 235, 0.36);
   transform: translateY(-2px);
 }

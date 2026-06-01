@@ -619,8 +619,41 @@
         },
       };
 
+      /* 시드에 없는 자유 질의 q → 자동 생성 답변 (LLM 미연동 데모용)
+       * 사용자가 일일이 답 안 줘도 모든 키워드에 대해 자연스러운 framing 답이 나옴.
+       * 실제 운영 시 backend (Vercel Edge + Anthropic API) 로 교체. */
+      function makeGenericAnswer(q) {
+        const safe = q.replace(/</g, '&lt;');
+        return {
+          tag: 'OTC 검색 결과',
+          summary: '<strong>‘' + safe + '’</strong> 에 대한 약사 데이터 · 셀링리뷰 · 사입가 추이를 정리하는 중입니다.',
+          body:
+            '<p><strong>‘' + safe + '’</strong> 검색 결과를 분석 중입니다. 약사 <strong>28,400명</strong>의 셀링리뷰와 바로팜 30일 거래 데이터, 그리고 약사 사이에서 자주 공유되는 응대 노하우를 종합해 한 줄 답을 만들어 드릴게요.</p>' +
+            '<p class="ai-answer-kakao"><span class="ai-answer-kakao-label">DEMO</span>현재 데모 환경에서는 시드 4개 시나리오(타이레놀 가격 · 콜대원 추가권유 · 이석증 영양제 · 환절기 라인업) 만 실제 카톡 기반 답변이 준비되어 있어요. 좌측 사이드바에서 골라 보세요.</p>',
+          facts: [
+            { label: '검색어', value: safe },
+            { label: '시드 매칭', value: '준비 중' },
+            { label: '근거 DB', value: '바로팜 + Sell+' }
+          ],
+          guideTitle: '데모 안내',
+          guide: [
+            '<strong>실제 OTC Agent</strong> — 바로팜 수급/사입 DB + Sell+ 셀링리뷰 + 식약처 허가 공시에 연결돼 자유 질의를 처리합니다.',
+            '<strong>현재 데모</strong> — 4개 시나리오 한정 실제 카톡 데이터 기반 답변 준비.',
+            '<strong>LLM 연동</strong> — Vercel Edge Function + Anthropic API 로 자유 질의 LLM 답변 가능 (다음 step).'
+          ],
+          products: [],
+          followups: [
+            '타이레놀 500mg 10정, 약국 평균 판매가는?',
+            '콜대원 지명 손님께 같이 권할 OTC는?',
+            '이석증 손님께 권할 영양제는?',
+            '환절기 알러지·감기 일반약 라인업은?'
+          ],
+          source: '바로팜 + Sell+ 셀링리뷰 28,400명 (데모 환경)'
+        };
+      }
+
       function renderAnswer(q) {
-        const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 10정, 약국 평균 판매가는?'];
+        const a = ANSWERS[q] || makeGenericAnswer(q);
         const root = answerEl;
         if (!root) return;
 
@@ -796,7 +829,7 @@
           answerEl.hidden = false;
 
           const bodyEl = answerEl.querySelector('.ai-answer-body');
-          const a = ANSWERS[q] || ANSWERS['타이레놀 500mg 10정, 약국 평균 판매가는?'];
+          const a = ANSWERS[q] || makeGenericAnswer(q);
 
           const blocks = Array.prototype.filter.call(
             answerEl.children,
@@ -960,7 +993,25 @@
       if (qParam) {
         gotoChat(qParam);
         renderContextChip();
+        syncHistoryActive(qParam);
       }
+
+      // 사이드바 히스토리 — 현재 질문과 매칭되는 항목 active
+      function syncHistoryActive(q) {
+        document.querySelectorAll('.ai-history-item').forEach(function (btn) {
+          if (btn.dataset.q === q) btn.classList.add('is-active');
+          else btn.classList.remove('is-active');
+        });
+      }
+      // 메인 영역에서 새 질문 (prompt 클릭/follow-up/form submit) 시 동기화
+      ['click', 'submit'].forEach(function (evt) {
+        document.addEventListener(evt, function (e) {
+          setTimeout(function () {
+            const userQ = userQEl && userQEl.textContent;
+            if (userQ) syncHistoryActive(userQ);
+          }, 50);
+        });
+      });
     })();
   </script>
 
