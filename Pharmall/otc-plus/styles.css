@@ -5591,7 +5591,21 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   font: var(--font-caption);
   font-weight: 600;
   flex-shrink: 0;
+  text-decoration: none;
 }
+/* 카드 우측 메인 CTA — 바로팜 외부 이동 (강조 톤) */
+.ai-product-cta-order {
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  transition: background .15s ease, transform .15s ease;
+}
+.ai-product-cta-order:hover {
+  background: var(--color-brand-pharmall-hover);
+  transform: translateY(-1px);
+}
+.ai-product-cta-order svg { stroke: currentColor; }
 
 /* L3 — 답변 안의 제품 액션 chip 행 (장바구니 / 알림 / 카테고리) */
 .ai-product-actions {

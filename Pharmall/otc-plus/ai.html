@@ -696,19 +696,16 @@
             var cat = p.category || '';
             var catName = p.categoryName || '';
             var nameAttr = p.name.replace(/"/g, '&quot;');
-            return '<a class="ai-product-card" href="' + (p.href || '#') + '">' +
+            var baropharmUrl = 'https://www.pharmallplus.com/search?q=' + encodeURIComponent(p.name);
+            return '<div class="ai-product-card">' +
               '<div class="ai-product-image"><img src="images/' + p.img + '" alt="' + p.name + '" /></div>' +
               '<div class="ai-product-info">' +
                 '<p class="ai-product-brand">' + p.brand + '</p>' +
                 '<h3 class="ai-product-name">' + p.name + '</h3>' +
                 '<p class="ai-product-spec">' + p.spec + ' <span class="rank-status">' + p.status + '</span></p>' +
                 '<p class="ai-product-meta">셀링리뷰 <strong>' + p.reviews + '</strong> · 평균 사입가 <span class="price-blur">' + p.price + '</span></p>' +
-                /* L3: 답변 안의 액션 — 카트 / 사입가 알림 / 카테고리 리스트 */
+                /* L3: 답변 안의 액션 — 사입가 알림 / 카테고리 리스트 */
                 '<div class="ai-product-actions">' +
-                  '<button type="button" class="ai-product-action" data-action="cart" data-name="' + nameAttr + '">' +
-                    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>' +
-                    '<span>장바구니</span>' +
-                  '</button>' +
                   '<button type="button" class="ai-product-action" data-action="alert" data-name="' + nameAttr + '">' +
                     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2zM10 21a2 2 0 0 0 4 0"/></svg>' +
                     '<span>사입가 알림</span>' +
@@ -719,8 +716,12 @@
                   '</button>' : '') +
                 '</div>' +
               '</div>' +
-              '<span class="ai-product-cta">상세 보기 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>' +
-            '</a>';
+              '<a class="ai-product-cta ai-product-cta-order" href="' + baropharmUrl + '" target="_blank" rel="noopener">' +
+                '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>' +
+                '바로팜에서 주문' +
+                '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>' +
+              '</a>' +
+            '</div>';
           }).join('');
         }
 
