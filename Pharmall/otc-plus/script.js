@@ -116,10 +116,10 @@
     });
   }
 
-  // 개국 OTC 가이드 — row 전체 클릭 → 바로아이에게 세트 질의
-  document.querySelectorAll('.pack-guide-row').forEach(function (row) {
-    row.addEventListener('click', function () {
-      const q = row.dataset.q;
+  // 개국 OTC 가이드 — 카드 전체 클릭 → 바로아이에게 세트 질의
+  document.querySelectorAll('.pack-guide-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      const q = card.dataset.q;
       if (q) goToAi(q);
     });
   });
