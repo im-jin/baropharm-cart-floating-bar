@@ -3192,6 +3192,27 @@ p { margin: 0; }
   transition: border-color .15s ease, color .15s ease;
 }
 .rank-cta:hover { border-color: var(--color-brand-pharmall); color: var(--color-brand-pharmall-text); }
+
+/* 상세 정보 (내부 link) — 회색 outline + i 아이콘 (배지 X) */
+.rank-cta-secondary {
+  padding: 6px 14px;
+  gap: 6px;
+}
+.rank-cta-secondary:hover {
+  border-color: var(--color-text-tertiary);
+  color: var(--color-text);
+  background: var(--color-fill-tertiary);
+}
+.rank-cta-secondary svg:first-child { color: var(--color-text-tertiary); }
+
+/* AI 답변 product card 우측 2 버튼 세로 stack */
+.ai-product-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
 .rank-cta-badge {
   width: 18px; height: 18px;
   border-radius: var(--radius-pill);

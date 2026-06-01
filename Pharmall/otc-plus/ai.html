@@ -1057,7 +1057,7 @@
                   '<p class="ai-flow-product-meta"><span class="ai-flow-product-kw">' + p.kw + '</span> · 평균 사입가 <span class="price-blur">' + p.price + '</span> · <span class="ai-flow-product-stock">' + p.stock + '</span></p>' +
                 '</div>' +
                 '<div class="ai-flow-product-actions">' +
-                  '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
+                  '<a class="rank-cta rank-cta-secondary" href="detail.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>상세 정보<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></a>' +
                   '<a class="rank-cta" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">' +
                     '<span class="rank-cta-badge">B</span>바로팜 주문' +
                     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
@@ -1088,7 +1088,7 @@
                   '<p class="ai-flow-product-meta"><span class="ai-flow-product-kw">지역 인기 ▲</span> · 평균 사입가 <span class="price-blur">₩' + (200 + rank * 80) + '</span> · 유통</p>' +
                 '</div>' +
                 '<div class="ai-flow-product-actions">' +
-                  '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
+                  '<a class="rank-cta rank-cta-secondary" href="detail.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>상세 정보<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></a>' +
                   '<a class="rank-cta" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(sample) + '" target="_blank" rel="noopener">' +
                     '<span class="rank-cta-badge">B</span>바로팜 주문' +
                     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
@@ -1218,22 +1218,20 @@
                   '</button>' : '') +
                 '</div>' +
               '</div>' +
-              '<a class="rank-cta" href="' + baropharmUrl + '" target="_blank" rel="noopener">' +
-                '<span class="rank-cta-badge">B</span>' +
-                '바로팜 주문' +
-                '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
-              '</a>' +
+              '<div class="ai-product-cta-stack">' +
+                '<a class="rank-cta" href="' + baropharmUrl + '" target="_blank" rel="noopener">' +
+                  '<span class="rank-cta-badge">B</span>' +
+                  '바로팜 주문' +
+                  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+                '</a>' +
+                '<a class="rank-cta rank-cta-secondary" href="detail.html">' +
+                  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' +
+                  '상세 정보' +
+                  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+                '</a>' +
+              '</div>' +
             '</div>';
           }).join('');
-
-          /* 카드 전체 클릭 → detail.html (현재 제품별 detail 페이지 1개라 공통으로 타이레놀) */
-          productsEl.querySelectorAll('.ai-product-card').forEach(function (card) {
-            card.style.cursor = 'pointer';
-            card.addEventListener('click', function (e) {
-              if (e.target.closest('a, button')) return;
-              window.location.href = 'detail.html';
-            });
-          });
         }
 
         // followups
