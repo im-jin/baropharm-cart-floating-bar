@@ -865,15 +865,52 @@
         if (chip) chip.hidden = true;
       }
 
-      // 좌측 사이드 — 히스토리 클릭 / 새 대화 클릭
-      document.querySelectorAll('.ai-history-item').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          document.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
+      /* 사용자 검색 히스토리 — sessionStorage 에 누적, 정적 디폴트 4개 위에 prepend */
+      const DEFAULT_HISTORY_QS = [
+        '타이레놀 500mg 10정, 약국 평균 판매가는?',
+        '콜대원 지명 손님께 같이 권할 OTC는?',
+        '이석증 손님께 권할 영양제는?',
+        '환절기 알러지·감기 일반약 라인업은?'
+      ];
+      function loadUserHistory() {
+        try { return JSON.parse(sessionStorage.getItem('aiUserHistory') || '[]'); } catch (e) { return []; }
+      }
+      function saveUserHistoryItem(q) {
+        if (!q) return;
+        if (DEFAULT_HISTORY_QS.indexOf(q) >= 0) return; // 디폴트와 중복이면 skip
+        let saved = loadUserHistory().filter(function (s) { return s !== q; });
+        saved.unshift(q);
+        saved = saved.slice(0, 6); // 최근 6개
+        try { sessionStorage.setItem('aiUserHistory', JSON.stringify(saved)); } catch (e) {}
+      }
+      function renderUserHistory() {
+        const list = document.querySelector('.ai-history-list');
+        if (!list) return;
+        // 기존 사용자 히스토리 li 제거
+        list.querySelectorAll('li.ai-history-li-user').forEach(function (li) { li.remove() });
+        // 새로 추가 — 정적 디폴트 li 들 앞에 prepend
+        const saved = loadUserHistory();
+        saved.slice().reverse().forEach(function (q) {
+          const li = document.createElement('li');
+          li.className = 'ai-history-li-user';
+          const safe = q.replace(/"/g, '&quot;');
+          li.innerHTML = '<button class="ai-history-item ai-history-item-user" data-q="' + safe + '" type="button">' + q + '</button>';
+          list.insertBefore(li, list.firstChild);
+        });
+      }
+
+      // 좌측 사이드 — 히스토리 클릭 (이벤트 위임으로 동적 항목도 처리)
+      const histListEl = document.querySelector('.ai-history-list');
+      if (histListEl) {
+        histListEl.addEventListener('click', function (e) {
+          const btn = e.target.closest('.ai-history-item');
+          if (!btn) return;
+          histListEl.querySelectorAll('.ai-history-item').forEach(function (b) { b.classList.remove('is-active'); });
           btn.classList.add('is-active');
           gotoChat(btn.dataset.q);
-          hideContextChip(); // 히스토리는 다른 대화 — 이전 컨텍스트 chip 숨김
+          hideContextChip();
         });
-      });
+      }
       const newBtn = document.querySelector('.ai-side-new');
       if (newBtn) {
         newBtn.addEventListener('click', function () {
@@ -935,6 +972,8 @@
           const fbtn = e.target.closest('.ai-followup');
           if (!fbtn) return;
           e.preventDefault();
+          saveUserHistoryItem(fbtn.dataset.q);
+          renderUserHistory();
           gotoChat(fbtn.dataset.q);
         });
       }
@@ -943,6 +982,8 @@
           e.preventDefault();
           const v = (inputHome && inputHome.value || '').trim();
           if (!v) return;
+          saveUserHistoryItem(v);
+          renderUserHistory();
           gotoChat(v);
           renderContextChip();
         });
@@ -952,6 +993,8 @@
           e.preventDefault();
           const v = (inputChat && inputChat.value || '').trim();
           if (!v) return;
+          saveUserHistoryItem(v);
+          renderUserHistory();
           gotoChat(v);
           renderContextChip();
         });
@@ -987,10 +1030,15 @@
       captureDefaults();
       applyContextualHome();
 
-      // ?q=... 으로 들어오면 자동으로 chat 모드
+      // 페이지 로드 시 sessionStorage 의 사용자 히스토리 먼저 렌더
+      renderUserHistory();
+
+      // ?q=... 으로 들어오면 자동으로 chat 모드 + 히스토리에 추가
       const params = new URLSearchParams(window.location.search);
       const qParam = params.get('q');
       if (qParam) {
+        saveUserHistoryItem(qParam);
+        renderUserHistory();
         gotoChat(qParam);
         renderContextChip();
         syncHistoryActive(qParam);
