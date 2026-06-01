@@ -3,7 +3,7 @@
 > 매 세션 끝(`오늘 마침` / `오늘 마무리`)에 갱신. 다음 세션 시작(`이어서`)에 가장 먼저 읽는 파일.
 
 ## 마지막 작업 일자
-2026-05-29
+2026-06-01
 
 ## 현재 상태
 - **4 페이지**: index.html / ai.html / list.html / detail.html
@@ -232,7 +232,76 @@
 5. 복약지도 자동 생성
 
 ### 그 외 남은 작업
-- **검색 vs AI 검색 분리** — HERO 듀얼 탭 (`OTC 검색` / `바로아이에게 묻기`) 또는 단일 인풋 증상형 검색으로 통합 검토 필요.
+- **검색 vs AI 검색 분리** — ~~HERO 듀얼 탭~~ → 인풋(자연어) Enter → search.html / 옆 ✨바로아이 검색 버튼 → ai.html 로 분기 적용 완료 (2026-06-01).
 - **atglance 5개 lens 콘텐츠 채우기** — seeds 의 `otc_trend` / `stockout` 활용.
 - **PROMPTS_BY_CTX variants (detail/list)** 도 카톡 톤으로 — 일관성.
 - **셀링리뷰 게보린/애드빌/베아제** 자리 채우기 (카톡 추가 grep 으로 후보 확보 후).
+
+---
+
+## ✨ 2026-06-01 — search.html 신규 + AI 노출 전략 적용 (큰 step)
+
+### A. HERO 바로아이 검색 CTA + 검색 분기
+- HERO 인풋 옆 **✨ 바로아이 검색 버튼** (그라데이션 흐름 + light sweep + sparkle 떨림, button 안에서만).
+- **chat 인풋 submit / 검색 아이콘** → `search.html?q=...` (일반 OTC 검색).
+- **AI 버튼 클릭** → `ai.html?q=...` (자연어 AI 답변).
+- HERO 시각 정제: XL 사이즈 (height ~56px), 인풋과 버튼 stretch.
+
+### B. 추천 4개 → 별도 흰 바디 섹션
+- "지금 약사님이 많이 궁금해해요!" `section-title` (font-display-5, 32/42 bold).
+- 4개 prompt = 시드 카톡 톤 (타이레놀 판매가 / 콜대원 권유 / 이석증 영양제 / 환절기 라인업).
+- prompt-list = container 풀 폭 (max-width 720 제거), 흰 카드 톤 (border-secondary).
+
+### C. ai.html — summary + 사용자 히스토리 + 가짜답 자동
+- **summary 필드** (한 줄 답) — 답변 본문 최상단 brand-pharmall 강조 박스. 4개 시나리오 + STARTER PACK 6세트 모두.
+- **사용자 검색 히스토리 (sessionStorage)** — search → 더 깊이 묻기 / form submit / followup 클릭 시 자동 누적. 디폴트 4개 위에 prepend.
+- **이벤트 위임** — 동적 히스토리 li 도 클릭 작동.
+- **`makeGenericAnswer(q)` fallback** — ANSWERS 미정의 키도 자연스러운 framing 답 (DEMO 라벨 카톡 박스 + 시드 4개 안내).
+- **답변 제품 카드 → 바로팜 직접 주문 deeplink** (`pharmallplus.com/search?q=<제품명>`, `target="_blank"`).
+
+### D. search.html 신규 (검색.png 패턴 정확히 적용)
+- list.html 베이스 + 검색 결과 헤더 (검색어 + N개 + 확장 칩).
+- **3컬럼 카테고리 트리** (대/중/소분류) — 검색.png 패턴.
+- **AI 분석 박스** (`search-ai-box`) — brand-pharmall-bg + 좌측 보더, "바로아이 분석" 태그 + 한 줄 요약 + TIP + 더 깊이 묻기 deeplink.
+- 탭 (전체/보유/미구매), 카드 5개.
+- **SEARCH_DB** (6 키워드: 타이레놀/위장약/감기/영양제/안약/콜대원) + **PRODUCTS** (15 제품) — 검색어 매칭으로 카테고리 트리/AI 박스/카드 일관 swap. 매칭 안 되면 generic.
+- 인라인 JS — URL `?q=...` 받아 일관 갱신.
+
+### E. 서브 페이지 floating dock → 홈 CTA 스타일 통일
+- list/detail/search 의 floating-agent → linear-gradient 흐름 + 내부 light sweep + brightness hover.
+- index.html 의 floating dock 제거 (HERO 에 CTA 있어 불필요).
+
+### F. STARTER PACK 큐레이션 → 바로아이 가이드 (B 변형)
+- 거짓 묶음 주문 ("▼ 5.8%" 사입가 절감) 제거 — 바로팜은 개별 코드 판매.
+- 5세트 그리드 → 단일 .pack-guide 박스 5 row → **6 카드 3 col × 2 row** (안과 OTC 세트 신규 추가).
+- 카드 클릭 → ai.html?q=세트별 응대 질의 → ANSWERS 6세트 시나리오 (실제 시드 기반 답).
+
+### G. ANSWERS 4 → 10개 시나리오
+| # | 키 | 카테고리 |
+|---|---|---|
+| 1 | 타이레놀 500mg 10정, 약국 평균 판매가는? | 가격 |
+| 2 | 콜대원 지명 손님께 같이 권할 OTC는? | 셀링리뷰 |
+| 3 | 이석증 손님께 권할 영양제는? | 카운슬링 |
+| 4 | 환절기 알러지·감기 일반약 라인업은? | 시즌 |
+| 5 | 개국 진통·해열 세트 | 큐레이션 |
+| 6 | 개국 소화·위장 세트 | 큐레이션 |
+| 7 | 환절기 감기·기침 세트 | 큐레이션 |
+| 8 | 개국 외용·연고 세트 | 큐레이션 |
+| 9 | 개국 비타민·영양 세트 | 큐레이션 |
+| 10 | 개국 안과 OTC 세트 | 큐레이션 |
+
+각 시나리오: tag / summary / body + TIP / facts 3 / guide 5 / products 3 / followups 3 / source.
+
+### H. 시즌 추천 ETC → OTC 브랜드
+- ETC 성분명(세티리진/로라타딘/슈도에페드린/클로르페니라민/펙소페나딘) → OTC 브랜드명 (지르텍/알레그라/케토핀프리/콜대원/판콜에이) 교체.
+
+### I. cache buster
+- `script.js?v=20260601a` — 4개 페이지. 브라우저 캐시 강제 갱신.
+
+### 다음 step 후보 (우선순위)
+★ 1. **detail.html "실전 약사 응대" 박스** — 카톡 시드 selling_review + counseling 그대로 박힘. 전환률 핵심.
+2. **list.html 상단 Sticky AI Bar** + 카드 [AI 추천] 배지.
+3. **PROMPTS_BY_CTX variants (detail/list)** 도 카톡 톤으로.
+4. **atglance 5개 lens 콘텐츠 채우기** — seeds 의 `otc_trend` / `stockout` 활용.
+5. **셀링리뷰 게보린/애드빌/베아제** 자리 채우기.
+6. **LLM 연동** — Vercel Edge + Anthropic API (자유 질의 진짜 답).
