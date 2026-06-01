@@ -1225,6 +1225,15 @@
               '</a>' +
             '</div>';
           }).join('');
+
+          /* 카드 전체 클릭 → detail.html (현재 제품별 detail 페이지 1개라 공통으로 타이레놀) */
+          productsEl.querySelectorAll('.ai-product-card').forEach(function (card) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function (e) {
+              if (e.target.closest('a, button')) return;
+              window.location.href = 'detail.html';
+            });
+          });
         }
 
         // followups
