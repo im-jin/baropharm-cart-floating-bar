@@ -1232,7 +1232,32 @@ p { margin: 0; }
   border-radius: var(--radius-pill);
   background: var(--color-brand-pharmall);
 }
-.starter-cta { width: 100%; }
+.starter-cta {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: linear-gradient(120deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-blue-7) 35%,
+    var(--color-purple-6) 65%,
+    var(--color-brand-pharmall) 100%);
+  background-size: 200% 100%;
+  color: var(--color-bg-container);
+  font: var(--font-b2);
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: filter .2s ease;
+  animation: ai-cta-gradient 4.5s ease-in-out infinite;
+}
+.starter-cta svg { animation: ai-cta-sparkle 1.4s ease-in-out infinite; transform-origin: center; }
+.starter-cta:hover { filter: brightness(1.05); }
 
 /* Phase 3 — STARTER 카드 하단 데이터 뱃지 row */
 .starter-meta {

@@ -116,6 +116,14 @@
     });
   }
 
+  // STARTER PACK 세트 카드 — 클릭 시 바로아이에게 세트 구성 질문
+  document.querySelectorAll('.starter-cta').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const q = btn.dataset.q;
+      if (q) goToAi(q);
+    });
+  });
+
   if (floatingBtn) {
     floatingBtn.addEventListener('click', function () {
       goToAi();
