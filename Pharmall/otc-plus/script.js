@@ -92,11 +92,19 @@
     });
   }
 
+  /* 인풋 submit / 검색 아이콘 → search.html (일반 OTC 검색)
+   * 바로아이 검색 버튼 → ai.html (AI 답변) */
+  function goToSearch(q) {
+    const url = new URL('search.html', window.location.href);
+    if (q) url.searchParams.set('q', q);
+    window.location.href = url.toString();
+  }
+
   if (chatForm) {
     chatForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const v = (chatInput && chatInput.value || '').trim();
-      goToAi(v);
+      goToSearch(v);
     });
   }
 
