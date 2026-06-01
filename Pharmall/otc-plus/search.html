@@ -99,10 +99,20 @@
         </p>
       </section>
 
-      <!-- 탭: 전체만 (보유/미구매 제거) -->
-      <div class="list-tabs" role="tablist">
-        <button class="list-tab is-active" role="tab" aria-selected="true">
-          전체 상품 <span class="list-tab-count">434</span>
+      <!-- 탭 + 엑셀 다운로드 -->
+      <div class="list-tabs-row">
+        <div class="list-tabs" role="tablist">
+          <button class="list-tab is-active" role="tab" aria-selected="true">
+            전체 상품 <span class="list-tab-count">434</span>
+          </button>
+        </div>
+        <button type="button" class="excel-download-btn" id="excelDownload" aria-label="엑셀 다운로드">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M8 13l3 3 5-5"/>
+          </svg>
+          엑셀 다운로드
         </button>
       </div>
 
@@ -663,6 +673,33 @@
       const firstTabCount = document.querySelector('.list-tab.is-active .list-tab-count');
       if (firstTabCount) firstTabCount.textContent = r.count;
       document.title = '‘' + q + '’ 검색 결과 — OTC 플러스 | Pharmall';
+
+      // 엑셀 다운로드 (CSV, UTF-8 BOM 으로 Excel 한글 정상)
+      const excelBtn = document.getElementById('excelDownload');
+      if (excelBtn) {
+        excelBtn.addEventListener('click', function () {
+          const rows = [['제품명','브랜드','스펙','평균 사입가','셀링리뷰','상태','약사 응대 메모']];
+          (r.products || []).forEach(function (key) {
+            const p = PRODUCTS[key] || {};
+            rows.push([key, p.brand || '', p.spec || '', p.price || '', p.reviews || '', '유통', p.quote || '']);
+          });
+          const csv = rows.map(function (row) {
+            return row.map(function (c) {
+              const s = String(c == null ? '' : c).replace(/"/g, '""');
+              return '"' + s + '"';
+            }).join(',');
+          }).join('\n');
+          const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'OTC_' + q + '_검색결과_' + new Date().toISOString().slice(0,10) + '.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
     })();
   </script>
 </body>

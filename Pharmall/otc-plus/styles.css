@@ -3903,6 +3903,40 @@ p { margin: 0; }
   vertical-align: middle;
 }
 
+/* 탭 + 엑셀 다운로드 row (검색 결과) */
+.list-tabs-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 24px 0 16px;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.list-tabs-row .list-tabs {
+  margin: 0;
+  border-bottom: 0;
+}
+.excel-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-container);
+  color: var(--color-text);
+  font: var(--font-b3);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.excel-download-btn:hover {
+  border-color: var(--color-brand-pharmall);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+}
+
 .list-tabs {
   display: flex;
   gap: 4px;
