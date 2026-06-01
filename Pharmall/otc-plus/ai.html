@@ -1058,7 +1058,10 @@
                 '</div>' +
                 '<div class="ai-flow-product-actions">' +
                   '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
-                  '<a class="ai-flow-product-order" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">바로팜 주문 ↗</a>' +
+                  '<a class="rank-cta" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">' +
+                    '<span class="rank-cta-badge">B</span>바로팜 주문' +
+                    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+                  '</a>' +
                 '</div>' +
               '</div>';
             }).join('') +
@@ -1086,7 +1089,10 @@
                 '</div>' +
                 '<div class="ai-flow-product-actions">' +
                   '<a class="ai-flow-product-detail" href="detail.html">OTC Plus 상세</a>' +
-                  '<a class="ai-flow-product-order" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(sample) + '" target="_blank" rel="noopener">바로팜 주문 ↗</a>' +
+                  '<a class="rank-cta" href="https://www.pharmallplus.com/search?q=' + encodeURIComponent(sample) + '" target="_blank" rel="noopener">' +
+                    '<span class="rank-cta-badge">B</span>바로팜 주문' +
+                    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
+                  '</a>' +
                 '</div>' +
               '</div>';
             }).join('') +
@@ -1212,10 +1218,10 @@
                   '</button>' : '') +
                 '</div>' +
               '</div>' +
-              '<a class="ai-product-cta ai-product-cta-order" href="' + baropharmUrl + '" target="_blank" rel="noopener">' +
-                '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>' +
-                '바로팜에서 주문' +
-                '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>' +
+              '<a class="rank-cta" href="' + baropharmUrl + '" target="_blank" rel="noopener">' +
+                '<span class="rank-cta-badge">B</span>' +
+                '바로팜 주문' +
+                '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' +
               '</a>' +
             '</div>';
           }).join('');
