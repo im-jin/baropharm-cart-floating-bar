@@ -586,23 +586,29 @@ p { margin: 0; }
   max-width: none;
 }
 
-/* ── 바로아이 검색 CTA — 버튼 안에서만 light sweep + sparkle 떨림 ── */
+/* ── 바로아이 검색 CTA — 버튼 안 컬러 그라데이션 흐름 + light sweep + sparkle ── */
 .ai-search-cta {
   position: relative;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 18px 26px;
+  padding: 0 22px;
   border: 0;
   border-radius: var(--radius-lg);
-  background: var(--color-brand-pharmall);
+  background: linear-gradient(120deg,
+    var(--color-brand-pharmall) 0%,
+    var(--color-blue-7) 35%,
+    var(--color-purple-6) 65%,
+    var(--color-brand-pharmall) 100%);
+  background-size: 200% 100%;
   color: var(--color-bg-container);
   font: var(--font-h5);
   font-weight: 700;
   cursor: pointer;
   overflow: hidden;
-  transition: background .2s ease;
+  transition: filter .2s ease;
+  animation: ai-cta-gradient 4.5s ease-in-out infinite;
 }
 /* 좌 → 우 light sweep (overflow:hidden 으로 button 안에서만) */
 .ai-search-cta::before {
@@ -612,23 +618,26 @@ p { margin: 0; }
   left: -60%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.32) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
   transform: skewX(-20deg);
-  animation: ai-cta-sweep 3s ease-in-out infinite;
+  animation: ai-cta-sweep 3.2s ease-in-out infinite;
   pointer-events: none;
 }
 .ai-search-cta:hover {
-  background: var(--color-brand-pharmall-hover);
+  filter: brightness(1.05);
 }
-.ai-search-cta-inner,
 .ai-search-cta > span,
 .ai-search-cta-sparkle {
   position: relative;
   z-index: 1;
 }
 .ai-search-cta-sparkle {
-  animation: ai-cta-sparkle 1.2s ease-in-out infinite;
+  animation: ai-cta-sparkle 1.4s ease-in-out infinite;
   transform-origin: center;
+}
+@keyframes ai-cta-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 @keyframes ai-cta-sweep {
   0% { left: -60%; }
@@ -636,7 +645,7 @@ p { margin: 0; }
 }
 @keyframes ai-cta-sparkle {
   0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
-  50% { transform: rotate(25deg) scale(1.28); opacity: 0.85; }
+  50% { transform: rotate(25deg) scale(1.25); opacity: 0.85; }
 }
 
 /* ── 추천 검색 문장 섹션 (HERO 다음 흰 바디) ── */
@@ -655,7 +664,7 @@ p { margin: 0; }
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px 12px 18px;
+  padding: 6px 8px 6px 16px;
   background: rgba(255,255,255,0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -727,7 +736,7 @@ p { margin: 0; }
 }
 #chatInput {
   flex: 1;
-  height: 52px;
+  height: 44px;
   border: 0;
   outline: none;
   background: transparent;
