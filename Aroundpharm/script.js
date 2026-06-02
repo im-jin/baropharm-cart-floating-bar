@@ -655,6 +655,17 @@ function renderSnsReels(product, lang, strings) {
     moreLink.href = handleUrl || reels[0].permalink || 'https://www.instagram.com/';
   }
 
+  /* 인스타 아이콘 (운영자가 등록한 이미지) */
+  const moreIcon = document.getElementById('snsMoreIcon');
+  if (moreIcon) {
+    if (product.instagram_icon) {
+      moreIcon.src = `${BASE}products/${product.id}/${product.instagram_icon}`;
+      moreIcon.hidden = false;
+    } else {
+      moreIcon.hidden = true;
+    }
+  }
+
   /* 풀스크린 영상 모달 재사용 (video-modal) */
   const modal = document.getElementById('videoModal');
   const modalVideo = document.getElementById('modalVideo');
@@ -743,9 +754,11 @@ function renderSnsReels(product, lang, strings) {
   prevBtn?.addEventListener('click', () => mount.scrollBy({ left: -stepSize(), behavior: 'smooth' }));
   nextBtn?.addEventListener('click', () => mount.scrollBy({ left: stepSize(), behavior: 'smooth' }));
   mount.addEventListener('scroll', syncArrows, { passive: true });
-  syncArrows();
+  window.addEventListener('resize', syncArrows, { passive: true });
 
   section.hidden = false;
+  /* 레이아웃 확정 후 계산 (hidden 상태에선 clientWidth=0 이라 오판됨) */
+  requestAnimationFrame(syncArrows);
 }
 
 /* ─── Cart manager (localStorage) ─── */

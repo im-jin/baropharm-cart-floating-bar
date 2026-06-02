@@ -345,20 +345,27 @@
 }
 .sns-reel-likes svg { display: block; }
 
-/* 인스타에서 더 보기 — 하단 풀폭 링크 */
+/* 인스타에서 더 보기 — 하단 풀폭 흰 버튼(회색 보더) */
 .sns-reels-more {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
   margin: 16px 16px 0;
   padding: 13px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-brand-aroundpharm-border);
-  background: var(--color-brand-aroundpharm-bg);
+  border: 1px solid var(--color-border-secondary);
+  background: var(--color-bg-base-white);
   font: var(--font-h5);
   font-weight: 700;
-  color: var(--color-brand-aroundpharm-text);
+  color: var(--color-text);
   text-decoration: none;
 }
-.sns-reels-more:hover { background: var(--color-brand-aroundpharm-bg-hover); }
+.sns-reels-more:hover { background: var(--color-grey-2); }
+.sns-reels-more-icon {
+  width: 18px; height: 18px;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+  display: block;
+}
+.sns-reels-more-icon[hidden] { display: none; }
 
 /* ─── 가격 옆 환율 환산 표시 ─── */
 .price-fx {
