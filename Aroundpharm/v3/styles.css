@@ -500,3 +500,27 @@ html[lang="ko"] .social-proof-toast { bottom: 24px; }
 @media (min-width: 481px) {
   .social-proof-toast { left: calc(50% - 201px); right: auto; max-width: 402px; }
 }
+
+/* ─── 스크롤 시 헤더 제품명 스티키 ─── */
+.topnav-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0 8px;
+  text-align: center;
+  font: var(--font-h5);
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+}
+.topnav.is-scrolled .topnav-title { opacity: 1; transform: translateY(0); }
+
+/* ─── 약사에게 보여주기 sticky 버튼 제거 (v3) ─── */
+body[data-variant="v3"] .sticky-cta { display: none; }
+body[data-variant="v3"] { padding-bottom: 32px; }
+body[data-variant="v3"] .social-proof-toast { bottom: 24px; }

@@ -761,6 +761,21 @@ function renderSnsReels(product, lang, strings) {
   requestAnimationFrame(syncArrows);
 }
 
+/* ─── 스크롤 시 헤더에 제품명 스티키 노출 (v3) ─── */
+function setupStickyHeader() {
+  const topnav = document.querySelector('.topnav');
+  const title = document.querySelector('.topnav-title');
+  if (!topnav || !title) return;
+  const hero = document.querySelector('.hero-reels');
+  function onScroll() {
+    const threshold = hero ? hero.offsetHeight - 56 : 280;
+    topnav.classList.toggle('is-scrolled', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+}
+
 /* ─── HERO 릴스 캐러셀 (v3: 영상 퍼스트 히어로) ─── */
 function renderHeroReels(product, lang) {
   const section = document.getElementById('heroReels');
@@ -1503,6 +1518,7 @@ async function boot() {
     setupCart(strings, lang);
     setupActions(strings);
     renderHeroReels(product, lang);
+    setupStickyHeader();
     renderSnsReels(product, lang, strings);
     renderPharmacistReviews(product, lang);
     setupSocialProof(strings);
