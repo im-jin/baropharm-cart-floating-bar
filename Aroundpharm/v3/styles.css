@@ -495,3 +495,8 @@ html[lang="ko"] .social-proof-toast { bottom: 24px; }
   display: inline-flex; align-items: center; gap: 4px;
 }
 .review-user-pharmacy svg { color: var(--color-text-tertiary); }
+
+/* 토스트: 와이드(481+)에선 430 모바일 프레임 안쪽 좌측으로 (뷰포트 끝 X) */
+@media (min-width: 481px) {
+  .social-proof-toast { left: calc(50% - 201px); right: auto; max-width: 402px; }
+}
