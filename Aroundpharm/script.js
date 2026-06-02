@@ -627,6 +627,127 @@ async function renderRelatedProducts(product, lang) {
   section.hidden = false;
 }
 
+/* ─── SNS 인스타 릴스 (제품 정보 ↔ 탭 사이) ─── */
+function renderSnsReels(product, lang, strings) {
+  const section = document.getElementById('snsReels');
+  const mount = document.getElementById('snsReelsScroll');
+  if (!section || !mount) return;
+
+  const reels = product.sns_videos || [];
+  if (reels.length === 0) {
+    section.hidden = true;
+    return;
+  }
+
+  const pick = (obj) => (obj && obj[lang]) || (obj && obj[FALLBACK_LANG]) || (obj && obj.ko) || '';
+  const snsStr = (strings && strings.sns) || {};
+
+  /* 인스타 핸들 (아이브로우) */
+  const handleEl = document.getElementById('snsHandle');
+  if (handleEl) handleEl.textContent = product.instagram_handle || '@aroundpharm';
+
+  /* "인스타에서 더 보기" 링크 — handle 우선, 없으면 첫 릴스 permalink */
+  const moreLink = document.getElementById('snsReelsMore');
+  if (moreLink) {
+    const handleUrl = product.instagram_handle
+      ? `https://www.instagram.com/${product.instagram_handle.replace(/^@/, '')}/`
+      : null;
+    moreLink.href = handleUrl || reels[0].permalink || 'https://www.instagram.com/';
+  }
+
+  /* 풀스크린 영상 모달 재사용 (video-modal) */
+  const modal = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const modalCloseBtn = document.getElementById('videoModalClose');
+  function openModal(src) {
+    if (!modal || !modalVideo) { return; }
+    modalVideo.src = src;
+    modalVideo.muted = false;
+    modal.hidden = false;
+    modalVideo.play().catch(() => {});
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modal || !modalVideo) return;
+    modal.hidden = true;
+    modalVideo.pause();
+    document.body.style.overflow = '';
+  }
+  /* 닫기 핸들러 — 약사영상 위젯이 없는 제품에서도 동작하도록 1회 바인딩 */
+  if (modal && !modal.dataset.closeBound) {
+    modal.dataset.closeBound = '1';
+    modalCloseBtn?.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+  }
+
+  mount.innerHTML = '';
+  reels.forEach((reel) => {
+    const src = `${BASE}products/${product.id}/${reel.video}`;
+    const card = document.createElement('button');
+    card.className = 'sns-reel';
+    card.type = 'button';
+    card.setAttribute('aria-label', pick(reel.caption) || 'Instagram reel');
+    const viewsHtml = reel.views
+      ? `<span class="sns-reel-views" aria-label="${reel.views} ${snsStr.views_suffix || ''}">
+           <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+           ${reel.views}
+         </span>`
+      : '';
+    const likesHtml = reel.likes
+      ? `<span class="sns-reel-likes" aria-label="${reel.likes} ${snsStr.likes_label || ''}">
+           <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3.2 1.2 4 2.3.8-1.1 2-2.3 4-2.3 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21z"/></svg>
+           ${reel.likes}
+         </span>`
+      : '';
+    card.innerHTML = `
+      <video class="sns-reel-video" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="sns-reel-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      ${viewsHtml}
+      <span class="sns-reel-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="sns-reel-foot">
+        <span class="sns-reel-caption"></span>
+        ${likesHtml}
+      </span>
+    `;
+    const v = card.querySelector('.sns-reel-video');
+    v.src = src;
+    v.play().catch(() => {});
+    card.querySelector('.sns-reel-caption').textContent = pick(reel.caption);
+    card.addEventListener('click', () => openModal(src));
+    mount.appendChild(card);
+  });
+
+  /* 좌우 화살표 (스와이프 + 클릭) */
+  const prevBtn = document.getElementById('snsReelsPrev');
+  const nextBtn = document.getElementById('snsReelsNext');
+  function stepSize() {
+    const first = mount.querySelector('.sns-reel');
+    return first ? first.getBoundingClientRect().width + 12 : mount.clientWidth * 0.5;
+  }
+  function syncArrows() {
+    const maxScroll = mount.scrollWidth - mount.clientWidth - 1;
+    if (prevBtn) prevBtn.hidden = mount.scrollLeft <= 1;
+    if (nextBtn) nextBtn.hidden = mount.scrollLeft >= maxScroll;
+  }
+  prevBtn?.addEventListener('click', () => mount.scrollBy({ left: -stepSize(), behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => mount.scrollBy({ left: stepSize(), behavior: 'smooth' }));
+  mount.addEventListener('scroll', syncArrows, { passive: true });
+  syncArrows();
+
+  section.hidden = false;
+}
+
 /* ─── Cart manager (localStorage) ─── */
 const CART_KEY = 'ap_cart_v2';
 
@@ -1126,6 +1247,7 @@ async function boot() {
     setupPharmacistModal(product, lang);
     setupCart(strings, lang);
     setupActions(strings);
+    renderSnsReels(product, lang, strings);
     renderRelatedProducts(product, lang);
     setupLangSwitcher(lang, (next) => {
       localStorage.setItem('ap_lang', next);

@@ -25,9 +25,13 @@
     "value": "가성비"
   },
   "benefits": {
+    "heading": "약사가 보증하는 핵심 3가지",
     "hydration": "수분",
+    "hydration_sub": "48시간 깊은 보습",
     "anti_aging": "주름개선",
-    "sensitive": "민감 피부"
+    "anti_aging_sub": "콜라겐·레티놀 탄력",
+    "sensitive": "민감 피부",
+    "sensitive_sub": "저자극 약국 처방"
   },
   "howto": {
     "step1": "토너 후 2~3방울",
@@ -76,6 +80,14 @@
   "related": {
     "title": "함께 쓰면 좋은 제품"
   },
+  "sns": {
+    "eyebrow_live": "실시간 인기",
+    "title": "왜 다들 이걸 사갈까?",
+    "sub": "약사가 직접 보여주는 진짜 사용 후기 — 보면 바로 이해돼요.",
+    "watch_more": "인스타그램에서 더 보기",
+    "views_suffix": "회",
+    "likes_label": "좋아요"
+  },
   "cart": {
     "title": "장바구니",
     "empty": "장바구니가 비어있어요",
@@ -111,7 +123,10 @@
   },
   "trust": {
     "k_pharmacy": "한국 약국 정품",
-    "trending": "외국인 인기 No.1"
+    "trending": "외국인 인기 No.1",
+    "lead": "입고되는 즉시 품절되는,\n약국에서 인정받은 세럼",
+    "rank": "K-약국 세럼 1위!",
+    "basis": "어라운드팜 약국 세럼 카테고리 1위 · 2026.03.01–03.05 기준"
   },
   "pharmacy": {
     "title": "근처 약국에서 찾아보세요",

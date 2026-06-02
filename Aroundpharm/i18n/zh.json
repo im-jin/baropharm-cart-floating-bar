@@ -24,9 +24,13 @@
     "value": "性价比"
   },
   "benefits": {
+    "heading": "药师保证的三大核心",
     "hydration": "保湿",
+    "hydration_sub": "48小时深层保湿",
     "anti_aging": "抗皱",
-    "sensitive": "敏感肌"
+    "anti_aging_sub": "胶原蛋白·视黄醇紧致",
+    "sensitive": "敏感肌",
+    "sensitive_sub": "低刺激药房配方"
   },
   "howto": {
     "step1": "爽肤水后取 2–3 滴",
@@ -62,6 +66,14 @@
   },
   "related": {
     "title": "搭配使用更佳"
+  },
+  "sns": {
+    "eyebrow_live": "实时热门",
+    "title": "为什么大家都在买?",
+    "sub": "药师亲身示范的真实效果 — 一看就懂。",
+    "watch_more": "在 Instagram 查看更多",
+    "views_suffix": "次观看",
+    "likes_label": "赞"
   },
   "cart": {
     "title": "购物车",
@@ -106,7 +118,10 @@
   },
   "trust": {
     "k_pharmacy": "韩国药店正品",
-    "trending": "游客热销 No.1"
+    "trending": "游客热销 No.1",
+    "lead": "一上架就售罄、\n药房认证的精华",
+    "rank": "K-药房精华 第一名",
+    "basis": "Aroundpharm 药房精华品类第一 · 2026.03.01–03.05"
   },
   "review": {
     "expand": "展开",

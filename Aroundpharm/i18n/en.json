@@ -24,9 +24,13 @@
     "value": "Value"
   },
   "benefits": {
+    "heading": "3 reasons pharmacists vouch for it",
     "hydration": "Hydration",
+    "hydration_sub": "48-hour deep moisture",
     "anti_aging": "Anti-aging",
-    "sensitive": "Sensitive-safe"
+    "anti_aging_sub": "Collagen × Retinol firmness",
+    "sensitive": "Sensitive-safe",
+    "sensitive_sub": "Gentle, pharmacy-grade"
   },
   "howto": {
     "step1": "Apply 2–3 drops after toner",
@@ -62,6 +66,14 @@
   },
   "related": {
     "title": "Pairs well with"
+  },
+  "sns": {
+    "eyebrow_live": "Trending now",
+    "title": "See why everyone buys it",
+    "sub": "Real results, shown by the pharmacist who recommends it.",
+    "watch_more": "See more on Instagram",
+    "views_suffix": "views",
+    "likes_label": "likes"
   },
   "cart": {
     "title": "Cart",
@@ -106,7 +118,10 @@
   },
   "trust": {
     "k_pharmacy": "Korean Pharmacy Authentic",
-    "trending": "Tourist Favorite"
+    "trending": "Tourist Favorite",
+    "lead": "The serum that sells out\nthe moment it restocks",
+    "rank": "#1 K-Pharmacy Serum",
+    "basis": "No.1 in Aroundpharm pharmacy serum category · Mar 1–5, 2026"
   },
   "review": {
     "expand": "Show all",

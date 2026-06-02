@@ -24,9 +24,13 @@
     "value": "コスパ"
   },
   "benefits": {
+    "heading": "薬剤師が保証する3つの核心",
     "hydration": "保湿",
+    "hydration_sub": "48時間ディープ保湿",
     "anti_aging": "エイジングケア",
-    "sensitive": "敏感肌対応"
+    "anti_aging_sub": "コラーゲン×レチノールのハリ",
+    "sensitive": "敏感肌対応",
+    "sensitive_sub": "低刺激・薬局グレード"
   },
   "howto": {
     "step1": "化粧水のあとに 2〜3 滴",
@@ -62,6 +66,14 @@
   },
   "related": {
     "title": "一緒に使うと良い商品"
+  },
+  "sns": {
+    "eyebrow_live": "リアルタイム人気",
+    "title": "なぜみんな買うのか？",
+    "sub": "薬剤師が実際に見せるリアルな使用レビュー — 見れば納得。",
+    "watch_more": "Instagramでもっと見る",
+    "views_suffix": "回再生",
+    "likes_label": "いいね"
   },
   "cart": {
     "title": "カート",
@@ -106,7 +118,10 @@
   },
   "trust": {
     "k_pharmacy": "韓国薬局正規品",
-    "trending": "観光客人気 No.1"
+    "trending": "観光客人気 No.1",
+    "lead": "入荷即完売、\n薬局が認めたセラム",
+    "rank": "K-薬局セラム 1位!",
+    "basis": "Aroundpharm 薬局セラムカテゴリ1位 · 2026.03.01–03.05 基準"
   },
   "review": {
     "expand": "もっと見る",

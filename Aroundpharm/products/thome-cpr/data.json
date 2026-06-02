@@ -22,6 +22,46 @@
   "pharmacist_pick": true,
   "rating": 4.96,
   "review_count": 107,
+  "related": ["re2o-ampoule", "dr-melaxin-serum"],
+  "instagram_handle": "@thome_global",
+  "sns_videos": [
+    {
+      "video": "images/sns/reel-1.mp4",
+      "permalink": "https://www.instagram.com/thome_global/",
+      "views": "24.1K",
+      "likes": "3.2K",
+      "caption": {
+        "ko": "발라보니 7일 만에 결이 달라졌어요",
+        "en": "Smoother skin in just 7 days",
+        "zh": "用了 7 天,肌肤纹理就变了",
+        "ja": "使って7日で肌のキメが変わった"
+      }
+    },
+    {
+      "video": "images/sns/reel-2.mp4",
+      "permalink": "https://www.instagram.com/thome_global/",
+      "views": "18.7K",
+      "likes": "2.1K",
+      "caption": {
+        "ko": "약사가 알려주는 올바른 사용법",
+        "en": "The right way to use it, by a pharmacist",
+        "zh": "药师教你正确用法",
+        "ja": "薬剤師が教える正しい使い方"
+      }
+    },
+    {
+      "video": "images/sns/reel-3.mp4",
+      "permalink": "https://www.instagram.com/thome_global/",
+      "views": "41.3K",
+      "likes": "5.6K",
+      "caption": {
+        "ko": "약사가 이걸 추천하는 진짜 이유",
+        "en": "Why pharmacists really pick this",
+        "zh": "药师真心推荐的理由",
+        "ja": "薬剤師が本当に薦める理由"
+      }
+    }
+  ],
   "hero_image": "images/hero.png",
   "pharmacist_video": "images/pharmacist-tiktok-web.m4v",
   "thumbnails": [

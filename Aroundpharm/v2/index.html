@@ -8,9 +8,9 @@
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
-  <link rel="stylesheet" href="../../tokens.css" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../../tokens.css?v=9" />
+  <link rel="stylesheet" href="../styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=9" />
 </head>
 <body data-loading="true" data-variant="v2" data-base="../">
 
@@ -41,11 +41,6 @@
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/>
           <path d="M8 11l8-4M8 13l8 4"/>
-        </svg>
-      </button>
-      <button class="iconbtn" aria-label="Cart">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 4h2l2.5 12h11l2-8H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
         </svg>
       </button>
     </div>
@@ -88,6 +83,13 @@
 
         </section>
 
+        <!-- ──────── 트러스트 배너 (K-약국 세럼 1위 후킹) ──────── -->
+        <section class="trust-banner">
+          <p class="trust-banner-lead" data-i18n="trust.lead"></p>
+          <p class="trust-banner-rank" data-i18n="trust.rank"></p>
+          <p class="trust-banner-basis" data-i18n="trust.basis"></p>
+        </section>
+
         <!-- ──────── 약사픽 요약 카드 ──────── -->
         <section class="pick-summary">
           <div class="pick-summary-title">
@@ -111,19 +113,25 @@
           </ul>
         </section>
 
-        <!-- ──────── 3-ICON QUICK BENEFITS ──────── -->
-        <section class="benefits">
-          <div class="benefit">
-            <div class="benefit-icon" aria-hidden="true">💧</div>
-            <div class="benefit-label" data-i18n="benefits.hydration"></div>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon" aria-hidden="true">✨</div>
-            <div class="benefit-label" data-i18n="benefits.anti_aging"></div>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon" aria-hidden="true">🛡️</div>
-            <div class="benefit-label" data-i18n="benefits.sensitive"></div>
+        <!-- ──────── 3-ICON QUICK BENEFITS (강화: 헤딩 + 서브카피) ──────── -->
+        <section class="benefits-block">
+          <h2 class="benefits-heading" data-i18n="benefits.heading"></h2>
+          <div class="benefits">
+            <div class="benefit">
+              <div class="benefit-icon" aria-hidden="true">💧</div>
+              <div class="benefit-label" data-i18n="benefits.hydration"></div>
+              <div class="benefit-sub" data-i18n="benefits.hydration_sub"></div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon" aria-hidden="true">✨</div>
+              <div class="benefit-label" data-i18n="benefits.anti_aging"></div>
+              <div class="benefit-sub" data-i18n="benefits.anti_aging_sub"></div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon" aria-hidden="true">🛡️</div>
+              <div class="benefit-label" data-i18n="benefits.sensitive"></div>
+              <div class="benefit-sub" data-i18n="benefits.sensitive_sub"></div>
+            </div>
           </div>
         </section>
 
@@ -171,12 +179,47 @@
       </div><!-- /.top-info -->
     </div><!-- /.top-section -->
 
-    <!-- ──────── 함께 쓰면 좋은 제품 (라인업 추천, hidden if no related) ──────── -->
-    <section class="related-products" id="relatedProducts" hidden>
-      <h2 class="related-title" data-i18n="related.title"></h2>
-      <div class="related-scroll" id="relatedScroll">
-        <!-- cards injected by JS -->
+    <!-- ──────── SNS 인스타 릴스 (제품 정보 ↔ 탭 사이, hidden if no sns_videos) ──────── -->
+    <section class="sns-reels" id="snsReels" hidden>
+      <header class="sns-reels-head">
+        <div class="sns-reels-eyebrow">
+          <span class="sns-reels-handle">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+            </svg>
+            <span id="snsHandle"></span>
+          </span>
+          <span class="sns-reels-live">
+            <i class="sns-live-dot" aria-hidden="true"></i>
+            <span data-i18n="sns.eyebrow_live"></span>
+          </span>
+        </div>
+        <h2 class="sns-reels-title" data-i18n="sns.title"></h2>
+        <p class="sns-reels-sub" data-i18n="sns.sub"></p>
+      </header>
+      <div class="sns-reels-viewport">
+        <div class="sns-reels-scroll" id="snsReelsScroll">
+          <!-- reel cards injected by JS -->
+        </div>
+        <button class="sns-reels-nav sns-reels-nav--prev" id="snsReelsPrev" aria-label="Previous" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <button class="sns-reels-nav sns-reels-nav--next" id="snsReelsNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
       </div>
+      <a class="sns-reels-more" id="snsReelsMore" href="#" target="_blank" rel="noopener">
+        <span data-i18n="sns.watch_more"></span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+      </a>
     </section>
 
     <!-- ──────── 탭 (v2: 상세 / 리뷰 / 약국찾기) ──────── -->
@@ -326,6 +369,14 @@
       </div>
     </section>
 
+    <!-- ──────── 함께 쓰면 좋은 제품 (라인업 추천, 하단으로 이동, hidden if no related) ──────── -->
+    <section class="related-products" id="relatedProducts" hidden>
+      <h2 class="related-title" data-i18n="related.title"></h2>
+      <div class="related-scroll" id="relatedScroll">
+        <!-- cards injected by JS -->
+      </div>
+    </section>
+
     <!-- ──────── AP 가치 카드 ──────── -->
     <section class="ap-card">
       <div class="ap-card-icon" aria-hidden="true">🌍</div>
@@ -426,6 +477,6 @@
     </div>
   </div>
 
-  <script src="../script.js?v=3"></script>
+  <script src="../script.js?v=9"></script>
 </body>
 </html>
