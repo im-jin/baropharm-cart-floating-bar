@@ -13,8 +13,8 @@
     "real_results": "실 사용자 후기"
   },
   "tabs": {
-    "detail": "제품상세",
-    "review": "리뷰",
+    "detail": "상세정보",
+    "review": "약사리뷰",
     "related": "추천",
     "find_pharmacy": "약국찾기"
   },
@@ -88,6 +88,19 @@
     "views_suffix": "회",
     "likes_label": "좋아요"
   },
+  "pharmacist_reviews": {
+    "title": "약사가 추천하는 이유",
+    "sub": "전국 약사들이 매대에서 직접 고른 이유"
+  },
+  "social_proof": {
+    "viewing": "지금 {n}명이 보고 있어요",
+    "viewed_today": "오늘 {n}명이 이 제품을 봤어요"
+  },
+  "scarcity": {
+    "badge": "온라인 완판",
+    "title": "지금은 약국에서만 만날 수 있어요",
+    "body": "런칭 직후 온라인 물량이 전량 소진됐어요. 지금 보고 계신 이 약국 재고도 곧 소진 예정이에요."
+  },
   "cart": {
     "title": "장바구니",
     "empty": "장바구니가 비어있어요",
@@ -124,7 +137,7 @@
   "trust": {
     "k_pharmacy": "한국 약국 정품",
     "trending": "외국인 인기 No.1",
-    "lead": "입고되는 즉시 품절되는,\n약국에서 인정받은 세럼",
+    "lead": "입고되는 즉시 품절되는, 약국에서 인정받은 세럼",
     "rank": "K-약국 세럼 1위!",
     "basis": "어라운드팜 약국 세럼 카테고리 1위 · 2026.03.01–03.05 기준"
   },

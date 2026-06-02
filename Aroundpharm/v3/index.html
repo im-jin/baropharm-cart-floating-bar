@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#09b9ba" />
+  <title>Aroundpharm — K-Pharmacy (v3 · 영상 퍼스트)</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../tokens.css?v=4" />
+  <link rel="stylesheet" href="../styles.css?v=14" />
+  <link rel="stylesheet" href="../v2/styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=14" />
+</head>
+<body data-loading="true" data-variant="v3" data-base="../">
+
+  <!-- ──────── TOP NAV ──────── -->
+  <header class="topnav topnav--overlay">
+    <button class="iconbtn" aria-label="Back">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="topnav-right">
+      <div class="lang-wrap">
+        <button class="lang-switcher" id="langSwitcher" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-current" data-lang-label>EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="ko">한국어</li>
+          <li role="option" data-lang="en">English</li>
+          <li role="option" data-lang="zh">中文</li>
+          <li role="option" data-lang="ja">日本語</li>
+        </ul>
+      </div>
+      <button class="iconbtn" aria-label="Share">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/>
+          <path d="M8 11l8-4M8 13l8 4"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="page page--v3">
+
+    <!-- ──────── ① HERO: 단일 약사 영상 ──────── -->
+    <section class="hero-reels" id="heroReels" hidden>
+      <div class="hero-reels-track" id="heroReelsTrack"></div>
+      <button class="hero-reels-nav hero-reels-nav--prev" id="heroReelsPrev" aria-label="Previous" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="hero-reels-nav hero-reels-nav--next" id="heroReelsNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <span class="hero-badge-live">
+        <i class="sns-live-dot" aria-hidden="true"></i>
+        <span data-i18n="sns.eyebrow_live"></span>
+      </span>
+      <div class="hero-overlay">
+        <div class="hero-id-brand" data-product="brand"></div>
+        <h1 class="hero-id-name" data-product="name"></h1>
+        <div class="hero-id-meta">
+          <span class="hero-id-rating">★ <span data-product="rating"></span></span>
+          <span class="hero-id-rank" data-i18n="trust.rank"></span>
+        </div>
+        <div class="hero-reels-dots" id="heroReelsDots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ──────── ② 희소성 + 트러스트 ──────── -->
+    <div class="top-info top-info--v3">
+      <section class="scarcity-alert">
+        <span class="scarcity-alert-badge">
+          <i class="sns-live-dot" aria-hidden="true"></i>
+          <span data-i18n="scarcity.badge"></span>
+        </span>
+        <p class="scarcity-alert-title" data-i18n="scarcity.title"></p>
+        <p class="scarcity-alert-body" data-i18n="scarcity.body"></p>
+      </section>
+      <section class="trust-banner">
+        <p class="trust-banner-lead" data-i18n="trust.lead"></p>
+        <p class="trust-banner-rank" data-i18n="trust.rank"></p>
+        <p class="trust-banner-basis" data-i18n="trust.basis"></p>
+      </section>
+    </div>
+
+    <!-- ──────── ③ SNS 인스타 릴스 (8px 챕터) ──────── -->
+    <section class="sns-reels" id="snsReels" hidden>
+      <header class="sns-reels-head">
+        <div class="sns-reels-eyebrow">
+          <span class="sns-reels-handle">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+            </svg>
+            <span id="snsHandle"></span>
+          </span>
+          <span class="sns-reels-live"><i class="sns-live-dot" aria-hidden="true"></i><span data-i18n="sns.eyebrow_live"></span></span>
+        </div>
+        <h2 class="sns-reels-title" data-i18n="sns.title"></h2>
+        <p class="sns-reels-sub" data-i18n="sns.sub"></p>
+      </header>
+      <div class="sns-reels-viewport">
+        <div class="sns-reels-scroll" id="snsReelsScroll"></div>
+        <button class="sns-reels-nav sns-reels-nav--prev" id="snsReelsPrev" aria-label="Previous" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="sns-reels-nav sns-reels-nav--next" id="snsReelsNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <a class="sns-reels-more" id="snsReelsMore" href="#" target="_blank" rel="noopener">
+        <img class="sns-reels-more-icon" id="snsMoreIcon" alt="" aria-hidden="true" hidden />
+        <span data-i18n="sns.watch_more"></span>
+      </a>
+    </section>
+
+    <!-- ──────── ④ 약사가 추천하는 이유 (핵심3 · 별점바 · 리뷰미리보기) ──────── -->
+    <div class="chapter rating-chapter">
+      <h2 class="section-heading" data-i18n="pharmacist_reviews.title"></h2>
+
+      <!-- 핵심 3가지 (아웃라인 카드) -->
+      <section class="benefits-block">
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">💧</div>
+            <div class="benefit-label" data-i18n="benefits.hydration"></div>
+            <div class="benefit-sub" data-i18n="benefits.hydration_sub"></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">✨</div>
+            <div class="benefit-label" data-i18n="benefits.anti_aging"></div>
+            <div class="benefit-sub" data-i18n="benefits.anti_aging_sub"></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon" aria-hidden="true">🛡️</div>
+            <div class="benefit-label" data-i18n="benefits.sensitive"></div>
+            <div class="benefit-sub" data-i18n="benefits.sensitive_sub"></div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="hairline" />
+
+      <!-- ★ 별점 + 프로그래스바 (플랫) -->
+      <section class="pick-summary pick-summary--bare">
+        <div class="pick-summary-head">
+          <div class="pick-stars">
+            <span class="star">★</span>
+            <span class="pick-score" data-product="rating"></span>
+          </div>
+          <button class="pick-link" data-tab-jump="review" data-i18n="ui.see_all_reviews"></button>
+        </div>
+        <ul class="pick-bars">
+          <li><span class="bar-label" data-i18n="pick.efficacy"></span><span class="bar"><i style="--p:92%"></i></span><span class="bar-val">92%</span></li>
+          <li><span class="bar-label" data-i18n="pick.absorption"></span><span class="bar"><i style="--p:88%"></i></span><span class="bar-val">88%</span></li>
+          <li><span class="bar-label" data-i18n="pick.scent"></span><span class="bar"><i style="--p:80%"></i></span><span class="bar-val">80%</span></li>
+          <li><span class="bar-label" data-i18n="pick.value"></span><span class="bar"><i style="--p:85%"></i></span><span class="bar-val">85%</span></li>
+        </ul>
+      </section>
+
+      <hr class="hairline" />
+
+      <!-- 약사리뷰 (N) 미리보기 (가로 스와이프) -->
+      <section class="pharmacist-reviews" id="pharmacistPreview">
+        <header class="pharmacist-reviews-head pharmacist-reviews-head--row">
+          <h3 class="pharmacist-reviews-title"><span data-i18n="tabs.review"></span> <span class="tab-count pr-count"></span></h3>
+          <button class="pick-link" data-tab-jump="review" data-i18n="ui.see_all_reviews"></button>
+        </header>
+        <ul class="pharmacist-review-list"></ul>
+      </section>
+    </div>
+
+    <!-- ──────── ⑤ 탭: 상세정보 / 약사리뷰 (8px 챕터) ──────── -->
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" role="tab" data-tab="detail" data-i18n="tabs.detail"></button>
+      <button class="tab" role="tab" data-tab="review">
+        <span data-i18n="tabs.review"></span> <span class="tab-count pr-count"></span>
+      </button>
+    </nav>
+
+    <section class="tab-panel is-active" role="tabpanel" data-panel="detail">
+      <div class="detail-product-shot">
+        <img class="detail-product-img" data-product="hero" alt="" />
+      </div>
+      <div class="detail-modules" id="detailModules"></div>
+      <div class="howto">
+        <h2 class="section-title" data-i18n="ui.how_to_use"></h2>
+        <ol class="howto-steps">
+          <li class="howto-step"><div class="howto-num">1</div><div class="howto-icon" aria-hidden="true">🧴</div><div class="howto-label" data-i18n="howto.step1"></div></li>
+          <li class="howto-step"><div class="howto-num">2</div><div class="howto-icon" aria-hidden="true">💆</div><div class="howto-label" data-i18n="howto.step2"></div></li>
+          <li class="howto-step"><div class="howto-num">3</div><div class="howto-icon" aria-hidden="true">🌙</div><div class="howto-label" data-i18n="howto.step3"></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="tab-panel" role="tabpanel" data-panel="review" hidden>
+      <ul class="pharmacist-review-list pharmacist-review-list--grid"></ul>
+    </section>
+
+    <!-- ──────── 연관상품 ──────── -->
+    <section class="related-products" id="relatedProducts" hidden>
+      <h2 class="related-title" data-i18n="related.title"></h2>
+      <div class="related-scroll" id="relatedScroll"></div>
+    </section>
+
+    <!-- ──────── AP 가치 카드 ──────── -->
+    <section class="ap-card">
+      <div class="ap-card-icon" aria-hidden="true">🌍</div>
+      <h2 class="ap-card-title" data-i18n="ap.title"></h2>
+      <p class="ap-card-body" data-i18n="ap.body"></p>
+      <button class="btn btn-ghost btn-block" data-action="getApp" data-i18n="ui.get_app"></button>
+    </section>
+
+    <footer class="page-footer">
+      <div class="footer-row"><a href="https://aroundpharm.com" target="_blank" rel="noopener">aroundpharm.com</a></div>
+      <p class="footer-note" data-i18n="footer.staff_hint"></p>
+    </footer>
+
+  </main>
+
+  <!-- 실시간 소셜프루프 토스트 -->
+  <div class="social-proof-toast" id="socialProofToast" aria-live="polite">
+    <span class="social-proof-dot" aria-hidden="true"></span>
+    <span class="social-proof-text"></span>
+  </div>
+
+  <!-- v3 sticky: 약사에게 보여주기 -->
+  <div class="sticky-cta sticky-cta--single">
+    <button class="btn btn-primary btn-block btn-show-pharmacist" data-action="showPharmacist">
+      <span data-i18n="show_pharmacist.cta_l1"></span>
+    </button>
+    <p class="sticky-cta-sub" data-i18n="show_pharmacist.cta_sub"></p>
+  </div>
+
+  <!-- 약사에게 보여주기 풀스크린 모달 -->
+  <div class="pharmacist-modal" id="pharmacistModal" hidden>
+    <button class="pharmacist-modal-close" id="pharmacistModalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+    <div class="pharmacist-modal-inner">
+      <div class="pharmacist-modal-photo"><img id="pharmacistModalImg" alt="" /></div>
+      <div class="pharmacist-modal-brand" data-product="brand"></div>
+      <div class="pharmacist-modal-name" data-product="name_ko"></div>
+      <div class="pharmacist-modal-price" data-product="price"></div>
+      <div class="pharmacist-modal-qty">
+        <span class="pharmacist-modal-qty-label" data-i18n="show_pharmacist.qty"></span>
+        <div class="qty-stepper" role="group" aria-label="Quantity">
+          <button class="qty-btn" data-modal-qty="dec" aria-label="Decrease">−</button>
+          <span class="qty-val" id="pharmacistQtyVal">1</span>
+          <button class="qty-btn" data-modal-qty="inc" aria-label="Increase">＋</button>
+        </div>
+      </div>
+      <div class="pharmacist-modal-message"><span data-i18n="show_pharmacist.give_me"></span></div>
+      <div class="pharmacist-modal-lang-hint">
+        <span data-i18n="show_pharmacist.customer_lang_label"></span>
+        <strong id="pharmacistLangFlag">한국어 🇰🇷</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 영상 풀스크린 모달 -->
+  <div class="video-modal" id="videoModal" hidden>
+    <button class="video-modal-close" id="videoModalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+    <video id="modalVideo" class="video-modal-el" playsinline preload="metadata" controls></video>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="../script.js?v=20"></script>
+</body>
+</html>

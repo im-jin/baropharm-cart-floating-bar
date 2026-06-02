@@ -761,6 +761,214 @@ function renderSnsReels(product, lang, strings) {
   requestAnimationFrame(syncArrows);
 }
 
+/* ─── HERO 릴스 캐러셀 (v3: 영상 퍼스트 히어로) ─── */
+function renderHeroReels(product, lang) {
+  const section = document.getElementById('heroReels');
+  const track = document.getElementById('heroReelsTrack');
+  if (!section || !track) return;
+
+  /* 히어로 = 단일 영상 (약사영상 우선, 없으면 첫 SNS 릴스) */
+  const items = [];
+  if (product.pharmacist_video) {
+    items.push({ video: product.pharmacist_video });
+  } else if ((product.sns_videos || []).length) {
+    items.push({ video: product.sns_videos[0].video });
+  }
+  if (items.length === 0) { section.hidden = true; return; }
+
+  /* 풀스크린 영상 모달 재사용 */
+  const modal = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const modalCloseBtn = document.getElementById('videoModalClose');
+  function openModal(src) {
+    if (!modal || !modalVideo) return;
+    modalVideo.src = src;
+    modalVideo.muted = false;
+    modal.hidden = false;
+    modalVideo.play().catch(() => {});
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modal || !modalVideo) return;
+    modal.hidden = true;
+    modalVideo.pause();
+    document.body.style.overflow = '';
+  }
+  if (modal && !modal.dataset.closeBound) {
+    modal.dataset.closeBound = '1';
+    modalCloseBtn?.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+  }
+
+  /* 슬라이드 + 점(dots) 생성 */
+  const dotsWrap = document.getElementById('heroReelsDots');
+  track.innerHTML = '';
+  if (dotsWrap) dotsWrap.innerHTML = '';
+  const videos = [];
+  items.forEach((it, i) => {
+    const src = `${BASE}products/${product.id}/${it.video}`;
+    const slide = document.createElement('div');
+    slide.className = 'hero-slide';
+    const v = document.createElement('video');
+    v.className = 'hero-slide-video';
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = i === 0 ? 'auto' : 'metadata';
+    v.src = src;
+    slide.appendChild(v);
+    slide.addEventListener('click', () => openModal(src));
+    track.appendChild(slide);
+    videos.push(v);
+
+    if (dotsWrap && items.length > 1) {
+      const dot = document.createElement('button');
+      dot.className = 'hero-reels-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `${i + 1}`);
+      if (i === 0) dot.setAttribute('data-active', 'true');
+      dot.addEventListener('click', () => track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }));
+      dotsWrap.appendChild(dot);
+    }
+  });
+
+  videos[0]?.play().catch(() => {});
+
+  /* 활성 슬라이드만 재생 + 점/화살표 동기화 */
+  const prevBtn = document.getElementById('heroReelsPrev');
+  const nextBtn = document.getElementById('heroReelsNext');
+  let active = 0;
+  function setActive(idx) {
+    idx = Math.max(0, Math.min(items.length - 1, idx));
+    if (idx === active) { /* still resync controls */ }
+    videos.forEach((v, i) => {
+      if (i === idx) { v.play().catch(() => {}); }
+      else { v.pause(); }
+    });
+    if (dotsWrap) {
+      dotsWrap.querySelectorAll('.hero-reels-dot').forEach((d, i) =>
+        i === idx ? d.setAttribute('data-active', 'true') : d.removeAttribute('data-active'));
+    }
+    if (prevBtn) prevBtn.hidden = idx <= 0;
+    if (nextBtn) nextBtn.hidden = idx >= items.length - 1;
+    active = idx;
+  }
+  function currentIndex() {
+    return Math.round(track.scrollLeft / track.clientWidth);
+  }
+  track.addEventListener('scroll', () => {
+    const idx = currentIndex();
+    if (idx !== active) setActive(idx);
+  }, { passive: true });
+  prevBtn?.addEventListener('click', () => track.scrollTo({ left: (active - 1) * track.clientWidth, behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => track.scrollTo({ left: (active + 1) * track.clientWidth, behavior: 'smooth' }));
+
+  /* 인스타 더 보기 버튼 (있으면) */
+  const moreLink = document.getElementById('heroInstaMore');
+  if (moreLink) {
+    const handleUrl = product.instagram_handle
+      ? `https://www.instagram.com/${product.instagram_handle.replace(/^@/, '')}/`
+      : null;
+    moreLink.href = handleUrl || (items[0] && items[0].permalink) || 'https://www.instagram.com/';
+    const handleSpan = document.getElementById('heroInstaHandle');
+    if (handleSpan) handleSpan.textContent = product.instagram_handle || '@instagram';
+    const moreIcon = document.getElementById('heroInstaIcon');
+    if (moreIcon && product.instagram_icon) {
+      moreIcon.src = `${BASE}products/${product.id}/${product.instagram_icon}`;
+      moreIcon.hidden = false;
+    }
+  }
+
+  section.hidden = false;
+  requestAnimationFrame(() => setActive(0));
+}
+
+/* ─── 약사 리뷰 (약국명 + 키워드 + 썸네일, v3) ─── */
+function renderPharmacistReviews(product, lang) {
+  const mounts = document.querySelectorAll('.pharmacist-review-list');
+  if (!mounts.length) return;
+  const reviews = product.pharmacist_reviews || [];
+
+  /* 카운트 (미리보기/탭 라벨 공용) */
+  document.querySelectorAll('.pr-count').forEach(c => {
+    c.textContent = reviews.length ? `(${reviews.length})` : '';
+  });
+
+  const preview = document.getElementById('pharmacistPreview');
+  if (reviews.length === 0) { if (preview) preview.hidden = true; return; }
+
+  const pick = (obj) => (obj && obj[lang]) || (obj && obj[FALLBACK_LANG]) || (obj && obj.ko) || '';
+
+  function buildCard(rv) {
+    const li = document.createElement('li');
+    li.className = 'pharmacist-review';
+    const thumb = rv.thumbnail ? `${BASE}products/${product.id}/${rv.thumbnail}` : '';
+    const chips = (rv.keywords || [])
+      .map(k => `<span class="pharmacist-review-chip">${typeof k === 'string' ? k : pick(k)}</span>`).join('');
+    li.innerHTML = `
+      <div class="pharmacist-review-thumb">${thumb ? `<img src="${thumb}" loading="lazy" alt="" />` : ''}</div>
+      <div class="pharmacist-review-body">
+        <div class="pharmacist-review-pharmacy">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>
+          <span>${rv.pharmacy || ''}</span>
+        </div>
+        <p class="pharmacist-review-text"></p>
+        <div class="pharmacist-review-chips">${chips}</div>
+      </div>
+    `;
+    li.querySelector('.pharmacist-review-text').textContent = pick(rv.text);
+    return li;
+  }
+
+  /* 미리보기(가로) + 탭(세로) 모든 리스트에 렌더 */
+  mounts.forEach(mount => {
+    mount.innerHTML = '';
+    reviews.forEach(rv => mount.appendChild(buildCard(rv)));
+  });
+  if (preview) preview.hidden = false;
+
+  /* 전체보기 → 약사리뷰 탭으로 점프 */
+  document.querySelectorAll('[data-tab-jump]').forEach(el => {
+    if (el.dataset.jumpBound) return;
+    el.dataset.jumpBound = '1';
+    el.addEventListener('click', () => {
+      const t = document.querySelector('.tab[data-tab="' + el.dataset.tabJump + '"]');
+      if (t) { t.click(); document.querySelector('.tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+}
+
+/* ─── 실시간 소셜프루프 토스트 (v3) ─── */
+function setupSocialProof(strings) {
+  const toast = document.getElementById('socialProofToast');
+  if (!toast) return;
+  const sp = (strings && strings.social_proof) || {};
+  /* 페이지뷰 기반 "N명이 보고 있어요" 중심 — 표시할 때마다 숫자 갱신 */
+  const templates = [];
+  if (sp.viewing) templates.push({ t: sp.viewing, lo: 8, hi: 30 });
+  if (sp.viewed_today) templates.push({ t: sp.viewed_today, lo: 120, hi: 500 });
+  (sp.messages || []).forEach(m => templates.push({ t: m }));
+  if (templates.length === 0) return;
+
+  const textEl = toast.querySelector('.social-proof-text') || toast;
+  let i = 0;
+  function showNext() {
+    const tpl = templates[i % templates.length];
+    let msg = tpl.t;
+    if (tpl.lo != null) {
+      msg = msg.replace('{n}', String(tpl.lo + Math.floor(Math.random() * (tpl.hi - tpl.lo))));
+    }
+    textEl.textContent = msg;
+    i += 1;
+    toast.setAttribute('data-show', 'true');
+    setTimeout(() => toast.removeAttribute('data-show'), 3800);
+  }
+  setTimeout(function loop() {
+    showNext();
+    setTimeout(loop, 7000);
+  }, 2500);
+}
+
 /* ─── Cart manager (localStorage) ─── */
 const CART_KEY = 'ap_cart_v2';
 
@@ -1260,7 +1468,10 @@ async function boot() {
     setupPharmacistModal(product, lang);
     setupCart(strings, lang);
     setupActions(strings);
+    renderHeroReels(product, lang);
     renderSnsReels(product, lang, strings);
+    renderPharmacistReviews(product, lang);
+    setupSocialProof(strings);
     renderRelatedProducts(product, lang);
     setupLangSwitcher(lang, (next) => {
       localStorage.setItem('ap_lang', next);

@@ -63,6 +63,91 @@
       }
     }
   ],
+  "pharmacist_reviews": [
+    {
+      "pharmacy": "명동 온누리약국",
+      "keywords": [
+        { "ko": "재구매율 1위", "en": "#1 repurchase", "zh": "复购率第一", "ja": "リピート率1位" },
+        { "ko": "민감성 OK", "en": "Sensitive-safe", "zh": "敏感肌OK", "ja": "敏感肌OK" }
+      ],
+      "thumbnail": "images/cpr-reviwe-01.jpg",
+      "text": {
+        "ko": "재구매하러 다시 오시는 분이 가장 많아요. 외국인 손님께 1순위로 권합니다.",
+        "en": "More customers come back to repurchase this than anything else — my #1 pick for travelers.",
+        "zh": "回购的顾客最多,我向外国顾客首推这款。",
+        "ja": "リピート購入のお客様が一番多く、外国人のお客様に一番におすすめします。"
+      }
+    },
+    {
+      "pharmacy": "강남 위드약국",
+      "keywords": [
+        { "ko": "탄력 추천", "en": "For firmness", "zh": "紧致推荐", "ja": "ハリにおすすめ" },
+        { "ko": "흡수 빠름", "en": "Fast absorption", "zh": "吸收快", "ja": "浸透が速い" }
+      ],
+      "thumbnail": "images/cpr-reviwe-02.jpg",
+      "text": {
+        "ko": "끈적임 없이 흡수가 빨라 메이크업 전에도 부담 없어요.",
+        "en": "Absorbs fast with no stickiness — fine even before makeup.",
+        "zh": "吸收快不黏腻,上妆前用也没负担。",
+        "ja": "ベタつかず素早く浸透し、メイク前でも使いやすいです。"
+      }
+    },
+    {
+      "pharmacy": "홍대 K-팜",
+      "keywords": [
+        { "ko": "관광객 인기", "en": "Tourist favorite", "zh": "游客热门", "ja": "観光客に人気" },
+        { "ko": "선물용", "en": "Great gift", "zh": "适合送礼", "ja": "ギフトに" }
+      ],
+      "thumbnail": "images/cpr-reviwe-03.jpg",
+      "text": {
+        "ko": "관광객분들이 선물용으로 2~3개씩 사가세요.",
+        "en": "Tourists often grab 2–3 at once as gifts.",
+        "zh": "游客常常一次买 2–3 个当礼物。",
+        "ja": "観光客の方がお土産に2〜3個まとめ買いされます。"
+      }
+    },
+    {
+      "pharmacy": "이태원 글로벌약국",
+      "keywords": [
+        { "ko": "레티놀 입문 추천", "en": "Retinol starter", "zh": "视黄醇入门", "ja": "レチノール入門" }
+      ],
+      "thumbnail": "images/cpr-reviwe-04.jpg",
+      "text": {
+        "ko": "레티놀 처음이신 분께 자극이 적어 입문용으로 권합니다.",
+        "en": "Gentle enough for retinol beginners — a great starter.",
+        "zh": "对视黄醇新手刺激小,很适合入门。",
+        "ja": "レチノール初心者にも刺激が少なく、入門におすすめです。"
+      }
+    },
+    {
+      "pharmacy": "부산 해운대약국",
+      "keywords": [
+        { "ko": "진정 추천", "en": "For soothing", "zh": "舒缓推荐", "ja": "鎮静におすすめ" },
+        { "ko": "사계절", "en": "All seasons", "zh": "四季皆宜", "ja": "オールシーズン" }
+      ],
+      "thumbnail": "images/cpr-reviwe-05.jpg",
+      "text": {
+        "ko": "햇볕 본 뒤 진정용으로 찾으시는 분이 많아 사계절 꾸준해요.",
+        "en": "Many reach for it to soothe skin after sun — steady all year round.",
+        "zh": "很多人晒后用来舒缓,一年四季都很稳定。",
+        "ja": "日焼け後の鎮静に求める方が多く、一年中安定して売れています。"
+      }
+    },
+    {
+      "pharmacy": "제주 올레약국",
+      "keywords": [
+        { "ko": "스테디셀러", "en": "Steady seller", "zh": "常青款", "ja": "ロングセラー" },
+        { "ko": "선물용", "en": "Great gift", "zh": "适合送礼", "ja": "ギフトに" }
+      ],
+      "thumbnail": "images/cpr-reviwe-06.jpg",
+      "text": {
+        "ko": "선물 포장 문의가 많은 스테디셀러예요.",
+        "en": "A steady seller — lots of requests for gift wrapping.",
+        "zh": "常有礼品包装需求的常青款。",
+        "ja": "ギフト包装のご要望が多いロングセラーです。"
+      }
+    }
+  ],
   "hero_image": "images/hero.png",
   "pharmacist_video": "images/pharmacist-tiktok-web.m4v",
   "thumbnails": [

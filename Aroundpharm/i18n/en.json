@@ -13,8 +13,8 @@
     "real_results": "Real results"
   },
   "tabs": {
-    "detail": "Detail",
-    "review": "Reviews",
+    "detail": "Details",
+    "review": "Pharmacist reviews",
     "related": "Related"
   },
   "pick": {
@@ -75,6 +75,19 @@
     "views_suffix": "views",
     "likes_label": "likes"
   },
+  "pharmacist_reviews": {
+    "title": "Why pharmacists recommend it",
+    "sub": "Why pharmacists across Korea keep it on the shelf"
+  },
+  "social_proof": {
+    "viewing": "{n} people are viewing now",
+    "viewed_today": "{n} people viewed this today"
+  },
+  "scarcity": {
+    "badge": "SOLD OUT ONLINE",
+    "title": "Available only at the pharmacy right now",
+    "body": "Online stock sold out right after launch. The stock at this pharmacy is going fast, too."
+  },
   "cart": {
     "title": "Cart",
     "empty": "Your cart is empty",
@@ -119,7 +132,7 @@
   "trust": {
     "k_pharmacy": "Korean Pharmacy Authentic",
     "trending": "Tourist Favorite",
-    "lead": "The serum that sells out\nthe moment it restocks",
+    "lead": "The serum that sells out the moment it restocks",
     "rank": "#1 K-Pharmacy Serum",
     "basis": "No.1 in Aroundpharm pharmacy serum category · Mar 1–5, 2026"
   },

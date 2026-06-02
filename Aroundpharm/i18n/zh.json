@@ -14,7 +14,7 @@
   },
   "tabs": {
     "detail": "详情",
-    "review": "评价",
+    "review": "药师评价",
     "related": "推荐"
   },
   "pick": {
@@ -75,6 +75,19 @@
     "views_suffix": "次观看",
     "likes_label": "赞"
   },
+  "pharmacist_reviews": {
+    "title": "药师推荐的理由",
+    "sub": "全国药师把它留在货架上的理由"
+  },
+  "social_proof": {
+    "viewing": "现在有 {n} 人正在浏览",
+    "viewed_today": "今天有 {n} 人看过此商品"
+  },
+  "scarcity": {
+    "badge": "线上售罄",
+    "title": "目前仅在药店有售",
+    "body": "上线后线上库存迅速售罄。您所在药店的库存也即将售完。"
+  },
   "cart": {
     "title": "购物车",
     "empty": "购物车是空的",
@@ -119,7 +132,7 @@
   "trust": {
     "k_pharmacy": "韩国药店正品",
     "trending": "游客热销 No.1",
-    "lead": "一上架就售罄、\n药房认证的精华",
+    "lead": "一上架就售罄、药房认证的精华",
     "rank": "K-药房精华 第一名",
     "basis": "Aroundpharm 药房精华品类第一 · 2026.03.01–03.05"
   },
