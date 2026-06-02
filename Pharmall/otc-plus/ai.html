@@ -47,6 +47,9 @@
 
   <!-- ════════════════ 좌측 사이드 (로고 / 대화검색 / 새대화 / 히스토리) ════════════════ -->
   <aside class="ai-side" id="aiSide">
+    <button class="ai-side-close" id="aiSideClose" type="button" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
     <a class="ai-side-logo" href="index.html" aria-label="OTC 플러스 메인">
       <img src="images/Pharmall_logo.svg" alt="Pharmall" />
     </a>
@@ -74,7 +77,6 @@
     <!-- 햄버거 (tablet/mobile 에서만 노출) — OTC AI Agent LNB 토글 -->
     <button class="ai-side-toggle" id="aiSideToggle" type="button" aria-label="대화 메뉴 열기" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      <span>대화 · 히스토리</span>
     </button>
 
     <!-- ────────── HOME 상태 (초기) ────────── -->
@@ -1567,6 +1569,8 @@
         if (sideEl && sideEl.classList.contains('is-open')) closeSide(); else openSide();
       });
       if (sideBackdrop) sideBackdrop.addEventListener('click', closeSide);
+      const sideCloseBtn = document.getElementById('aiSideClose');
+      if (sideCloseBtn) sideCloseBtn.addEventListener('click', closeSide);
       /* 히스토리 클릭 시 모바일에서 사이드 자동 닫힘 */
       if (sideEl) sideEl.addEventListener('click', function (e) {
         if (e.target.closest('.ai-history-item') || e.target.closest('.ai-side-new')) {

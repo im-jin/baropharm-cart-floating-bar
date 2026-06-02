@@ -5127,18 +5127,37 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   transition: transform .25s ease;
 }
 
-/* 햄버거 — ai-main 상단, OTC AI Agent LNB 토글 (tablet/mobile 만) */
+/* LNB 닫기 X 버튼 (tablet/mobile 만, ai-side 우상단) */
+.ai-side-close {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  z-index: 1;
+  transition: background .15s ease;
+}
+.ai-side-close:hover { background: var(--color-fill-tertiary); }
+
+/* 햄버거 — ai-main 상단, OTC AI Agent LNB 토글 (tablet/mobile 만, 아이콘만) */
 .ai-side-toggle {
   display: none;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   margin: 16px 24px 0;
   border: 1px solid var(--color-border-secondary);
   background: var(--color-bg-container);
   color: var(--color-text);
-  font: var(--font-b3);
-  font-weight: 600;
   cursor: pointer;
   border-radius: var(--radius-pill);
   transition: background .15s ease, border-color .15s ease;
@@ -5149,10 +5168,13 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   color: var(--color-brand-pharmall-text);
 }
 
-/* 모바일 사이드 backdrop */
+/* 모바일 사이드 backdrop — ai-side 영역 제외 (LNB 위는 dim 안함) */
 .ai-side-backdrop {
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 260px;
   background: rgba(0,0,0,0.32);
   z-index: 55;
   animation: ai-side-backdrop-in .25s ease both;
@@ -5162,9 +5184,13 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
 /* tablet/mobile (≤ 1080px) — 사이드 슬라이드 in/out */
 @media (max-width: 1080px) {
   .ai-side-toggle { display: inline-flex; }
+  .ai-side-close { display: inline-flex; }
   .ai-side {
     transform: translateX(-100%);
     box-shadow: 8px 0 32px rgba(0,0,0,0.12);
+    background: var(--color-bg-container); /* opaque — backdrop 비침 방지 */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   .ai-side.is-open { transform: translateX(0); }
   .ai-main { margin-left: 0 !important; }
