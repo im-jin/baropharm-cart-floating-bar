@@ -3925,6 +3925,80 @@ p { margin: 0; }
 }
 
 /* 탭 + 엑셀 다운로드 row (검색 결과) */
+/* ── list.html 상단 Sticky AI Bar (전략 ★ 3) ── */
+.list-ai-bar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin: 16px 0 8px;
+  padding: 14px 20px;
+  background: linear-gradient(120deg, var(--color-brand-pharmall-bg) 0%, var(--color-geekblue-1) 100%);
+  border: 1px solid var(--color-brand-pharmall-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.list-ai-bar-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  font: var(--font-caption);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.list-ai-bar-tag svg { animation: ai-cta-sparkle 1.4s ease-in-out infinite; transform-origin: center; }
+.list-ai-bar-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.list-ai-action {
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-brand-pharmall-border);
+  color: var(--color-text);
+  font: var(--font-b3);
+  font-weight: 600;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.list-ai-action:hover {
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+  border-color: var(--color-brand-pharmall);
+}
+
+/* ── 카드 안 [AI 추천] 배지 (rank-name 아래) ── */
+.rank-ai-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 2px;
+}
+.rank-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-pharmall-bg);
+  color: var(--color-brand-pharmall-text);
+  font: var(--font-caption);
+  font-weight: 600;
+  cursor: help;
+  transition: background .15s ease;
+}
+.rank-ai-badge:hover {
+  background: var(--color-brand-pharmall);
+  color: var(--color-bg-container);
+}
+
 .list-tabs-row {
   display: flex;
   align-items: flex-end;
@@ -5044,7 +5118,46 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   display: flex;
   flex-direction: column;
   padding: 20px 16px;
-  z-index: 10;
+  z-index: 60;
+  transition: transform .25s ease;
+}
+
+/* 햄버거 — 기본 desktop 숨김, tablet/mobile 만 노출 */
+.ai-side-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background .15s ease;
+}
+.ai-side-toggle:hover { background: var(--color-fill-tertiary); }
+
+/* 모바일 사이드 backdrop */
+.ai-side-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.32);
+  z-index: 55;
+  animation: ai-side-backdrop-in .25s ease both;
+}
+@keyframes ai-side-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* tablet/mobile (≤ 1080px) — 사이드 슬라이드 in/out */
+@media (max-width: 1080px) {
+  .ai-side-toggle { display: inline-flex; }
+  .ai-side {
+    transform: translateX(-100%);
+    box-shadow: 8px 0 32px rgba(0,0,0,0.12);
+  }
+  .ai-side.is-open { transform: translateX(0); }
+  .ai-main { margin-left: 0 !important; }
 }
 .ai-side-logo {
   display: inline-flex;

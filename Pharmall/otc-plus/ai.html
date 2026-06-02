@@ -17,6 +17,11 @@
   <header class="topnav topnav-ai">
     <div class="topnav-inner">
 
+      <!-- 햄버거 (tablet/mobile 에서만 노출) — 좌측 사이드 토글 -->
+      <button class="ai-side-toggle" id="aiSideToggle" type="button" aria-label="좌측 메뉴 열기" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+
       <a class="brand" href="../index.html" aria-label="팜올플러스">
         <img src="images/Pharmall_logo.svg" alt="팜올플러스" />
       </a>
@@ -42,8 +47,11 @@
     </div>
   </header>
 
+  <!-- 모바일/태블릿 backdrop — 사이드 열렸을 때 dim -->
+  <div class="ai-side-backdrop" id="aiSideBackdrop" hidden></div>
+
   <!-- ════════════════ 좌측 사이드 (로고 / 대화검색 / 새대화 / 히스토리) ════════════════ -->
-  <aside class="ai-side">
+  <aside class="ai-side" id="aiSide">
     <a class="ai-side-logo" href="index.html" aria-label="OTC 플러스 메인">
       <img src="images/Pharmall_logo.svg" alt="Pharmall" />
     </a>
@@ -1539,6 +1547,31 @@
       // 기본 홈 상태 보존 후 컨텍스트 적용
       captureDefaults();
       applyContextualHome();
+
+      /* 햄버거 — tablet/mobile 사이드 토글 */
+      const sideToggle = document.getElementById('aiSideToggle');
+      const sideEl = document.getElementById('aiSide');
+      const sideBackdrop = document.getElementById('aiSideBackdrop');
+      function openSide() {
+        if (sideEl) sideEl.classList.add('is-open');
+        if (sideBackdrop) sideBackdrop.hidden = false;
+        if (sideToggle) sideToggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeSide() {
+        if (sideEl) sideEl.classList.remove('is-open');
+        if (sideBackdrop) sideBackdrop.hidden = true;
+        if (sideToggle) sideToggle.setAttribute('aria-expanded', 'false');
+      }
+      if (sideToggle) sideToggle.addEventListener('click', function () {
+        if (sideEl && sideEl.classList.contains('is-open')) closeSide(); else openSide();
+      });
+      if (sideBackdrop) sideBackdrop.addEventListener('click', closeSide);
+      /* 히스토리 클릭 시 모바일에서 사이드 자동 닫힘 */
+      if (sideEl) sideEl.addEventListener('click', function (e) {
+        if (e.target.closest('.ai-history-item') || e.target.closest('.ai-side-new')) {
+          if (window.innerWidth <= 1080) setTimeout(closeSide, 100);
+        }
+      });
 
       // 페이지 로드 시 sessionStorage 의 사용자 히스토리 먼저 렌더
       renderUserHistory();
