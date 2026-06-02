@@ -6541,8 +6541,7 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   .floating-agent span { display: none; }
   .floating-agent { padding: 6px; }
 
-  /* AI 페이지 — 모바일에선 LNB(사이드바) 숨기고 main 풀폭 사용 */
-  body.ai-page .ai-side { display: none; }
+  /* AI 페이지 — 모바일에선 LNB 슬라이드 토글로 (display:none 제거, slide in/out 룰 사용) */
   body.ai-page .ai-main { margin-left: 0; }
   body.ai-page .ai-home,
   body.ai-page .ai-chat { padding-left: 16px; padding-right: 16px; }
