@@ -1034,3 +1034,11 @@
 .radio--lg input[type="radio"] { width: 20px; height: 20px; }
 .checkbox--lg input[type="checkbox"]:checked::after,
 .checkbox--lg input[type="checkbox"]:indeterminate::after { background-size: 16px 16px; }
+
+/* ═══════════════════════════════════════════════════════════════
+ * ICON  (sprite: icons.svg — <svg class="icon"><use href="icons.svg#name"/></svg>)
+ * 색상 = currentColor (부모 color 상속) · 기본 24
+ * ═══════════════════════════════════════════════════════════════ */
+.icon { width: 24px; height: 24px; display: inline-block; flex: 0 0 auto; color: inherit; fill: currentColor; vertical-align: middle; }
+.icon--sm { width: 20px; height: 20px; }
+.icon--lg { width: 28px; height: 28px; }
