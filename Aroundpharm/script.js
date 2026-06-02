@@ -885,26 +885,28 @@ function renderHeroReels(product, lang) {
 
 /* ─── 약사 리뷰 (약국명 + 키워드 + 썸네일, v3) ─── */
 function renderPharmacistReviews(product, lang) {
-  const mounts = document.querySelectorAll('.pharmacist-review-list');
-  if (!mounts.length) return;
   const reviews = product.pharmacist_reviews || [];
+  const preview = document.getElementById('pharmacistPreview');
+  const previewList = preview ? preview.querySelector('.pharmacist-review-list') : null;
+  const cardList = document.getElementById('reviewCardList');
+  if (!previewList && !cardList) return;
 
   /* 카운트 (미리보기/탭 라벨 공용) */
   document.querySelectorAll('.pr-count').forEach(c => {
     c.textContent = reviews.length ? `(${reviews.length})` : '';
   });
 
-  const preview = document.getElementById('pharmacistPreview');
   if (reviews.length === 0) { if (preview) preview.hidden = true; return; }
 
   const pick = (obj) => (obj && obj[lang]) || (obj && obj[FALLBACK_LANG]) || (obj && obj.ko) || '';
+  const kw = (k) => (typeof k === 'string' ? k : pick(k));
 
-  function buildCard(rv) {
+  /* 미리보기 카드 (가로 캐러셀 — 썸네일/약국명/한줄/키워드) */
+  function buildPreviewCard(rv) {
     const li = document.createElement('li');
     li.className = 'pharmacist-review';
     const thumb = rv.thumbnail ? `${BASE}products/${product.id}/${rv.thumbnail}` : '';
-    const chips = (rv.keywords || [])
-      .map(k => `<span class="pharmacist-review-chip">${typeof k === 'string' ? k : pick(k)}</span>`).join('');
+    const chips = (rv.keywords || []).map(k => `<span class="pharmacist-review-chip">${kw(k)}</span>`).join('');
     li.innerHTML = `
       <div class="pharmacist-review-thumb">${thumb ? `<img src="${thumb}" loading="lazy" alt="" />` : ''}</div>
       <div class="pharmacist-review-body">
@@ -920,11 +922,43 @@ function renderPharmacistReviews(product, lang) {
     return li;
   }
 
-  /* 미리보기(가로) + 탭(세로) 모든 리스트에 렌더 */
-  mounts.forEach(mount => {
-    mount.innerHTML = '';
-    reviews.forEach(rv => mount.appendChild(buildCard(rv)));
-  });
+  /* 탭 카드 (원래 review-card 스타일 — 약국명/별점/태그/전문가 텍스트/사진, 날짜 X) */
+  function buildReviewCard(rv) {
+    const li = document.createElement('li');
+    li.className = 'review-card';
+    const rating = rv.rating || 5;
+    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const tags = (rv.keywords || []).map(k => `<span class="review-concern-tag">#${kw(k)}</span>`).join('');
+    const photo = rv.thumbnail ? `${BASE}products/${product.id}/${rv.thumbnail}` : '';
+    li.innerHTML = `
+      <div class="review-card-head">
+        <div class="review-user">
+          <span class="review-user-name review-user-pharmacy">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>
+            ${rv.pharmacy || ''}
+          </span>
+        </div>
+        <span class="review-rating-stars">${stars}</span>
+      </div>
+      ${tags ? `<div class="review-concerns">${tags}</div>` : ''}
+      <div class="review-text"></div>
+      ${photo ? `<div class="review-photo"><img src="${photo}" loading="lazy" alt="" /></div>` : ''}
+      <div class="review-footer">
+        <span class="review-likes">👍 ${rv.likes ?? 0}</span>
+      </div>
+    `;
+    li.querySelector('.review-text').textContent = pick(rv.text);
+    return li;
+  }
+
+  if (previewList) {
+    previewList.innerHTML = '';
+    reviews.forEach(rv => previewList.appendChild(buildPreviewCard(rv)));
+  }
+  if (cardList) {
+    cardList.innerHTML = '';
+    reviews.forEach(rv => cardList.appendChild(buildReviewCard(rv)));
+  }
   if (preview) preview.hidden = false;
 
   /* 전체보기 → 약사리뷰 탭으로 점프 */

@@ -486,3 +486,12 @@ html[lang="ko"] .social-proof-toast { bottom: 24px; }
 .pharmacist-review-list--grid::after { display: none; }
 .pharmacist-review-list--grid .pharmacist-review { flex: none; width: 100%; }
 .pharmacist-review-list--grid .pharmacist-review-thumb { aspect-ratio: 16 / 9; }
+
+/* 완판 배너 standalone (릴스 바로 아래) */
+.scarcity-alert--standalone { margin-top: 8px; }
+
+/* 약사리뷰 탭(원래 review-card 스타일) — 작성자=약국명 아이콘 정렬 */
+.review-user-pharmacy {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.review-user-pharmacy svg { color: var(--color-text-tertiary); }

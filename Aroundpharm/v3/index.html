@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../tokens.css?v=4" />
-  <link rel="stylesheet" href="../styles.css?v=14" />
-  <link rel="stylesheet" href="../v2/styles.css?v=14" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="../styles.css?v=17" />
+  <link rel="stylesheet" href="../v2/styles.css?v=17" />
+  <link rel="stylesheet" href="styles.css?v=17" />
 </head>
 <body data-loading="true" data-variant="v3" data-base="../">
 
@@ -69,8 +69,13 @@
       </div>
     </section>
 
-    <!-- ──────── ② 희소성 + 트러스트 ──────── -->
+    <!-- ──────── ② 트러스트(최상단) + 완판 배너 (히어로 바로 밑) ──────── -->
     <div class="top-info top-info--v3">
+      <section class="trust-banner">
+        <p class="trust-banner-lead" data-i18n="trust.lead"></p>
+        <p class="trust-banner-rank" data-i18n="trust.rank"></p>
+        <p class="trust-banner-basis" data-i18n="trust.basis"></p>
+      </section>
       <section class="scarcity-alert">
         <span class="scarcity-alert-badge">
           <i class="sns-live-dot" aria-hidden="true"></i>
@@ -78,11 +83,6 @@
         </span>
         <p class="scarcity-alert-title" data-i18n="scarcity.title"></p>
         <p class="scarcity-alert-body" data-i18n="scarcity.body"></p>
-      </section>
-      <section class="trust-banner">
-        <p class="trust-banner-lead" data-i18n="trust.lead"></p>
-        <p class="trust-banner-rank" data-i18n="trust.rank"></p>
-        <p class="trust-banner-basis" data-i18n="trust.basis"></p>
       </section>
     </div>
 
@@ -181,9 +181,6 @@
     </nav>
 
     <section class="tab-panel is-active" role="tabpanel" data-panel="detail">
-      <div class="detail-product-shot">
-        <img class="detail-product-img" data-product="hero" alt="" />
-      </div>
       <div class="detail-modules" id="detailModules"></div>
       <div class="howto">
         <h2 class="section-title" data-i18n="ui.how_to_use"></h2>
@@ -196,7 +193,7 @@
     </section>
 
     <section class="tab-panel" role="tabpanel" data-panel="review" hidden>
-      <ul class="pharmacist-review-list pharmacist-review-list--grid"></ul>
+      <ul class="review-list" id="reviewCardList"></ul>
     </section>
 
     <!-- ──────── 연관상품 ──────── -->
