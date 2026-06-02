@@ -99,13 +99,9 @@
         </p>
       </section>
 
-      <!-- 탭 + 엑셀 다운로드 -->
-      <div class="list-tabs-row">
-        <div class="list-tabs" role="tablist">
-          <button class="list-tab is-active" role="tab" aria-selected="true">
-            전체 상품 <span class="list-tab-count">434</span>
-          </button>
-        </div>
+      <!-- 검색 결과 카운트 + 엑셀 다운로드 -->
+      <div class="search-result-bar">
+        <p class="search-result-count">전체 상품 <strong id="searchResultCount">434</strong>개</p>
         <button type="button" class="excel-download-btn" id="excelDownload" aria-label="엑셀 다운로드">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -669,9 +665,9 @@
 
       renderCards(r.products);
 
-      // tab count + title
-      const firstTabCount = document.querySelector('.list-tab.is-active .list-tab-count');
-      if (firstTabCount) firstTabCount.textContent = r.count;
+      // result count + title
+      const resCountEl = document.getElementById('searchResultCount');
+      if (resCountEl) resCountEl.textContent = r.count;
       document.title = '‘' + q + '’ 검색 결과 — OTC 플러스 | Pharmall';
 
       // 엑셀 다운로드 (CSV, UTF-8 BOM 으로 Excel 한글 정상)

@@ -3999,23 +3999,28 @@ p { margin: 0; }
   color: var(--color-bg-container);
 }
 
-.list-tabs-row {
+/* 검색 결과 카운트 + 엑셀 다운로드 row (탭 없음) */
+.search-result-bar {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin: 24px 0 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--color-border-secondary);
 }
-.list-tabs-row .list-tabs {
-  margin: 0;
-  border-bottom: 0;
+.search-result-count {
+  font: var(--font-h5);
+  color: var(--color-text);
+}
+.search-result-count strong {
+  color: var(--color-brand-pharmall-text);
+  font-weight: 700;
 }
 .excel-download-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
   padding: 8px 16px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -5122,22 +5127,27 @@ body.ai-page .topnav-ai ~ .ai-side .ai-side-logo { display: none; }
   transition: transform .25s ease;
 }
 
-/* 햄버거 — 기본 desktop 숨김, tablet/mobile 만 노출 */
+/* 햄버거 — ai-main 상단, OTC AI Agent LNB 토글 (tablet/mobile 만) */
 .ai-side-toggle {
   display: none;
-  width: 40px;
-  height: 40px;
   align-items: center;
-  justify-content: center;
-  margin-right: 4px;
-  border: 0;
-  background: transparent;
+  gap: 8px;
+  padding: 10px 16px;
+  margin: 16px 24px 0;
+  border: 1px solid var(--color-border-secondary);
+  background: var(--color-bg-container);
   color: var(--color-text);
+  font: var(--font-b3);
+  font-weight: 600;
   cursor: pointer;
-  border-radius: var(--radius-sm);
-  transition: background .15s ease;
+  border-radius: var(--radius-pill);
+  transition: background .15s ease, border-color .15s ease;
 }
-.ai-side-toggle:hover { background: var(--color-fill-tertiary); }
+.ai-side-toggle:hover {
+  background: var(--color-brand-pharmall-bg);
+  border-color: var(--color-brand-pharmall);
+  color: var(--color-brand-pharmall-text);
+}
 
 /* 모바일 사이드 backdrop */
 .ai-side-backdrop {

@@ -17,11 +17,6 @@
   <header class="topnav topnav-ai">
     <div class="topnav-inner">
 
-      <!-- 햄버거 (tablet/mobile 에서만 노출) — 좌측 사이드 토글 -->
-      <button class="ai-side-toggle" id="aiSideToggle" type="button" aria-label="좌측 메뉴 열기" aria-expanded="false">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-
       <a class="brand" href="../index.html" aria-label="팜올플러스">
         <img src="images/Pharmall_logo.svg" alt="팜올플러스" />
       </a>
@@ -75,6 +70,12 @@
   </aside>
 
   <main class="ai-main">
+
+    <!-- 햄버거 (tablet/mobile 에서만 노출) — OTC AI Agent LNB 토글 -->
+    <button class="ai-side-toggle" id="aiSideToggle" type="button" aria-label="대화 메뉴 열기" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <span>대화 · 히스토리</span>
+    </button>
 
     <!-- ────────── HOME 상태 (초기) ────────── -->
     <section class="ai-home" id="aiHome">
