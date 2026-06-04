@@ -199,3 +199,9 @@ Figma fileKey: `8JV1QkzSuEpZEMtLiLQYYv`
 
 ### 작업 보존
 - Figma 프레임 `8450:2` ("Mobile — QR Landing (THOME)") — 디자인 시스템 컴포넌트/변수 바인딩은 모두 완료. 텍스트 스타일만 추후 수동 적용 대상.
+
+## event-gate 친구초대 배너 (링크 퍼레이드 페이지 매칭) — 2026-06-04
+외부 이벤트 페이지(https://iheeyeon11-crypto.github.io/event-platform/) 브랜드 컬러를 배너에 매칭하며 토큰에 없는 raw hex 사용. 디자이너 토큰화 확인 필요.
+- 딥 네이비→틸 배경 그라데이션: `#0e1f3d` → `#0a2e2b`
+- 네온 그린(로고/진행바/강조): `#2ee47e`, `#1fc96a`
+- 위치: Baropharm/event-gate/styles.css `.sfriend*`

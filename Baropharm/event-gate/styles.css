@@ -1,0 +1,244 @@
+/* ─────────────────────────────────────────────────────────────
+   Baropharm — 미션모아보기 (Figma node 25252:27118 1:1 재현)
+   레이아웃: 좌 880 + gap 31 + 우 280 · 토큰: ../../tokens.css
+   ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html {
+  font-family: var(--font-family-default);
+  color: var(--color-grey-10, #141414);
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100vh;
+  background: var(--color-grey-2, #f5f5f5);
+  padding-left: 62px;
+}
+button { font: inherit; cursor: pointer; background: none; border: 0; padding: 0; color: inherit; }
+ul, ol { list-style: none; padding: 0; margin: 0; }
+input[type="text"] { font: inherit; }
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+
+/* ══════════════ TOP ══════════════ */
+.top-nav { display: flex; align-items: center; gap: 24px; height: 65px; padding: 0 24px; background: #fff; border-bottom: 1px solid var(--color-grey-3, #ebebeb); margin-left: -62px; padding-left: 86px; }
+.top-brand { display: inline-flex; align-items: baseline; gap: 6px; }
+.top-brand-name { font-size: 22px; font-weight: 800; color: var(--color-primary); letter-spacing: -.5px; }
+.top-brand-tag { font-size: 12px; font-weight: 600; color: var(--color-grey-7, #8d8d8f); }
+.top-search { flex: 1; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; background: var(--color-grey-2, #f5f5f5); border-radius: var(--radius-md, 6px); color: var(--color-grey-7, #8d8d8f); }
+.top-search input { flex: 1; height: 100%; border: 0; background: transparent; outline: none; font-size: 13px; color: var(--color-grey-10, #141414); }
+.top-actions { display: flex; align-items: center; gap: 12px; }
+.top-point { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--radius-pill, 999px); background: var(--color-primary-bg); font-size: 12px; white-space: nowrap; }
+.top-point strong { color: var(--color-primary); font-weight: 800; }
+.top-point span { color: var(--color-grey-9, #424242); }
+.top-iconbtn { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--color-grey-9, #424242); }
+.top-iconbtn:hover { background: var(--color-grey-2, #f5f5f5); }
+.top-pharmacy { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: var(--radius-pill, 999px); background: #fff; font-size: 12px; font-weight: 600; color: var(--color-grey-9, #424242); white-space: nowrap; }
+
+
+/* ══════════════ LNB ══════════════ */
+.lnb { position: fixed; top: 65px; left: 0; width: 62px; height: calc(100vh - 65px); background: #fff; border-right: 1px solid var(--color-grey-3, #ebebeb); padding-top: 8px; overflow-y: auto; z-index: 10; }
+.lnb ul { display: flex; flex-direction: column; }
+.lnb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 4px; color: var(--color-grey-7, #8d8d8f); border-left: 3px solid transparent; margin-left: -1px; }
+.lnb-item span { font-size: 9px; letter-spacing: -.3px; white-space: nowrap; }
+.lnb-item:hover { color: var(--color-grey-10, #141414); background: var(--color-grey-1, #fafafa); }
+.lnb-item.is-active { color: var(--color-primary); background: var(--color-primary-bg); border-left-color: var(--color-primary); }
+
+
+/* ══════════════ CONTENT ══════════════ */
+.content { width: 1191px; margin: 0 auto; padding: 30px 0 80px; }
+.page-title { font-size: 24px; font-weight: 700; letter-spacing: -.5px; color: var(--color-grey-10, #141414); margin: 0 0 30px; }
+
+.layout { display: grid; grid-template-columns: 880px 280px; gap: 31px; align-items: start; }
+.col-left { display: flex; flex-direction: column; gap: 20px; }
+
+
+/* ══════════════ 히어로 배너 (880×140) ══════════════ */
+.hero { position: relative; width: 880px; height: 140px; border-radius: 12px; overflow: hidden; }
+.hero img { width: 880px; height: 140px; object-fit: cover; }
+.hero-page {
+  position: absolute; left: 416px; top: 108px;
+  width: 48px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 2px;
+  background: rgba(0,0,0,.8); border-radius: 30px;
+  font-size: 12px; color: #fff;
+}
+.hero-page i { font-style: normal; color: #b1b1b1; }
+
+
+/* ══════════════ 스페셜 5타일 (880 카드) ══════════════ */
+.tiles-card { width: 880px; background: #fff; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 12px; padding: 16px; }
+.tiles { display: flex; gap: 20px; }
+.tile {
+  position: relative;
+  width: 153.6px; height: 210px;
+  border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 20px;
+  transition: box-shadow .14s ease, border-color .14s ease, transform .14s ease;
+}
+.tile:hover { border-color: var(--color-primary-border, #c9dcff); box-shadow: 0 6px 16px -6px rgba(39,66,128,.16); transform: translateY(-2px); }
+.tile-badge {
+  position: absolute; top: 7px; left: 7px;
+  height: 24px; padding: 0 9px; display: inline-flex; align-items: center;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 11px; font-weight: 800;
+  background: var(--color-primary-bg); color: var(--color-primary-text, #0024b2);
+}
+.tile-illust { width: 56px; height: 56px; }
+.tile-name { margin-top: 15px; font-size: 16px; font-weight: 700; color: var(--color-grey-10, #141414); letter-spacing: -.3px; }
+.tile-sub { margin-top: 4px; font-size: 13px; color: var(--color-grey-7, #8d8d8f); }
+.tile-btn {
+  position: absolute; left: 20px; bottom: 20px;
+  width: 113.6px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 8px;
+  font-size: 14px; font-weight: 700; color: var(--color-grey-9, #424242);
+  background: #fff;
+}
+.tile-btn--reward { color: var(--color-primary); border-color: var(--color-primary-border, #c9dcff); background: var(--color-primary-bg); }
+.tile:hover .tile-btn { background: var(--color-grey-1, #fafafa); }
+.tile:hover .tile-btn--reward { background: var(--color-primary-bg-hover, #e6f0ff); }
+
+
+/* ══════════════ 미션모아보기 리스트 (880 카드) ══════════════ */
+.missions-card { width: 880px; background: #fff; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 12px; padding: 20px; }
+.missions-title { font-size: 20px; font-weight: 700; letter-spacing: -.4px; color: var(--color-grey-10, #141414); margin: 0 0 16px; }
+
+/* 탭 — 칩(알약) 형태 */
+.m-tabs { display: flex; gap: 8px; margin-bottom: 8px; }
+.mtab {
+  height: 36px; padding: 0 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--color-grey-3, #ebebeb); border-radius: var(--radius-pill, 999px);
+  background: #fff; font-size: 14px; font-weight: 600; color: var(--color-grey-8, #5c5c5e);
+}
+.mtab img { width: 18px; height: 18px; }
+.mtab:hover { border-color: var(--color-grey-5, #c2c2c2); }
+.mtab.is-on { background: var(--color-grey-10, #141414); border-color: var(--color-grey-10, #141414); color: #fff; font-weight: 700; }
+
+.m-list { display: flex; flex-direction: column; }
+.m-row { display: flex; align-items: center; gap: 24px; height: 122px; border-bottom: 1px solid var(--color-grey-2, #f5f5f5); }
+.m-row:last-child { border-bottom: 0; }
+
+.m-ico { width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; }
+.m-ico--writer {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--color-primary); color: #fff;
+  font-size: 15px; font-weight: 800; line-height: 1.15;
+}
+.m-ico--empty { background: var(--color-grey-2, #f5f5f5); border-radius: 12px; }
+
+.m-body { flex: 1; min-width: 0; }
+.m-title { margin: 0; font-size: 16px; font-weight: 600; color: var(--color-grey-10, #141414); letter-spacing: -.2px; }
+/* 네이버식 보상 표기 — 미션명 아래 컬러 볼드 */
+.m-reward { margin: 7px 0 0; font-size: 15px; font-weight: 800; letter-spacing: -.2px; color: var(--color-primary); }
+.m-reward--done { color: var(--color-grey-5, #c2c2c2); }
+
+.m-btn { flex-shrink: 0; height: 40px; min-width: 92px; padding: 0 18px; font-size: 14px; font-weight: 700; border-radius: 8px; }
+.m-check { flex-shrink: 0; width: 92px; display: grid; place-items: center; color: var(--color-primary); }
+.m-check svg { width: 32px; height: 32px; }
+.m-row.is-done .m-title { color: var(--color-grey-5, #c2c2c2); font-weight: 500; }
+
+.m-more { width: 374px; height: 48px; margin: 16px auto 0; display: block; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 10px; font-size: 15px; font-weight: 700; color: var(--color-grey-8, #5c5c5e); background: #fff; }
+.m-more:hover { background: var(--color-grey-1, #fafafa); }
+
+
+/* ══════════════ RIGHT 사이드바 (280) — 묶는 흰 박스 ══════════════ */
+.col-right {
+  width: 280px;
+  background: #fff;
+  border: 1px solid var(--color-grey-3, #ebebeb);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+/* 프로필 — 텍스트만 */
+.sprofile { width: 100%; padding: 0 4px; }
+.sprofile-name { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: -.3px; color: var(--color-grey-10, #141414); }
+.sprofile-id { margin: 4px 0 0; font-size: 13px; color: var(--color-grey-7, #8d8d8f); }
+
+/* 사이드 카드 공통 */
+.scard { width: 100%; background: #fff; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 16px; padding: 16px; }
+.scard--soft   { background: var(--color-grey-1, #fafafa); border-color: var(--color-grey-2, #f5f5f5); }
+.scard--ticket { background: var(--color-grey-1, #fafafa); border-color: var(--color-grey-2, #f5f5f5); }
+.scard--stamp  { background: var(--color-grey-1, #fafafa); border-color: var(--color-grey-2, #f5f5f5); }
+.scard-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.scard-head--between { justify-content: space-between; margin-bottom: 12px; padding: 2px 2px 0; }
+.scard-title-ico { display: inline-flex; align-items: center; gap: 9px; }
+.scard-title { font-size: 16px; font-weight: 700; color: var(--color-grey-10, #141414); }
+
+/* 카드 헤더 컬러 아이콘 칩 */
+.schip { width: 30px; height: 30px; flex-shrink: 0; border-radius: 9px; display: grid; place-items: center; color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.45); }
+.schip--ticket { background: linear-gradient(150deg, var(--color-gold-4, #ffd666), var(--color-gold-6, #faad14)); }
+.schip--stamp  { background: linear-gradient(150deg, var(--color-green-4, #95de64), var(--color-green-6, #52c41a)); }
+
+/* Baro 포인트 카드 — 파란 그라데이션 */
+.scard--point {
+  border: 0; color: #fff;
+  background:
+    radial-gradient(100% 130% at 100% 0%, rgba(120,165,255,.5) 0%, transparent 55%),
+    linear-gradient(150deg, var(--color-primary) 0%, var(--color-blue-9, #0024b2) 100%);
+  box-shadow: 0 12px 26px -12px rgba(0,36,178,.55);
+}
+.scard--point .scard-title { color: #fff; }
+.spt-ico { width: 24px; height: 24px; }
+.spt-rows { display: flex; flex-direction: column; gap: 9px; }
+.spt-row { display: flex; align-items: baseline; justify-content: space-between; }
+.spt-row span { font-size: 13px; opacity: .85; }
+.spt-row b { font-size: 18px; font-weight: 800; letter-spacing: -.3px; }
+.spt-btn {
+  width: 100%; height: 40px; margin-top: 16px;
+  border-radius: var(--radius-pill, 999px);
+  background: #fff; color: var(--color-primary); font-size: 14px; font-weight: 700;
+}
+.spt-btn:hover { background: var(--color-grey-1, #fafafa); }
+
+/* 티켓 카운트 */
+.sticket-count { font-size: 15px; font-weight: 800; color: var(--color-gold-7, #d48806); }
+
+/* 메뉴 행 (룰렛 / 복불복) — 흰 라운드 박스 */
+.smenu {
+  display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 12px;
+  background: #fff; border-radius: 10px;
+}
+.smenu + .smenu { margin-top: 8px; }
+.smenu-ico { width: 32px; height: 32px; flex-shrink: 0; border-radius: 8px; }
+.smenu-label { flex: 1; font-size: 14px; font-weight: 600; color: var(--color-grey-10, #141414); }
+.smenu-go { flex-shrink: 0; color: var(--color-grey-5, #c2c2c2); }
+.smenu:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.smenu:hover .smenu-label { color: var(--color-primary); }
+
+/* 스탬프 모으기 */
+.sstamp-head { display: flex; align-items: center; gap: 12px; padding: 4px 4px 0; margin-bottom: 14px; }
+.sstamp-meta { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.sstamp-meta b { font-size: 15px; font-weight: 700; color: var(--color-grey-10, #141414); }
+.sstamp-meta i { font-style: normal; font-size: 12px; color: var(--color-grey-7, #8d8d8f); }
+.sstamp-bar { height: 7px; border-radius: 999px; background: #fff; overflow: hidden; margin: 0 2px; box-shadow: inset 0 0 0 1px var(--color-green-2, #d9f7be); }
+.sstamp-bar > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--color-green-4, #95de64), var(--color-green-6, #52c41a)); }
+.sstamp-txt { margin: 10px 2px 0; font-size: 12px; color: var(--color-grey-7, #8d8d8f); }
+.sstamp-txt b { color: var(--color-green-7, #389e0d); font-weight: 800; }
+
+/* 친구초대 배너 */
+/* 친구초대 배너 — 링크 퍼레이드 페이지 톤(딥 네이비 + 네온 그린) */
+.sfriend {
+  width: 100%; display: flex; flex-direction: column; gap: 10px;
+  padding: 14px 16px; border-radius: 14px; color: #fff;
+  background: linear-gradient(135deg, #0e1f3d 0%, #0a2e2b 100%);  /* link-parade navy→teal (issues.md) */
+  box-shadow: 0 8px 18px -8px rgba(10,46,43,.55);
+}
+.sfriend-top { display: flex; align-items: center; justify-content: space-between; }
+.sfriend-top b { font-size: 14px; font-weight: 800; letter-spacing: -.2px; }
+.sfriend-top b em { font-style: normal; color: #2ee47e; }   /* parade neon green (issues.md) */
+.sfriend-top svg { color: #2ee47e; }
+.sfriend-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,.16); overflow: hidden; }
+.sfriend-bar > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #2ee47e, #1fc96a); box-shadow: 0 0 8px rgba(46,228,126,.6); }  /* parade neon green */
+.sfriend-prog { margin: 0; font-size: 12px; opacity: .92; }
+.sfriend-prog b { font-weight: 800; opacity: 1; color: #2ee47e; }
+
+/* 미션현황판 이미지 배너 */
+.sbanner-img { width: 100%; border-radius: 12px; overflow: hidden; }
+.sbanner-img img { width: 240px; height: auto; }
