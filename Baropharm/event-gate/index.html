@@ -71,7 +71,8 @@
               <span class="tile-sub">황금목마를 찾아라!</span>
               <span class="tile-btn">참여하기</span>
             </a>
-            <a class="tile" href="#">
+            <a class="tile" href="assets/detail-stamp.png" target="_blank" rel="noopener"
+               onclick="window.open(this.href,'stampDetail','width=440,height=900,scrollbars=yes,resizable=yes');return false;">
               <span class="tile-badge">6월</span>
               <img class="tile-illust" src="assets/ic-stamp3d.png" alt="" />
               <span class="tile-name">스탬프미션</span>
@@ -141,7 +142,7 @@
                 <p class="m-title">바로팜몰 주문하고 티켓받기</p>
                 <p class="m-reward">티켓 1장</p>
               </div>
-              <button class="btn btn--secondary m-btn">받기</button>
+              <button class="btn btn--secondary m-btn" data-bridge>받기</button>
             </li>
 
             <li class="m-row">
@@ -315,6 +316,19 @@
 
   </main>
 
+  <!-- ════════════════ 브릿지 (미션 사전 안내) ════════════════ -->
+  <div class="bridge-dim" id="bridgeDim" hidden>
+    <div class="bridge" role="dialog" aria-modal="true" aria-label="바로팜몰 주문 안내">
+      <img class="bridge-logo" src="assets/baropharm-symblo.svg" alt="바로팜" />
+      <h3 class="bridge-title">바로팜몰 주문</h3>
+      <p class="bridge-desc">WEB에서 바로팜몰을 금융할인 제외<br>판매처별 20만원 이상 주문 할 때마다 증정</p>
+      <a class="bridge-cta" href="https://www.baropharm.com/order" target="_blank" rel="noopener">
+        미션하러가기
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
   <script>
     // 미션 칩 필터 — 보상 텍스트로 타입 판별 (티켓/스탬프/포인트)
     (function () {
@@ -337,6 +351,17 @@
           });
         });
       });
+    })();
+
+    // 미션 받기/참여 → 브릿지 안내, 딤 클릭 시 닫기
+    (function () {
+      const dim = document.getElementById('bridgeDim');
+      if (!dim) return;
+      const open = () => { dim.hidden = false; document.body.style.overflow = 'hidden'; };
+      const close = () => { dim.hidden = true; document.body.style.overflow = ''; };
+      document.querySelectorAll('.m-btn[data-bridge]').forEach((b) => b.addEventListener('click', open));
+      dim.addEventListener('click', (e) => { if (e.target === dim) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !dim.hidden) close(); });
     })();
   </script>
 
