@@ -102,6 +102,17 @@
           </div>
         </section>
 
+        <!-- 셀링리뷰 프로모 -->
+        <a class="sell" href="#sell-event">
+          <div class="sell-body">
+            <p class="sell-title"><img class="sell-logo" src="assets/selling.svg" alt="셀링리뷰" /> 작성하고 <b>최대 9,760P</b> 받으세요!</p>
+            <p class="sell-sub">작성 가능한 리뷰 <b>64건</b></p>
+          </div>
+          <span class="sell-cta">리뷰 쓰러가기
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+
         <!-- 미션모아보기 리스트 -->
         <section class="missions-card">
           <h2 class="missions-title">미션모아보기</h2>
@@ -125,6 +136,15 @@
             </li>
 
             <li class="m-row">
+              <img class="m-ico" src="assets/baropharm-symblo.svg" alt="" />
+              <div class="m-body">
+                <p class="m-title">바로팜몰 주문하고 티켓받기</p>
+                <p class="m-reward">티켓 1장</p>
+              </div>
+              <button class="btn btn--secondary m-btn">받기</button>
+            </li>
+
+            <li class="m-row">
               <img class="m-ico" src="assets/ic-stamp3d.png" alt="" />
               <div class="m-body">
                 <p class="m-title">뭉치면 할인 구매하고 스탬프 적립</p>
@@ -133,13 +153,13 @@
               <button class="btn btn--secondary m-btn">참여하기</button>
             </li>
 
-            <li class="m-row">
+            <li class="m-row is-done">
               <img class="m-ico" src="assets/ic-stamp3d2.png" alt="" />
               <div class="m-body">
                 <p class="m-title">셀링리뷰 작성하고 스탬프 적립</p>
-                <p class="m-reward">스탬프 1개</p>
+                <p class="m-reward m-reward--done">적립완료</p>
               </div>
-              <button class="btn btn--secondary m-btn">참여하기</button>
+              <span class="m-check"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg></span>
             </li>
 
             <li class="m-row">
@@ -301,7 +321,8 @@
       const tabs = document.querySelectorAll('.m-tabs .mtab');
       const rows = document.querySelectorAll('.m-list .m-row');
       const typeOf = (row) => {
-        const t = (row.querySelector('.m-reward')?.textContent || '');
+        // 완료 미션은 보상이 "적립완료"라 제목으로도 판별
+        const t = (row.querySelector('.m-reward')?.textContent || '') + ' ' + (row.querySelector('.m-title')?.textContent || '');
         if (t.includes('티켓')) return 'ticket';
         if (t.includes('스탬프')) return 'stamp';
         return 'point';

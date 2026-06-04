@@ -103,6 +103,32 @@ img { display: block; }
 .tile:hover .tile-btn--reward { background: var(--color-primary-bg-hover, #e6f0ff); }
 
 
+/* ══════════════ 셀링리뷰 프로모 ══════════════ */
+.sell {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--color-volcano-2, #ffd8bf);
+  background: linear-gradient(120deg, var(--color-primary-bg, #f0f6ff) 0%, var(--color-volcano-1, #fff2e8) 100%);
+  transition: box-shadow .14s ease, transform .14s ease;
+}
+.sell:hover { box-shadow: 0 8px 20px -8px rgba(250,84,28,.22); transform: translateY(-2px); }
+.sell-body { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 14px; }
+.sell-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.3px; color: var(--color-grey-10, #141414); white-space: nowrap; }
+.sell-title b { color: var(--color-volcano-6, #fa541c); font-weight: 800; }
+.sell-logo { height: 18px; width: auto; vertical-align: -3px; }
+.sell-sub { margin: 0; font-size: 13px; color: var(--color-grey-7, #8d8d8f); white-space: nowrap; }
+.sell-sub b { color: var(--color-volcano-6, #fa541c); font-weight: 800; }
+.sell-cta {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 1px;
+  height: 36px; padding: 0 14px; border-radius: 9px;
+  background: var(--color-volcano-6, #fa541c); color: #fff; font-size: 13px; font-weight: 700;
+  box-shadow: 0 4px 10px -4px rgba(250,84,28,.5);
+}
+.sell:hover .sell-cta { background: var(--color-volcano-7, #d4380d); }
+.sell-cta svg { margin-right: -4px; }
+
+
 /* ══════════════ 미션모아보기 리스트 (880 카드) ══════════════ */
 .missions-card { width: 880px; background: #fff; border: 1px solid var(--color-grey-3, #ebebeb); border-radius: 12px; padding: 20px; }
 .missions-title { font-size: 20px; font-weight: 700; letter-spacing: -.4px; color: var(--color-grey-10, #141414); margin: 0 0 16px; }
