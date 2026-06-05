@@ -315,10 +315,11 @@ img { display: block; }
   .top-search { height: 36px; }
 
   /* 콘텐츠 — 1단 */
-  .content { width: 100%; max-width: 640px; padding: 16px 16px 64px; }
+  .content { width: 100%; max-width: 640px; padding: 16px 16px 64px; overflow-x: hidden; }
   .page-title { font-size: 20px; margin: 0 0 16px; }
-  .layout { grid-template-columns: 1fr; gap: 16px; }
-  .col-left { gap: 16px; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .col-left { gap: 16px; min-width: 0; }
+  .col-right { min-width: 0; }
 
   /* 히어로 — 폭 100%, 비율 유지 */
   .hero { width: 100%; height: auto; aspect-ratio: 880 / 140; }
@@ -347,9 +348,14 @@ img { display: block; }
   .m-check { width: 64px; }
   .m-more { width: 100%; }
 
-  /* 지갑 사이드바 — 폭 100% + 모바일에선 상단(아이디·잔액 먼저) */
-  .col-right { width: 100%; order: -1; }
-  .sprofile, .scard, .sfriend, .sbanner-img, .spt-row + .spt-row { width: 100%; }
+  /* 지갑 사이드바 — 모바일에선 상단(아이디·잔액 먼저), block 레이아웃으로 폭 고정 */
+  .col-right { width: 100%; order: -1; display: block; }
+  .col-right > * { width: 100%; margin: 0 0 14px; }
+  .col-right > *:last-child { margin-bottom: 0; }
+  /* 폭 넘침 방어 — 셀 폭을 넘지 않도록 */
+  .layout > *, .col-left > * { min-width: 0; max-width: 100%; }
+  .spt-rows, .spt-row { min-width: 0; }
+  .spt-row span, .spt-row b { min-width: 0; }
 }
 
 @media (max-width: 480px) {
