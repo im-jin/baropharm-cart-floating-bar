@@ -300,3 +300,60 @@ img { display: block; }
   font-size: 16px; font-weight: 700;
 }
 .bridge-cta:hover { background: var(--color-primary-hover, #4f7dff); }
+
+
+/* ══════════════════════════════════════════════════════════════
+   반응형 — 모바일 / 태블릿
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 880px) {
+  body { padding-left: 0; }
+  .lnb { display: none; }
+
+  /* 상단바 — 간소화 */
+  .top-nav { margin-left: 0; padding: 0 16px; gap: 12px; height: 56px; }
+  .top-brand-tag, .top-point, .top-pharmacy { display: none; }
+  .top-search { height: 36px; }
+
+  /* 콘텐츠 — 1단 */
+  .content { width: 100%; max-width: 640px; padding: 16px 16px 64px; }
+  .page-title { font-size: 20px; margin: 0 0 16px; }
+  .layout { grid-template-columns: 1fr; gap: 16px; }
+  .col-left { gap: 16px; }
+
+  /* 히어로 — 폭 100%, 비율 유지 */
+  .hero { width: 100%; height: auto; aspect-ratio: 880 / 140; }
+  .hero img { width: 100%; height: 100%; }
+  .hero-page { left: auto; right: 12px; top: auto; bottom: 10px; }
+
+  /* 스페셜 타일 — 가로 스크롤 */
+  .tiles-card { width: 100%; }
+  .tiles { overflow-x: auto; gap: 10px; padding-bottom: 2px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .tile { flex: 0 0 138px; width: 138px; height: 196px; scroll-snap-align: start; }
+
+  /* 셀링리뷰 — 줄바꿈 허용 */
+  .sell { flex-wrap: wrap; }
+  .sell-body { flex-wrap: wrap; gap: 4px 12px; }
+  .sell-title, .sell-sub { white-space: normal; }
+  .sell-cta { width: 100%; justify-content: center; margin-top: 4px; }
+
+  /* 미션리스트 */
+  .missions-card { width: 100%; padding: 16px; }
+  .m-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .mtab { flex: 0 0 auto; }
+  .m-row { gap: 12px; height: auto; min-height: 76px; padding: 14px 0; }
+  .m-ico { width: 44px; height: 44px; }
+  .m-title { white-space: normal; }
+  .m-btn { min-width: 64px; padding: 0 14px; }
+  .m-check { width: 64px; }
+  .m-more { width: 100%; }
+
+  /* 지갑 사이드바 — 폭 100% */
+  .col-right { width: 100%; }
+  .sprofile, .scard, .sfriend, .sbanner-img, .spt-row + .spt-row { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .tile { flex-basis: 128px; width: 128px; }
+  .sell-title { font-size: 15px; }
+  .bridge { width: 100%; }
+}
