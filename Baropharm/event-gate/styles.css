@@ -330,11 +330,11 @@ img { display: block; }
   .tiles { overflow-x: auto; gap: 10px; padding-bottom: 2px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
   .tile { flex: 0 0 138px; width: 138px; height: 196px; scroll-snap-align: start; }
 
-  /* 셀링리뷰 — 줄바꿈 허용 */
-  .sell { flex-wrap: wrap; }
-  .sell-body { flex-wrap: wrap; gap: 4px 12px; }
+  /* 셀링리뷰 — 세로 스택 */
+  .sell { flex-wrap: wrap; gap: 12px; }
+  .sell-body { flex-direction: column; align-items: flex-start; gap: 3px; }
   .sell-title, .sell-sub { white-space: normal; }
-  .sell-cta { width: 100%; justify-content: center; margin-top: 4px; }
+  .sell-cta { width: 100%; justify-content: center; margin-top: 0; }
 
   /* 미션리스트 */
   .missions-card { width: 100%; padding: 16px; }
