@@ -347,8 +347,8 @@ img { display: block; }
   .m-check { width: 64px; }
   .m-more { width: 100%; }
 
-  /* 지갑 사이드바 — 폭 100% */
-  .col-right { width: 100%; }
+  /* 지갑 사이드바 — 폭 100% + 모바일에선 상단(아이디·잔액 먼저) */
+  .col-right { width: 100%; order: -1; }
   .sprofile, .scard, .sfriend, .sbanner-img, .spt-row + .spt-row { width: 100%; }
 }
 
